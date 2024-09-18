@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
+import 'package:ipotec/dashboard_module/view/sme_ipo_view.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 final GoRouter goRouterConfig = GoRouter(
-  initialLocation: GoPaths.home,
+  initialLocation: GoPaths.mainBoard,
   navigatorKey: rootNavigatorKey,
   routes: [
     //
@@ -21,10 +22,18 @@ final GoRouter goRouterConfig = GoRouter(
       routes: [
         GoRoute(
           parentNavigatorKey: shellNavigatorKey,
-          path: GoPaths.home,
-          name: GoPaths.home,
+          path: GoPaths.mainBoard,
+          name: GoPaths.mainBoard,
           builder: (context, state) {
             return const MainBoardIpoView();
+          },
+        ),
+        GoRoute(
+          parentNavigatorKey: shellNavigatorKey,
+          path: GoPaths.sme,
+          name: GoPaths.sme,
+          builder: (context, state) {
+            return const SmeIpoView();
           },
         ),
       ],

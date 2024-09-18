@@ -9,19 +9,19 @@ import 'package:ipotec/utilities/constants/functions.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
 
-class MainBoardIpoView extends StatefulWidget {
-  const MainBoardIpoView({super.key});
+class SmeIpoView extends StatefulWidget {
+  const SmeIpoView({super.key});
 
   @override
-  State<MainBoardIpoView> createState() => _MainBoardIpoViewState();
+  State<SmeIpoView> createState() => _SmeIpoViewState();
 }
 
-class _MainBoardIpoViewState extends State<MainBoardIpoView> {
+class _SmeIpoViewState extends State<SmeIpoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CoreAppBar(
-        title: "MainBoard Ipo",
+        title: "SME Ipo",
         centerTitle: false,
         showBackButton: false,
       ),
@@ -41,11 +41,10 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                     child: TabBarView(
                       children: [
                         ListView.separated(
-                          itemCount:
-                              state?.active?.where((data) => data.isSme == false).length ?? 0,
+                          itemCount: state?.active?.where((data) => data.isSme == true).length ?? 0,
                           itemBuilder: (context, index) {
                             final filteredData =
-                                state?.active?.where((data) => data.isSme == false).toList();
+                                state?.active?.where((data) => data.isSme == true).toList();
                             final data = filteredData?[index];
                             return CoreDetailsCard(
                               logo: data?.symbol,

@@ -7,7 +7,7 @@ class MyNavigator {
 
   static void pushNamed(String? routeName, {Object? extra}) {
     try {
-      goRouterConfig.pushNamed(routeName ?? GoPaths.home, extra: extra);
+      goRouterConfig.pushNamed(routeName ?? GoPaths.mainBoard, extra: extra);
     } catch (e) {
       debugPrint("+++++++++++++++++++++++++++++navigation  $e");
     }
@@ -15,7 +15,7 @@ class MyNavigator {
 
   static void go(String? routeName, {Object? extra}) {
     try {
-      goRouterConfig.goNamed(routeName ?? GoPaths.home, extra: extra);
+      goRouterConfig.goNamed(routeName ?? GoPaths.mainBoard, extra: extra);
     } catch (e) {
       debugPrint("+++++++++++++++++++++++++++++navigation  $e");
     }
@@ -38,7 +38,7 @@ class MyNavigator {
 
   static void pushReplacementNamed(String? routeName, {Object? extra}) {
     try {
-      goRouterConfig.pushReplacementNamed(routeName ?? GoPaths.home, extra: extra);
+      goRouterConfig.pushReplacementNamed(routeName ?? GoPaths.mainBoard, extra: extra);
     } catch (e) {
       debugPrint("+++++++++++++++++++++++++++++navigation  $e");
     }
