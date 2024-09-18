@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ipotec/dashboard_module/view/home_view.dart';
+import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 
@@ -24,7 +24,7 @@ final GoRouter goRouterConfig = GoRouter(
           path: GoPaths.home,
           name: GoPaths.home,
           builder: (context, state) {
-            return const HomeView();
+            return const MainBoardIpoView();
           },
         ),
       ],

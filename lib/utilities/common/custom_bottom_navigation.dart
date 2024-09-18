@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ipotec/utilities/constants/assets_path.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
+import 'package:ipotec/utilities/packages/blur_nav_bar.dart';
+
+class CustomBottomNavigationBar extends StatefulWidget {
+  const CustomBottomNavigationBar({super.key});
+
+  @override
+  State<CustomBottomNavigationBar> createState() => _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+  int _index = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlurNavbar(
+      onTap: (idx) {
+        setState(() {
+          _index = idx;
+          debugPrint('$idx');
+        });
+        _onItemTapped(idx);
+      },
+      items: [
+        BlurNavbarItem(
+          icon: SvgPicture.asset(AssetPath.mainBoard),
+        ),
+        BlurNavbarItem(
+          icon: SvgPicture.asset(AssetPath.sme),
+        ),
+        BlurNavbarItem(
+          icon: SvgPicture.asset(AssetPath.buyBack),
+        ),
+        BlurNavbarItem(
+          icon: SvgPicture.asset(AssetPath.blogs),
+        ),
+      ],
+      currentIndex: _index,
+      selectedColor: Colors.transparent,
+      borderRadius: 12,
+    );
+  }
+}
+
+void _onItemTapped(int index) {
+  switch (index) {
+    case 0:
+      MyNavigator.pushNamed(GoPaths.home);
+      break;
+    case 1:
+      MyNavigator.pushNamed(GoPaths.home);
+      break;
+    case 2:
+      MyNavigator.pushNamed(GoPaths.home);
+      break;
+    default:
+      MyNavigator.pushNamed(GoPaths.home);
+  }
+}

@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.backgroundColor,
         useMaterial3: true,
         primaryColor: AppColors.primaryColor,
-        fontFamily: 'Quicksand',
+        fontFamily: 'Poppins',
         switchTheme: const SwitchThemeData(
           splashRadius: 0,
         ),
