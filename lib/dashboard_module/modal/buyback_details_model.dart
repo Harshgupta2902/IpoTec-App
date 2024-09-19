@@ -1,8 +1,9 @@
 class BuybackDetailsModel {
   BuybackDetailsModel({
-      this.mainData, 
-      this.searchId, 
-      this.symnolData,});
+    this.mainData,
+    this.searchId,
+    this.symnolData,
+  });
 
   BuybackDetailsModel.fromJson(dynamic json) {
     mainData = json['mainData'] != null ? MainData.fromJson(json['mainData']) : null;
@@ -24,31 +25,21 @@ class BuybackDetailsModel {
     }
     return map;
   }
-
 }
 
 class SymnolData {
   SymnolData({
-      this.header, 
-      this.details, 
-      this.brandDtos, 
-      this.stats, 
-      this.fundamentals, 
-      this.shareHoldingPattern, 
-      this.fundsInvested, 
-      this.priceData, 
-      this.financialStatement, 
-      this.similarAssets,});
+    this.header,
+    this.details,
+    this.stats,
+    this.fundamentals,
+    this.priceData,
+    this.similarAssets,
+  });
 
   SymnolData.fromJson(dynamic json) {
     header = json['header'] != null ? Header.fromJson(json['header']) : null;
     details = json['details'] != null ? Details.fromJson(json['details']) : null;
-    if (json['brandDtos'] != null) {
-      brandDtos = [];
-      json['brandDtos'].forEach((v) {
-        brandDtos?.add(Dynamic.fromJson(v));
-      });
-    }
     stats = json['stats'] != null ? Stats.fromJson(json['stats']) : null;
     if (json['fundamentals'] != null) {
       fundamentals = [];
@@ -56,31 +47,15 @@ class SymnolData {
         fundamentals?.add(Fundamentals.fromJson(v));
       });
     }
-    shareHoldingPattern = json['shareHoldingPattern'] != null ? ShareHoldingPattern.fromJson(json['shareHoldingPattern']) : null;
-    if (json['fundsInvested'] != null) {
-      fundsInvested = [];
-      json['fundsInvested'].forEach((v) {
-        fundsInvested?.add(Dynamic.fromJson(v));
-      });
-    }
     priceData = json['priceData'] != null ? PriceData.fromJson(json['priceData']) : null;
-    if (json['financialStatement'] != null) {
-      financialStatement = [];
-      json['financialStatement'].forEach((v) {
-        financialStatement?.add(FinancialStatement.fromJson(v));
-      });
-    }
-    similarAssets = json['similarAssets'] != null ? SimilarAssets.fromJson(json['similarAssets']) : null;
+    similarAssets =
+        json['similarAssets'] != null ? SimilarAssets.fromJson(json['similarAssets']) : null;
   }
   Header? header;
   Details? details;
-  List<dynamic>? brandDtos;
   Stats? stats;
   List<Fundamentals>? fundamentals;
-  ShareHoldingPattern? shareHoldingPattern;
-  List<dynamic>? fundsInvested;
   PriceData? priceData;
-  List<FinancialStatement>? financialStatement;
   SimilarAssets? similarAssets;
 
   Map<String, dynamic> toJson() {
@@ -91,40 +66,28 @@ class SymnolData {
     if (details != null) {
       map['details'] = details?.toJson();
     }
-    if (brandDtos != null) {
-      map['brandDtos'] = brandDtos?.map((v) => v.toJson()).toList();
-    }
     if (stats != null) {
       map['stats'] = stats?.toJson();
     }
     if (fundamentals != null) {
       map['fundamentals'] = fundamentals?.map((v) => v.toJson()).toList();
     }
-    if (shareHoldingPattern != null) {
-      map['shareHoldingPattern'] = shareHoldingPattern?.toJson();
-    }
-    if (fundsInvested != null) {
-      map['fundsInvested'] = fundsInvested?.map((v) => v.toJson()).toList();
-    }
     if (priceData != null) {
       map['priceData'] = priceData?.toJson();
-    }
-    if (financialStatement != null) {
-      map['financialStatement'] = financialStatement?.map((v) => v.toJson()).toList();
     }
     if (similarAssets != null) {
       map['similarAssets'] = similarAssets?.toJson();
     }
     return map;
   }
-
 }
 
 class SimilarAssets {
   SimilarAssets({
-      this.type, 
-      this.size, 
-      this.peerList,});
+    this.type,
+    this.size,
+    this.peerList,
+  });
 
   SimilarAssets.fromJson(dynamic json) {
     type = json['type'];
@@ -149,22 +112,23 @@ class SimilarAssets {
     }
     return map;
   }
-
 }
 
 class PeerList {
   PeerList({
-      this.companyHeader, 
-      this.nseYearLow, 
-      this.nseYearHigh, 
-      this.bseYearLow, 
-      this.bseYearHigh, 
-      this.marketCap, 
-      this.peRatio, 
-      this.pbRatio,});
+    this.companyHeader,
+    this.nseYearLow,
+    this.nseYearHigh,
+    this.bseYearLow,
+    this.bseYearHigh,
+    this.marketCap,
+    this.peRatio,
+    this.pbRatio,
+  });
 
   PeerList.fromJson(dynamic json) {
-    companyHeader = json['companyHeader'] != null ? CompanyHeader.fromJson(json['companyHeader']) : null;
+    companyHeader =
+        json['companyHeader'] != null ? CompanyHeader.fromJson(json['companyHeader']) : null;
     nseYearLow = json['nseYearLow'];
     nseYearHigh = json['nseYearHigh'];
     bseYearLow = json['bseYearLow'];
@@ -196,26 +160,26 @@ class PeerList {
     map['pbRatio'] = pbRatio;
     return map;
   }
-
 }
 
 class CompanyHeader {
   CompanyHeader({
-      this.searchId, 
-      this.growwCompanyId, 
-      this.isin, 
-      this.industryId, 
-      this.displayName, 
-      this.shortName, 
-      this.nseScriptCode, 
-      this.bseScriptCode, 
-      this.nseTradingSymbol, 
-      this.bseTradingSymbol, 
-      this.isBseTradable, 
-      this.isNseTradable, 
-      this.logoUrl, 
-      this.isBseFnoEnabled, 
-      this.isNseFnoEnabled,});
+    this.searchId,
+    this.growwCompanyId,
+    this.isin,
+    this.industryId,
+    this.displayName,
+    this.shortName,
+    this.nseScriptCode,
+    this.bseScriptCode,
+    this.nseTradingSymbol,
+    this.bseTradingSymbol,
+    this.isBseTradable,
+    this.isNseTradable,
+    this.logoUrl,
+    this.isBseFnoEnabled,
+    this.isNseFnoEnabled,
+  });
 
   CompanyHeader.fromJson(dynamic json) {
     searchId = json['searchId'];
@@ -269,108 +233,13 @@ class CompanyHeader {
     map['isNseFnoEnabled'] = isNseFnoEnabled;
     return map;
   }
-
-}
-
-class FinancialStatement {
-  FinancialStatement({
-      this.title, 
-      this.yearly, 
-      this.quarterly,});
-
-  FinancialStatement.fromJson(dynamic json) {
-    title = json['title'];
-    yearly = json['yearly'] != null ? Yearly.fromJson(json['yearly']) : null;
-    quarterly = json['quarterly'] != null ? Quarterly.fromJson(json['quarterly']) : null;
-  }
-  String? title;
-  Yearly? yearly;
-  Quarterly? quarterly;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['title'] = title;
-    if (yearly != null) {
-      map['yearly'] = yearly?.toJson();
-    }
-    if (quarterly != null) {
-      map['quarterly'] = quarterly?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class Quarterly {
-  Quarterly({
-      this.jun23, 
-      this.sep23, 
-      this.dec23, 
-      this.mar24, 
-      this.jun24,});
-
-  Quarterly.fromJson(dynamic json) {
-    jun23 = json['Jun '23'];
-    sep23 = json['Sep '23'];
-    dec23 = json['Dec '23'];
-    mar24 = json['Mar '24'];
-    jun24 = json['Jun '24'];
-  }
-  num? jun23;
-  num? sep23;
-  num? dec23;
-  num? mar24;
-  num? jun24;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['Jun '23'] = jun23;
-    map['Sep '23'] = sep23;
-    map['Dec '23'] = dec23;
-    map['Mar '24'] = mar24;
-    map['Jun '24'] = jun24;
-    return map;
-  }
-
-}
-
-class Yearly {
-  Yearly({
-      this., 
-      this., 
-      this., 
-      this., 
-      this.,});
-
-  Yearly.fromJson(dynamic json) {
-     = json['2020'];
-     = json['2021'];
-     = json['2022'];
-     = json['2023'];
-     = json['2024'];
-  }
-  num? ;
-  num? ;
-  num? ;
-  num? ;
-  num? ;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['2020'] = ;
-    map['2021'] = ;
-    map['2022'] = ;
-    map['2023'] = ;
-    map['2024'] = ;
-    return map;
-  }
-
 }
 
 class PriceData {
   PriceData({
-      this.nse, 
-      this.bse,});
+    this.nse,
+    this.bse,
+  });
 
   PriceData.fromJson(dynamic json) {
     nse = json['nse'] != null ? Nse.fromJson(json['nse']) : null;
@@ -389,13 +258,13 @@ class PriceData {
     }
     return map;
   }
-
 }
 
 class Bse {
   Bse({
-      this.yearLowPrice, 
-      this.yearHighPrice,});
+    this.yearLowPrice,
+    this.yearHighPrice,
+  });
 
   Bse.fromJson(dynamic json) {
     yearLowPrice = json['yearLowPrice'];
@@ -410,13 +279,13 @@ class Bse {
     map['yearHighPrice'] = yearHighPrice;
     return map;
   }
-
 }
 
 class Nse {
   Nse({
-      this.yearLowPrice, 
-      this.yearHighPrice,});
+    this.yearLowPrice,
+    this.yearHighPrice,
+  });
 
   Nse.fromJson(dynamic json) {
     yearLowPrice = json['yearLowPrice'];
@@ -431,98 +300,12 @@ class Nse {
     map['yearHighPrice'] = yearHighPrice;
     return map;
   }
-
-}
-
-class ShareHoldingPattern {
-  ShareHoldingPattern({
-      this.jun23, 
-      this.sep23, 
-      this.dec23, 
-      this.mar24, 
-      this.jun24,});
-
-  ShareHoldingPattern.fromJson(dynamic json) {
-    jun23 = json['Jun '23'] != null ? Jun'23.fromJson(json['Jun '23']) : null;
-    sep23 = json['Sep '23'] != null ? Sep'23.fromJson(json['Sep '23']) : null;
-    dec23 = json['Dec '23'] != null ? Dec'23.fromJson(json['Dec '23']) : null;
-    mar24 = json['Mar '24'] != null ? Mar'24.fromJson(json['Mar '24']) : null;
-    jun24 = json['Jun '24'] != null ? Jun'24.fromJson(json['Jun '24']) : null;
-  }
-  Jun'23? jun23;
-  Sep'23? sep23;
-  Dec'23? dec23;
-  Mar'24? mar24;
-  Jun'24? jun24;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (jun23 != null) {
-      map['Jun '23'] = jun23?.toJson();
-    }
-    if (sep23 != null) {
-      map['Sep '23'] = sep23?.toJson();
-    }
-    if (dec23 != null) {
-      map['Dec '23'] = dec23?.toJson();
-    }
-    if (mar24 != null) {
-      map['Mar '24'] = mar24?.toJson();
-    }
-    if (jun24 != null) {
-      map['Jun '24'] = jun24?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class Jun'24 {
-  Jun'24({
-      this.promoters, 
-      this.mutualFunds, 
-      this.otherDomesticInstitutions, 
-      this.foreignInstitutions, 
-      this.retailAndOthers,});
-
-  Jun'24.fromJson(dynamic json) {
-    promoters = json['promoters'] != null ? Promoters.fromJson(json['promoters']) : null;
-    mutualFunds = json['mutualFunds'] != null ? MutualFunds.fromJson(json['mutualFunds']) : null;
-    otherDomesticInstitutions = json['otherDomesticInstitutions'] != null ? OtherDomesticInstitutions.fromJson(json['otherDomesticInstitutions']) : null;
-    foreignInstitutions = json['foreignInstitutions'] != null ? ForeignInstitutions.fromJson(json['foreignInstitutions']) : null;
-    retailAndOthers = json['retailAndOthers'] != null ? RetailAndOthers.fromJson(json['retailAndOthers']) : null;
-  }
-  Promoters? promoters;
-  MutualFunds? mutualFunds;
-  OtherDomesticInstitutions? otherDomesticInstitutions;
-  ForeignInstitutions? foreignInstitutions;
-  RetailAndOthers? retailAndOthers;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (promoters != null) {
-      map['promoters'] = promoters?.toJson();
-    }
-    if (mutualFunds != null) {
-      map['mutualFunds'] = mutualFunds?.toJson();
-    }
-    if (otherDomesticInstitutions != null) {
-      map['otherDomesticInstitutions'] = otherDomesticInstitutions?.toJson();
-    }
-    if (foreignInstitutions != null) {
-      map['foreignInstitutions'] = foreignInstitutions?.toJson();
-    }
-    if (retailAndOthers != null) {
-      map['retailAndOthers'] = retailAndOthers?.toJson();
-    }
-    return map;
-  }
-
 }
 
 class RetailAndOthers {
   RetailAndOthers({
-      this.percent,});
+    this.percent,
+  });
 
   RetailAndOthers.fromJson(dynamic json) {
     percent = json['percent'];
@@ -534,12 +317,12 @@ class RetailAndOthers {
     map['percent'] = percent;
     return map;
   }
-
 }
 
 class ForeignInstitutions {
   ForeignInstitutions({
-      this.percent,});
+    this.percent,
+  });
 
   ForeignInstitutions.fromJson(dynamic json) {
     percent = json['percent'];
@@ -551,13 +334,13 @@ class ForeignInstitutions {
     map['percent'] = percent;
     return map;
   }
-
 }
 
 class OtherDomesticInstitutions {
   OtherDomesticInstitutions({
-      this.insurance, 
-      this.otherFirms,});
+    this.insurance,
+    this.otherFirms,
+  });
 
   OtherDomesticInstitutions.fromJson(dynamic json) {
     insurance = json['insurance'] != null ? Insurance.fromJson(json['insurance']) : null;
@@ -576,12 +359,12 @@ class OtherDomesticInstitutions {
     }
     return map;
   }
-
 }
 
 class OtherFirms {
   OtherFirms({
-      this.percent,});
+    this.percent,
+  });
 
   OtherFirms.fromJson(dynamic json) {
     percent = json['percent'];
@@ -593,12 +376,12 @@ class OtherFirms {
     map['percent'] = percent;
     return map;
   }
-
 }
 
 class Insurance {
   Insurance({
-      this.percent,});
+    this.percent,
+  });
 
   Insurance.fromJson(dynamic json) {
     percent = json['percent'];
@@ -610,12 +393,12 @@ class Insurance {
     map['percent'] = percent;
     return map;
   }
-
 }
 
 class MutualFunds {
   MutualFunds({
-      this.percent,});
+    this.percent,
+  });
 
   MutualFunds.fromJson(dynamic json) {
     percent = json['percent'];
@@ -627,14 +410,14 @@ class MutualFunds {
     map['percent'] = percent;
     return map;
   }
-
 }
 
 class Promoters {
   Promoters({
-      this.individual, 
-      this.government, 
-      this.corporation,});
+    this.individual,
+    this.government,
+    this.corporation,
+  });
 
   Promoters.fromJson(dynamic json) {
     individual = json['individual'] != null ? Individual.fromJson(json['individual']) : null;
@@ -658,12 +441,12 @@ class Promoters {
     }
     return map;
   }
-
 }
 
 class Corporation {
   Corporation({
-      this.percent,});
+    this.percent,
+  });
 
   Corporation.fromJson(dynamic json) {
     percent = json['percent'];
@@ -675,12 +458,12 @@ class Corporation {
     map['percent'] = percent;
     return map;
   }
-
 }
 
 class Government {
   Government({
-      this.percent,});
+    this.percent,
+  });
 
   Government.fromJson(dynamic json) {
     percent = json['percent'];
@@ -692,12 +475,12 @@ class Government {
     map['percent'] = percent;
     return map;
   }
-
 }
 
 class Individual {
   Individual({
-      this.percent,});
+    this.percent,
+  });
 
   Individual.fromJson(dynamic json) {
     percent = json['percent'];
@@ -709,954 +492,14 @@ class Individual {
     map['percent'] = percent;
     return map;
   }
-
-}
-
-class Mar'24 {
-  Mar'24({
-      this.promoters, 
-      this.mutualFunds, 
-      this.otherDomesticInstitutions, 
-      this.foreignInstitutions, 
-      this.retailAndOthers,});
-
-  Mar'24.fromJson(dynamic json) {
-    promoters = json['promoters'] != null ? Promoters.fromJson(json['promoters']) : null;
-    mutualFunds = json['mutualFunds'] != null ? MutualFunds.fromJson(json['mutualFunds']) : null;
-    otherDomesticInstitutions = json['otherDomesticInstitutions'] != null ? OtherDomesticInstitutions.fromJson(json['otherDomesticInstitutions']) : null;
-    foreignInstitutions = json['foreignInstitutions'] != null ? ForeignInstitutions.fromJson(json['foreignInstitutions']) : null;
-    retailAndOthers = json['retailAndOthers'] != null ? RetailAndOthers.fromJson(json['retailAndOthers']) : null;
-  }
-  Promoters? promoters;
-  MutualFunds? mutualFunds;
-  OtherDomesticInstitutions? otherDomesticInstitutions;
-  ForeignInstitutions? foreignInstitutions;
-  RetailAndOthers? retailAndOthers;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (promoters != null) {
-      map['promoters'] = promoters?.toJson();
-    }
-    if (mutualFunds != null) {
-      map['mutualFunds'] = mutualFunds?.toJson();
-    }
-    if (otherDomesticInstitutions != null) {
-      map['otherDomesticInstitutions'] = otherDomesticInstitutions?.toJson();
-    }
-    if (foreignInstitutions != null) {
-      map['foreignInstitutions'] = foreignInstitutions?.toJson();
-    }
-    if (retailAndOthers != null) {
-      map['retailAndOthers'] = retailAndOthers?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class RetailAndOthers {
-  RetailAndOthers({
-      this.percent,});
-
-  RetailAndOthers.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class ForeignInstitutions {
-  ForeignInstitutions({
-      this.percent,});
-
-  ForeignInstitutions.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class OtherDomesticInstitutions {
-  OtherDomesticInstitutions({
-      this.insurance, 
-      this.otherFirms,});
-
-  OtherDomesticInstitutions.fromJson(dynamic json) {
-    insurance = json['insurance'] != null ? Insurance.fromJson(json['insurance']) : null;
-    otherFirms = json['otherFirms'] != null ? OtherFirms.fromJson(json['otherFirms']) : null;
-  }
-  Insurance? insurance;
-  OtherFirms? otherFirms;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (insurance != null) {
-      map['insurance'] = insurance?.toJson();
-    }
-    if (otherFirms != null) {
-      map['otherFirms'] = otherFirms?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class OtherFirms {
-  OtherFirms({
-      this.percent,});
-
-  OtherFirms.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Insurance {
-  Insurance({
-      this.percent,});
-
-  Insurance.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class MutualFunds {
-  MutualFunds({
-      this.percent,});
-
-  MutualFunds.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Promoters {
-  Promoters({
-      this.individual, 
-      this.government, 
-      this.corporation,});
-
-  Promoters.fromJson(dynamic json) {
-    individual = json['individual'] != null ? Individual.fromJson(json['individual']) : null;
-    government = json['government'] != null ? Government.fromJson(json['government']) : null;
-    corporation = json['corporation'] != null ? Corporation.fromJson(json['corporation']) : null;
-  }
-  Individual? individual;
-  Government? government;
-  Corporation? corporation;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (individual != null) {
-      map['individual'] = individual?.toJson();
-    }
-    if (government != null) {
-      map['government'] = government?.toJson();
-    }
-    if (corporation != null) {
-      map['corporation'] = corporation?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class Corporation {
-  Corporation({
-      this.percent,});
-
-  Corporation.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Government {
-  Government({
-      this.percent,});
-
-  Government.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Individual {
-  Individual({
-      this.percent,});
-
-  Individual.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Dec'23 {
-  Dec'23({
-      this.promoters, 
-      this.mutualFunds, 
-      this.otherDomesticInstitutions, 
-      this.foreignInstitutions, 
-      this.retailAndOthers,});
-
-  Dec'23.fromJson(dynamic json) {
-    promoters = json['promoters'] != null ? Promoters.fromJson(json['promoters']) : null;
-    mutualFunds = json['mutualFunds'] != null ? MutualFunds.fromJson(json['mutualFunds']) : null;
-    otherDomesticInstitutions = json['otherDomesticInstitutions'] != null ? OtherDomesticInstitutions.fromJson(json['otherDomesticInstitutions']) : null;
-    foreignInstitutions = json['foreignInstitutions'] != null ? ForeignInstitutions.fromJson(json['foreignInstitutions']) : null;
-    retailAndOthers = json['retailAndOthers'] != null ? RetailAndOthers.fromJson(json['retailAndOthers']) : null;
-  }
-  Promoters? promoters;
-  MutualFunds? mutualFunds;
-  OtherDomesticInstitutions? otherDomesticInstitutions;
-  ForeignInstitutions? foreignInstitutions;
-  RetailAndOthers? retailAndOthers;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (promoters != null) {
-      map['promoters'] = promoters?.toJson();
-    }
-    if (mutualFunds != null) {
-      map['mutualFunds'] = mutualFunds?.toJson();
-    }
-    if (otherDomesticInstitutions != null) {
-      map['otherDomesticInstitutions'] = otherDomesticInstitutions?.toJson();
-    }
-    if (foreignInstitutions != null) {
-      map['foreignInstitutions'] = foreignInstitutions?.toJson();
-    }
-    if (retailAndOthers != null) {
-      map['retailAndOthers'] = retailAndOthers?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class RetailAndOthers {
-  RetailAndOthers({
-      this.percent,});
-
-  RetailAndOthers.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class ForeignInstitutions {
-  ForeignInstitutions({
-      this.percent,});
-
-  ForeignInstitutions.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class OtherDomesticInstitutions {
-  OtherDomesticInstitutions({
-      this.insurance, 
-      this.otherFirms,});
-
-  OtherDomesticInstitutions.fromJson(dynamic json) {
-    insurance = json['insurance'] != null ? Insurance.fromJson(json['insurance']) : null;
-    otherFirms = json['otherFirms'] != null ? OtherFirms.fromJson(json['otherFirms']) : null;
-  }
-  Insurance? insurance;
-  OtherFirms? otherFirms;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (insurance != null) {
-      map['insurance'] = insurance?.toJson();
-    }
-    if (otherFirms != null) {
-      map['otherFirms'] = otherFirms?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class OtherFirms {
-  OtherFirms({
-      this.percent,});
-
-  OtherFirms.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Insurance {
-  Insurance({
-      this.percent,});
-
-  Insurance.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class MutualFunds {
-  MutualFunds({
-      this.percent,});
-
-  MutualFunds.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Promoters {
-  Promoters({
-      this.individual, 
-      this.government, 
-      this.corporation,});
-
-  Promoters.fromJson(dynamic json) {
-    individual = json['individual'] != null ? Individual.fromJson(json['individual']) : null;
-    government = json['government'] != null ? Government.fromJson(json['government']) : null;
-    corporation = json['corporation'] != null ? Corporation.fromJson(json['corporation']) : null;
-  }
-  Individual? individual;
-  Government? government;
-  Corporation? corporation;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (individual != null) {
-      map['individual'] = individual?.toJson();
-    }
-    if (government != null) {
-      map['government'] = government?.toJson();
-    }
-    if (corporation != null) {
-      map['corporation'] = corporation?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class Corporation {
-  Corporation({
-      this.percent,});
-
-  Corporation.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Government {
-  Government({
-      this.percent,});
-
-  Government.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Individual {
-  Individual({
-      this.percent,});
-
-  Individual.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Sep'23 {
-  Sep'23({
-      this.promoters, 
-      this.mutualFunds, 
-      this.otherDomesticInstitutions, 
-      this.foreignInstitutions, 
-      this.retailAndOthers,});
-
-  Sep'23.fromJson(dynamic json) {
-    promoters = json['promoters'] != null ? Promoters.fromJson(json['promoters']) : null;
-    mutualFunds = json['mutualFunds'] != null ? MutualFunds.fromJson(json['mutualFunds']) : null;
-    otherDomesticInstitutions = json['otherDomesticInstitutions'] != null ? OtherDomesticInstitutions.fromJson(json['otherDomesticInstitutions']) : null;
-    foreignInstitutions = json['foreignInstitutions'] != null ? ForeignInstitutions.fromJson(json['foreignInstitutions']) : null;
-    retailAndOthers = json['retailAndOthers'] != null ? RetailAndOthers.fromJson(json['retailAndOthers']) : null;
-  }
-  Promoters? promoters;
-  MutualFunds? mutualFunds;
-  OtherDomesticInstitutions? otherDomesticInstitutions;
-  ForeignInstitutions? foreignInstitutions;
-  RetailAndOthers? retailAndOthers;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (promoters != null) {
-      map['promoters'] = promoters?.toJson();
-    }
-    if (mutualFunds != null) {
-      map['mutualFunds'] = mutualFunds?.toJson();
-    }
-    if (otherDomesticInstitutions != null) {
-      map['otherDomesticInstitutions'] = otherDomesticInstitutions?.toJson();
-    }
-    if (foreignInstitutions != null) {
-      map['foreignInstitutions'] = foreignInstitutions?.toJson();
-    }
-    if (retailAndOthers != null) {
-      map['retailAndOthers'] = retailAndOthers?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class RetailAndOthers {
-  RetailAndOthers({
-      this.percent,});
-
-  RetailAndOthers.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class ForeignInstitutions {
-  ForeignInstitutions({
-      this.percent,});
-
-  ForeignInstitutions.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class OtherDomesticInstitutions {
-  OtherDomesticInstitutions({
-      this.insurance, 
-      this.otherFirms,});
-
-  OtherDomesticInstitutions.fromJson(dynamic json) {
-    insurance = json['insurance'] != null ? Insurance.fromJson(json['insurance']) : null;
-    otherFirms = json['otherFirms'] != null ? OtherFirms.fromJson(json['otherFirms']) : null;
-  }
-  Insurance? insurance;
-  OtherFirms? otherFirms;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (insurance != null) {
-      map['insurance'] = insurance?.toJson();
-    }
-    if (otherFirms != null) {
-      map['otherFirms'] = otherFirms?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class OtherFirms {
-  OtherFirms({
-      this.percent,});
-
-  OtherFirms.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Insurance {
-  Insurance({
-      this.percent,});
-
-  Insurance.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class MutualFunds {
-  MutualFunds({
-      this.percent,});
-
-  MutualFunds.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Promoters {
-  Promoters({
-      this.individual, 
-      this.government, 
-      this.corporation,});
-
-  Promoters.fromJson(dynamic json) {
-    individual = json['individual'] != null ? Individual.fromJson(json['individual']) : null;
-    government = json['government'] != null ? Government.fromJson(json['government']) : null;
-    corporation = json['corporation'] != null ? Corporation.fromJson(json['corporation']) : null;
-  }
-  Individual? individual;
-  Government? government;
-  Corporation? corporation;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (individual != null) {
-      map['individual'] = individual?.toJson();
-    }
-    if (government != null) {
-      map['government'] = government?.toJson();
-    }
-    if (corporation != null) {
-      map['corporation'] = corporation?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class Corporation {
-  Corporation({
-      this.percent,});
-
-  Corporation.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Government {
-  Government({
-      this.percent,});
-
-  Government.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Individual {
-  Individual({
-      this.percent,});
-
-  Individual.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Jun'23 {
-  Jun'23({
-      this.promoters, 
-      this.mutualFunds, 
-      this.otherDomesticInstitutions, 
-      this.foreignInstitutions, 
-      this.retailAndOthers,});
-
-  Jun'23.fromJson(dynamic json) {
-    promoters = json['promoters'] != null ? Promoters.fromJson(json['promoters']) : null;
-    mutualFunds = json['mutualFunds'] != null ? MutualFunds.fromJson(json['mutualFunds']) : null;
-    otherDomesticInstitutions = json['otherDomesticInstitutions'] != null ? OtherDomesticInstitutions.fromJson(json['otherDomesticInstitutions']) : null;
-    foreignInstitutions = json['foreignInstitutions'] != null ? ForeignInstitutions.fromJson(json['foreignInstitutions']) : null;
-    retailAndOthers = json['retailAndOthers'] != null ? RetailAndOthers.fromJson(json['retailAndOthers']) : null;
-  }
-  Promoters? promoters;
-  MutualFunds? mutualFunds;
-  OtherDomesticInstitutions? otherDomesticInstitutions;
-  ForeignInstitutions? foreignInstitutions;
-  RetailAndOthers? retailAndOthers;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (promoters != null) {
-      map['promoters'] = promoters?.toJson();
-    }
-    if (mutualFunds != null) {
-      map['mutualFunds'] = mutualFunds?.toJson();
-    }
-    if (otherDomesticInstitutions != null) {
-      map['otherDomesticInstitutions'] = otherDomesticInstitutions?.toJson();
-    }
-    if (foreignInstitutions != null) {
-      map['foreignInstitutions'] = foreignInstitutions?.toJson();
-    }
-    if (retailAndOthers != null) {
-      map['retailAndOthers'] = retailAndOthers?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class RetailAndOthers {
-  RetailAndOthers({
-      this.percent,});
-
-  RetailAndOthers.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class ForeignInstitutions {
-  ForeignInstitutions({
-      this.percent,});
-
-  ForeignInstitutions.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class OtherDomesticInstitutions {
-  OtherDomesticInstitutions({
-      this.insurance, 
-      this.otherFirms,});
-
-  OtherDomesticInstitutions.fromJson(dynamic json) {
-    insurance = json['insurance'] != null ? Insurance.fromJson(json['insurance']) : null;
-    otherFirms = json['otherFirms'] != null ? OtherFirms.fromJson(json['otherFirms']) : null;
-  }
-  Insurance? insurance;
-  OtherFirms? otherFirms;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (insurance != null) {
-      map['insurance'] = insurance?.toJson();
-    }
-    if (otherFirms != null) {
-      map['otherFirms'] = otherFirms?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class OtherFirms {
-  OtherFirms({
-      this.percent,});
-
-  OtherFirms.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Insurance {
-  Insurance({
-      this.percent,});
-
-  Insurance.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class MutualFunds {
-  MutualFunds({
-      this.percent,});
-
-  MutualFunds.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Promoters {
-  Promoters({
-      this.individual, 
-      this.government, 
-      this.corporation,});
-
-  Promoters.fromJson(dynamic json) {
-    individual = json['individual'] != null ? Individual.fromJson(json['individual']) : null;
-    government = json['government'] != null ? Government.fromJson(json['government']) : null;
-    corporation = json['corporation'] != null ? Corporation.fromJson(json['corporation']) : null;
-  }
-  Individual? individual;
-  Government? government;
-  Corporation? corporation;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (individual != null) {
-      map['individual'] = individual?.toJson();
-    }
-    if (government != null) {
-      map['government'] = government?.toJson();
-    }
-    if (corporation != null) {
-      map['corporation'] = corporation?.toJson();
-    }
-    return map;
-  }
-
-}
-
-class Corporation {
-  Corporation({
-      this.percent,});
-
-  Corporation.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Government {
-  Government({
-      this.percent,});
-
-  Government.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
-}
-
-class Individual {
-  Individual({
-      this.percent,});
-
-  Individual.fromJson(dynamic json) {
-    percent = json['percent'];
-  }
-  num? percent;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['percent'] = percent;
-    return map;
-  }
-
 }
 
 class Fundamentals {
   Fundamentals({
-      this.name, 
-      this.shortName, 
-      this.value,});
+    this.name,
+    this.shortName,
+    this.value,
+  });
 
   Fundamentals.fromJson(dynamic json) {
     name = json['name'];
@@ -1674,47 +517,47 @@ class Fundamentals {
     map['value'] = value;
     return map;
   }
-
 }
 
 class Stats {
   Stats({
-      this.marketCap, 
-      this.pbRatio, 
-      this.peRatio, 
-      this.divYield, 
-      this.bookValue, 
-      this.epsTtm, 
-      this.roe, 
-      this.industryPe, 
-      this.cappedType, 
-      this.dividendYieldInPercent, 
-      this.faceValue, 
-      this.debtToEquity, 
-      this.returnOnAssets, 
-      this.returnOnEquity, 
-      this.operatingProfitMargin, 
-      this.netProfitMargin, 
-      this.quickRatio, 
-      this.cashRatio, 
-      this.debtToAsset, 
-      this.evToSales, 
-      this.evToEbitda, 
-      this.earningsYield, 
-      this.sectorPb, 
-      this.sectorDivYield, 
-      this.sectorRoe, 
-      this.sectorRoce, 
-      this.priceToOcf, 
-      this.priceToFcf, 
-      this.roic, 
-      this.pePremiumVsSector, 
-      this.pbPremiumVsSector, 
-      this.divYieldVsSector, 
-      this.currentRatio, 
-      this.sectorPe, 
-      this.priceToSales, 
-      this.pegRatio,});
+    this.marketCap,
+    this.pbRatio,
+    this.peRatio,
+    this.divYield,
+    this.bookValue,
+    this.epsTtm,
+    this.roe,
+    this.industryPe,
+    this.cappedType,
+    this.dividendYieldInPercent,
+    this.faceValue,
+    this.debtToEquity,
+    this.returnOnAssets,
+    this.returnOnEquity,
+    this.operatingProfitMargin,
+    this.netProfitMargin,
+    this.quickRatio,
+    this.cashRatio,
+    this.debtToAsset,
+    this.evToSales,
+    this.evToEbitda,
+    this.earningsYield,
+    this.sectorPb,
+    this.sectorDivYield,
+    this.sectorRoe,
+    this.sectorRoce,
+    this.priceToOcf,
+    this.priceToFcf,
+    this.roic,
+    this.pePremiumVsSector,
+    this.pbPremiumVsSector,
+    this.divYieldVsSector,
+    this.currentRatio,
+    this.sectorPe,
+    this.priceToSales,
+    this.pegRatio,
+  });
 
   Stats.fromJson(dynamic json) {
     marketCap = json['marketCap'];
@@ -1831,18 +674,18 @@ class Stats {
     map['pegRatio'] = pegRatio;
     return map;
   }
-
 }
 
 class Details {
   Details({
-      this.fullName, 
-      this.parentCompany, 
-      this.headquarters, 
-      this.ceo, 
-      this.managingDirector, 
-      this.businessSummary, 
-      this.websiteUrl,});
+    this.fullName,
+    this.parentCompany,
+    this.headquarters,
+    this.ceo,
+    this.managingDirector,
+    this.businessSummary,
+    this.websiteUrl,
+  });
 
   Details.fromJson(dynamic json) {
     fullName = json['fullName'];
@@ -1872,30 +715,30 @@ class Details {
     map['websiteUrl'] = websiteUrl;
     return map;
   }
-
 }
 
 class Header {
   Header({
-      this.searchId, 
-      this.growwCompanyId, 
-      this.isin, 
-      this.industryId, 
-      this.industryName, 
-      this.displayName, 
-      this.shortName, 
-      this.type, 
-      this.isFnoEnabled, 
-      this.nseScriptCode, 
-      this.bseScriptCode, 
-      this.nseTradingSymbol, 
-      this.bseTradingSymbol, 
-      this.isBseTradable, 
-      this.isNseTradable, 
-      this.logoUrl, 
-      this.floatingShares, 
-      this.isBseFnoEnabled, 
-      this.isNseFnoEnabled,});
+    this.searchId,
+    this.growwCompanyId,
+    this.isin,
+    this.industryId,
+    this.industryName,
+    this.displayName,
+    this.shortName,
+    this.type,
+    this.isFnoEnabled,
+    this.nseScriptCode,
+    this.bseScriptCode,
+    this.nseTradingSymbol,
+    this.bseTradingSymbol,
+    this.isBseTradable,
+    this.isNseTradable,
+    this.logoUrl,
+    this.floatingShares,
+    this.isBseFnoEnabled,
+    this.isNseFnoEnabled,
+  });
 
   Header.fromJson(dynamic json) {
     searchId = json['searchId'];
@@ -1961,13 +804,13 @@ class Header {
     map['isNseFnoEnabled'] = isNseFnoEnabled;
     return map;
   }
-
 }
 
 class MainData {
   MainData({
-      this.data, 
-      this.message,});
+    this.data,
+    this.message,
+  });
 
   MainData.fromJson(dynamic json) {
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
@@ -1984,32 +827,32 @@ class MainData {
     map['message'] = message;
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.buyBackId, 
-      this.symbolIsin, 
-      this.recordDate, 
-      this.startDate, 
-      this.endDate, 
-      this.offerPrice, 
-      this.status, 
-      this.exchange, 
-      this.issuedAmount, 
-      this.issuedShares, 
-      this.companyName, 
-      this.companyShortName, 
-      this.companyLogo, 
-      this.searchId, 
-      this.settlementNumber, 
-      this.settlementId, 
-      this.clearingMember, 
-      this.settlementDate, 
-      this.message, 
-      this.companySymbol, 
-      this.scripCode,});
+    this.buyBackId,
+    this.symbolIsin,
+    this.recordDate,
+    this.startDate,
+    this.endDate,
+    this.offerPrice,
+    this.status,
+    this.exchange,
+    this.issuedAmount,
+    this.issuedShares,
+    this.companyName,
+    this.companyShortName,
+    this.companyLogo,
+    this.searchId,
+    this.settlementNumber,
+    this.settlementId,
+    this.clearingMember,
+    this.settlementDate,
+    this.message,
+    this.companySymbol,
+    this.scripCode,
+  });
 
   Data.fromJson(dynamic json) {
     buyBackId = json['buyBackId'];
@@ -2081,5 +924,4 @@ class Data {
     map['scripCode'] = scripCode;
     return map;
   }
-
 }

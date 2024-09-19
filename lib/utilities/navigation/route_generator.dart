@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
 import 'package:ipotec/dashboard_module/view/sme_ipo_view.dart';
@@ -49,16 +50,16 @@ final GoRouter goRouterConfig = GoRouter(
     ),
 
     // ------------------   Registration Page Routes   ---------------------------
-    // GoRoute(
-    //   parentNavigatorKey: rootNavigatorKey,
-    //   path: GoPaths.login,
-    //   name: GoPaths.login,
-    //   builder: (context, state) {
-    //     final extras = state.extra as Map<String, dynamic>;
-    //     final number = extras['number'];
-    //     return LoginView(number: number);
-    //   },
-    // ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.mainBoardDetails,
+      name: GoPaths.mainBoardDetails,
+      builder: (context, state) {
+        final extras = state.extra as Map<String, dynamic>;
+        final slug = extras['slug'];
+        return MainboardIpoDetailsView(slug: slug);
+      },
+    ),
     //
     // GoRoute(
     //   parentNavigatorKey: rootNavigatorKey,

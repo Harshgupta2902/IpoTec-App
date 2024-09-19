@@ -7,6 +7,8 @@ import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
 
@@ -54,16 +56,22 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                           final filteredData =
                               state?.active?.where((data) => data.isSme == false).toList();
                           final data = filteredData?[index];
-                          return MainboardUpcomingCard(
-                            logo: data?.symbol,
-                            name: data?.growwShortName,
-                            bid: data?.additionalTxt,
-                            data: [
-                              KeyValuePairModel(
-                                  key: "Offer Price:",
-                                  value: "${data?.minPrice} - ${data?.maxPrice}"),
-                              KeyValuePairModel(key: "Lot Size:", value: "${data?.lotSize}"),
-                            ],
+                          return GestureDetector(
+                            onTap: () => MyNavigator.pushNamed(
+                              GoPaths.mainBoardDetails,
+                              extra: {'slug': data?.searchId},
+                            ),
+                            child: MainboardUpcomingCard(
+                              logo: data?.symbol,
+                              name: data?.growwShortName,
+                              bid: data?.additionalTxt,
+                              data: [
+                                KeyValuePairModel(
+                                    key: "Offer Price:",
+                                    value: "${data?.minPrice} - ${data?.maxPrice}"),
+                                KeyValuePairModel(key: "Lot Size:", value: "${data?.lotSize}"),
+                              ],
+                            ),
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(height: 16),

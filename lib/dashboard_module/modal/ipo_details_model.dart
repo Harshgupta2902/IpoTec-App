@@ -1,55 +1,54 @@
 class IpoDetailsModel {
   IpoDetailsModel({
-      this.categories, 
-      this.symbol, 
-      this.bannerText, 
-      this.aboutCompany, 
-      this.companyName, 
-      this.companyShortName, 
-      this.pros, 
-      this.cons, 
-      this.lotSize, 
-      this.minPrice, 
-      this.maxPrice, 
-      this.startDate, 
-      this.endDate, 
-      this.minBidQty, 
-      this.issueSize, 
-      this.listing, 
-      this.issuePrice, 
-      this.parentSearchId, 
-      this.subscriptionUpdatedAt, 
-      this.documentUrl, 
-      this.logoUrl, 
-      this.videoId, 
-      this.videoName, 
-      this.subscriptionRates, 
-      this.financials, 
-      this.sector, 
-      this.faqs, 
-      this.listingDate, 
-      this.faceValue, 
-      this.tickSize, 
-      this.cutOffPrice, 
-      this.isin, 
-      this.registrar, 
-      this.t1ModStartDate, 
-      this.t1ModEndDate, 
-      this.t1ModStartTime, 
-      this.t1ModEndTime, 
-      this.issueType, 
-      this.status, 
-      this.dailyStartTime, 
-      this.dailyEndTime, 
-      this.lastBidPlaceTime, 
-      this.applicationDetails, 
-      this.peerList, 
-      this.ppContent, 
-      this.rtaLink, 
-      this.isAllotmentAnnounced, 
-      this.growwShortName, 
-      this.preApplyOpen, 
-      this.minBidQuantity,});
+    this.categories,
+    this.symbol,
+    this.bannerText,
+    this.aboutCompany,
+    this.companyName,
+    this.companyShortName,
+    this.pros,
+    this.cons,
+    this.lotSize,
+    this.minPrice,
+    this.maxPrice,
+    this.startDate,
+    this.endDate,
+    this.minBidQty,
+    this.issueSize,
+    this.issuePrice,
+    this.parentSearchId,
+    this.subscriptionUpdatedAt,
+    this.documentUrl,
+    this.logoUrl,
+    this.videoId,
+    this.videoName,
+    this.subscriptionRates,
+    this.sector,
+    this.faqs,
+    this.listingDate,
+    this.faceValue,
+    this.tickSize,
+    this.cutOffPrice,
+    this.isin,
+    this.registrar,
+    this.t1ModStartDate,
+    this.t1ModEndDate,
+    this.t1ModStartTime,
+    this.t1ModEndTime,
+    this.issueType,
+    this.status,
+    this.dailyStartTime,
+    this.dailyEndTime,
+    this.lastBidPlaceTime,
+    this.applicationDetails,
+    this.peerList,
+    this.ppContent,
+    this.rtaLink,
+    this.isAllotmentAnnounced,
+    this.growwShortName,
+    this.preApplyOpen,
+    this.minBidQuantity,
+  });
 
   IpoDetailsModel.fromJson(dynamic json) {
     if (json['categories'] != null) {
@@ -60,7 +59,8 @@ class IpoDetailsModel {
     }
     symbol = json['symbol'];
     bannerText = json['bannerText'];
-    aboutCompany = json['aboutCompany'] != null ? AboutCompany.fromJson(json['aboutCompany']) : null;
+    aboutCompany =
+        json['aboutCompany'] != null ? AboutCompany.fromJson(json['aboutCompany']) : null;
     companyName = json['companyName'];
     companyShortName = json['companyShortName'];
     pros = json['pros'] != null ? json['pros'].cast<String>() : [];
@@ -72,7 +72,6 @@ class IpoDetailsModel {
     endDate = json['endDate'];
     minBidQty = json['minBidQty'];
     issueSize = json['issueSize'];
-    listing = json['listing'];
     issuePrice = json['issuePrice'];
     parentSearchId = json['parentSearchId'];
     subscriptionUpdatedAt = json['subscriptionUpdatedAt'];
@@ -81,12 +80,7 @@ class IpoDetailsModel {
     videoId = json['videoId'];
     videoName = json['videoName'];
     subscriptionRates = json['subscriptionRates'];
-    if (json['financials'] != null) {
-      financials = [];
-      json['financials'].forEach((v) {
-        financials?.add(Financials.fromJson(v));
-      });
-    }
+
     sector = json['sector'];
     if (json['faqs'] != null) {
       faqs = [];
@@ -133,7 +127,6 @@ class IpoDetailsModel {
   String? endDate;
   num? minBidQty;
   num? issueSize;
-  Listing? listing;
   num? issuePrice;
   dynamic parentSearchId;
   dynamic subscriptionUpdatedAt;
@@ -142,7 +135,6 @@ class IpoDetailsModel {
   String? videoId;
   dynamic videoName;
   dynamic subscriptionRates;
-  List<Financials>? financials;
   String? sector;
   List<Faqs>? faqs;
   String? listingDate;
@@ -190,7 +182,6 @@ class IpoDetailsModel {
     map['endDate'] = endDate;
     map['minBidQty'] = minBidQty;
     map['issueSize'] = issueSize;
-    map['listing'] = listing;
     map['issuePrice'] = issuePrice;
     map['parentSearchId'] = parentSearchId;
     map['subscriptionUpdatedAt'] = subscriptionUpdatedAt;
@@ -199,9 +190,6 @@ class IpoDetailsModel {
     map['videoId'] = videoId;
     map['videoName'] = videoName;
     map['subscriptionRates'] = subscriptionRates;
-    if (financials != null) {
-      map['financials'] = financials?.map((v) => v.toJson()).toList();
-    }
     map['sector'] = sector;
     if (faqs != null) {
       map['faqs'] = faqs?.map((v) => v.toJson()).toList();
@@ -231,13 +219,13 @@ class IpoDetailsModel {
     map['minBidQuantity'] = minBidQuantity;
     return map;
   }
-
 }
 
 class Faqs {
   Faqs({
-      this.question, 
-      this.answer,});
+    this.question,
+    this.answer,
+  });
 
   Faqs.fromJson(dynamic json) {
     question = json['question'];
@@ -252,102 +240,14 @@ class Faqs {
     map['answer'] = answer;
     return map;
   }
-
-}
-
-class Financials {
-  Financials({
-      this.title, 
-      this.yearly, 
-      this.quarterly,});
-
-  Financials.fromJson(dynamic json) {
-    title = json['title'];
-    yearly = json['yearly'] != null ? Yearly.fromJson(json['yearly']) : null;
-    quarterly = json['quarterly'];
-  }
-  String? title;
-  Yearly? yearly;
-  dynamic quarterly;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['title'] = title;
-    if (yearly != null) {
-      map['yearly'] = yearly?.toJson();
-    }
-    map['quarterly'] = quarterly;
-    return map;
-  }
-
-}
-
-class Yearly {
-  Yearly({
-      this., 
-      this., 
-      this.,});
-
-  Yearly.fromJson(dynamic json) {
-     = json['2022'];
-     = json['2023'];
-     = json['2024'];
-  }
-  num? ;
-  num? ;
-  num? ;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['2022'] = ;
-    map['2023'] = ;
-    map['2024'] = ;
-    return map;
-  }
-
-}
-
-class Listing {
-  Listing({
-      this.listingPrice, 
-      this.listedOn, 
-      this.bseScripCode, 
-      this.nseScripCode,});
-
-  Listing.fromJson(dynamic json) {
-    listingPrice = json['listingPrice'];
-    if (json['listedOn'] != null) {
-      listedOn = [];
-      json['listedOn'].forEach((v) {
-        listedOn?.add(Dynamic.fromJson(v));
-      });
-    }
-    bseScripCode = json['bseScripCode'];
-    nseScripCode = json['nseScripCode'];
-  }
-  dynamic listingPrice;
-  List<dynamic>? listedOn;
-  dynamic bseScripCode;
-  dynamic nseScripCode;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['listingPrice'] = listingPrice;
-    if (listedOn != null) {
-      map['listedOn'] = listedOn?.map((v) => v.toJson()).toList();
-    }
-    map['bseScripCode'] = bseScripCode;
-    map['nseScripCode'] = nseScripCode;
-    return map;
-  }
-
 }
 
 class AboutCompany {
   AboutCompany({
-      this.yearFounded, 
-      this.managingDirector, 
-      this.aboutCompany,});
+    this.yearFounded,
+    this.managingDirector,
+    this.aboutCompany,
+  });
 
   AboutCompany.fromJson(dynamic json) {
     yearFounded = json['yearFounded'];
@@ -365,24 +265,24 @@ class AboutCompany {
     map['aboutCompany'] = aboutCompany;
     return map;
   }
-
 }
 
 class Categories {
   Categories({
-      this.category, 
-      this.categoryLabel, 
-      this.categorySubText, 
-      this.lotSize, 
-      this.minBidQuantity, 
-      this.minPrice, 
-      this.maxPrice, 
-      this.subscriptionRate, 
-      this.state, 
-      this.categoryDiscount, 
-      this.isCategoryActive, 
-      this.cutOffTime, 
-      this.categoryDetails,});
+    this.category,
+    this.categoryLabel,
+    this.categorySubText,
+    this.lotSize,
+    this.minBidQuantity,
+    this.minPrice,
+    this.maxPrice,
+    this.subscriptionRate,
+    this.state,
+    this.categoryDiscount,
+    this.isCategoryActive,
+    this.cutOffTime,
+    this.categoryDetails,
+  });
 
   Categories.fromJson(dynamic json) {
     category = json['category'];
@@ -397,7 +297,8 @@ class Categories {
     categoryDiscount = json['categoryDiscount'];
     isCategoryActive = json['isCategoryActive'];
     cutOffTime = json['cutOffTime'];
-    categoryDetails = json['categoryDetails'] != null ? CategoryDetails.fromJson(json['categoryDetails']) : null;
+    categoryDetails =
+        json['categoryDetails'] != null ? CategoryDetails.fromJson(json['categoryDetails']) : null;
   }
   String? category;
   String? categoryLabel;
@@ -432,13 +333,13 @@ class Categories {
     }
     return map;
   }
-
 }
 
 class CategoryDetails {
   CategoryDetails({
-      this.categoryLabel, 
-      this.categoryInfo,});
+    this.categoryLabel,
+    this.categoryInfo,
+  });
 
   CategoryDetails.fromJson(dynamic json) {
     categoryLabel = json['categoryLabel'];
@@ -453,5 +354,4 @@ class CategoryDetails {
     map['categoryInfo'] = categoryInfo;
     return map;
   }
-
 }
