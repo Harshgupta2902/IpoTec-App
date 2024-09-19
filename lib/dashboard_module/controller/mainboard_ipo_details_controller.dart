@@ -15,9 +15,6 @@ class MainBoardDetailsController extends GetxController with StateMixin<IpoDetai
 
       debugPrint("MainBoardDetailsController => getMainboardDetails > Success  $response");
 
-      if (response.statusCode != 200) {
-        throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
-      }
 
       final modal = IpoDetailsModel.fromJson(response.data);
       change(modal, status: RxStatus.success());

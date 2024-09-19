@@ -57,7 +57,8 @@ final GoRouter goRouterConfig = GoRouter(
       builder: (context, state) {
         final extras = state.extra as Map<String, dynamic>;
         final slug = extras['slug'];
-        return MainboardIpoDetailsView(slug: slug);
+        final name = extras['name'];
+        return MainboardIpoDetailsView(slug: slug, name: name,);
       },
     ),
     //

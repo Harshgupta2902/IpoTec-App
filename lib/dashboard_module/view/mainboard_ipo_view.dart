@@ -59,7 +59,7 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                           return GestureDetector(
                             onTap: () => MyNavigator.pushNamed(
                               GoPaths.mainBoardDetails,
-                              extra: {'slug': data?.searchId},
+                              extra: {'slug': data?.searchId, 'name': data?.growwShortName},
                             ),
                             child: MainboardUpcomingCard(
                               logo: data?.symbol,
