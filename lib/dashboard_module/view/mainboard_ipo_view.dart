@@ -22,7 +22,6 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
   void initState() {
     final filteredData =
         _mainBoardIpoController.state?.listed?.where((data) => data.isSme == true).toList();
-    debugPrint(filteredData?.length.toString());
     super.initState();
   }
 
@@ -75,7 +74,6 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                           final filteredData =
                               state?.listed?.where((data) => data.isSme == false).toList();
                           final data = filteredData?[index];
-                          debugPrint("${data?.isSme}");
                           return MainboardListingCard(
                             logo: data?.logoUrl ?? data?.symbol,
                             name: data?.growwShortName,

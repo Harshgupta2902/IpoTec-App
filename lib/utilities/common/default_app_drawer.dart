@@ -30,7 +30,6 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
       child: TapRegion(
         onTapOutside: (event) {
           _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-          debugPrint('tapped -| outside');
         },
         child: BackdropFilter(
             filter: ImageFilter.blur(

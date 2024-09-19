@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/controller/buyback_ipo_controller.dart';
 import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
+import 'package:ipotec/utilities/common/core_update_handler.dart';
 import 'package:ipotec/utilities/common/custom_bottom_navigation.dart';
 import 'package:ipotec/utilities/common/default_app_drawer.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
@@ -22,9 +23,23 @@ class LandingView extends StatefulWidget {
 class _LandingViewState extends State<LandingView> {
   @override
   void initState() {
-    _mainBoardIpoController.getMainboardData();
-    _buybackIpoController.getBuybackData();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        _mainBoardIpoController.getMainboardData();
+        _buybackIpoController.getBuybackData();
+      },
+    );
+    Future.delayed(
+      const Duration(milliseconds: 400),
+      () {
+        return checkUpdate();
+      },
+    );
     super.initState();
+  }
+
+  void checkUpdate() async {
+    await appUpdateCheck(context: context);
   }
 
   @override

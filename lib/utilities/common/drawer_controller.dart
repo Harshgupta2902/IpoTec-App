@@ -20,6 +20,5 @@ class HiddenDrawerController extends GetxController {
       yOffset.value = 0;
       scaleFactor.value = 1;
     }
-    debugPrint(isDrawerOpen.value.toString());
   }
 }

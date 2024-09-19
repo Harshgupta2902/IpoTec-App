@@ -67,7 +67,6 @@ class _SmeIpoViewState extends State<SmeIpoView> {
                           final filteredData =
                               state?.listed?.where((data) => data.isSme == true).toList();
                           final data = filteredData?[index];
-                          debugPrint("${data?.isSme}");
                           return MainboardListingCard(
                             logo: data?.logoUrl ?? data?.symbol,
                             name: data?.growwShortName,

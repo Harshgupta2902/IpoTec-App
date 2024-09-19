@@ -8,8 +8,8 @@ import 'package:ipotec/utilities/theme/smooth_rectangular_border.dart';
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 final _defaultController = Get.put(DefaultApiController());
 
-void main() {
-  _defaultController.getDefaultData();
+void main() async {
+  await _defaultController.getDefaultData();
   runApp(const MyApp());
 }
 
