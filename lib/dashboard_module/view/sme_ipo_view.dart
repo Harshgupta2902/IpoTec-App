@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/dashboard_module/components/core_details_card.dart';
+import 'package:ipotec/dashboard_module/components/mainboard_upcoming_card.dart';
 import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
-import 'package:ipotec/utilities/constants/functions.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
 
@@ -46,10 +45,10 @@ class _SmeIpoViewState extends State<SmeIpoView> {
                             final filteredData =
                                 state?.active?.where((data) => data.isSme == true).toList();
                             final data = filteredData?[index];
-                            return CoreDetailsCard(
+                            return MainboardUpcomingCard(
                               logo: data?.symbol,
                               name: data?.growwShortName,
-                              bid: formatBidDates(data?.additionalTxt ?? ""),
+                              bid: data?.additionalTxt,
                               data: [
                                 KeyValuePairModel(
                                     key: "Offer Price:",

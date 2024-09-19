@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ipotec/utilities/packages/blurry_container.dart';
+import 'package:ipotec/utilities/theme/app_colors.dart';
 
 enum BlurEffectStyle { auto, light, dark }
 
@@ -63,7 +64,7 @@ class _BlurNavbarState extends State<BlurNavbar> with SingleTickerProviderStateM
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 6, left: 12, right: 12),
+          padding: const EdgeInsets.only(bottom: 6, left: 1210, right: 10),
           child: BlurryContainer(
             blur: 26,
             borderRadius: BorderRadius.all(radius),
@@ -74,7 +75,7 @@ class _BlurNavbarState extends State<BlurNavbar> with SingleTickerProviderStateM
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(bottom: 6, left: 16, right: 16),
+          margin: const EdgeInsets.only(bottom: 0, left: 10, right: 10),
           height: kBottomNavigationBarHeight,
           clipBehavior: Clip.none,
           decoration: BoxDecoration(
@@ -117,33 +118,27 @@ class _BlurNavbarState extends State<BlurNavbar> with SingleTickerProviderStateM
     _animation.forward(from: 0.0);
   }
 
-  // void _onItemTapped(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       MyNavigator.pushNamed(GoPaths.ieltsDashboard);
-  //       break;
-  //     case 1:
-  //       MyNavigator.pushNamed(GoPaths.buyPlan);
-  //       break;
-  //     case 2:
-  //       MyNavigator.pushNamed(GoPaths.profile);
-  //       break;
-  //     default:
-  //       MyNavigator.pushNamed(GoPaths.login);
-  //   }
-  // }
-
   Widget _itemBuilder(BuildContext context, int index, BlurNavbarItem item, double width) {
     return GestureDetector(
       onTap: () => _onTap(index),
       child: Container(
-        width: 40,
         height: 40,
+        width: 40,
         alignment: Alignment.bottomCenter,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            item.icon!,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                item.icon!,
+                Text(
+                  item.title ?? "",
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.oil, fontSize: 10),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -153,8 +148,7 @@ class _BlurNavbarState extends State<BlurNavbar> with SingleTickerProviderStateM
 
 class BlurNavbarItem {
   final Widget? icon;
+  final String? title;
 
-  BlurNavbarItem({
-    this.icon,
-  }) : assert(icon != null);
+  BlurNavbarItem({this.icon, this.title}) : assert(icon != null);
 }

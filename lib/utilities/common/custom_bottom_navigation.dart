@@ -26,18 +26,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         _onItemTapped(idx);
       },
       items: [
-        BlurNavbarItem(
-          icon: SvgPicture.asset(AssetPath.mainBoard),
-        ),
-        BlurNavbarItem(
-          icon: SvgPicture.asset(AssetPath.sme),
-        ),
-        BlurNavbarItem(
-          icon: SvgPicture.asset(AssetPath.buyBack),
-        ),
-        BlurNavbarItem(
-          icon: SvgPicture.asset(AssetPath.blogs),
-        ),
+        BlurNavbarItem(icon: SvgPicture.asset(AssetPath.mainBoard), title: "MainBoard"),
+        BlurNavbarItem(icon: SvgPicture.asset(AssetPath.sme), title: "SME"),
+        BlurNavbarItem(icon: SvgPicture.asset(AssetPath.buyBack), title: "Buyback"),
+        BlurNavbarItem(icon: SvgPicture.asset(AssetPath.blogs), title: "Blogs"),
       ],
       currentIndex: _index,
       selectedColor: Colors.transparent,

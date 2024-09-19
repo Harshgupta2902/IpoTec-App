@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/dashboard_module/components/core_details_card.dart';
+import 'package:ipotec/dashboard_module/components/mainboard_listing_card.dart';
+import 'package:ipotec/dashboard_module/components/mainboard_upcoming_card.dart';
 import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
@@ -47,10 +48,10 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                             final filteredData =
                                 state?.active?.where((data) => data.isSme == false).toList();
                             final data = filteredData?[index];
-                            return CoreDetailsCard(
+                            return MainboardUpcomingCard(
                               logo: data?.symbol,
                               name: data?.growwShortName,
-                              bid: formatBidDates(data?.additionalTxt ?? ""),
+                              bid: data?.additionalTxt,
                               data: [
                                 KeyValuePairModel(
                                     key: "Offer Price:",
@@ -61,7 +62,29 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                           },
                           separatorBuilder: (context, index) => const SizedBox(height: 16),
                         ),
-                        const Text("data"),
+                        ListView.separated(
+                          itemCount:
+                              state?.listed?.where((data) => data.isSme == false).length ?? 0,
+                          itemBuilder: (context, index) {
+                            final filteredData =
+                                state?.listed?.where((data) => data.isSme == false).toList();
+                            final data = filteredData?[index];
+                            return MainboardListingCard(
+                              logo: data?.logoUrl ?? data?.symbol,
+                              name: data?.growwShortName,
+                              bid: data?.additionalTxt,
+                              listedTime:
+                                  "Listed on: ${convertDate(data?.listingDate ?? "")} at ${format2INR(data?.listingPrice)}",
+                              data: [
+                                KeyValuePairModel(
+                                    key: "Offer Price:",
+                                    value: "${data?.minPrice} - ${data?.maxPrice}"),
+                                KeyValuePairModel(key: "Lot Size:", value: "${data?.isSme}"),
+                              ],
+                            );
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(height: 16),
+                        ),
                       ],
                     ),
                   ),

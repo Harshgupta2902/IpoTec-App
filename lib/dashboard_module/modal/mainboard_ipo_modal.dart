@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class MainboardIpoModal {
   MainboardIpoModal({
     this.active,
@@ -7,29 +9,33 @@ class MainboardIpoModal {
   });
 
   MainboardIpoModal.fromJson(dynamic json) {
-    if (json['ACTIVE'] != null) {
-      active = [];
-      json['ACTIVE'].forEach((v) {
-        active?.add(Active.fromJson(v));
-      });
-    }
-    if (json['LISTED'] != null) {
-      listed = [];
-      json['LISTED'].forEach((v) {
-        listed?.add(Listed.fromJson(v));
-      });
-    }
-    if (json['CLOSED'] != null) {
-      closed = [];
-      json['CLOSED'].forEach((v) {
-        closed?.add(Closed.fromJson(v));
-      });
-    }
-    if (json['UPCOMING'] != null) {
-      upcoming = [];
-      json['UPCOMING'].forEach((v) {
-        upcoming?.add(Upcoming.fromJson(v));
-      });
+    try {
+      if (json['ACTIVE'] != null) {
+        active = [];
+        json['ACTIVE'].forEach((v) {
+          active?.add(Active.fromJson(v));
+        });
+      }
+      if (json['LISTED'] != null) {
+        listed = [];
+        json['LISTED'].forEach((v) {
+          listed?.add(Listed.fromJson(v));
+        });
+      }
+      if (json['CLOSED'] != null) {
+        closed = [];
+        json['CLOSED'].forEach((v) {
+          closed?.add(Closed.fromJson(v));
+        });
+      }
+      if (json['UPCOMING'] != null) {
+        upcoming = [];
+        json['UPCOMING'].forEach((v) {
+          upcoming?.add(Upcoming.fromJson(v));
+        });
+      }
+    } catch (e) {
+      debugPrint("MainBoard Model: $e");
     }
   }
   List<Active>? active;
@@ -173,6 +179,7 @@ class Listed {
   Listed({
     this.additionalTxt,
     this.isSme,
+    this.logoUrl,
     this.searchId,
     this.symbol,
     this.growwShortName,
@@ -190,6 +197,7 @@ class Listed {
   Listed.fromJson(dynamic json) {
     additionalTxt = json['additionalTxt'];
     isSme = json['isSme'];
+    isSme = json['logoUrl'];
     searchId = json['searchId'];
     symbol = json['symbol'];
     growwShortName = json['growwShortName'];
@@ -205,6 +213,7 @@ class Listed {
   }
   String? additionalTxt;
   bool? isSme;
+  String? logoUrl;
   String? searchId;
   String? symbol;
   String? growwShortName;
@@ -222,6 +231,7 @@ class Listed {
     final map = <String, dynamic>{};
     map['additionalTxt'] = additionalTxt;
     map['isSme'] = isSme;
+    map['logoUrl'] = isSme;
     map['searchId'] = searchId;
     map['symbol'] = symbol;
     map['growwShortName'] = growwShortName;

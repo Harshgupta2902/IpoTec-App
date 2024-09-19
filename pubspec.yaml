@@ -19,6 +19,8 @@ dependencies:
   get_storage: ^2.1.1
   flutter_svg: ^2.0.10+1
   cached_network_image: ^3.4.1
+  intl: ^0.19.0
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +38,7 @@ flutter:
     - assets/icons/
     - assets/fonts/
     - assets/logos/
+    - assets/lottie/
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

@@ -6,17 +6,19 @@ import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
-class CoreDetailsCard extends StatelessWidget {
-  const CoreDetailsCard({
+class MainboardListingCard extends StatelessWidget {
+  const MainboardListingCard({
     super.key,
     this.logo,
     this.name,
     this.bid,
     this.data,
+    this.listedTime,
   });
   final String? logo;
   final String? name;
   final String? bid;
+  final String? listedTime;
   final List<KeyValuePairModel>? data;
 
   @override
@@ -53,28 +55,14 @@ class CoreDetailsCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          RichText(
-            text: TextSpan(
-              text: "Bid Closes on: ",
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.onyx),
-              children: [
-                TextSpan(
-                  text: bid,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: AppColors.black, fontWeight: FontWeight.w500),
-                )
-              ],
-            ),
+          Text(
+            listedTime ?? "",
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: CustomPaint(
-              size: Size(MediaQuery.of(context).size.width, 1),
-              painter: HorizontalDashedLinePainter(color: Colors.black54),
-            ),
-          ),
+          const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(
@@ -99,7 +87,7 @@ class CoreDetailsCard extends StatelessWidget {
                             .bodySmall
                             ?.copyWith(color: AppColors.boulder),
                       ),
-                      const SizedBox(width: 8 ),
+                      const SizedBox(width: 8),
                       Text(
                         data?[index].value,
                         style: Theme.of(context)
@@ -112,7 +100,24 @@ class CoreDetailsCard extends StatelessWidget {
                 );
               },
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: CustomPaint(
+              size: Size(MediaQuery.of(context).size.width, 1),
+              painter: HorizontalDashedLinePainter(color: Colors.black54),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              bid ?? "",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: AppColors.mediumGreen, fontWeight: FontWeight.w500),
+            ),
+          ),
         ],
       ),
     );
