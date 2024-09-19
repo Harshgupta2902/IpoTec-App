@@ -24,6 +24,7 @@ class MainboardUpcomingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: AppBoxDecoration.getBoxDecoration(),
       padding: const EdgeInsets.all(12),
       child: Column(

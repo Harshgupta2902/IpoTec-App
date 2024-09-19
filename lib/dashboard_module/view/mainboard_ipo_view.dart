@@ -19,6 +19,14 @@ class MainBoardIpoView extends StatefulWidget {
 
 class _MainBoardIpoViewState extends State<MainBoardIpoView> {
   @override
+  void initState() {
+    final filteredData =
+        _mainBoardIpoController.state?.listed?.where((data) => data.isSme == true).toList();
+    debugPrint(filteredData?.length.toString());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CoreAppBar(
@@ -30,66 +38,64 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
         (state) {
           return DefaultTabController(
             length: 2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Column(
-                children: [
-                  const CustomTabBar(
-                    tabList: ["Upcoming IPO's", "Listed IPO's"],
+            child: Column(
+              children: [
+                const CustomTabBar(
+                  tabList: ["Upcoming IPO's", "Listed IPO's"],
+                  horizontalPadding: 16,
+                  verticalPadding: 10,
+                ),
+                const SizedBox(height: 10),
+                Flexible(
+                  child: TabBarView(
+                    children: [
+                      ListView.separated(
+                        itemCount: state?.active?.where((data) => data.isSme == false).length ?? 0,
+                        itemBuilder: (context, index) {
+                          final filteredData =
+                              state?.active?.where((data) => data.isSme == false).toList();
+                          final data = filteredData?[index];
+                          return MainboardUpcomingCard(
+                            logo: data?.symbol,
+                            name: data?.growwShortName,
+                            bid: data?.additionalTxt,
+                            data: [
+                              KeyValuePairModel(
+                                  key: "Offer Price:",
+                                  value: "${data?.minPrice} - ${data?.maxPrice}"),
+                              KeyValuePairModel(key: "Lot Size:", value: "${data?.lotSize}"),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(height: 16),
+                      ),
+                      ListView.separated(
+                        itemCount: state?.listed?.where((data) => data.isSme == false).length ?? 0,
+                        itemBuilder: (context, index) {
+                          final filteredData =
+                              state?.listed?.where((data) => data.isSme == false).toList();
+                          final data = filteredData?[index];
+                          debugPrint("${data?.isSme}");
+                          return MainboardListingCard(
+                            logo: data?.logoUrl ?? data?.symbol,
+                            name: data?.growwShortName,
+                            bid: data?.additionalTxt,
+                            listedTime:
+                                "Listed on: ${convertDate(data?.listingDate ?? "")} at ${format2INR(data?.listingPrice)}",
+                            data: [
+                              KeyValuePairModel(
+                                  key: "Offer Price:",
+                                  value: "${data?.minPrice} - ${data?.maxPrice}"),
+                              KeyValuePairModel(key: "Lot Size:", value: "${data?.listingPrice}"),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(height: 16),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  Flexible(
-                    child: TabBarView(
-                      children: [
-                        ListView.separated(
-                          itemCount:
-                              state?.active?.where((data) => data.isSme == false).length ?? 0,
-                          itemBuilder: (context, index) {
-                            final filteredData =
-                                state?.active?.where((data) => data.isSme == false).toList();
-                            final data = filteredData?[index];
-                            return MainboardUpcomingCard(
-                              logo: data?.symbol,
-                              name: data?.growwShortName,
-                              bid: data?.additionalTxt,
-                              data: [
-                                KeyValuePairModel(
-                                    key: "Offer Price:",
-                                    value: "${data?.minPrice} - ${data?.maxPrice}"),
-                                KeyValuePairModel(key: "Lot Size:", value: "${data?.lotSize}"),
-                              ],
-                            );
-                          },
-                          separatorBuilder: (context, index) => const SizedBox(height: 16),
-                        ),
-                        ListView.separated(
-                          itemCount:
-                              state?.listed?.where((data) => data.isSme == false).length ?? 0,
-                          itemBuilder: (context, index) {
-                            final filteredData =
-                                state?.listed?.where((data) => data.isSme == false).toList();
-                            final data = filteredData?[index];
-                            return MainboardListingCard(
-                              logo: data?.logoUrl ?? data?.symbol,
-                              name: data?.growwShortName,
-                              bid: data?.additionalTxt,
-                              listedTime:
-                                  "Listed on: ${convertDate(data?.listingDate ?? "")} at ${format2INR(data?.listingPrice)}",
-                              data: [
-                                KeyValuePairModel(
-                                    key: "Offer Price:",
-                                    value: "${data?.minPrice} - ${data?.maxPrice}"),
-                                KeyValuePairModel(key: "Lot Size:", value: "${data?.isSme}"),
-                              ],
-                            );
-                          },
-                          separatorBuilder: (context, index) => const SizedBox(height: 16),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

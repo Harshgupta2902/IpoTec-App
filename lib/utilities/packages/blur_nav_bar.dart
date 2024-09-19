@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ipotec/utilities/packages/blurry_container.dart';
-import 'package:ipotec/utilities/theme/app_colors.dart';
 
 enum BlurEffectStyle { auto, light, dark }
 
@@ -64,7 +63,7 @@ class _BlurNavbarState extends State<BlurNavbar> with SingleTickerProviderStateM
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 6, left: 1210, right: 10),
+          padding: const EdgeInsets.only(bottom: 6, left: 12, right: 12),
           child: BlurryContainer(
             blur: 26,
             borderRadius: BorderRadius.all(radius),
@@ -75,7 +74,7 @@ class _BlurNavbarState extends State<BlurNavbar> with SingleTickerProviderStateM
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(bottom: 0, left: 10, right: 10),
+          margin: const EdgeInsets.only(bottom: 6, left: 16, right: 16),
           height: kBottomNavigationBarHeight,
           clipBehavior: Clip.none,
           decoration: BoxDecoration(
@@ -122,23 +121,13 @@ class _BlurNavbarState extends State<BlurNavbar> with SingleTickerProviderStateM
     return GestureDetector(
       onTap: () => _onTap(index),
       child: Container(
-        height: 40,
         width: 40,
+        height: 40,
         alignment: Alignment.bottomCenter,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                item.icon!,
-                Text(
-                  item.title ?? "",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.oil, fontSize: 10),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
+            item.icon!,
           ],
         ),
       ),
@@ -148,7 +137,6 @@ class _BlurNavbarState extends State<BlurNavbar> with SingleTickerProviderStateM
 
 class BlurNavbarItem {
   final Widget? icon;
-  final String? title;
 
-  BlurNavbarItem({this.icon, this.title}) : assert(icon != null);
+  BlurNavbarItem({this.icon}) : assert(icon != null);
 }

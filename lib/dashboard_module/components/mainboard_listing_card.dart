@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
@@ -24,6 +25,7 @@ class MainboardListingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: AppBoxDecoration.getBoxDecoration(),
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -31,16 +33,21 @@ class MainboardListingCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                height: 45,
-                width: 45,
-                decoration: AppBoxDecoration.getBoxDecoration(
-                  borderRadius: 10,
-                ),
-                child: SvgPicture.asset(
-                  getLogoPath(logo ?? "-"),
-                ),
-              ),
+              logo?.contains("http") == true
+                  ? CachedImageNetworkContainer(
+                      url: logo,
+                      placeHolder: buildPlaceholder(name: name, context: context),
+                    )
+                  : Container(
+                      height: 45,
+                      width: 45,
+                      decoration: AppBoxDecoration.getBoxDecoration(
+                        borderRadius: 10,
+                      ),
+                      child: SvgPicture.asset(
+                        getLogoPath(logo ?? "-"),
+                      ),
+                    ),
               const SizedBox(width: 16),
               Expanded(
                 child: Text(

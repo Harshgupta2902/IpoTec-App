@@ -77,17 +77,21 @@ class Upcoming {
   });
 
   Upcoming.fromJson(dynamic json) {
-    additionalTxt = json['additionalTxt'];
-    isSme = json['isSme'];
-    searchId = json['searchId'];
-    symbol = json['symbol'];
-    growwShortName = json['growwShortName'];
-    biddingStartDate = json['biddingStartDate'];
-    dailyStartTime = json['dailyStartTime'];
-    listingDate = json['listingDate'];
-    minPrice = json['minPrice'];
-    maxPrice = json['maxPrice'];
-    documentUrl = json['documentUrl'];
+    try {
+      additionalTxt = json['additionalTxt'];
+      isSme = json['isSme'];
+      searchId = json['searchId'];
+      symbol = json['symbol'];
+      growwShortName = json['growwShortName'];
+      biddingStartDate = json['biddingStartDate'];
+      dailyStartTime = json['dailyStartTime'];
+      listingDate = json['listingDate'];
+      minPrice = json['minPrice'];
+      maxPrice = json['maxPrice'];
+      documentUrl = json['documentUrl'];
+    } on Exception catch (e) {
+      debugPrint("MainBoRd ipo model :=> Upcoming :=> $e");
+    }
   }
   String? additionalTxt;
   bool? isSme;
@@ -134,17 +138,21 @@ class Closed {
   });
 
   Closed.fromJson(dynamic json) {
-    additionalTxt = json['additionalTxt'];
-    isSme = json['isSme'];
-    searchId = json['searchId'];
-    symbol = json['symbol'];
-    growwShortName = json['growwShortName'];
-    biddingStartDate = json['biddingStartDate'];
-    dailyStartTime = json['dailyStartTime'];
-    listingDate = json['listingDate'];
-    minPrice = json['minPrice'];
-    maxPrice = json['maxPrice'];
-    documentUrl = json['documentUrl'];
+    try {
+      additionalTxt = json['additionalTxt'];
+      isSme = json['isSme'];
+      searchId = json['searchId'];
+      symbol = json['symbol'];
+      growwShortName = json['growwShortName'];
+      biddingStartDate = json['biddingStartDate'];
+      dailyStartTime = json['dailyStartTime'];
+      listingDate = json['listingDate'];
+      minPrice = json['minPrice'];
+      maxPrice = json['maxPrice'];
+      documentUrl = json['documentUrl'];
+    } on Exception catch (e) {
+      debugPrint("MainBoRd ipo model :=> Closed :=> $e");
+    }
   }
   String? additionalTxt;
   bool? isSme;
@@ -195,25 +203,28 @@ class Listed {
   });
 
   Listed.fromJson(dynamic json) {
-    additionalTxt = json['additionalTxt'];
-    isSme = json['isSme'];
-    isSme = json['logoUrl'];
-    searchId = json['searchId'];
-    symbol = json['symbol'];
-    growwShortName = json['growwShortName'];
-    biddingStartDate = json['biddingStartDate'];
-    dailyStartTime = json['dailyStartTime'];
-    listingDate = json['listingDate'];
-    minPrice = json['minPrice'];
-    maxPrice = json['maxPrice'];
-    documentUrl = json['documentUrl'];
-    issuePrice = json['issuePrice'];
-    listingGains = json['listingGains'];
-    listingPrice = json['listingPrice'];
+    try {
+      additionalTxt = json['additionalTxt'];
+      isSme = json['isSme'];
+      logoUrl = json['logoUrl'];
+      searchId = json['searchId'];
+      symbol = json['symbol'];
+      growwShortName = json['growwShortName'];
+      biddingStartDate = json['biddingStartDate'];
+      dailyStartTime = json['dailyStartTime'];
+      listingDate = json['listingDate'];
+      minPrice = json['minPrice'];
+      maxPrice = json['maxPrice'];
+      documentUrl = json['documentUrl'];
+      issuePrice = json['issuePrice'];
+      listingGains = json['listingGains'];
+      listingPrice = json['listingPrice'];
+    } on Exception catch (e) {
+      debugPrint("MainBoRd ipo model :=> Listed :=> $e");
+    }
   }
   String? additionalTxt;
   bool? isSme;
-  String? logoUrl;
   String? searchId;
   String? symbol;
   String? growwShortName;
@@ -226,6 +237,7 @@ class Listed {
   num? issuePrice;
   num? listingGains;
   num? listingPrice;
+  String? logoUrl;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -261,7 +273,6 @@ class Active {
     this.minPrice,
     this.maxPrice,
     this.preApplyOpen,
-    this.categories,
     this.isin,
     this.lotSize,
     this.minBidQuantity,
@@ -269,27 +280,25 @@ class Active {
   });
 
   Active.fromJson(dynamic json) {
-    additionalTxt = json['additionalTxt'];
-    isSme = json['isSme'];
-    searchId = json['searchId'];
-    symbol = json['symbol'];
-    growwShortName = json['growwShortName'];
-    biddingStartDate = json['biddingStartDate'];
-    biddingEndDate = json['biddingEndDate'];
-    lastBidPlaceTime = json['lastBidPlaceTime'];
-    minPrice = json['minPrice'];
-    maxPrice = json['maxPrice'];
-    preApplyOpen = json['preApplyOpen'];
-    if (json['categories'] != null) {
-      categories = [];
-      json['categories'].forEach((v) {
-        categories?.add(Categories.fromJson(v));
-      });
+    try {
+      additionalTxt = json['additionalTxt'];
+      isSme = json['isSme'];
+      searchId = json['searchId'];
+      symbol = json['symbol'];
+      growwShortName = json['growwShortName'];
+      biddingStartDate = json['biddingStartDate'];
+      biddingEndDate = json['biddingEndDate'];
+      lastBidPlaceTime = json['lastBidPlaceTime'];
+      minPrice = json['minPrice'];
+      maxPrice = json['maxPrice'];
+      preApplyOpen = json['preApplyOpen'];
+      isin = json['isin'];
+      lotSize = json['lotSize'];
+      minBidQuantity = json['minBidQuantity'];
+      tickSize = json['tickSize'];
+    } on Exception catch (e) {
+      debugPrint("MainBoRd ipo model :=> Active :=> $e");
     }
-    isin = json['isin'];
-    lotSize = json['lotSize'];
-    minBidQuantity = json['minBidQuantity'];
-    tickSize = json['tickSize'];
   }
   String? additionalTxt;
   bool? isSme;
@@ -302,7 +311,6 @@ class Active {
   num? minPrice;
   num? maxPrice;
   bool? preApplyOpen;
-  List<Categories>? categories;
   String? isin;
   num? lotSize;
   num? minBidQuantity;
@@ -321,102 +329,10 @@ class Active {
     map['minPrice'] = minPrice;
     map['maxPrice'] = maxPrice;
     map['preApplyOpen'] = preApplyOpen;
-    if (categories != null) {
-      map['categories'] = categories?.map((v) => v.toJson()).toList();
-    }
     map['isin'] = isin;
     map['lotSize'] = lotSize;
     map['minBidQuantity'] = minBidQuantity;
     map['tickSize'] = tickSize;
-    return map;
-  }
-}
-
-class Categories {
-  Categories({
-    this.category,
-    this.categoryLabel,
-    this.categorySubText,
-    this.lotSize,
-    this.minBidQuantity,
-    this.minPrice,
-    this.maxPrice,
-    this.subscriptionRate,
-    this.state,
-    this.categoryDiscount,
-    this.isCategoryActive,
-    this.cutOffTime,
-    this.categoryDetails,
-  });
-
-  Categories.fromJson(dynamic json) {
-    category = json['category'];
-    categoryLabel = json['categoryLabel'];
-    categorySubText = json['categorySubText'];
-    lotSize = json['lotSize'];
-    minBidQuantity = json['minBidQuantity'];
-    minPrice = json['minPrice'];
-    maxPrice = json['maxPrice'];
-    subscriptionRate = json['subscriptionRate'];
-    state = json['state'];
-    categoryDiscount = json['categoryDiscount'];
-    isCategoryActive = json['isCategoryActive'];
-    cutOffTime = json['cutOffTime'];
-    categoryDetails =
-        json['categoryDetails'] != null ? CategoryDetails.fromJson(json['categoryDetails']) : null;
-  }
-  String? category;
-  String? categoryLabel;
-  String? categorySubText;
-  num? lotSize;
-  num? minBidQuantity;
-  num? minPrice;
-  num? maxPrice;
-  dynamic subscriptionRate;
-  String? state;
-  num? categoryDiscount;
-  bool? isCategoryActive;
-  String? cutOffTime;
-  CategoryDetails? categoryDetails;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['category'] = category;
-    map['categoryLabel'] = categoryLabel;
-    map['categorySubText'] = categorySubText;
-    map['lotSize'] = lotSize;
-    map['minBidQuantity'] = minBidQuantity;
-    map['minPrice'] = minPrice;
-    map['maxPrice'] = maxPrice;
-    map['subscriptionRate'] = subscriptionRate;
-    map['state'] = state;
-    map['categoryDiscount'] = categoryDiscount;
-    map['isCategoryActive'] = isCategoryActive;
-    map['cutOffTime'] = cutOffTime;
-    if (categoryDetails != null) {
-      map['categoryDetails'] = categoryDetails?.toJson();
-    }
-    return map;
-  }
-}
-
-class CategoryDetails {
-  CategoryDetails({
-    this.categoryLabel,
-    this.categoryInfo,
-  });
-
-  CategoryDetails.fromJson(dynamic json) {
-    categoryLabel = json['categoryLabel'];
-    categoryInfo = json['categoryInfo'] != null ? json['categoryInfo'].cast<String>() : [];
-  }
-  String? categoryLabel;
-  List<String>? categoryInfo;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['categoryLabel'] = categoryLabel;
-    map['categoryInfo'] = categoryInfo;
     return map;
   }
 }

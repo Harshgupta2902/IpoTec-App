@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
       routerConfig: goRouterConfig,
       themeMode: ThemeMode.light,
       theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.backgroundColor,
         useMaterial3: true,
         primaryColor: AppColors.primaryColor,
         fontFamily: 'Poppins',
