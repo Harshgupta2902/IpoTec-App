@@ -3,6 +3,8 @@ class APIEndPoints {
   static const local = 'https://beta.gradding.com/api/gradielts/v1/';
   static const base = live;
 
+  static const defaultApi = "default";
+
   static const ipo = "ipo";
   static const buyback = "buyback";
 

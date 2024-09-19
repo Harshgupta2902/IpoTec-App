@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/dashboard_module/contoller/mainboard_ipo_controller.dart';
+import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
 import 'package:ipotec/utilities/common/custom_bottom_navigation.dart';
 import 'package:ipotec/utilities/common/default_app_drawer.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';

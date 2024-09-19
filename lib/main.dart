@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/navigation/route_generator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:ipotec/utilities/theme/smooth_rectangular_border.dart';
 
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+final _defaultController = Get.put(DefaultApiController());
 
 void main() {
+  _defaultController.getDefaultData();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       scaffoldMessengerKey: scaffoldMessengerKey,
       builder: (context, child) {
         final boldText = MediaQuery.boldTextOf(context);
-
         final newMediaQueryData = MediaQuery.of(context).copyWith(
           boldText: boldText,
           textScaler: const TextScaler.linear(1.0),
