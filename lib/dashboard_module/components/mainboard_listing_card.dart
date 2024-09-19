@@ -25,7 +25,7 @@ class MainboardListingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: AppBoxDecoration.getBoxDecoration(),
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -35,6 +35,11 @@ class MainboardListingCard extends StatelessWidget {
             children: [
               logo?.contains("http") == true
                   ? CachedImageNetworkContainer(
+                height: 45,
+                width: 45,
+                decoration: AppBoxDecoration.getBoxDecoration(
+                  borderRadius: 10,
+                ),
                       url: logo,
                       placeHolder: buildPlaceholder(name: name, context: context),
                     )

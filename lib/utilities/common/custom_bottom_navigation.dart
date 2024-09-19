@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
-import 'package:ipotec/utilities/packages/blur_nav_bar.dart';
+import 'package:ipotec/utilities/theme/app_colors.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({super.key});
@@ -15,33 +16,41 @@ class CustomBottomNavigationBar extends StatefulWidget {
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   int _index = 0;
 
+  List<KeyValuePairModel> bars = [
+    KeyValuePairModel(key: AssetPath.mainBoard, value: "Mainboard"),
+    KeyValuePairModel(key: AssetPath.sme, value: "SME"),
+    KeyValuePairModel(key: AssetPath.buyBack, value: "Buyback"),
+    KeyValuePairModel(key: AssetPath.blogs, value: "Blogs"),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return BlurNavbar(
-      onTap: (idx) {
+    return BottomNavigationBar(
+      onTap: (value) {
         setState(() {
-          _index = idx;
-          debugPrint('$idx');
+          _index = value;
         });
-        _onItemTapped(idx);
+        _onItemTapped(value);
       },
-      items: [
-        BlurNavbarItem(
-          icon: SvgPicture.asset(AssetPath.mainBoard),
-        ),
-        BlurNavbarItem(
-          icon: SvgPicture.asset(AssetPath.sme),
-        ),
-        BlurNavbarItem(
-          icon: SvgPicture.asset(AssetPath.buyBack),
-        ),
-        BlurNavbarItem(
-          icon: SvgPicture.asset(AssetPath.blogs),
-        ),
-      ],
+      backgroundColor: Colors.white,
       currentIndex: _index,
-      selectedColor: Colors.transparent,
-      borderRadius: 12,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: AppColors.primaryColor,
+      unselectedItemColor: Colors.black,
+      selectedFontSize: 14,
+      unselectedFontSize: 14,
+      items: List.generate(
+        bars.length,
+        (index) {
+          return BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              bars[index].key,
+              color: index == _index ? AppColors.primaryColor : Colors.black,
+            ),
+            label: bars[index].value,
+          );
+        },
+      ),
     );
   }
 }
@@ -55,7 +64,7 @@ void _onItemTapped(int index) {
       MyNavigator.pushNamed(GoPaths.sme);
       break;
     case 2:
-      MyNavigator.pushNamed(GoPaths.mainBoard);
+      MyNavigator.pushNamed(GoPaths.buyBack);
       break;
     default:
       MyNavigator.pushNamed(GoPaths.sme);

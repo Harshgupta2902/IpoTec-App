@@ -1,35 +1,17 @@
-class SmeIpoModal {
-  SmeIpoModal({
-    this.active,
-    this.upcoming,
+class BuybackIpoModel {
+  BuybackIpoModel({
     this.expired,
-    this.cancelled,
     this.closed,
+    this.active,
+    this.cancelled,
+    this.upcoming,
   });
 
-  SmeIpoModal.fromJson(dynamic json) {
-    if (json['ACTIVE'] != null) {
-      active = [];
-      json['ACTIVE'].forEach((v) {
-        active?.add(Data.fromJson(v));
-      });
-    }
-    if (json['UPCOMING'] != null) {
-      upcoming = [];
-      json['UPCOMING'].forEach((v) {
-        upcoming?.add(Data.fromJson(v));
-      });
-    }
+  BuybackIpoModel.fromJson(dynamic json) {
     if (json['EXPIRED'] != null) {
       expired = [];
       json['EXPIRED'].forEach((v) {
         expired?.add(Data.fromJson(v));
-      });
-    }
-    if (json['CANCELLED'] != null) {
-      cancelled = [];
-      json['CANCELLED'].forEach((v) {
-        cancelled?.add(Data.fromJson(v));
       });
     }
     if (json['CLOSED'] != null) {
@@ -38,29 +20,47 @@ class SmeIpoModal {
         closed?.add(Data.fromJson(v));
       });
     }
+    if (json['ACTIVE'] != null) {
+      active = [];
+      json['ACTIVE'].forEach((v) {
+        active?.add(Data.fromJson(v));
+      });
+    }
+    if (json['CANCELLED'] != null) {
+      cancelled = [];
+      json['CANCELLED'].forEach((v) {
+        cancelled?.add(Data.fromJson(v));
+      });
+    }
+    if (json['UPCOMING'] != null) {
+      upcoming = [];
+      json['UPCOMING'].forEach((v) {
+        upcoming?.add(Data.fromJson(v));
+      });
+    }
   }
-  List<Data>? active;
-  List<Data>? upcoming;
   List<Data>? expired;
-  List<Data>? cancelled;
   List<Data>? closed;
+  List<Data>? active;
+  List<Data>? cancelled;
+  List<Data>? upcoming;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    if (active != null) {
-      map['ACTIVE'] = active?.map((v) => v.toJson()).toList();
-    }
-    if (upcoming != null) {
-      map['UPCOMING'] = upcoming?.map((v) => v.toJson()).toList();
-    }
     if (expired != null) {
       map['EXPIRED'] = expired?.map((v) => v.toJson()).toList();
+    }
+    if (closed != null) {
+      map['CLOSED'] = closed?.map((v) => v.toJson()).toList();
+    }
+    if (active != null) {
+      map['ACTIVE'] = active?.map((v) => v.toJson()).toList();
     }
     if (cancelled != null) {
       map['CANCELLED'] = cancelled?.map((v) => v.toJson()).toList();
     }
-    if (closed != null) {
-      map['CLOSED'] = closed?.map((v) => v.toJson()).toList();
+    if (upcoming != null) {
+      map['UPCOMING'] = upcoming?.map((v) => v.toJson()).toList();
     }
     return map;
   }

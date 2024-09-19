@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ipotec/dashboard_module/view/buyback_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
 import 'package:ipotec/dashboard_module/view/sme_ipo_view.dart';
@@ -34,6 +35,14 @@ final GoRouter goRouterConfig = GoRouter(
           name: GoPaths.sme,
           builder: (context, state) {
             return const SmeIpoView();
+          },
+        ),
+        GoRoute(
+          parentNavigatorKey: shellNavigatorKey,
+          path: GoPaths.buyBack,
+          name: GoPaths.buyBack,
+          builder: (context, state) {
+            return const BuybackIpoView();
           },
         ),
       ],

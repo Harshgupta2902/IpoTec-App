@@ -49,11 +49,23 @@ String getLogoPath(String word) {
   }
 }
 
-String convertDate(String dateString) {
-  DateTime date = DateTime.parse(dateString);
-  DateFormat outputFormat = DateFormat('MMM d, yyyy');
-  String formattedDate = outputFormat.format(date);
-  return formattedDate;
+String convertDate(String dateString, {bool showYear = true}) {
+  try {
+    DateTime date;
+
+    if (dateString.contains('T')) {
+      date = DateTime.parse(dateString);
+    } else {
+      date = DateTime.parse(dateString);
+    }
+
+    DateFormat outputFormat = showYear ? DateFormat('MMM d, yyyy') : DateFormat('MMM d');
+    String formattedDate = outputFormat.format(date);
+
+    return formattedDate;
+  } catch (e) {
+    return 'Invalid date format';
+  }
 }
 
 String format2INR(dynamic amount, {bool removeAllAfterDecimal = true}) {
@@ -78,9 +90,14 @@ extension StringExtendion on String? {
     if (this != null && this?.isNotEmpty == true) {
       return '$this';
     }
-
     return this!.substring(0, this!.length - removeLength);
   }
+}
+
+String getBuyBackName(String name) {
+  String modifiedString = name.replaceAll('_', ' ');
+  String finalString = "${modifiedString.split('BUYBACK')[0].trim()} BUYBACK";
+  return finalString;
 }
 
 // String formatBidDates(String bidText) {

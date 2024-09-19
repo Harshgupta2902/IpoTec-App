@@ -9,23 +9,28 @@ import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:lottie/lottie.dart';
 
-class MainboardUpcomingCard extends StatelessWidget {
-  const MainboardUpcomingCard({
+class BuybackUpcomingCard extends StatelessWidget {
+  const BuybackUpcomingCard({
     super.key,
     this.logo,
     this.name,
     this.bid,
     this.data,
+    this.issueSize,
+    this.isLive,
   });
+
   final String? logo;
   final String? name;
   final String? bid;
+  final String? issueSize;
+  final bool? isLive;
   final List<KeyValuePairModel>? data;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: AppBoxDecoration.getBoxDecoration(),
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -35,11 +40,11 @@ class MainboardUpcomingCard extends StatelessWidget {
             children: [
               logo?.contains("http") == true
                   ? CachedImageNetworkContainer(
-                height: 45,
-                width: 45,
-                decoration: AppBoxDecoration.getBoxDecoration(
-                  borderRadius: 10,
-                ),
+                      height: 45,
+                      width: 45,
+                      decoration: AppBoxDecoration.getBoxDecoration(
+                        borderRadius: 10,
+                      ),
                       url: logo,
                       placeHolder: buildPlaceholder(name: name, context: context),
                     )
@@ -64,35 +69,49 @@ class MainboardUpcomingCard extends StatelessWidget {
                       ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
                 ),
               ),
-              const SizedBox(width: 16),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                decoration: AppBoxDecoration.getBoxDecoration(
-                  color: Colors.red.withOpacity(0.4),
-                  borderRadius: 4,
-                ),
-                child: Row(
-                  children: [
-                    Lottie.asset(AssetPath.liveLottie, height: 12, width: 12),
-                    Text(
-                      "Live",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(color: AppColors.cadmiumRed),
-                    ),
-                  ],
-                ),
-              )
+              if (isLive == true) ...[
+                const SizedBox(width: 16),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                  decoration: AppBoxDecoration.getBoxDecoration(
+                    color: Colors.red.withOpacity(0.4),
+                    borderRadius: 4,
+                  ),
+                  child: Row(
+                    children: [
+                      Lottie.asset(AssetPath.liveLottie, height: 12, width: 12),
+                      Text(
+                        "Live",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(color: AppColors.cadmiumRed),
+                      ),
+                    ],
+                  ),
+                )
+              ]
             ],
           ),
           const SizedBox(height: 6),
-          Text(
-            bid ?? "",
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(color: AppColors.black, fontWeight: FontWeight.w500),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                bid ?? "",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: AppColors.black, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                issueSize ?? "",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: AppColors.black, fontWeight: FontWeight.w500),
+              ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -115,7 +134,7 @@ class MainboardUpcomingCard extends StatelessWidget {
                     horizontal: 12,
                     vertical: 4,
                   ),
-                  child: Row(
+                  child: Column(
                     children: [
                       Text(
                         data?[index].key,
@@ -125,7 +144,6 @@ class MainboardUpcomingCard extends StatelessWidget {
                             .bodySmall
                             ?.copyWith(color: AppColors.boulder),
                       ),
-                      const SizedBox(width: 8),
                       Text(
                         data?[index].value,
                         style: Theme.of(context)
