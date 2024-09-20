@@ -8,6 +8,8 @@ import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
 
@@ -50,28 +52,34 @@ class _SmeIpoViewState extends State<SmeIpoView> {
                           final filteredData =
                               allActive.where((data) => data.isSme == true).toList();
                           final data = filteredData[index];
-                          return MainboardUpcomingCard(
-                            type: IpoType.sme,
-                            logo: data.logoUrl ?? data.symbol,
-                            name: data.growwShortName?.trim(),
-                            bid: data.additionalTxt?.trim(),
-                            data: [
-                              if (data.minPrice != null && data.maxPrice != null)
-                                KeyValuePairModel(
-                                  key: "Offer Price:",
-                                  value: "${data.minPrice} - ${data.maxPrice}",
-                                ),
-                              if (data.lotSize != null)
-                                KeyValuePairModel(
-                                  key: "Lot Size:",
-                                  value: "${data.lotSize}",
-                                ),
-                              if (data.listingDate != null)
-                                KeyValuePairModel(
-                                  key: "Start Date:",
-                                  value: convertDate(data.biddingStartDate ?? ""),
-                                ),
-                            ],
+                          return GestureDetector(
+                            onTap: () => MyNavigator.pushNamed(
+                              GoPaths.mainBoardDetails,
+                              extra: {'slug': data.searchId, 'name': data.growwShortName},
+                            ),
+                            child: MainboardUpcomingCard(
+                              type: IpoType.sme,
+                              logo: data.logoUrl ?? data.symbol,
+                              name: data.growwShortName?.trim(),
+                              bid: data.additionalTxt?.trim(),
+                              data: [
+                                if (data.minPrice != null && data.maxPrice != null)
+                                  KeyValuePairModel(
+                                    key: "Offer Price:",
+                                    value: "${data.minPrice} - ${data.maxPrice}",
+                                  ),
+                                if (data.lotSize != null)
+                                  KeyValuePairModel(
+                                    key: "Lot Size:",
+                                    value: "${data.lotSize}",
+                                  ),
+                                if (data.listingDate != null)
+                                  KeyValuePairModel(
+                                    key: "Start Date:",
+                                    value: convertDate(data.biddingStartDate ?? ""),
+                                  ),
+                              ],
+                            ),
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(height: 16),
@@ -82,18 +90,24 @@ class _SmeIpoViewState extends State<SmeIpoView> {
                           final filteredData =
                               state?.listed?.where((data) => data.isSme == true).toList();
                           final data = filteredData?[index];
-                          return MainboardListingCard(
-                            logo: data?.logoUrl ?? data?.symbol,
-                            name: data?.growwShortName,
-                            bid: data?.additionalTxt,
-                            listedTime:
-                                "Listed on: ${convertDate(data?.listingDate ?? "")} at ${format2INR(data?.listingPrice)}",
-                            data: [
-                              KeyValuePairModel(
-                                  key: "Offer Price:",
-                                  value: "${data?.minPrice} - ${data?.maxPrice}"),
-                              KeyValuePairModel(key: "Lot Size:", value: "${data?.listingPrice}"),
-                            ],
+                          return GestureDetector(
+                            onTap: () => MyNavigator.pushNamed(
+                              GoPaths.mainBoardDetails,
+                              extra: {'slug': data?.searchId, 'name': data?.growwShortName},
+                            ),
+                            child: MainboardListingCard(
+                              logo: data?.logoUrl ?? data?.symbol,
+                              name: data?.growwShortName,
+                              bid: data?.additionalTxt,
+                              listedTime:
+                                  "Listed on: ${convertDate(data?.listingDate ?? "")} at ${format2INR(data?.listingPrice)}",
+                              data: [
+                                KeyValuePairModel(
+                                    key: "Offer Price:",
+                                    value: "${data?.minPrice} - ${data?.maxPrice}"),
+                                KeyValuePairModel(key: "Lot Size:", value: "${data?.listingPrice}"),
+                              ],
+                            ),
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(height: 16),

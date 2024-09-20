@@ -84,18 +84,24 @@ class MainBoardIpoView extends StatelessWidget {
                           final filteredData =
                               state?.listed?.where((data) => data.isSme == false).toList();
                           final data = filteredData?[index];
-                          return MainboardListingCard(
-                            logo: data?.logoUrl ?? data?.symbol,
-                            name: data?.growwShortName,
-                            bid: data?.additionalTxt,
-                            listedTime:
-                                "Listed on: ${convertDate(data?.listingDate ?? "")} at ${format2INR(data?.listingPrice)}",
-                            data: [
-                              KeyValuePairModel(
-                                  key: "Offer Price:",
-                                  value: "${data?.minPrice} - ${data?.maxPrice}"),
-                              KeyValuePairModel(key: "Lot Size:", value: "${data?.listingPrice}"),
-                            ],
+                          return GestureDetector(
+                            onTap: () => MyNavigator.pushNamed(
+                              GoPaths.mainBoardDetails,
+                              extra: {'slug': data?.searchId, 'name': data?.growwShortName},
+                            ),
+                            child: MainboardListingCard(
+                              logo: data?.logoUrl ?? data?.symbol,
+                              name: data?.growwShortName,
+                              bid: data?.additionalTxt,
+                              listedTime:
+                                  "Listed on: ${convertDate(data?.listingDate ?? "")} at ${format2INR(data?.listingPrice)}",
+                              data: [
+                                KeyValuePairModel(
+                                    key: "Offer Price:",
+                                    value: "${data?.minPrice} - ${data?.maxPrice}"),
+                                KeyValuePairModel(key: "Lot Size:", value: "${data?.listingPrice}"),
+                              ],
+                            ),
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(height: 16),

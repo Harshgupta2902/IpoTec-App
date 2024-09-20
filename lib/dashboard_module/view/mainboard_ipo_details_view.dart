@@ -5,7 +5,6 @@ import 'package:ipotec/dashboard_module/controller/mainboard_ipo_details_control
 import 'package:ipotec/dashboard_module/modal/ipo_details_model.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
-import 'package:ipotec/utilities/common/custom_tab_bar.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
@@ -78,30 +77,27 @@ class _MainboardIpoDetailsViewState extends State<MainboardIpoDetailsView> {
                     children: [
                       Row(
                         children: [
-                          Hero(
-                            tag: "fund",
-                            child: state?.data?.logoUrl?.contains("http") == true
-                                ? CachedImageNetworkContainer(
-                                    height: 45,
-                                    width: 45,
-                                    decoration: AppBoxDecoration.getBoxDecoration(
-                                      borderRadius: 10,
-                                    ),
-                                    url: state?.data?.logoUrl,
-                                    placeHolder: buildPlaceholder(
-                                        name: state?.data?.growwShortName, context: context),
-                                  )
-                                : Container(
-                                    height: 45,
-                                    width: 45,
-                                    decoration: AppBoxDecoration.getBoxDecoration(
-                                      borderRadius: 10,
-                                    ),
-                                    child: SvgPicture.asset(
-                                      getLogoPath(state?.data?.growwShortName ?? "-"),
-                                    ),
+                          state?.data?.logoUrl?.contains("http") == true
+                              ? CachedImageNetworkContainer(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: AppBoxDecoration.getBoxDecoration(
+                                    borderRadius: 10,
                                   ),
-                          ),
+                                  url: state?.data?.logoUrl,
+                                  placeHolder: buildPlaceholder(
+                                      name: state?.data?.growwShortName, context: context),
+                                )
+                              : Container(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: AppBoxDecoration.getBoxDecoration(
+                                    borderRadius: 10,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    getLogoPath(state?.data?.growwShortName ?? "-"),
+                                  ),
+                                ),
                           const SizedBox(width: 16),
                           Expanded(
                             child: Column(
@@ -354,7 +350,7 @@ class ExtraDetailsCard extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) {
-              return Divider();
+              return const Divider();
             },
           ),
         ],
@@ -594,19 +590,19 @@ class FinancialAllocationCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    financials?[index].yearly?[0].value.toString() ?? "-",
+                    financials?[index].yearly?[0].value?.toStringAsFixed(2) ?? "-",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
                   ),
                   Text(
-                    financials?[index].yearly?[1].value.toString() ?? "-",
+                    financials?[index].yearly?[1].value?.toStringAsFixed(2) ?? "-",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
                   ),
                   Text(
-                    financials?[index].yearly?[2].value.toString() ?? "-",
+                    financials?[index].yearly?[2].value?.toStringAsFixed(2) ?? "-",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),

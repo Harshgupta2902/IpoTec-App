@@ -58,15 +58,15 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 void _onItemTapped(int index) {
   switch (index) {
     case 0:
-      MyNavigator.pushNamed(GoPaths.mainBoard);
+      MyNavigator.go(GoPaths.mainBoard);
       break;
     case 1:
-      MyNavigator.pushNamed(GoPaths.sme);
+      MyNavigator.go(GoPaths.sme);
       break;
     case 2:
-      MyNavigator.pushNamed(GoPaths.buyBack);
+      MyNavigator.go(GoPaths.buyBack);
       break;
     default:
-      MyNavigator.pushNamed(GoPaths.sme);
+      MyNavigator.go(GoPaths.sme);
   }
 }
