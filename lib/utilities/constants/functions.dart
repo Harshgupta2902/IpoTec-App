@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
+import 'package:flutter/material.dart';
 
 String getLogoPath(String word) {
   String firstLetter = word[0].toUpperCase();
@@ -103,6 +104,38 @@ extension StringExtendion on String? {
       return '$this';
     }
     return this!.substring(0, this!.length - removeLength);
+  }
+
+  String toPercent({bool removeDecimal = false}) {
+    try {
+      if (this != null) {
+        String originalString = '$this';
+
+        if (originalString.contains('%')) {
+          return originalString;
+        }
+
+        if (originalString.contains('.')) {
+          List<String> parts = originalString.split('.');
+
+          if (removeDecimal) {
+            return '${parts[0]}%';
+          }
+          if (parts.length == 2) {
+            String decimalPart =
+                parts[1].length >= 2 ? parts[1].substring(0, 2) : parts[1].padRight(2, '0');
+            return '${parts[0]}.$decimalPart%';
+          }
+        }
+
+        return '$originalString%';
+      } else {
+        return '-';
+      }
+    } catch (e) {
+      debugPrint("Error: Input is not a valid number");
+      return '-';
+    }
   }
 }
 

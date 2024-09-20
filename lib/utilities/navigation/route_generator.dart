@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ipotec/dashboard_module/view/buyback_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
@@ -58,23 +59,26 @@ final GoRouter goRouterConfig = GoRouter(
         final extras = state.extra as Map<String, dynamic>;
         final slug = extras['slug'];
         final name = extras['name'];
-        return MainboardIpoDetailsView(slug: slug, name: name,);
+        return MainboardIpoDetailsView(
+          slug: slug,
+          name: name,
+        );
       },
     ),
-    //
-    // GoRoute(
-    //   parentNavigatorKey: rootNavigatorKey,
-    //   path: GoPaths.otp,
-    //   name: GoPaths.otp,
-    //   builder: (context, state) {
-    //     final extras = state.extra as Map<String, dynamic>;
-    //     final phone = extras['phone'];
-    //     final path = extras['path'];
-    //     return OtpView(
-    //       number: phone,
-    //       path: path,
-    //     );
-    //   },
-    // ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.buyBackDetails,
+      name: GoPaths.buyBackDetails,
+      builder: (context, state) {
+        final extras = state.extra as Map<String, dynamic>;
+        final slug = extras['slug'];
+        final name = extras['name'];
+        return BuybackIpoDetailsView(
+          slug: slug,
+          name: name,
+        );
+      },
+    ),
   ],
 );

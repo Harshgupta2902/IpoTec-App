@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 class ReadMoreText extends StatefulWidget {
-  const ReadMoreText({super.key, required this.subtitle});
+  const ReadMoreText({super.key, required this.subtitle, this.textStyle});
   final String? subtitle;
+  final TextStyle? textStyle;
 
   @override
   State<ReadMoreText> createState() => _ReadMoreTextState();
@@ -23,7 +24,7 @@ class _ReadMoreTextState extends State<ReadMoreText> {
                 : showMore == true
                     ? widget.subtitle
                     : ('${widget.subtitle?.split('').take(80).join('')}...'),
-            style: Theme.of(context).textTheme.bodySmall,
+            style: widget.textStyle ?? Theme.of(context).textTheme.bodySmall,
           ),
           TextSpan(
             recognizer: TapGestureRecognizer()

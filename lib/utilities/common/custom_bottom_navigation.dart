@@ -45,6 +45,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           return BottomNavigationBarItem(
             icon: SvgPicture.asset(
               bars[index].key,
+              // ignore: deprecated_member_use
               color: index == _index ? AppColors.primaryColor : Colors.black,
             ),
             label: bars[index].value,

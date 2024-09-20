@@ -36,12 +36,12 @@ class MainBoardIpoView extends StatelessWidget {
                   horizontalPadding: 16,
                   verticalPadding: 10,
                 ),
-                const SizedBox(height: 10),
                 Flexible(
                   child: TabBarView(
                     children: [
                       ListView.separated(
                         itemCount: allActive.where((data) => data.isSme == false).length,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         itemBuilder: (context, index) {
                           final filteredData =
                               allActive.where((data) => data.isSme == false).toList();
@@ -80,6 +80,7 @@ class MainBoardIpoView extends StatelessWidget {
                       ),
                       ListView.separated(
                         itemCount: state?.listed?.where((data) => data.isSme == false).length ?? 0,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         itemBuilder: (context, index) {
                           final filteredData =
                               state?.listed?.where((data) => data.isSme == false).toList();

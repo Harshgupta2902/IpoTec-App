@@ -540,7 +540,7 @@ class FinancialAllocationCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.35,
+                width: MediaQuery.of(context).size.width * 0.3,
                 child: Text(
                   "",
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -549,63 +549,47 @@ class FinancialAllocationCard extends StatelessWidget {
                       ),
                 ),
               ),
-              Text(
-                "2022",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.boulder,
-                    ),
-              ),
-              Text(
-                "2023",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.boulder,
-                    ),
-              ),
-              Text(
-                "2024",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.boulder,
-                    ),
+              ...List.generate(
+                financials?[0].yearly?.length ?? 0,
+                (index) {
+                  return Text(
+                    financials?[0].yearly?[index].year?.toString() ?? "",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.boulder,
+                        ),
+                  );
+                },
               ),
             ],
           ),
           const Divider(color: Colors.black),
-          ...List.generate(financials?.length ?? 0, (index) {
+          ...List.generate(financials?.length ?? 0, (mainIndex) {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     child: Text(
-                      financials?[index].title.toString() ?? "-",
+                      financials?[mainIndex].title.toString() ?? "-",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppColors.onyx,
                           ),
                     ),
                   ),
-                  Text(
-                    financials?[index].yearly?[0].value?.toStringAsFixed(2) ?? "-",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                  Text(
-                    financials?[index].yearly?[1].value?.toStringAsFixed(2) ?? "-",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                  Text(
-                    financials?[index].yearly?[2].value?.toStringAsFixed(2) ?? "-",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                  ...List.generate(
+                    financials?[mainIndex].yearly?.length ?? 0,
+                    (index) {
+                      return Text(
+                        financials?[mainIndex].yearly?[index].value?.toStringAsFixed(2) ?? "-",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                      );
+                    },
                   ),
                 ],
               ),

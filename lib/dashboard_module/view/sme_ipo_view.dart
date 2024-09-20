@@ -42,12 +42,12 @@ class _SmeIpoViewState extends State<SmeIpoView> {
                   horizontalPadding: 16,
                   verticalPadding: 10,
                 ),
-                const SizedBox(height: 10),
                 Flexible(
                   child: TabBarView(
                     children: [
                       ListView.separated(
                         itemCount: allActive.where((data) => data.isSme == true).length,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         itemBuilder: (context, index) {
                           final filteredData =
                               allActive.where((data) => data.isSme == true).toList();
@@ -86,6 +86,7 @@ class _SmeIpoViewState extends State<SmeIpoView> {
                       ),
                       ListView.separated(
                         itemCount: state?.listed?.where((data) => data.isSme == true).length ?? 0,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         itemBuilder: (context, index) {
                           final filteredData =
                               state?.listed?.where((data) => data.isSme == true).toList();
