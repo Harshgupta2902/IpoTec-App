@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_listing_card.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_upcoming_card.dart';
 import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
+import 'package:ipotec/dashboard_module/modal/mainboard_ipo_modal.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
@@ -12,20 +13,8 @@ import 'package:ipotec/utilities/navigation/navigator.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
 
-class MainBoardIpoView extends StatefulWidget {
+class MainBoardIpoView extends StatelessWidget {
   const MainBoardIpoView({super.key});
-
-  @override
-  State<MainBoardIpoView> createState() => _MainBoardIpoViewState();
-}
-
-class _MainBoardIpoViewState extends State<MainBoardIpoView> {
-  @override
-  void initState() {
-    final filteredData =
-        _mainBoardIpoController.state?.listed?.where((data) => data.isSme == true).toList();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +26,7 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
       ),
       body: _mainBoardIpoController.obx(
         (state) {
+          final List<Active> allActive = [...?state?.active, ...?state?.upcoming];
           return DefaultTabController(
             length: 2,
             child: Column(
@@ -51,25 +41,37 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                   child: TabBarView(
                     children: [
                       ListView.separated(
-                        itemCount: state?.active?.where((data) => data.isSme == false).length ?? 0,
+                        itemCount: allActive.where((data) => data.isSme == false).length,
                         itemBuilder: (context, index) {
                           final filteredData =
-                              state?.active?.where((data) => data.isSme == false).toList();
-                          final data = filteredData?[index];
+                              allActive.where((data) => data.isSme == false).toList();
+                          final data = filteredData[index];
                           return GestureDetector(
                             onTap: () => MyNavigator.pushNamed(
                               GoPaths.mainBoardDetails,
-                              extra: {'slug': data?.searchId, 'name': data?.growwShortName},
+                              extra: {'slug': data.searchId, 'name': data.growwShortName},
                             ),
                             child: MainboardUpcomingCard(
-                              logo: data?.symbol,
-                              name: data?.growwShortName,
-                              bid: data?.additionalTxt,
+                              type: IpoType.mainboard,
+                              logo: data.logoUrl ?? data.symbol,
+                              name: data.growwShortName?.trim(),
+                              bid: data.additionalTxt?.trim(),
                               data: [
-                                KeyValuePairModel(
+                                if (data.minPrice != null && data.maxPrice != null)
+                                  KeyValuePairModel(
                                     key: "Offer Price:",
-                                    value: "${data?.minPrice} - ${data?.maxPrice}"),
-                                KeyValuePairModel(key: "Lot Size:", value: "${data?.lotSize}"),
+                                    value: "${data.minPrice} - ${data.maxPrice}",
+                                  ),
+                                if (data.lotSize != null)
+                                  KeyValuePairModel(
+                                    key: "Lot Size:",
+                                    value: "${data.lotSize}",
+                                  ),
+                                if (data.listingDate != null)
+                                  KeyValuePairModel(
+                                    key: "Start Date:",
+                                    value: convertDate(data.biddingStartDate ?? ""),
+                                  ),
                               ],
                             ),
                           );

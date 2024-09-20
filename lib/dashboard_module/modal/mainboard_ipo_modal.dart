@@ -31,7 +31,7 @@ class MainboardIpoModal {
       if (json['UPCOMING'] != null) {
         upcoming = [];
         json['UPCOMING'].forEach((v) {
-          upcoming?.add(Upcoming.fromJson(v));
+          upcoming?.add(Active.fromJson(v));
         });
       }
     } catch (e) {
@@ -41,7 +41,7 @@ class MainboardIpoModal {
   List<Active>? active;
   List<Listed>? listed;
   List<Closed>? closed;
-  List<Upcoming>? upcoming;
+  List<Active>? upcoming;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -57,67 +57,6 @@ class MainboardIpoModal {
     if (upcoming != null) {
       map['UPCOMING'] = upcoming?.map((v) => v.toJson()).toList();
     }
-    return map;
-  }
-}
-
-class Upcoming {
-  Upcoming({
-    this.additionalTxt,
-    this.isSme,
-    this.searchId,
-    this.symbol,
-    this.growwShortName,
-    this.biddingStartDate,
-    this.dailyStartTime,
-    this.listingDate,
-    this.minPrice,
-    this.maxPrice,
-    this.documentUrl,
-  });
-
-  Upcoming.fromJson(dynamic json) {
-    try {
-      additionalTxt = json['additionalTxt'];
-      isSme = json['isSme'];
-      searchId = json['searchId'];
-      symbol = json['symbol'];
-      growwShortName = json['growwShortName'];
-      biddingStartDate = json['biddingStartDate'];
-      dailyStartTime = json['dailyStartTime'];
-      listingDate = json['listingDate'];
-      minPrice = json['minPrice'];
-      maxPrice = json['maxPrice'];
-      documentUrl = json['documentUrl'];
-    } on Exception catch (e) {
-      debugPrint("MainBoRd ipo model :=> Upcoming :=> $e");
-    }
-  }
-  String? additionalTxt;
-  bool? isSme;
-  String? searchId;
-  String? symbol;
-  String? growwShortName;
-  String? biddingStartDate;
-  String? dailyStartTime;
-  String? listingDate;
-  num? minPrice;
-  num? maxPrice;
-  String? documentUrl;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['additionalTxt'] = additionalTxt;
-    map['isSme'] = isSme;
-    map['searchId'] = searchId;
-    map['symbol'] = symbol;
-    map['growwShortName'] = growwShortName;
-    map['biddingStartDate'] = biddingStartDate;
-    map['dailyStartTime'] = dailyStartTime;
-    map['listingDate'] = listingDate;
-    map['minPrice'] = minPrice;
-    map['maxPrice'] = maxPrice;
-    map['documentUrl'] = documentUrl;
     return map;
   }
 }
@@ -277,6 +216,9 @@ class Active {
     this.lotSize,
     this.minBidQuantity,
     this.tickSize,
+    this.listingDate,
+    this.documentUrl,
+    this.logoUrl,
   });
 
   Active.fromJson(dynamic json) {
@@ -296,6 +238,9 @@ class Active {
       lotSize = json['lotSize'];
       minBidQuantity = json['minBidQuantity'];
       tickSize = json['tickSize'];
+      documentUrl = json['documentUrl'];
+      listingDate = json['listingDate'];
+      logoUrl = json['logoUrl'];
     } on Exception catch (e) {
       debugPrint("MainBoRd ipo model :=> Active :=> $e");
     }
@@ -315,6 +260,9 @@ class Active {
   num? lotSize;
   num? minBidQuantity;
   num? tickSize;
+  String? documentUrl;
+  String? listingDate;
+  String? logoUrl;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -333,6 +281,10 @@ class Active {
     map['lotSize'] = lotSize;
     map['minBidQuantity'] = minBidQuantity;
     map['tickSize'] = tickSize;
+    map['listingDate'] = listingDate;
+    map['documentUrl'] = documentUrl;
+    map['logoUrl'] = logoUrl;
+
     return map;
   }
 }

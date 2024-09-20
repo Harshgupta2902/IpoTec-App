@@ -9,6 +9,8 @@ import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:lottie/lottie.dart';
 
+enum IpoType { sme, mainboard }
+
 class MainboardUpcomingCard extends StatelessWidget {
   const MainboardUpcomingCard({
     super.key,
@@ -16,16 +18,18 @@ class MainboardUpcomingCard extends StatelessWidget {
     this.name,
     this.bid,
     this.data,
+    required this.type,
   });
   final String? logo;
   final String? name;
   final String? bid;
+  final IpoType type;
   final List<KeyValuePairModel>? data;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: AppBoxDecoration.getBoxDecoration(),
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -35,11 +39,11 @@ class MainboardUpcomingCard extends StatelessWidget {
             children: [
               logo?.contains("http") == true
                   ? CachedImageNetworkContainer(
-                height: 45,
-                width: 45,
-                decoration: AppBoxDecoration.getBoxDecoration(
-                  borderRadius: 10,
-                ),
+                      height: 45,
+                      width: 45,
+                      decoration: AppBoxDecoration.getBoxDecoration(
+                        borderRadius: 10,
+                      ),
                       url: logo,
                       placeHolder: buildPlaceholder(name: name, context: context),
                     )
@@ -68,14 +72,15 @@ class MainboardUpcomingCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                 decoration: AppBoxDecoration.getBoxDecoration(
-                  color: Colors.red.withOpacity(0.4),
+                  // color: Colors.red.withOpacity(0.4),
+                  color: AppColors.porcelain,
                   borderRadius: 4,
                 ),
                 child: Row(
                   children: [
                     Lottie.asset(AssetPath.liveLottie, height: 12, width: 12),
                     Text(
-                      "Live",
+                      type == IpoType.mainboard ? "MainBoard" : "SME",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall
@@ -94,51 +99,54 @@ class MainboardUpcomingCard extends StatelessWidget {
                 .bodySmall
                 ?.copyWith(color: AppColors.black, fontWeight: FontWeight.w500),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: CustomPaint(
-              size: Size(MediaQuery.of(context).size.width, 1),
-              painter: HorizontalDashedLinePainter(color: Colors.black54),
+          if (data?.isNotEmpty == true || (data?.length ?? 0) > 0) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: CustomPaint(
+                size: Size(MediaQuery.of(context).size.width, 1),
+                painter: HorizontalDashedLinePainter(color: Colors.black54),
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              data?.length ?? 0,
-              (index) {
-                return Container(
-                  decoration: AppBoxDecoration.getBoxDecoration(
-                    color: AppColors.porcelain,
-                    borderRadius: 6,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 4,
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        data?[index].key,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(color: AppColors.boulder),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                data?.length ?? 0,
+                (index) {
+                  return Flexible(
+                    child: Container(
+                      decoration: AppBoxDecoration.getBoxDecoration(
+                        color: AppColors.porcelain,
+                        borderRadius: 6,
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        data?[index].value,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: AppColors.oil, fontWeight: FontWeight.w500),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          )
+                      child: Column(
+                        children: [
+                          Text(
+                            data?[index].key,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: AppColors.boulder),
+                          ),
+                          Text(
+                            data?[index].value,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: AppColors.oil, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
+          ]
         ],
       ),
     );
