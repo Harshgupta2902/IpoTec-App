@@ -12,4 +12,6 @@ class APIEndPoints {
   static const buybackDetails = "buyback-details";
 
   static const blogs = "blogs";
+
+  static const search = "search";
 }

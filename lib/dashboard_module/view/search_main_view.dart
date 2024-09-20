@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ipotec/dashboard_module/controller/search_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/packages/debouncer.dart';
+
+final _searchController = Get.put(SearchResultsController());
 
 class SearchMainView extends StatefulWidget {
   const SearchMainView({super.key});
@@ -11,6 +15,7 @@ class SearchMainView extends StatefulWidget {
 }
 
 class _SearchMainViewState extends State<SearchMainView> {
+  final TextEditingController searchController = TextEditingController();
   late final Debounce debounce;
   @override
   void initState() {
@@ -26,6 +31,7 @@ class _SearchMainViewState extends State<SearchMainView> {
         centerTitle: false,
         showBackButton: true,
         titleWidget: TextField(
+          controller: searchController,
           cursorColor: Colors.black,
           decoration: const InputDecoration(
             enabledBorder: InputBorder.none,
@@ -38,6 +44,7 @@ class _SearchMainViewState extends State<SearchMainView> {
           inputFormatters: [TextOnlyFormatter()],
           onChanged: (value) {
             debounce.run(() {
+              _searchController.getSearchResults(search: value);
               // _coreSearchController.getSearchResult(
               //   filter: {},
               //   searchValue: value,
