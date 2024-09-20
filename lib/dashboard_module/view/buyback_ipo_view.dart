@@ -55,7 +55,7 @@ class _BuybackIpoViewState extends State<BuybackIpoView> {
                   child: TabBarView(
                     children: [
                       ListView.separated(
-                        itemCount: sortedActive.length ?? 0,
+                        itemCount: sortedActive.length,
                         itemBuilder: (context, index) {
                           final data = sortedActive[index];
                           return BuybackUpcomingCard(
@@ -82,7 +82,7 @@ class _BuybackIpoViewState extends State<BuybackIpoView> {
                         separatorBuilder: (context, index) => const SizedBox(height: 16),
                       ),
                       ListView.separated(
-                        itemCount: sortedClosed.length ?? 0,
+                        itemCount: sortedClosed.length,
                         itemBuilder: (context, index) {
                           final data = sortedClosed[index];
                           return BuybackUpcomingCard(
@@ -105,7 +105,6 @@ class _BuybackIpoViewState extends State<BuybackIpoView> {
                               )
                             ],
                           );
-                          return const Text("data");
                         },
                         separatorBuilder: (context, index) => const SizedBox(height: 16),
                       ),

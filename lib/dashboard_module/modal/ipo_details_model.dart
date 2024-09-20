@@ -1,7 +1,84 @@
-import 'package:flutter/material.dart';
-
 class IpoDetailsModel {
   IpoDetailsModel({
+    this.data,
+    this.financials,
+  });
+
+  IpoDetailsModel.fromJson(dynamic json) {
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    if (json['financials'] != null) {
+      financials = [];
+      json['financials'].forEach((v) {
+        financials?.add(Financials.fromJson(v));
+      });
+    }
+  }
+  Data? data;
+  List<Financials>? financials;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (data != null) {
+      map['data'] = data?.toJson();
+    }
+    if (financials != null) {
+      map['financials'] = financials?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+}
+
+class Financials {
+  Financials({
+    this.title,
+    this.yearly,
+  });
+
+  Financials.fromJson(dynamic json) {
+    title = json['title'];
+    if (json['yearly'] != null) {
+      yearly = [];
+      json['yearly'].forEach((v) {
+        yearly?.add(Yearly.fromJson(v));
+      });
+    }
+  }
+  String? title;
+  List<Yearly>? yearly;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['title'] = title;
+    if (yearly != null) {
+      map['yearly'] = yearly?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+}
+
+class Yearly {
+  Yearly({
+    this.year,
+    this.value,
+  });
+
+  Yearly.fromJson(dynamic json) {
+    year = json['year'];
+    value = json['value'];
+  }
+  num? year;
+  num? value;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['year'] = year;
+    map['value'] = value;
+    return map;
+  }
+}
+
+class Data {
+  Data({
     this.categories,
     this.symbol,
     this.bannerText,
@@ -49,81 +126,71 @@ class IpoDetailsModel {
     this.rtaLink,
     this.isAllotmentAnnounced,
     this.preApplyOpen,
-    this.growwShortName,
     this.minBidQuantity,
+    this.growwShortName,
   });
 
-  IpoDetailsModel.fromJson(dynamic json) {
-    try {
-      if (json['categories'] != null) {
-        categories = [];
-        json['categories'].forEach((v) {
-          categories?.add(Categories.fromJson(v));
-        });
-      }
-      symbol = json['symbol'];
-      bannerText = json['bannerText'];
-      aboutCompany =
-          json['aboutCompany'] != null ? AboutCompany.fromJson(json['aboutCompany']) : null;
-      companyName = json['companyName'];
-      companyShortName = json['companyShortName'];
-      pros = json['pros'] != null ? json['pros'].cast<String>() : [];
-      cons = json['cons'] != null ? json['cons'].cast<String>() : [];
-      lotSize = json['lotSize'];
-      minPrice = json['minPrice'];
-      maxPrice = json['maxPrice'];
-      startDate = json['startDate'];
-      endDate = json['endDate'];
-      minBidQty = json['minBidQty'];
-      issueSize = json['issueSize'];
-      listing = Listing.fromJson(json['listing']);
-      issuePrice = json['issuePrice'];
-      parentSearchId = json['parentSearchId'];
-      subscriptionUpdatedAt = json['subscriptionUpdatedAt'];
-      documentUrl = json['documentUrl'];
-      logoUrl = json['logoUrl'];
-      videoId = json['videoId'];
-      videoName = json['videoName'];
-      if (json['subscriptionRates'] != null) {
-        subscriptionRates = [];
-        json['subscriptionRates'].forEach((v) {
-          subscriptionRates?.add(SubscriptionRates.fromJson(v));
-        });
-      }
-      sector = json['sector'];
-      if (json['faqs'] != null) {
-        faqs = [];
-        json['faqs'].forEach((v) {
-          faqs?.add(Faqs.fromJson(v));
-        });
-      }
-      listingDate = json['listingDate'];
-      faceValue = json['faceValue'];
-      tickSize = json['tickSize'];
-      cutOffPrice = json['cutOffPrice'];
-      isin = json['isin'];
-      registrar = json['registrar'];
-      t1ModStartDate = json['t1ModStartDate'];
-      t1ModEndDate = json['t1ModEndDate'];
-      t1ModStartTime = json['t1ModStartTime'];
-      t1ModEndTime = json['t1ModEndTime'];
-      issueType = json['issueType'];
-      status = json['status'];
-      dailyStartTime = json['dailyStartTime'];
-      dailyEndTime = json['dailyEndTime'];
-      lastBidPlaceTime = json['lastBidPlaceTime'];
-      applicationDetails = json['applicationDetails'];
-      peerList = json['peerList'];
-      ppContent = json['ppContent'];
-      rtaLink = json['rtaLink'];
-      isAllotmentAnnounced = json['isAllotmentAnnounced'];
-      preApplyOpen = json['preApplyOpen'];
-      growwShortName = json['growwShortName'];
-      minBidQuantity = json['minBidQuantity'];
-    } on Exception catch (e) {
-      debugPrint("Mainboard Ipo Details Model Error Main :=> $e");
-      print(listing.runtimeType); // Check the type of data
+  Data.fromJson(dynamic json) {
+    if (json['categories'] != null) {
+      categories = [];
+      json['categories'].forEach((v) {
+        categories?.add(Categories.fromJson(v));
+      });
     }
+    symbol = json['symbol'];
+    bannerText = json['bannerText'];
+    aboutCompany =
+        json['aboutCompany'] != null ? AboutCompany.fromJson(json['aboutCompany']) : null;
+    companyName = json['companyName'];
+    companyShortName = json['companyShortName'];
+    pros = json['pros'] != null ? json['pros'].cast<String>() : [];
+    cons = json['cons'] != null ? json['cons'].cast<String>() : [];
+    lotSize = json['lotSize'];
+    minPrice = json['minPrice'];
+    maxPrice = json['maxPrice'];
+    startDate = json['startDate'];
+    endDate = json['endDate'];
+    minBidQty = json['minBidQty'];
+    issueSize = json['issueSize'];
+    listing = Listing.fromJson(json['listing']);
+    issuePrice = json['issuePrice'];
+    parentSearchId = json['parentSearchId'];
+    subscriptionUpdatedAt = json['subscriptionUpdatedAt'];
+    documentUrl = json['documentUrl'];
+    logoUrl = json['logoUrl'];
+    videoId = json['videoId'];
+    videoName = json['videoName'];
+    subscriptionRates = json['subscriptionRates'];
+    sector = json['sector'];
+    if (json['faqs'] != null) {
+      faqs = [];
+      json['faqs'].forEach((v) {
+        faqs?.add(Faqs.fromJson(v));
+      });
+    }
+    listingDate = json['listingDate'];
+    faceValue = json['faceValue'];
+    tickSize = json['tickSize'];
+    cutOffPrice = json['cutOffPrice'];
+    isin = json['isin'];
+    registrar = json['registrar'];
+    t1ModStartDate = json['t1ModStartDate'];
+    t1ModEndDate = json['t1ModEndDate'];
+    t1ModStartTime = json['t1ModStartTime'];
+    t1ModEndTime = json['t1ModEndTime'];
+    issueType = json['issueType'];
+    status = json['status'];
+    dailyStartTime = json['dailyStartTime'];
+    dailyEndTime = json['dailyEndTime'];
+    lastBidPlaceTime = json['lastBidPlaceTime'];
+    applicationDetails = json['applicationDetails'];
+    peerList = json['peerList'];
+    ppContent = json['ppContent'];
+    rtaLink = json['rtaLink'];
+    isAllotmentAnnounced = json['isAllotmentAnnounced'];
+    preApplyOpen = json['preApplyOpen'];
+    minBidQuantity = json['minBidQuantity'];
+    growwShortName = json['growwShortName'];
   }
   List<Categories>? categories;
   String? symbol;
@@ -143,12 +210,12 @@ class IpoDetailsModel {
   Listing? listing;
   num? issuePrice;
   dynamic parentSearchId;
-  String? subscriptionUpdatedAt;
+  dynamic subscriptionUpdatedAt;
   String? documentUrl;
   dynamic logoUrl;
   String? videoId;
   dynamic videoName;
-  List<SubscriptionRates>? subscriptionRates;
+  dynamic subscriptionRates;
   String? sector;
   List<Faqs>? faqs;
   String? listingDate;
@@ -172,8 +239,8 @@ class IpoDetailsModel {
   String? rtaLink;
   bool? isAllotmentAnnounced;
   bool? preApplyOpen;
-  String? growwShortName;
   num? minBidQuantity;
+  String? growwShortName;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -196,6 +263,7 @@ class IpoDetailsModel {
     map['endDate'] = endDate;
     map['minBidQty'] = minBidQty;
     map['issueSize'] = issueSize;
+    map['listing'] = listing;
     map['issuePrice'] = issuePrice;
     map['parentSearchId'] = parentSearchId;
     map['subscriptionUpdatedAt'] = subscriptionUpdatedAt;
@@ -203,10 +271,7 @@ class IpoDetailsModel {
     map['logoUrl'] = logoUrl;
     map['videoId'] = videoId;
     map['videoName'] = videoName;
-    if (subscriptionRates != null) {
-      map['subscriptionRates'] = subscriptionRates?.map((v) => v.toJson()).toList();
-    }
-
+    map['subscriptionRates'] = subscriptionRates;
     map['sector'] = sector;
     if (faqs != null) {
       map['faqs'] = faqs?.map((v) => v.toJson()).toList();
@@ -232,8 +297,8 @@ class IpoDetailsModel {
     map['rtaLink'] = rtaLink;
     map['isAllotmentAnnounced'] = isAllotmentAnnounced;
     map['preApplyOpen'] = preApplyOpen;
-    map['growwShortName'] = growwShortName;
     map['minBidQuantity'] = minBidQuantity;
+    map['growwShortName'] = growwShortName;
     return map;
   }
 }
@@ -259,31 +324,6 @@ class Faqs {
   }
 }
 
-class SubscriptionRates {
-  SubscriptionRates({
-    this.category,
-    this.categoryName,
-    this.subscriptionRate,
-  });
-
-  SubscriptionRates.fromJson(dynamic json) {
-    category = json['category'];
-    categoryName = json['categoryName'];
-    subscriptionRate = json['subscriptionRate'];
-  }
-  String? category;
-  String? categoryName;
-  num? subscriptionRate;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['category'] = category;
-    map['categoryName'] = categoryName;
-    map['subscriptionRate'] = subscriptionRate;
-    return map;
-  }
-}
-
 class Listing {
   Listing({
     this.listingPrice,
@@ -303,6 +343,42 @@ class Listing {
   dynamic bseScripCode;
   dynamic nseScripCode;
 }
+
+// class Listing {
+//   Listing({
+//     this.listingPrice,
+//     this.listedOn,
+//     this.bseScripCode,
+//     this.nseScripCode,
+//   });
+//
+//   Listing.fromJson(dynamic json) {
+//     listingPrice = json['listingPrice'];
+//     if (json['listedOn'] != null) {
+//       listedOn = [];
+//       json['listedOn'].forEach((v) {
+//         listedOn?.add(Dynamic.fromJson(v));
+//       });
+//     }
+//     bseScripCode = json['bseScripCode'];
+//     nseScripCode = json['nseScripCode'];
+//   }
+//   dynamic listingPrice;
+//   List<String>? listedOn;
+//   dynamic bseScripCode;
+//   dynamic nseScripCode;
+//
+//   Map<String, dynamic> toJson() {
+//     final map = <String, dynamic>{};
+//     map['listingPrice'] = listingPrice;
+//     if (listedOn != null) {
+//       map['listedOn'] = listedOn?.map((v) => v.toJson()).toList();
+//     }
+//     map['bseScripCode'] = bseScripCode;
+//     map['nseScripCode'] = nseScripCode;
+//     return map;
+//   }
+// }
 
 class AboutCompany {
   AboutCompany({

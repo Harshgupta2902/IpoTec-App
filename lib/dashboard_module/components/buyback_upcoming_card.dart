@@ -38,26 +38,29 @@ class BuybackUpcomingCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              logo?.contains("http") == true
-                  ? CachedImageNetworkContainer(
-                      height: 45,
-                      width: 45,
-                      decoration: AppBoxDecoration.getBoxDecoration(
-                        borderRadius: 10,
+              Hero(
+                tag: "fund",
+                child: logo?.contains("http") == true
+                    ? CachedImageNetworkContainer(
+                        height: 45,
+                        width: 45,
+                        decoration: AppBoxDecoration.getBoxDecoration(
+                          borderRadius: 10,
+                        ),
+                        url: logo,
+                        placeHolder: buildPlaceholder(name: name, context: context),
+                      )
+                    : Container(
+                        height: 45,
+                        width: 45,
+                        decoration: AppBoxDecoration.getBoxDecoration(
+                          borderRadius: 10,
+                        ),
+                        child: SvgPicture.asset(
+                          getLogoPath(logo ?? "-"),
+                        ),
                       ),
-                      url: logo,
-                      placeHolder: buildPlaceholder(name: name, context: context),
-                    )
-                  : Container(
-                      height: 45,
-                      width: 45,
-                      decoration: AppBoxDecoration.getBoxDecoration(
-                        borderRadius: 10,
-                      ),
-                      child: SvgPicture.asset(
-                        getLogoPath(logo ?? "-"),
-                      ),
-                    ),
+              ),
               const SizedBox(width: 16),
               Expanded(
                 child: Text(

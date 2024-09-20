@@ -85,6 +85,18 @@ String format2INR(dynamic amount, {bool removeAllAfterDecimal = true}) {
   return formattedAmount;
 }
 
+String formatNumber(num number) {
+  if (number >= 10000000) {
+    return '${(number / 10000000).toStringAsFixed(2)} Crore'; // Crores
+  } else if (number >= 100000) {
+    return '${(number / 100000).toStringAsFixed(2)} Lacs'; // Lacs
+  } else if (number >= 1000) {
+    return '${(number / 1000).toStringAsFixed(2)}k'; // Thousands
+  } else {
+    return number.toString(); // No formatting
+  }
+}
+
 extension StringExtendion on String? {
   String eliminateLast({required int removeLength}) {
     if (this != null && this?.isNotEmpty == true) {

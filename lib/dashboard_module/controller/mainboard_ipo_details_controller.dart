@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotec/dashboard_module/modal/ipo_details_model.dart';
-import 'package:ipotec/dashboard_module/modal/mainboard_ipo_modal.dart';
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';
 
@@ -14,7 +13,6 @@ class MainBoardDetailsController extends GetxController with StateMixin<IpoDetai
       final response = await getRequest(apiEndPoint: apiEndPoint);
 
       debugPrint("MainBoardDetailsController => getMainboardDetails > Success  $response");
-
 
       final modal = IpoDetailsModel.fromJson(response.data);
       change(modal, status: RxStatus.success());
