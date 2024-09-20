@@ -63,6 +63,7 @@ class _BuybackIpoDetailsViewState extends State<BuybackIpoDetailsView> {
                 decoration: AppBoxDecoration.getBoxDecoration(),
                 padding: const EdgeInsets.all(12),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
@@ -101,8 +102,8 @@ class _BuybackIpoDetailsViewState extends State<BuybackIpoDetailsView> {
                       ],
                     ),
                     const SizedBox(height: 6),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "BuyBack Price: ${format2INR(state?.data?.offerPrice)}",
@@ -111,6 +112,7 @@ class _BuybackIpoDetailsViewState extends State<BuybackIpoDetailsView> {
                               .bodySmall
                               ?.copyWith(color: AppColors.black, fontWeight: FontWeight.w500),
                         ),
+                        const SizedBox(height: 4),
                         Text(
                           "Issue Size(Amt.): ${state?.data?.issuedAmount}",
                           style: Theme.of(context)
@@ -609,79 +611,96 @@ class FinancialAllocationCard extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.only(bottom: 12),
       decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Company Financials in Cr.",
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            width: MediaQuery.of(context).size.width,
+            color: AppColors.porcelain,
+            child: Text(
+              "Company Financials",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: Text(
-                  "",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.boulder,
-                      ),
-                ),
-              ),
-              ...List.generate(
-                financials?[0].yearly?.length ?? 0,
-                (index) {
-                  return Text(
-                    financials?[0].yearly?[index].year?.toString() ?? "",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.boulder,
-                        ),
-                  );
-                },
-              ),
-            ],
-          ),
-          const Divider(color: Colors.black),
-          ...List.generate(financials?.length ?? 0, (mainIndex) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: Text(
-                      financials?[mainIndex].title.toString() ?? "-",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.onyx,
-                          ),
-                    ),
-                  ),
-                  ...List.generate(
-                    financials?[mainIndex].yearly?.length ?? 0,
-                    (index) {
-                      return Text(
-                        financials?[mainIndex].yearly?[index].value?.toStringAsFixed(2) ?? "-",
+          const SizedBox(height: 8),
+          SingleChildScrollView(
+            padding: const EdgeInsets.only(left: 12),
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.22,
+                      child: Text(
+                        "",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.boulder,
                             ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            );
-          }),
-          const Divider(color: Colors.black),
+                      ),
+                    ),
+                    ...List.generate(
+                      financials?[0].yearly?.length ?? 0,
+                      (index) {
+                        return SizedBox(
+                          width: 80,
+                          child: Text(
+                            financials?[0].yearly?[index].year?.toString() ?? "",
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.boulder,
+                                ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                ...List.generate(financials?.length ?? 0, (mainIndex) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.22,
+                          child: Text(
+                            financials?[mainIndex].title.toString() ?? "-",
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.onyx,
+                                ),
+                          ),
+                        ),
+                        ...List.generate(
+                          financials?[mainIndex].yearly?.length ?? 0,
+                          (index) {
+                            return SizedBox(
+                              width: 80,
+                              child: Text(
+                                financials?[mainIndex].yearly?[index].value?.toStringAsFixed(2) ??
+                                    "-",
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
+          ),
         ],
       ),
     );

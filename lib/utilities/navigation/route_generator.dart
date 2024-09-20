@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ipotec/dashboard_module/view/blogs_main_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
 import 'package:ipotec/dashboard_module/view/sme_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/web_view.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -47,6 +49,14 @@ final GoRouter goRouterConfig = GoRouter(
             return const BuybackIpoView();
           },
         ),
+        GoRoute(
+          parentNavigatorKey: shellNavigatorKey,
+          path: GoPaths.blogs,
+          name: GoPaths.blogs,
+          builder: (context, state) {
+            return const BlogsMainView();
+          },
+        ),
       ],
     ),
 
@@ -77,6 +87,21 @@ final GoRouter goRouterConfig = GoRouter(
         return BuybackIpoDetailsView(
           slug: slug,
           name: name,
+        );
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.webView,
+      name: GoPaths.webView,
+      builder: (context, state) {
+        final extras = state.extra as Map<String, dynamic>;
+        final url = extras['url'];
+        final title = extras['title'];
+        return WebView(
+          url: url,
+          title: title,
         );
       },
     ),

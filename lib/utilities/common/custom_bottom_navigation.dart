@@ -1,3 +1,5 @@
+// ignore: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
@@ -45,7 +47,6 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           return BottomNavigationBarItem(
             icon: SvgPicture.asset(
               bars[index].key,
-              // ignore: deprecated_member_use
               color: index == _index ? AppColors.primaryColor : Colors.black,
             ),
             label: bars[index].value,
@@ -66,8 +67,10 @@ void _onItemTapped(int index) {
       break;
     case 2:
       MyNavigator.go(GoPaths.buyBack);
+    case 3:
+      MyNavigator.go(GoPaths.blogs);
       break;
     default:
-      MyNavigator.go(GoPaths.sme);
+      MyNavigator.go(GoPaths.mainBoard);
   }
 }

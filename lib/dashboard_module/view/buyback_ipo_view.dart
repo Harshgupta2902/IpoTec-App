@@ -48,7 +48,7 @@ class _BuybackIpoViewState extends State<BuybackIpoView> {
             child: Column(
               children: [
                 const CustomTabBar(
-                  tabList: ["Current/Upcoming ", "Closed"],
+                  tabList: ["Current ", "Closed"],
                   horizontalPadding: 16,
                   verticalPadding: 10,
                 ),
@@ -105,10 +105,6 @@ class _BuybackIpoViewState extends State<BuybackIpoView> {
                               bid: "BuyBack Price: ${format2INR(data.offerPrice)}",
                               issueSize: "Issue Size(Amt.): ${data.issuedAmount}",
                               data: [
-                                KeyValuePairModel(
-                                  key: "Record Date",
-                                  value: convertDate(data.recordDate ?? ""),
-                                ),
                                 KeyValuePairModel(
                                   key: "Open Date",
                                   value: convertDate(data.startDate ?? ""),

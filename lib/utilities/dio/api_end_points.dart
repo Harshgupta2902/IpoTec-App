@@ -10,4 +10,6 @@ class APIEndPoints {
 
   static const ipoDetails = "ipo-details";
   static const buybackDetails = "buyback-details";
+
+  static const blogs = "blogs";
 }

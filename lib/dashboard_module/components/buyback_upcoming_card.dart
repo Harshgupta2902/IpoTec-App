@@ -94,8 +94,8 @@ class BuybackUpcomingCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 bid ?? "",
@@ -104,6 +104,7 @@ class BuybackUpcomingCard extends StatelessWidget {
                     .bodySmall
                     ?.copyWith(color: AppColors.black, fontWeight: FontWeight.w500),
               ),
+              const SizedBox(height: 4),
               Text(
                 issueSize ?? "",
                 style: Theme.of(context)

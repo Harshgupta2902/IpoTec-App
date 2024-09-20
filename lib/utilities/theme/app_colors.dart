@@ -23,5 +23,4 @@ class AppColors {
   static const mediumGreen = Color(0xFF00C036);
 
   static const cadmiumRed = Color(0xFFE40721);
-
 }
