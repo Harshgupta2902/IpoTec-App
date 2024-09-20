@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,17 @@ String convertDate(String dateString, {bool showYear = true}) {
     return formattedDate;
   } catch (e) {
     return 'Invalid date format';
+  }
+}
+
+class TextOnlyFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    final filteredText = newValue.text.replaceAll(RegExp('[^a-zA-Z]'), '');
+    return newValue.copyWith(
+      text: filteredText,
+      selection: newValue.selection,
+    );
   }
 }
 

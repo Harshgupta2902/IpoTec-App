@@ -11,6 +11,7 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final bool? showBackButton;
   final bool? centerTitle;
+  final Widget? titleWidget;
 
   const CoreAppBar({
     super.key,
@@ -18,6 +19,7 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showActions = true,
     this.showBackButton = true,
     this.centerTitle,
+    this.titleWidget,
   });
 
   @override
@@ -25,10 +27,11 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.white,
       scrolledUnderElevation: 0,
-      title: Text(
-        title ?? "-",
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
-      ),
+      title: titleWidget ??
+          Text(
+            title ?? "-",
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+          ),
       centerTitle: centerTitle ?? true,
       leading: showBackButton == true
           ? GestureDetector(
@@ -51,7 +54,7 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? [
               GestureDetector(
                 onTap: () {
-                  MyNavigator.pushNamed(GoPaths.blogs);
+                  MyNavigator.pushNamed(GoPaths.search);
                 },
                 child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
