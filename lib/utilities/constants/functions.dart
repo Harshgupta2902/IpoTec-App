@@ -2,6 +2,10 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+
+var logger = Logger();
+
 
 String getLogoPath(String word) {
   String firstLetter = word[0].toUpperCase();

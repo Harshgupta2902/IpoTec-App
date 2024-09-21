@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +28,6 @@ appUpdateCheck({required BuildContext context}) async {
 
   _handleInAppUpdate(appUpdate);
 
-
   if (appUpdate?.forceUpdate == 1) {
     Future.delayed(Duration.zero, () => _handleForceUpdate(appUpdate, context));
     return;
@@ -36,6 +36,12 @@ appUpdateCheck({required BuildContext context}) async {
   if (appUpdate?.softUpdate == 1) {
     return;
   }
+}
+
+getUniqueId() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  return androidInfo.id;
 }
 
 _handleInAppUpdate(DefaultModel? appUpdate) async {
@@ -64,7 +70,6 @@ _handleInAppUpdate(DefaultModel? appUpdate) async {
 }
 
 _handleForceUpdate(DefaultModel? appUpdate, BuildContext context) {
-
   showCupertinoDialog(
     context: context,
     barrierDismissible: false,

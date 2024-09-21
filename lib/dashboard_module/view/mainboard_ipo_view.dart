@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_listing_card.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_upcoming_card.dart';
+import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
 import 'package:ipotec/dashboard_module/modal/mainboard_ipo_modal.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
@@ -14,6 +15,7 @@ import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/packages/ad_helper.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
+final _defaultController = Get.put(DefaultApiController());
 
 class MainBoardIpoView extends StatefulWidget {
   const MainBoardIpoView({super.key});
@@ -28,22 +30,24 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
   @override
   void initState() {
     super.initState();
-    BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _bannerAd = ad as BannerAd;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          debugPrint('Failed to load a banner ad: ${err.message}');
-          ad.dispose();
-        },
-      ),
-    ).load();
+    if (_defaultController.state?.showAd == true) {
+      BannerAd(
+        adUnitId: AdHelper.bannerAdUnitId,
+        request: const AdRequest(),
+        size: AdSize.banner,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            setState(() {
+              _bannerAd = ad as BannerAd;
+            });
+          },
+          onAdFailedToLoad: (ad, err) {
+            debugPrint('Failed to load a banner ad: ${err.message}');
+            ad.dispose();
+          },
+        ),
+      ).load();
+    }
   }
 
   @override
@@ -72,7 +76,7 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                   horizontalPadding: 16,
                   verticalPadding: 10,
                 ),
-                if (_bannerAd != null)
+                if (_bannerAd != null && _defaultController.state?.showAd == true)
                   SizedBox(
                     width: _bannerAd!.size.width.toDouble(),
                     height: _bannerAd!.size.height.toDouble(),

@@ -1,7 +1,16 @@
+import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
+import 'package:ipotec/utilities/constants/functions.dart';
+import 'package:ipotec/utilities/firebase/crashlytics_service.dart';
+import 'package:ipotec/utilities/firebase/dynamic_link_service.dart';
+import 'package:ipotec/utilities/firebase/notification_service.dart';
 import 'package:ipotec/utilities/navigation/route_generator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:ipotec/utilities/theme/smooth_rectangular_border.dart';
@@ -9,20 +18,82 @@ import 'package:ipotec/utilities/theme/smooth_rectangular_border.dart';
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 final _defaultController = Get.put(DefaultApiController());
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
+
+  if (Platform.isAndroid) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyCq0YE2b8xWC3RGOLhGwcu8sLCL67j81qk",
+        appId: "1:198625871212:android:67a6e80d65fe20fe661f49",
+        messagingSenderId: "198625871212",
+        projectId: "ipotech-41d68",
+      ),
+    );
+  }
+  if (Platform.isIOS) {
+    await Firebase.initializeApp();
+  }
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  FlutterError.onError = (FlutterErrorDetails details) {
+    if ((details.library == 'image resource service' || details.library == 'Invalid image data') &&
+        (details.exception.toString().contains('404') ||
+            details.exception.toString().contains('403'))) {
+      debugPrint('Suppressed cachedNetworkImage Exception');
+      return;
+    }
+    FlutterError.presentError(details);
+  };
+
+  await CoreNotificationService().init();
+  CrashlyticsService().init();
+
+  await GetStorage.init();
   await _defaultController.getDefaultData();
+  MobileAds.instance.initialize();
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onMessageOpenedApp.listen((message) {
+    try {
+      final Map payload = message.data;
+      CoreNotificationService().onNotificationClicked(payload: payload);
+    } catch (e) {
+      logger.e("onDidReceiveNotificationResponse error $e");
+    }
+  });
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    CoreNotificationService().fcmListener();
+    CoreNotificationService().updateFCMToken();
+    CoreDynamicLinksService.init();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       scaffoldMessengerKey: scaffoldMessengerKey,
+      debugShowCheckedModeBanner: false,
       builder: (context, child) {
         final boldText = MediaQuery.boldTextOf(context);
         final newMediaQueryData = MediaQuery.of(context).copyWith(
