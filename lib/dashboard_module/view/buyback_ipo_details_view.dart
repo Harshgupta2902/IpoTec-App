@@ -227,7 +227,8 @@ class _BuybackIpoDetailsViewState extends State<BuybackIpoDetailsView> {
               const SizedBox(height: 16),
               FinancialAllocationCard(
                 financials: state?.financials,
-              )
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         );

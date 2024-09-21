@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/navigation/route_generator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
@@ -9,6 +10,8 @@ final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<Scaffol
 final _defaultController = Get.put(DefaultApiController());
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await _defaultController.getDefaultData();
   runApp(const MyApp());
 }

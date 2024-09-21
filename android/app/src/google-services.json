@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198625871212",
+    "project_id": "ipotech-41d68",
+    "storage_bucket": "ipotech-41d68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198625871212:android:67a6e80d65fe20fe661f49",
+        "android_client_info": {
+          "package_name": "com.ipotec"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq0YE2b8xWC3RGOLhGwcu8sLCL67j81qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

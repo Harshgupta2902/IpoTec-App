@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
+import 'package:ipotec/utilities/packages/ad_helper.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -24,6 +26,42 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     KeyValuePairModel(key: AssetPath.buyBack, value: "Buyback"),
     KeyValuePairModel(key: AssetPath.blogs, value: "Blogs"),
   ];
+  InterstitialAd? _interstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _loadInterstitialAd(int index) {
+    InterstitialAd.load(
+      adUnitId: AdHelper.interstitialAdUnitId,
+      request: AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (ad) {
+              _onItemTapped(index);
+            },
+          );
+
+          setState(() {
+            _interstitialAd = ad;
+          });
+        },
+        onAdFailedToLoad: (err) {
+          debugPrint('Failed to load an interstitial ad: ${err.message}');
+          _onItemTapped(index);
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _interstitialAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +70,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         setState(() {
           _index = value;
         });
-        _onItemTapped(value);
+        _loadInterstitialAd(value);
       },
       backgroundColor: Colors.white,
       currentIndex: _index,

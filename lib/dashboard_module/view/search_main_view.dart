@@ -45,18 +45,7 @@ class _SearchMainViewState extends State<SearchMainView> {
           onChanged: (value) {
             debounce.run(() {
               _searchController.getSearchResults(search: value);
-              // _coreSearchController.getSearchResult(
-              //   filter: {},
-              //   searchValue: value,
-              // );
             });
-            // _filteredCountries = widget.countryList.stringSearch(value)
-            //   ..sort(
-            //     (a, b) => a
-            //         .localizedName(widget.languageCode)
-            //         .compareTo(b.localizedName(widget.languageCode)),
-            //   );
-            // if (mounted) setState(() {});
           },
         ),
       ),

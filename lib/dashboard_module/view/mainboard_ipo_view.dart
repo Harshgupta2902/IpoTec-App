@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_listing_card.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_upcoming_card.dart';
 import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
@@ -10,11 +11,46 @@ import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
+import 'package:ipotec/utilities/packages/ad_helper.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
 
-class MainBoardIpoView extends StatelessWidget {
+class MainBoardIpoView extends StatefulWidget {
   const MainBoardIpoView({super.key});
+
+  @override
+  State<MainBoardIpoView> createState() => _MainBoardIpoViewState();
+}
+
+class _MainBoardIpoViewState extends State<MainBoardIpoView> {
+  BannerAd? _bannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          debugPrint('Failed to load a banner ad: ${err.message}');
+          ad.dispose();
+        },
+      ),
+    ).load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +72,12 @@ class MainBoardIpoView extends StatelessWidget {
                   horizontalPadding: 16,
                   verticalPadding: 10,
                 ),
+                if (_bannerAd != null)
+                  SizedBox(
+                    width: _bannerAd!.size.width.toDouble(),
+                    height: _bannerAd!.size.height.toDouble(),
+                    child: AdWidget(ad: _bannerAd!),
+                  ),
                 Flexible(
                   child: TabBarView(
                     children: [

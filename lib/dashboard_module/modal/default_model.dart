@@ -5,6 +5,7 @@ class DefaultModel {
   num? iosBuildNo;
   String? title;
   String? message;
+  bool? showAd;
 
   DefaultModel({
     this.forceUpdate,
@@ -13,6 +14,7 @@ class DefaultModel {
     this.iosBuildNo,
     this.title,
     this.message,
+    this.showAd,
   });
 
   DefaultModel.fromJson(dynamic json) {
@@ -22,6 +24,7 @@ class DefaultModel {
     iosBuildNo = _toNum(json['ios_build_no']);
     title = json['title']?.toString();
     message = json['message']?.toString();
+    showAd = json['show_ad'];
   }
 
   Map<String, dynamic> toJson() {
@@ -32,6 +35,7 @@ class DefaultModel {
     map['ios_build_no'] = iosBuildNo;
     map['title'] = title;
     map['message'] = message;
+    map['show_ad'] = showAd;
     return map;
   }
 
