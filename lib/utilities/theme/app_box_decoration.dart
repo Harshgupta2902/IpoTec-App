@@ -19,14 +19,15 @@ class AppBoxDecoration {
       border: border,
       color: color,
       boxShadow: showShadow == true
-          ? [
-              BoxShadow(
-                spreadRadius: spreadRadius,
-                blurRadius: blurRadius,
-                color: Colors.black.withOpacity(0.06),
-                offset: const Offset(0, 4),
-              ),
-            ]
+          ? AppBoxShadow.legacyShadow
+          // ? [
+          //     BoxShadow(
+          //       spreadRadius: spreadRadius,
+          //       blurRadius: blurRadius,
+          //       color: Colors.black.withOpacity(0.06),
+          //       offset: const Offset(0, 4),
+          //     ),
+          //   ]
           : [],
     );
   }

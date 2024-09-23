@@ -106,7 +106,7 @@ class _MyAppState extends State<MyApp> {
           child: child!,
         );
       },
-      title: 'IpoTec',
+      title: 'IPO Live GMP - IpoTec',
       routerConfig: goRouterConfig,
       themeMode: ThemeMode.light,
       theme: ThemeData(
