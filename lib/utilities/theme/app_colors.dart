@@ -8,12 +8,15 @@ class AppColors {
   static const whiteSmoke = Color(0xFFF3F6F9);
   static const iron = Color(0xFFD0D5DD);
   static const porcelain = Color(0xFFEDF3F6);
+  static const magnolia = Color(0xFFDBDCF3);
 
   static const paleSky = Color(0xFF6E717C);
   static const silverChalice30 = Color(0x4DAAAAAA);
   static const boulder = Color(0xFF777777);
+  static const shuttleGrey = Color(0xFF61677A);
 
   static const primaryColor = Color(0xFF066AC9);
+  static const aliceBlue = Color(0xFFEFF6FF);
 
   static const black = Color(0xFF000000);
   static const black04 = Color(0x0A1D1D1D);

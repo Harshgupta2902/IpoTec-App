@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     CoreNotificationService().fcmListener();
-    CoreNotificationService().updateFCMToken();
+    // CoreNotificationService().updateFCMToken();
     CoreDynamicLinksService.init();
   }
 

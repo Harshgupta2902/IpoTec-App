@@ -43,13 +43,14 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: Colors.black,
               ),
             )
-          : GestureDetector(
-              onTap: () => _hiddenDrawerController.scaffoldKey.currentState?.openDrawer(),
-              child: const Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-            ),
+          : null,
+      // : GestureDetector(
+      //     onTap: () => _hiddenDrawerController.scaffoldKey.currentState?.openDrawer(),
+      //     child: const Icon(
+      //       Icons.menu,
+      //       color: Colors.black,
+      //     ),
+      //   ),
       actions: showActions == true
           ? [
               GestureDetector(

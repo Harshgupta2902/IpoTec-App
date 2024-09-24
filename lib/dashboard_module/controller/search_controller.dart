@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:ipotec/dashboard_module/modal/buyback_ipo_model.dart';
+import 'package:ipotec/dashboard_module/modal/search_modal.dart';
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';
 
-class SearchResultsController extends GetxController with StateMixin<BuybackIpoModel> {
+class SearchResultsController extends GetxController with StateMixin<SearchModal> {
   getSearchResults({required String search}) async {
-    change(null, status: RxStatus.loading());
+    change(null, status: RxStatus.empty());
+
     final apiEndPoint = "${APIEndPoints.search}?query=$search";
     debugPrint("---------- $apiEndPoint getSearchResults Start ----------");
     try {
@@ -18,8 +19,12 @@ class SearchResultsController extends GetxController with StateMixin<BuybackIpoM
         throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
       }
 
-      final modal = BuybackIpoModel.fromJson(response.data);
+      final modal = SearchModal.fromJson(response.data);
       change(modal, status: RxStatus.success());
+
+      if (modal.content == []) {
+        change(null, status: RxStatus.empty());
+      }
     } catch (error) {
       debugPrint("---------- $apiEndPoint getSearchResults End With Error ----------");
       debugPrint("SearchResultsController => getSearchResults > Error $error ");

@@ -7,5 +7,5 @@ class KeyValuePairModel<T, R, S> {
 
   T key;
   R value;
-  S? extra;
+  T? extra;
 }

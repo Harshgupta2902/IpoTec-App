@@ -5,6 +5,7 @@ import 'package:ipotec/dashboard_module/controller/mainboard_ipo_details_control
 import 'package:ipotec/dashboard_module/modal/ipo_details_model.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
+import 'package:ipotec/utilities/common/error_widget.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
@@ -274,6 +275,8 @@ class _MainboardIpoDetailsViewState extends State<MainboardIpoDetailsView> {
             ),
           );
         },
+        onEmpty: const Center(child: OnErrorWidget(error: "000")),
+        onError: (error) => OnErrorWidget(error: error),
       ),
     );
   }
@@ -294,7 +297,7 @@ class ExtraDetailsCard extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
-          if (dates != null || dates?.isNotEmpty == true) ...[
+          if (dates?.isNotEmpty == true || (dates?.length ?? 0) != 0) ...[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
@@ -323,6 +326,7 @@ class ExtraDetailsCard extends StatelessWidget {
                 },
               ),
             ),
+            Text("${dates?.length}"),
             const Divider(),
           ],
           ListView.separated(

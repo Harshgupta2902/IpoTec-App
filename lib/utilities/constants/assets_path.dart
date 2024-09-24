@@ -2,6 +2,7 @@ class AssetPath {
   static const _bottom = "assets/bottom/";
   static const _logos = "assets/logos/";
   static const _lottie = "assets/lottie/";
+  static const _icons = "assets/icons/";
 
   static const mainBoard = "${_bottom}mainBoard.svg";
   static const sme = "${_bottom}sme.svg";
@@ -9,6 +10,10 @@ class AssetPath {
   static const blogs = "${_bottom}blogs.svg";
 
   static const liveLottie = "${_lottie}live.json";
+
+  static const error500 = "${_icons}500.png";
+  static const error404 = "${_icons}404.png";
+  static const error000 = "${_icons}000.png";
 
   static const aLogo = "${_logos}A.svg";
   static const bLogo = "${_logos}B.svg";

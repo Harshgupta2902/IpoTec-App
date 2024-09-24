@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/controller/blogs_controller.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
+import 'package:ipotec/utilities/common/error_widget.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
@@ -137,6 +138,8 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                 itemCount: state?.data?.length ?? 0,
               );
             },
+            onEmpty: const Center(child: OnErrorWidget(error: "000")),
+            onError: (error) => OnErrorWidget(error: error),
           );
         },
       ),

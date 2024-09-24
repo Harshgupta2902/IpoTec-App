@@ -7,6 +7,7 @@ import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart
 import 'package:ipotec/dashboard_module/modal/mainboard_ipo_modal.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
+import 'package:ipotec/utilities/common/error_widget.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
@@ -24,7 +25,6 @@ class SmeIpoView extends StatefulWidget {
 
 class _SmeIpoViewState extends State<SmeIpoView> {
   InterstitialAd? _interstitialAd;
-
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +125,8 @@ class _SmeIpoViewState extends State<SmeIpoView> {
             ),
           );
         },
+        onEmpty: const Center(child: OnErrorWidget(error: "000")),
+        onError: (error) => OnErrorWidget(error: error),
       ),
     );
   }

@@ -3,36 +3,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 
 class CoreNotificationService {
   final _firebaseMessaging = FirebaseMessaging.instance;
   static final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  Future<void> updateFCMToken() async {
-    _firebaseMessaging.requestPermission();
-
-    final fcmToken = await _firebaseMessaging.getToken();
-
-    logger.i("----------FCM TOKEN $fcmToken----------");
-
-    if (fcmToken == null) {
-      logger.i("----------  updateFCMTokenAPI Stopped FCM Token in NULL ----------");
-      return;
-    }
-
-    final prefsFCM = getFCMToken();
-
-    if (prefsFCM == null) {
-      setFCMToken(fcmToken);
-    } else if (prefsFCM == fcmToken) {
-      logger.d("----------  updateFCMTokenAPI Stopped Same FCM Token ----------");
-      return;
-    }
-  }
-
   Future<void> clearFCMToken() async {
     _firebaseMessaging.deleteToken();
-    // _defaultDataController.updateFCMToken(token: null);
   }
 
   init() async {
@@ -53,28 +31,50 @@ class CoreNotificationService {
       initializationSettings,
       onDidReceiveNotificationResponse: (NotificationResponse details) {
         try {
-          logger.d("Notification clicked ${details.payload}");
           final Map payload = json.decode(details.payload ?? "");
+
           onNotificationClicked(payload: payload);
         } catch (e) {
           logger.e("onDidReceiveNotificationResponse error $e");
         }
       },
+      // onDidReceiveBackgroundNotificationResponse: (details) {
+      //   final payLoad = jsonDecode(details.payload ?? '');
+      //
+      //   onNotificationClicked(payload: payLoad);
+      // },
     );
   }
 
-  fcmListener() {
+  fcmListener({Function()? onTap}) {
+    logger.i("Notification Recieved => fcmListener  ");
+    logger.i("FCM TOKEN => ${getFCMToken()}  ");
+
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) async {
-        logger.i("notification recieved");
-        // _coreNotificationController.getNotificationData();
+        logger.i("Notification Recieved => fcmListener > $message ");
+        logger.i("FCM TOKEN => ${getFCMToken()}  ");
         createNotification(message);
       },
     );
   }
 
   onNotificationClicked({required Map payload}) {
-    // TODO :: HANDLE N
+    logger.e(payload);
+    if (payload.containsKey('route') && payload.containsKey('arguments')) {
+      final arguments = json.decode(payload['arguments']);
+      logger.i(arguments.runtimeType);
+      logger.i(payload['route']);
+      logger.i(arguments);
+
+      if (arguments == null) {
+        return;
+      }
+
+      MyNavigator.pushNamed(payload['route'], extra: arguments);
+    } else if (payload.containsKey('route') == true) {
+      MyNavigator.pushNamed(payload['route']);
+    }
   }
 
   void _onDidReceiveLocalNotification(
@@ -84,8 +84,11 @@ class CoreNotificationService {
     String? payload,
   ) async {
     try {
-      final Map payLoadMap = json.decode(payload ?? "");
+      final Map? payLoadMap = json.decode(payload ?? "");
 
+      if (payLoadMap == null) {
+        throw "error";
+      }
       onNotificationClicked(payload: payLoadMap);
     } catch (e) {
       logger.e("onDidReceiveNotificationResponse error $e");
@@ -94,6 +97,8 @@ class CoreNotificationService {
 
   static void createNotification(RemoteMessage message) async {
     try {
+      final title = message.notification?.title ?? "Default Title";
+      final body = message.notification?.body ?? "Default Body";
       final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       const androidNotificationDetails = AndroidNotificationDetails(
         'pushnotification',
@@ -113,8 +118,8 @@ class CoreNotificationService {
 
       await flutterLocalNotificationsPlugin.show(
         id,
-        message.notification?.title,
-        message.notification?.body,
+        title,
+        body,
         notificationDetails,
         payload: json.encode(message.data),
       );
@@ -122,4 +127,41 @@ class CoreNotificationService {
       logger.e("Notification Create Error $error");
     }
   }
+
+  // Future<void> updateFCMToken(String? fcmToken, String? clientEndPoint) async {
+  //   _firebaseMessaging.requestPermission();
+  //
+  //   final token = await _firebaseMessaging.getToken();
+  //
+  //   logger.i("----------FCM TOKEN $token----------");
+  //
+  //   if (token == null) {
+  //     logger.i("----------  updateFCMTokenAPI Stopped FCM Token in NULL ----------");
+  //
+  //     return;
+  //   }
+  //
+  //   if (clientEndPoint == null || fcmToken == null) {
+  //     final response = await postRequest(
+  //       apiEndPoint: ApiEndpoints.snsCreate,
+  //       postData: {
+  //         "fcm_token": token,
+  //       },
+  //     );
+  //     logger.d(response);
+  //     return;
+  //   }
+  //
+  //   if (fcmToken != token) {
+  //     final response = await postRequest(
+  //       apiEndPoint: ApiEndpoints.snsUpdate,
+  //       postData: {
+  //         "fcm_token": token,
+  //         "client_endpoint": clientEndPoint,
+  //       },
+  //     );
+  //     logger.d(response);
+  //     return;
+  //   }
+  // }
 }
