@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +11,9 @@ class CoreDynamicLinksService {
       try {
         final Map<String, dynamic> queryParameters = instance.link.queryParameters;
         CoreGlobalRouteHandler.routeHandler(queryParameters: queryParameters);
-      } catch (e) {}
+      } catch (e) {
+        debugPrint("dynamic_link_services :::::: Line=15 :::::$e");
+      }
     }
   }
 

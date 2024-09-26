@@ -4,6 +4,7 @@ import 'package:ipotec/dashboard_module/components/buyback_upcoming_card.dart';
 import 'package:ipotec/dashboard_module/controller/buyback_ipo_controller.dart';
 import 'package:ipotec/dashboard_module/modal/buyback_ipo_model.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
+import 'package:ipotec/utilities/common/custom_error_or_empty.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
 import 'package:ipotec/utilities/common/error_widget.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
@@ -56,70 +57,78 @@ class _BuybackIpoViewState extends State<BuybackIpoView> {
                 Flexible(
                   child: TabBarView(
                     children: [
-                      ListView.separated(
-                        itemCount: sortedActive.length,
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        itemBuilder: (context, index) {
-                          final data = sortedActive[index];
-                          return GestureDetector(
-                            onTap: () => MyNavigator.pushNamed(
-                              GoPaths.buyBackDetails,
-                              extra: {'slug': data.searchId, 'name': data.companyShortName},
+                      sortedActive.isEmpty == true
+                          ? const CustomErrorOrEmpty(
+                              title: "No Open BuyBack IPO's",
+                            )
+                          : ListView.separated(
+                              itemCount: sortedActive.length,
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              itemBuilder: (context, index) {
+                                final data = sortedActive[index];
+                                return GestureDetector(
+                                  onTap: () => MyNavigator.pushNamed(
+                                    GoPaths.buyBackDetails,
+                                    extra: {'slug': data.searchId, 'name': data.companyShortName},
+                                  ),
+                                  child: BuybackUpcomingCard(
+                                    name: getBuyBackName(data.buyBackId ?? ""),
+                                    logo: data.companyLogo ?? data.companyShortName,
+                                    bid: "BuyBack Price: ${format2INR(data.offerPrice)}",
+                                    issueSize: "Issue Size(Amt.): ${data.issuedAmount}",
+                                    data: [
+                                      KeyValuePairModel(
+                                        key: "Record Date",
+                                        value: convertDate(data.recordDate ?? "", showYear: false),
+                                      ),
+                                      KeyValuePairModel(
+                                        key: "Open Date",
+                                        value: convertDate(data.startDate ?? "", showYear: false),
+                                      ),
+                                      KeyValuePairModel(
+                                        key: "Close Date",
+                                        value: convertDate(data.endDate ?? "", showYear: false),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (context, index) => const SizedBox(height: 16),
                             ),
-                            child: BuybackUpcomingCard(
-                              name: getBuyBackName(data.buyBackId ?? ""),
-                              logo: data.companyLogo ?? data.companyShortName,
-                              bid: "BuyBack Price: ${format2INR(data.offerPrice)}",
-                              issueSize: "Issue Size(Amt.): ${data.issuedAmount}",
-                              data: [
-                                KeyValuePairModel(
-                                  key: "Record Date",
-                                  value: convertDate(data.recordDate ?? "", showYear: false),
-                                ),
-                                KeyValuePairModel(
-                                  key: "Open Date",
-                                  value: convertDate(data.startDate ?? "", showYear: false),
-                                ),
-                                KeyValuePairModel(
-                                  key: "Close Date",
-                                  value: convertDate(data.endDate ?? "", showYear: false),
-                                )
-                              ],
+                      sortedClosed.isEmpty == true
+                          ? const CustomErrorOrEmpty(
+                              title: "No Closed BuyBack IPO's",
+                            )
+                          : ListView.separated(
+                              itemCount: sortedClosed.length,
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              itemBuilder: (context, index) {
+                                final data = sortedClosed[index];
+                                return GestureDetector(
+                                  onTap: () => MyNavigator.pushNamed(
+                                    GoPaths.buyBackDetails,
+                                    extra: {'slug': data.searchId, 'name': data.companyShortName},
+                                  ),
+                                  child: BuybackUpcomingCard(
+                                    name: getBuyBackName(data.buyBackId ?? ""),
+                                    logo: data.companyLogo ?? data.companyShortName,
+                                    bid: "BuyBack Price: ${format2INR(data.offerPrice)}",
+                                    issueSize: "Issue Size(Amt.): ${data.issuedAmount}",
+                                    data: [
+                                      KeyValuePairModel(
+                                        key: "Open Date",
+                                        value: convertDate(data.startDate ?? ""),
+                                      ),
+                                      KeyValuePairModel(
+                                        key: "Close Date",
+                                        value: convertDate(data.endDate ?? ""),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (context, index) => const SizedBox(height: 16),
                             ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(height: 16),
-                      ),
-                      ListView.separated(
-                        itemCount: sortedClosed.length,
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        itemBuilder: (context, index) {
-                          final data = sortedClosed[index];
-                          return GestureDetector(
-                            onTap: () => MyNavigator.pushNamed(
-                              GoPaths.buyBackDetails,
-                              extra: {'slug': data.searchId, 'name': data.companyShortName},
-                            ),
-                            child: BuybackUpcomingCard(
-                              name: getBuyBackName(data.buyBackId ?? ""),
-                              logo: data.companyLogo ?? data.companyShortName,
-                              bid: "BuyBack Price: ${format2INR(data.offerPrice)}",
-                              issueSize: "Issue Size(Amt.): ${data.issuedAmount}",
-                              data: [
-                                KeyValuePairModel(
-                                  key: "Open Date",
-                                  value: convertDate(data.startDate ?? ""),
-                                ),
-                                KeyValuePairModel(
-                                  key: "Close Date",
-                                  value: convertDate(data.endDate ?? ""),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(height: 16),
-                      ),
                     ],
                   ),
                 ),

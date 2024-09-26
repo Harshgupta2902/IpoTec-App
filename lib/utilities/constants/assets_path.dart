@@ -10,6 +10,7 @@ class AssetPath {
   static const blogs = "${_bottom}blogs.svg";
 
   static const liveLottie = "${_lottie}live.json";
+  static const emptyLottie = "${_lottie}empty.json";
 
   static const error500 = "${_icons}500.png";
   static const error404 = "${_icons}404.png";
