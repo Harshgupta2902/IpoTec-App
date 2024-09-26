@@ -50,6 +50,7 @@ class _WebViewState extends State<WebView> {
             if (url.toString() != widget.url) {
               MyNavigator.pop();
             }
+            evaluateScript(controller);
           },
           onLoadError: (controller, url, code, message) async {
             debugPrint("onLoadError:::::::::$url");
@@ -59,14 +60,7 @@ class _WebViewState extends State<WebView> {
           },
           onLoadStop: (controller, url) async {
             debugPrint("onLoadStop:::::::::$url");
-
-            await controller.evaluateJavascript(source: """
-              document.querySelectorAll('a').forEach(function(link) {
-                link.onclick = function(event) {
-                  event.preventDefault();
-                };
-              });
-            """);
+            evaluateScript(controller);
 
             if (url.toString() != widget.url) {
               MyNavigator.pop();
@@ -74,9 +68,30 @@ class _WebViewState extends State<WebView> {
           },
           onProgressChanged: (controller, progress) async {
             debugPrint("onProgressChanged:::::::::$progress");
+            evaluateScript(controller);
           },
         ),
       ),
     );
   }
+}
+
+void evaluateScript(InAppWebViewController controller) async {
+  await controller.evaluateJavascript(source: """
+              document.querySelectorAll('a').forEach(function(link) {
+                link.onclick = function(event) {
+                  event.preventDefault();
+                };
+              });
+            document.querySelector('.h12Wrapper.backgroundPrimary.h12BotBorder').remove();
+            document.querySelector('.foot21ExploreHead').remove();
+            document.querySelector('.foot21MoreAbout').remove();
+            document.querySelector('.valign-wrapper.foot21Div').remove();
+            document.querySelector('.foot21Box').remove();
+            document.querySelector('.bfc43CategoryContainer').remove();
+            document.querySelector('.bfc43Title.bodyXLargeHeavy').remove();
+            document.querySelector('.bs91SidebarLinks').remove();
+            document.querySelector('.bmp88Disclaimer').remove();
+
+            """);
 }

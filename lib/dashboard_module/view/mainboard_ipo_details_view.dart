@@ -401,7 +401,7 @@ class Faqs extends StatelessWidget {
                 pros.length,
                 (index) {
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
+                    padding: const EdgeInsets.only(bottom: 4, right: 6),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -454,7 +454,7 @@ class Faqs extends StatelessWidget {
                 cons.length,
                 (index) {
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
+                    padding: const EdgeInsets.only(bottom: 4, right: 6),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -525,7 +525,7 @@ class CompanyDetailsCard extends StatelessWidget {
             data.length,
             (index) {
               return Padding(
-                padding: const EdgeInsets.only(bottom: 4),
+                padding: const EdgeInsets.only(bottom: 4, right: 4),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -583,32 +583,35 @@ class FinancialAllocationCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.3,
-                child: Text(
-                  "",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.boulder,
-                      ),
-                ),
-              ),
-              ...List.generate(
-                financials?[0].yearly?.length ?? 0,
-                (index) {
-                  return Text(
-                    financials?[0].yearly?[index].year?.toString() ?? "",
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: Text(
+                    "",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppColors.boulder,
                         ),
-                  );
-                },
-              ),
-            ],
+                  ),
+                ),
+                ...List.generate(
+                  financials?[0].yearly?.length ?? 0,
+                  (index) {
+                    return Text(
+                      financials?[0].yearly?[index].year?.toString() ?? "",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.boulder,
+                          ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
           const Divider(color: Colors.black),
           ...List.generate(financials?.length ?? 0, (mainIndex) {
@@ -642,7 +645,6 @@ class FinancialAllocationCard extends StatelessWidget {
               ),
             );
           }),
-          const Divider(color: Colors.black),
         ],
       ),
     );
