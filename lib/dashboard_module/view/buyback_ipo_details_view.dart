@@ -251,7 +251,10 @@ class FundaMentalCard extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       width: MediaQuery.of(context).size.width,
-      decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
+      decoration: AppBoxDecoration.getBoxDecoration(
+        borderRadius: 10,
+        border: Border.all(color: AppColors.lightGrey),
+      ),
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,7 +263,12 @@ class FundaMentalCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               width: MediaQuery.of(context).size.width,
-              color: AppColors.aliceBlue,
+              decoration: const BoxDecoration(
+                color: AppColors.aliceBlue,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(10),
+                ),
+              ),
               child: Text(
                 title ?? "",
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -324,7 +332,10 @@ class ExtraDetailsCard extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       width: MediaQuery.of(context).size.width,
-      decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
+      decoration: AppBoxDecoration.getBoxDecoration(
+        borderRadius: 10,
+        border: Border.all(color: AppColors.lightGrey),
+      ),
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,7 +344,12 @@ class ExtraDetailsCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               width: MediaQuery.of(context).size.width,
-              color: AppColors.aliceBlue,
+              decoration: const BoxDecoration(
+                color: AppColors.aliceBlue,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(10),
+                ),
+              ),
               child: Text(
                 title ?? "",
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -391,6 +407,148 @@ class ShareHoldingAllocationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      clipBehavior: Clip.hardEdge,
+      width: MediaQuery.of(context).size.width,
+      decoration: AppBoxDecoration.getBoxDecoration(
+        borderRadius: 10,
+        border: Border.all(color: AppColors.lightGrey),
+      ),
+      padding: const EdgeInsets.only(bottom: 12),
+      child: SingleChildScrollView(
+        clipBehavior: Clip.hardEdge,
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                color: AppColors.aliceBlue,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(10),
+                ),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.22,
+                    child: Text(
+                      "Year",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 90,
+                    child: Text(
+                      "Promoters",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      "Mutual Funds",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      "Insurance",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      "Foreign Inst.",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      "Retail",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            ...List.generate(shareHoldingPattern?.length ?? 0, (index) {
+              final ranks = shareHoldingPattern?[index];
+              return Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.22,
+                    child: Text(
+                      ranks?.period ?? "",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 90,
+                    child: Text(
+                      ranks?.promoters?.individual?.percent?.toStringAsFixed(2).toPercent() ?? "",
+                    ),
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      ranks?.mutualFunds?.percent?.toStringAsFixed(2).toPercent() ?? "",
+                    ),
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      ranks?.otherDomesticInstitutions?.insurance?.percent
+                              ?.toStringAsFixed(2)
+                              .toPercent() ??
+                          "",
+                    ),
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      ranks?.foreignInstitutions?.percent?.toStringAsFixed(2).toPercent() ?? "",
+                    ),
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      ranks?.retailAndOthers?.percent?.toStringAsFixed(2).toPercent() ?? "",
+                    ),
+                  ),
+                ],
+              );
+            })
+          ],
+        ),
+      ),
+    );
+    return Container(
       decoration: AppBoxDecoration.getBoxDecoration(),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       child: SingleChildScrollView(
@@ -408,59 +566,65 @@ class ShareHoldingAllocationCard extends StatelessWidget {
               child: Row(
                 children: [
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.22,
-                      child: Text(
-                        "Year",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      )),
+                    width: MediaQuery.of(context).size.width * 0.22,
+                    child: Text(
+                      "Year",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
                   SizedBox(
-                      width: 90,
-                      child: Text(
-                        "Promoters",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      )),
+                    width: 90,
+                    child: Text(
+                      "Promoters",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
                   SizedBox(
-                      width: 70,
-                      child: Text(
-                        "Mutual Funds",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      )),
+                    width: 70,
+                    child: Text(
+                      "Mutual Funds",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
                   SizedBox(
-                      width: 70,
-                      child: Text(
-                        "Insurance",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      )),
+                    width: 70,
+                    child: Text(
+                      "Insurance",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
                   SizedBox(
-                      width: 70,
-                      child: Text(
-                        "Foreign Inst.",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      )),
+                    width: 70,
+                    child: Text(
+                      "Foreign Inst.",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
                   SizedBox(
-                      width: 70,
-                      child: Text(
-                        "Retail",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      )),
+                    width: 70,
+                    child: Text(
+                      "Retail",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -533,7 +697,10 @@ class PeersList extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       width: MediaQuery.of(context).size.width,
-      decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
+      decoration: AppBoxDecoration.getBoxDecoration(
+        borderRadius: 10,
+        border: Border.all(color: AppColors.lightGrey),
+      ),
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -542,7 +709,12 @@ class PeersList extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               width: MediaQuery.of(context).size.width,
-              color: AppColors.aliceBlue,
+              decoration: const BoxDecoration(
+                color: AppColors.aliceBlue,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(10),
+                ),
+              ),
               child: Text(
                 title ?? "",
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -615,14 +787,23 @@ class FinancialAllocationCard extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       width: MediaQuery.of(context).size.width,
+      decoration: AppBoxDecoration.getBoxDecoration(
+        borderRadius: 10,
+        border: Border.all(color: AppColors.lightGrey),
+      ),
       padding: const EdgeInsets.only(bottom: 12),
-      decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             width: MediaQuery.of(context).size.width,
-            color: AppColors.aliceBlue,
+            decoration: const BoxDecoration(
+              color: AppColors.aliceBlue,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
+            ),
             child: Text(
               "Company Financials",
               style: Theme.of(context).textTheme.bodyLarge,

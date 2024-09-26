@@ -45,6 +45,7 @@ dependencies:
   firebase_in_app_messaging: ^0.7.3+5
   flutter_local_notifications: ^15.1.0+1
   google_sign_in: ^6.1.4
+  flutter_native_splash: ^2.4.1
 
 
 
@@ -102,3 +103,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+flutter_native_splash:
+  android: true
+  ios: true
+  color: "#FFFFFF"
+  image: "assets/icons/logo.png"
+  android_12:
+    image: "assets/icons/logo.png"

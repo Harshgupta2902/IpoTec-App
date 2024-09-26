@@ -326,7 +326,6 @@ class ExtraDetailsCard extends StatelessWidget {
                 },
               ),
             ),
-            Text("${dates?.length}"),
             const Divider(),
           ],
           ListView.separated(
@@ -375,92 +374,106 @@ class Faqs extends StatelessWidget {
         Container(
           clipBehavior: Clip.hardEdge,
           width: MediaQuery.of(context).size.width,
-          decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
-          padding: const EdgeInsets.all(12.0),
-          child: DefaultTabController(
-            length: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
+          decoration: AppBoxDecoration.getBoxDecoration(
+            borderRadius: 10,
+            border: Border.all(color: AppColors.lightGrey),
+          ),
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  color: AppColors.aliceBlue,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(10),
+                  ),
+                ),
+                child: Text(
                   "Pro's",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                const SizedBox(height: 6),
-                ...List.generate(
-                  pros.length,
-                  (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Icon(Icons.arrow_right, color: Colors.black, size: 18),
-                          const SizedBox(width: 4),
-                          pros[index].length > 40
-                              ? Flexible(child: ReadMoreText(subtitle: pros[index]))
-                              : Flexible(
-                                  child: Text(
-                                    pros[index],
-                                    style: Theme.of(context).textTheme.bodySmall,
-                                  ),
-                                )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 8),
+              ...List.generate(
+                pros.length,
+                (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.arrow_right, color: Colors.black, size: 18),
+                        const SizedBox(width: 4),
+                        pros[index].length > 40
+                            ? Flexible(child: ReadMoreText(subtitle: pros[index]))
+                            : Flexible(
+                                child: Text(
+                                  pros[index],
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              )
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 16),
         Container(
           clipBehavior: Clip.hardEdge,
           width: MediaQuery.of(context).size.width,
-          decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
-          padding: const EdgeInsets.all(12.0),
-          child: DefaultTabController(
-            length: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
+          decoration: AppBoxDecoration.getBoxDecoration(
+            borderRadius: 10,
+            border: Border.all(color: AppColors.lightGrey),
+          ),
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  color: AppColors.aliceBlue,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(10),
+                  ),
+                ),
+                child: Text(
                   "Con's",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                const SizedBox(height: 6),
-                ...List.generate(
-                  cons.length,
-                  (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Icon(Icons.arrow_right, color: Colors.black, size: 18),
-                          const SizedBox(width: 4),
-                          cons[index].length > 40
-                              ? Flexible(child: ReadMoreText(subtitle: cons[index]))
-                              : Flexible(
-                                  child: Text(
-                                    cons[index],
-                                    style: Theme.of(context).textTheme.bodySmall,
-                                  ),
-                                )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 8),
+              ...List.generate(
+                cons.length,
+                (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.arrow_right, color: Colors.black, size: 18),
+                        const SizedBox(width: 4),
+                        cons[index].length > 40
+                            ? Flexible(child: ReadMoreText(subtitle: cons[index]))
+                            : Flexible(
+                                child: Text(
+                                  cons[index],
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              )
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ],
@@ -485,33 +498,53 @@ class CompanyDetailsCard extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       width: MediaQuery.of(context).size.width,
-      decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
-      padding: const EdgeInsets.all(12.0),
+      decoration: AppBoxDecoration.getBoxDecoration(
+        borderRadius: 10,
+        border: Border.all(color: AppColors.lightGrey),
+      ),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          data.length,
-          (index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.arrow_right, color: Colors.black, size: 18),
-                  const SizedBox(width: 4),
-                  data[index].length > 60
-                      ? Flexible(child: ReadMoreText(subtitle: data[index]))
-                      : Flexible(
-                          child: Text(
-                            data[index],
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        )
-                ],
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: AppColors.aliceBlue,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(10),
               ),
-            );
-          },
-        ),
+            ),
+            child: Text(
+              "Company Details",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+          const SizedBox(height: 8),
+          ...List.generate(
+            data.length,
+            (index) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.arrow_right, color: Colors.black, size: 18),
+                    const SizedBox(width: 4),
+                    data[index].length > 60
+                        ? Flexible(child: ReadMoreText(subtitle: data[index]))
+                        : Flexible(
+                            child: Text(
+                              data[index],
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          )
+                  ],
+                ),
+              );
+            },
+          )
+        ],
       ),
     );
   }
@@ -527,19 +560,29 @@ class FinancialAllocationCard extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(12.0),
-      decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
+      decoration: AppBoxDecoration.getBoxDecoration(
+        borderRadius: 10,
+        border: Border.all(color: AppColors.lightGrey),
+      ),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Company Financials in Cr.",
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: AppColors.aliceBlue,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
+            ),
+            child: Text(
+              "Company Financials in Cr.",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -570,7 +613,7 @@ class FinancialAllocationCard extends StatelessWidget {
           const Divider(color: Colors.black),
           ...List.generate(financials?.length ?? 0, (mainIndex) {
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -23,7 +24,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
@@ -56,11 +58,9 @@ void main() async {
 
   await CoreNotificationService().init();
   CrashlyticsService().init();
-
   await GetStorage.init();
   await _defaultController.getDefaultData();
   MobileAds.instance.initialize();
-
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
     try {
@@ -71,6 +71,7 @@ void main() async {
     }
   });
   runApp(const MyApp());
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatefulWidget {
