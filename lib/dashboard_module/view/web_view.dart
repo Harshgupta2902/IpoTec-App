@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 
 class WebView extends StatefulWidget {
   const WebView({super.key, required this.url, required this.title});
@@ -47,14 +48,29 @@ class _WebViewState extends State<WebView> {
           onLoadStart: (controller, url) async {
             debugPrint("onLoadStart:::::::::$url");
             if (url.toString() != widget.url) {
-              Navigator.pop(context);
+              MyNavigator.pop();
             }
           },
           onLoadError: (controller, url, code, message) async {
             debugPrint("onLoadError:::::::::$url");
+            if (url.toString() != widget.url) {
+              MyNavigator.pop();
+            }
           },
           onLoadStop: (controller, url) async {
             debugPrint("onLoadStop:::::::::$url");
+
+            await controller.evaluateJavascript(source: """
+              document.querySelectorAll('a').forEach(function(link) {
+                link.onclick = function(event) {
+                  event.preventDefault();
+                };
+              });
+            """);
+
+            if (url.toString() != widget.url) {
+              MyNavigator.pop();
+            }
           },
           onProgressChanged: (controller, progress) async {
             debugPrint("onProgressChanged:::::::::$progress");

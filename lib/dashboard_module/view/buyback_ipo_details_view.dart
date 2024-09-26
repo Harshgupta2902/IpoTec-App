@@ -414,138 +414,152 @@ class ShareHoldingAllocationCard extends StatelessWidget {
         border: Border.all(color: AppColors.lightGrey),
       ),
       padding: const EdgeInsets.only(bottom: 12),
-      child: SingleChildScrollView(
-        clipBehavior: Clip.hardEdge,
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: AppColors.aliceBlue,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(10),
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.22,
-                    child: Text(
-                      "Year",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 90,
-                    child: Text(
-                      "Promoters",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 70,
-                    child: Text(
-                      "Mutual Funds",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 70,
-                    child: Text(
-                      "Insurance",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 70,
-                    child: Text(
-                      "Foreign Inst.",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 70,
-                    child: Text(
-                      "Retail",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: AppColors.aliceBlue,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(10),
               ),
             ),
-            const SizedBox(height: 10),
-            ...List.generate(shareHoldingPattern?.length ?? 0, (index) {
-              final ranks = shareHoldingPattern?[index];
-              return Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.22,
-                    child: Text(
-                      ranks?.period ?? "",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w600),
-                    ),
+            child: Text(
+              "Share Holding Allocation",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+          SingleChildScrollView(
+            clipBehavior: Clip.hardEdge,
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.22,
+                        child: Text(
+                          "Year",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.boulder,
+                              ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 90,
+                        child: Text(
+                          "Promoters",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.boulder,
+                              ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          "Mutual Funds",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.boulder,
+                              ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          "Insurance",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.boulder,
+                              ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          "Foreign Inst.",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.boulder,
+                              ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          "Retail",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.boulder,
+                              ),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 90,
-                    child: Text(
-                      ranks?.promoters?.individual?.percent?.toStringAsFixed(2).toPercent() ?? "",
-                    ),
-                  ),
-                  SizedBox(
-                    width: 70,
-                    child: Text(
-                      ranks?.mutualFunds?.percent?.toStringAsFixed(2).toPercent() ?? "",
-                    ),
-                  ),
-                  SizedBox(
-                    width: 70,
-                    child: Text(
-                      ranks?.otherDomesticInstitutions?.insurance?.percent
-                              ?.toStringAsFixed(2)
-                              .toPercent() ??
-                          "",
-                    ),
-                  ),
-                  SizedBox(
-                    width: 70,
-                    child: Text(
-                      ranks?.foreignInstitutions?.percent?.toStringAsFixed(2).toPercent() ?? "",
-                    ),
-                  ),
-                  SizedBox(
-                    width: 70,
-                    child: Text(
-                      ranks?.retailAndOthers?.percent?.toStringAsFixed(2).toPercent() ?? "",
-                    ),
-                  ),
-                ],
-              );
-            })
-          ],
-        ),
+                ),
+                const SizedBox(height: 10),
+                ...List.generate(shareHoldingPattern?.length ?? 0, (index) {
+                  final ranks = shareHoldingPattern?[index];
+                  return Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.22,
+                        child: Text(
+                          ranks?.period ?? "",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 90,
+                        child: Text(
+                          ranks?.promoters?.individual?.percent?.toStringAsFixed(2).toPercent() ??
+                              "",
+                        ),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          ranks?.mutualFunds?.percent?.toStringAsFixed(2).toPercent() ?? "",
+                        ),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          ranks?.otherDomesticInstitutions?.insurance?.percent
+                                  ?.toStringAsFixed(2)
+                                  .toPercent() ??
+                              "",
+                        ),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          ranks?.foreignInstitutions?.percent?.toStringAsFixed(2).toPercent() ?? "",
+                        ),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          ranks?.retailAndOthers?.percent?.toStringAsFixed(2).toPercent() ?? "",
+                        ),
+                      ),
+                    ],
+                  );
+                })
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
