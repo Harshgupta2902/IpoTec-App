@@ -45,50 +45,55 @@ class _LandingViewState extends State<LandingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-        () => GestureDetector(
-          onTap: () {
-            if (_hiddenDrawerController.isDrawerOpen.value == false) {
-              return;
-            }
-            _hiddenDrawerController.toggleDrawer();
-          },
-          child: AnimatedContainer(
-            transform: Matrix4.translationValues(
-              _hiddenDrawerController.xOffset.value,
-              _hiddenDrawerController.yOffset.value,
-              0,
-            )..scale(
-                _hiddenDrawerController.scaleFactor.value,
-              ),
-            duration: const Duration(
-              milliseconds: 250,
-            ),
-            curve: Curves.easeInOut,
-            decoration: AppBoxDecoration.getBoxDecoration(
-              showShadow: true,
-              color: AppColors.backgroundColor,
-              borderRadius: _hiddenDrawerController.isDrawerOpen.value ? 40 : 0.0,
-              spreadRadius: _hiddenDrawerController.isDrawerOpen.value ? 1 : 0,
-              blurRadius: 24,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(
-                _hiddenDrawerController.isDrawerOpen.value ? 24 : 0.0,
-              ),
-              child: IgnorePointer(
-                ignoring: _hiddenDrawerController.isDrawerOpen.value,
-                child: Scaffold(
-                  key: _hiddenDrawerController.scaffoldKey,
-                  body: widget.child,
-                  drawer: const DefaultCustomDrawer(),
-                  bottomNavigationBar: const CustomBottomNavigationBar(),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+      key: _hiddenDrawerController.scaffoldKey,
+      body: widget.child,
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
+    // return Scaffold(
+    //   body: Obx(
+    //     () => GestureDetector(
+    //       onTap: () {
+    //         if (_hiddenDrawerController.isDrawerOpen.value == false) {
+    //           return;
+    //         }
+    //         _hiddenDrawerController.toggleDrawer();
+    //       },
+    //       child: AnimatedContainer(
+    //         transform: Matrix4.translationValues(
+    //           _hiddenDrawerController.xOffset.value,
+    //           _hiddenDrawerController.yOffset.value,
+    //           0,
+    //         )..scale(
+    //             _hiddenDrawerController.scaleFactor.value,
+    //           ),
+    //         duration: const Duration(
+    //           milliseconds: 250,
+    //         ),
+    //         curve: Curves.easeInOut,
+    //         decoration: AppBoxDecoration.getBoxDecoration(
+    //           showShadow: true,
+    //           color: AppColors.backgroundColor,
+    //           borderRadius: _hiddenDrawerController.isDrawerOpen.value ? 40 : 0.0,
+    //           spreadRadius: _hiddenDrawerController.isDrawerOpen.value ? 1 : 0,
+    //           blurRadius: 24,
+    //         ),
+    //         child: ClipRRect(
+    //           borderRadius: BorderRadius.circular(
+    //             _hiddenDrawerController.isDrawerOpen.value ? 24 : 0.0,
+    //           ),
+    //           child: IgnorePointer(
+    //             ignoring: _hiddenDrawerController.isDrawerOpen.value,
+    //             child: Scaffold(
+    //               key: _hiddenDrawerController.scaffoldKey,
+    //               body: widget.child,
+    //               drawer: const DefaultCustomDrawer(),
+    //               bottomNavigationBar: const CustomBottomNavigationBar(),
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }

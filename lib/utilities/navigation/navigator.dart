@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/route_generator.dart';
@@ -11,6 +12,7 @@ class MyNavigator {
     } catch (e) {
       debugPrint("+++++++++++++++++++++++++++++navigation  $e");
     }
+    FirebaseAnalytics.instance.logEvent(name: 'navigated_to_page');
   }
 
   static void go(String? routeName, {Object? extra}) {
@@ -19,6 +21,7 @@ class MyNavigator {
     } catch (e) {
       debugPrint("+++++++++++++++++++++++++++++navigation  $e");
     }
+    FirebaseAnalytics.instance.logEvent(name: 'navigated_to_page');
   }
 
   static void pop() {
@@ -34,6 +37,7 @@ class MyNavigator {
     } catch (e) {
       debugPrint("Navigation Error: $e");
     }
+    FirebaseAnalytics.instance.logEvent(name: 'navigated_to_page');
   }
 
   static void pushReplacementNamed(String? routeName, {Object? extra}) {
@@ -42,5 +46,6 @@ class MyNavigator {
     } catch (e) {
       debugPrint("+++++++++++++++++++++++++++++navigation  $e");
     }
+    FirebaseAnalytics.instance.logEvent(name: 'navigated_to_page');
   }
 }

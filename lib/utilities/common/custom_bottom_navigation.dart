@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
+import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
@@ -13,6 +14,7 @@ import 'package:ipotec/utilities/packages/ad_helper.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _defaultController = Get.put(DefaultApiController());
+final _hiddenDrawerController = Get.put(HiddenDrawerController());
 
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({super.key});
@@ -73,7 +75,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       onTap: (value) {
         setState(() {
           _index = value;
+          if (_index == 3) {
+            _hiddenDrawerController.showSearchBar.value = false;
+          }
         });
+
         if (_defaultController.state?.showAd == true) {
           _loadInterstitialAd(value);
         } else {
@@ -96,6 +102,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               color: index == _index ? AppColors.primaryColor : Colors.black,
             ),
             label: bars[index].value,
+            tooltip: bars[index].value,
           );
         },
       ),
@@ -113,9 +120,12 @@ void _onItemTapped(int index) {
       break;
     case 2:
       MyNavigator.go(GoPaths.buyBack);
+      break;
+
     case 3:
       MyNavigator.go(GoPaths.blogs);
       break;
+
     default:
       MyNavigator.go(GoPaths.mainBoard);
   }

@@ -7,6 +7,7 @@
     <application
         android:label="IPO Live GMP"
         android:name="${applicationName}"
+        android:enableOnBackInvokedCallback="true"
         android:allowBackup="false"
         android:fullBackupOnly="false"
         android:icon="@mipmap/ic_launcher">

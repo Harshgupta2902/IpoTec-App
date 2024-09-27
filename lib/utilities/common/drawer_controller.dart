@@ -6,6 +6,7 @@ class HiddenDrawerController extends GetxController {
   RxDouble yOffset = 0.0.obs;
   RxDouble scaleFactor = 1.0.obs;
   RxBool isDrawerOpen = false.obs;
+  RxBool showSearchBar = true.obs;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
