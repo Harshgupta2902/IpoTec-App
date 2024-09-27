@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
@@ -15,6 +16,7 @@ class CoreNotificationService {
 
   init() async {
     await _firebaseMessaging.requestPermission();
+    getToken();
 
     const initializationSettingsAndroid = AndroidInitializationSettings('mipmap/ic_notification');
     final initializationSettingsDarwin = DarwinInitializationSettings(
@@ -126,6 +128,22 @@ class CoreNotificationService {
     } catch (error) {
       logger.e("Notification Create Error $error");
     }
+  }
+
+  Future<void> getToken() async {
+    _firebaseMessaging.requestPermission();
+
+    final token = await _firebaseMessaging.getToken();
+
+    debugPrint("FCM TOKEN ::: $token");
+    logger.i("----------FCM TOKEN $token----------");
+
+    if (token == null) {
+      logger.i("----------  updateFCMTokenAPI Stopped FCM Token in NULL ----------");
+
+      return;
+    }
+    setFCMToken(token);
   }
 
   // Future<void> updateFCMToken(String? fcmToken, String? clientEndPoint) async {
