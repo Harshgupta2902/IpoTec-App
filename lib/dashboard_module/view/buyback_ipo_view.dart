@@ -46,6 +46,7 @@ class _BuybackIpoViewState extends State<BuybackIpoView> {
             return dateB.compareTo(dateA);
           });
           return DefaultTabController(
+            initialIndex: sortedActive.isEmpty ? 1 : 0,
             length: 2,
             child: Column(
               children: [

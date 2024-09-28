@@ -40,11 +40,6 @@ class CoreNotificationService {
           logger.e("onDidReceiveNotificationResponse error $e");
         }
       },
-      // onDidReceiveBackgroundNotificationResponse: (details) {
-      //   final payLoad = jsonDecode(details.payload ?? '');
-      //
-      //   onNotificationClicked(payload: payLoad);
-      // },
     );
   }
 

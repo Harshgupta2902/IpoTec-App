@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
@@ -32,40 +31,40 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     KeyValuePairModel(key: AssetPath.buyBack, value: "Buyback"),
     KeyValuePairModel(key: AssetPath.blogs, value: "Blogs"),
   ];
-  InterstitialAd? _interstitialAd;
+  // InterstitialAd? _interstitialAd;
 
   @override
   void initState() {
     super.initState();
   }
 
-  void _loadInterstitialAd(int index) {
-    InterstitialAd.load(
-      adUnitId: AdHelper.interstitialAdUnitId,
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
-              _onItemTapped(index);
-            },
-          );
-
-          setState(() {
-            _interstitialAd = ad;
-          });
-        },
-        onAdFailedToLoad: (err) {
-          debugPrint('Failed to load an interstitial ad: ${err.message}');
-          _onItemTapped(index);
-        },
-      ),
-    );
-  }
+  // void _loadInterstitialAd(int index) {
+  //   InterstitialAd.load(
+  //     adUnitId: AdHelper.interstitialAdUnitId,
+  //     request: const AdRequest(),
+  //     adLoadCallback: InterstitialAdLoadCallback(
+  //       onAdLoaded: (ad) {
+  //         ad.fullScreenContentCallback = FullScreenContentCallback(
+  //           onAdDismissedFullScreenContent: (ad) {
+  //             _onItemTapped(index);
+  //           },
+  //         );
+  //
+  //         setState(() {
+  //           _interstitialAd = ad;
+  //         });
+  //       },
+  //       onAdFailedToLoad: (err) {
+  //         debugPrint('Failed to load an interstitial ad: ${err.message}');
+  //         _onItemTapped(index);
+  //       },
+  //     ),
+  //   );
+  // }
 
   @override
   void dispose() {
-    _interstitialAd?.dispose();
+    // _interstitialAd?.dispose();
     super.dispose();
   }
 
@@ -79,12 +78,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             _hiddenDrawerController.showSearchBar.value = false;
           }
         });
-
-        if (_defaultController.state?.showAd == true) {
-          _loadInterstitialAd(value);
-        } else {
-          _onItemTapped(value);
-        }
+        _onItemTapped(value);
+        // if (_defaultController.state?.showAd == true) {
+        //   _loadInterstitialAd(value);
+        // } else {
+        //
+        // }
       },
       backgroundColor: Colors.white,
       currentIndex: _index,

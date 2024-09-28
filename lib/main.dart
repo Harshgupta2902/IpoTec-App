@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -8,12 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/analytics_service.dart';
 import 'package:ipotec/utilities/firebase/crashlytics_service.dart';
-import 'package:ipotec/utilities/firebase/dynamic_link_service.dart';
 import 'package:ipotec/utilities/firebase/notification_service.dart';
 import 'package:ipotec/utilities/navigation/route_generator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
@@ -66,7 +63,7 @@ void main() async {
     CrashlyticsService().init();
   }
   await _defaultController.getDefaultData();
-  MobileAds.instance.initialize();
+  // MobileAds.instance.initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseAnalyticsService().init("");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
@@ -94,7 +91,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     CoreNotificationService().fcmListener();
     // CoreNotificationService().updateFCMToken();
-    CoreDynamicLinksService.init();
   }
 
   @override
