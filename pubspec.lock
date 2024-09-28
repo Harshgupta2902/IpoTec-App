@@ -217,30 +217,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.7+7"
-  firebase_auth:
-    dependency: "direct main"
-    description:
-      name: firebase_auth
-      sha256: "279b2773ff61afd9763202cb5582e2b995ee57419d826b9af6517302a59b672f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.16.0"
-  firebase_auth_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_auth_platform_interface
-      sha256: a0270e1db3b2098a14cb2a2342b3cd2e7e458e0c391b1f64f6f78b14296ec093
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.3.0"
-  firebase_auth_web:
-    dependency: transitive
-    description:
-      name: firebase_auth_web
-      sha256: c7b1379ccef7abf4b6816eede67a868c44142198e42350f51c01d8fc03f95a7d
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.8.13"
   firebase_core:
     dependency: "direct main"
     description:
@@ -281,38 +257,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.6.35"
-  firebase_dynamic_links:
-    dependency: "direct main"
-    description:
-      name: firebase_dynamic_links
-      sha256: "47b8c8a8546d8a7f9000edb90848549f20b137d814ee7e0407b3d43b8445e282"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.5.7"
-  firebase_dynamic_links_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_dynamic_links_platform_interface
-      sha256: "72e7810635f908ce060c5803c7acb29116c5b6befc73e90446c52722bc9506a2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.6+35"
-  firebase_in_app_messaging:
-    dependency: "direct main"
-    description:
-      name: firebase_in_app_messaging
-      sha256: b9102a3150a28c3654ff23305fd75fe7190e5fb9a035883c17051a4c01686733
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.5+7"
-  firebase_in_app_messaging_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_in_app_messaging_platform_interface
-      sha256: eac9d37ff2cd34c91e7db654832b9feb6004a05cd1b88675872d37044afc749c
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.4+35"
   firebase_messaging:
     dependency: "direct main"
     description:
@@ -337,30 +281,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.5.18"
-  firebase_performance:
-    dependency: "direct main"
-    description:
-      name: firebase_performance
-      sha256: dbcfc300755c4bb866988de20a491f0b53e1a0d14c375a2c31aa53ca82174c5b
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.4+7"
-  firebase_performance_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_performance_platform_interface
-      sha256: "191c9945c2ea4359cb57dc086463b2a25b0f9d8d42f66a0be4c1a7133e26ebc8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.4+35"
-  firebase_performance_web:
-    dependency: transitive
-    description:
-      name: firebase_performance_web
-      sha256: "9f03a53f55697b206393366bf138e382cbd845d5021b5be6f7fc97b338da2cb5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.6+7"
   fixnum:
     dependency: transitive
     description:
@@ -480,14 +400,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.1+4"
-  google_mobile_ads:
-    dependency: "direct main"
-    description:
-      name: google_mobile_ads
-      sha256: e2d18992d30b2be77cb6976b931112fc3c4612feffb5eb7a8b036bd7a64934da
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.1.0"
   google_sign_in:
     dependency: "direct main"
     description:
@@ -1021,38 +933,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  webview_flutter:
-    dependency: transitive
-    description:
-      name: webview_flutter
-      sha256: "6869c8786d179f929144b4a1f86e09ac0eddfe475984951ea6c634774c16b522"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.8.0"
-  webview_flutter_android:
-    dependency: transitive
-    description:
-      name: webview_flutter_android
-      sha256: "6e64fcb1c19d92024da8f33503aaeeda35825d77142c01d0ea2aa32edc79fdc8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.16.7"
-  webview_flutter_platform_interface:
-    dependency: transitive
-    description:
-      name: webview_flutter_platform_interface
-      sha256: d937581d6e558908d7ae3dc1989c4f87b786891ab47bb9df7de548a151779d8d
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.10.0"
-  webview_flutter_wkwebview:
-    dependency: transitive
-    description:
-      name: webview_flutter_wkwebview
-      sha256: "9c62cc46fa4f2d41e10ab81014c1de470a6c6f26051a2de32111b2ee55287feb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.14.0"
   win32:
     dependency: transitive
     description:
