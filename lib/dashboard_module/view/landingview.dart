@@ -4,11 +4,8 @@ import 'package:ipotec/dashboard_module/controller/buyback_ipo_controller.dart';
 import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
 import 'package:ipotec/utilities/common/core_update_handler.dart';
 import 'package:ipotec/utilities/common/custom_bottom_navigation.dart';
-import 'package:ipotec/utilities/common/default_app_drawer.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/firebase/analytics_service.dart';
-import 'package:ipotec/utilities/theme/app_box_decoration.dart';
-import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
 final _mainBoardIpoController = Get.put(MainBoardIpoController());

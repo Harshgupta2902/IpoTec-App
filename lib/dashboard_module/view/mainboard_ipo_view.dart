@@ -13,7 +13,6 @@ import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
-import 'package:ipotec/utilities/packages/ad_helper.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
 final _defaultController = Get.put(DefaultApiController());
