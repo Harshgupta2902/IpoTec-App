@@ -6,7 +6,6 @@ import 'package:logger/logger.dart';
 
 var logger = Logger();
 
-
 String getLogoPath(String word) {
   String firstLetter = word[0].toUpperCase();
   switch (firstLetter) {
@@ -51,7 +50,7 @@ String getLogoPath(String word) {
     case 'W':
       return AssetPath.wLogo;
     default:
-      return "Icon not available for the given letter.";
+      return AssetPath.wLogo;
   }
 }
 

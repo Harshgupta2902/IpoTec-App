@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ipotec/auth_module/view/splash_screen.dart';
 import 'package:ipotec/dashboard_module/view/blogs_main_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_view.dart';
@@ -18,15 +17,6 @@ final GoRouter goRouterConfig = GoRouter(
   initialLocation: GoPaths.mainBoard,
   navigatorKey: rootNavigatorKey,
   routes: [
-    GoRoute(
-      parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.splash,
-      name: GoPaths.splash,
-      builder: (context, state) {
-        return const SplashScreen();
-      },
-    ),
-
     //
     ShellRoute(
       navigatorKey: shellNavigatorKey,

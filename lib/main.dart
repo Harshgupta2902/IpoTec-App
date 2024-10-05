@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -32,10 +33,10 @@ void main() async {
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyCq0YE2b8xWC3RGOLhGwcu8sLCL67j81qk",
-        appId: "1:198625871212:android:67a6e80d65fe20fe661f49",
-        messagingSenderId: "198625871212",
-        projectId: "ipotech-41d68",
+        apiKey: "AIzaSyBLIHPmeDp4lm15m53WZ7R5PwmyY08TsGI",
+        appId: "1:746316186479:android:38d5963da3f3e4769ede9a",
+        messagingSenderId: "746316186479",
+        projectId: "ipotec-app",
       ),
     );
   }
@@ -63,7 +64,27 @@ void main() async {
     CrashlyticsService().init();
   }
   await _defaultController.getDefaultData();
+<<<<<<< HEAD
   // MobileAds.instance.initialize();
+=======
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  await analytics.logBeginCheckout(
+      value: 10.0,
+      currency: 'USD',
+      items: [
+        AnalyticsEventItem(itemName: 'Socks', itemId: 'xjw73ndnw', price: 20),
+      ],
+      coupon: '10PERCENTOFF');
+
+  await FirebaseAnalytics.instance.logEvent(
+    name: "select_content",
+    parameters: {
+      "content_type": "image",
+      "item_id": 4,
+    },
+  );
+
+>>>>>>> main
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseAnalyticsService().init("");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {

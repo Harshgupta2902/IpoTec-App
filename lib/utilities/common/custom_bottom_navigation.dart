@@ -1,18 +1,22 @@
 // ignore: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+<<<<<<< HEAD
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
+=======
+>>>>>>> main
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
-import 'package:ipotec/utilities/packages/ad_helper.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
+<<<<<<< HEAD
 final _defaultController = Get.put(DefaultApiController());
+=======
+>>>>>>> main
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
 
 class CustomBottomNavigationBar extends StatefulWidget {

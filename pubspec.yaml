@@ -1,7 +1,11 @@
 name: ipotec
 description: "IpoTec"
 publish_to: 'none'
+<<<<<<< HEAD
 version: 1.0.0+4
+=======
+version: 1.0.0+5
+>>>>>>> main
 
 environment:
   sdk: '>=3.4.4 <4.0.0'
