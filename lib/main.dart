@@ -32,10 +32,10 @@ void main() async {
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyCq0YE2b8xWC3RGOLhGwcu8sLCL67j81qk",
-        appId: "1:198625871212:android:67a6e80d65fe20fe661f49",
-        messagingSenderId: "198625871212",
-        projectId: "ipotech-41d68",
+        apiKey: "AIzaSyBLIHPmeDp4lm15m53WZ7R5PwmyY08TsGI",
+        appId: "1:746316186479:android:38d5963da3f3e4769ede9a",
+        messagingSenderId: "746316186479",
+        projectId: "ipotec-app",
       ),
     );
   }

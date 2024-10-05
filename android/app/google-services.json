@@ -1,44 +1,26 @@
 {
   "project_info": {
-    "project_number": "198625871212",
-    "project_id": "ipotech-41d68",
-    "storage_bucket": "ipotech-41d68.appspot.com"
+    "project_number": "746316186479",
+    "project_id": "ipotec-app",
+    "storage_bucket": "ipotec-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:198625871212:android:67a6e80d65fe20fe661f49",
+        "mobilesdk_app_id": "1:746316186479:android:38d5963da3f3e4769ede9a",
         "android_client_info": {
           "package_name": "com.ipotec"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "198625871212-gtu521cvhur4dc80464apesmbvjtehgt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ipotec",
-            "certificate_hash": "b284fd57d2abb641d13216f47c88573f5e55263f"
-          }
-        },
-        {
-          "client_id": "198625871212-tuntrgbko36fle357k9kibjtf52vglro.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCq0YE2b8xWC3RGOLhGwcu8sLCL67j81qk"
+          "current_key": "AIzaSyBLIHPmeDp4lm15m53WZ7R5PwmyY08TsGI"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "198625871212-tuntrgbko36fle357k9kibjtf52vglro.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
