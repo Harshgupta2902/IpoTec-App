@@ -4,7 +4,6 @@ import 'package:ipotec/dashboard_module/components/mainboard_listing_card.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_upcoming_card.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
-import 'package:ipotec/dashboard_module/modal/mainboard_ipo_modal.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_error_or_empty.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
@@ -25,7 +24,6 @@ class MainBoardIpoView extends StatefulWidget {
 }
 
 class _MainBoardIpoViewState extends State<MainBoardIpoView> {
-
   @override
   void initState() {
     super.initState();
@@ -65,7 +63,6 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
       ),
       body: _mainBoardIpoController.obx(
         (state) {
-          final List<Active> allActive = [...?state?.active, ...?state?.upcoming];
           return DefaultTabController(
             length: 2,
             child: Column(
@@ -75,51 +72,46 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                   horizontalPadding: 16,
                   verticalPadding: 10,
                 ),
-                // if (_bannerAd != null && _defaultController.state?.showAd == true)
-                //   SizedBox(
-                //     width: _bannerAd!.size.width.toDouble(),
-                //     height: _bannerAd!.size.height.toDouble(),
-                //     child: AdWidget(ad: _bannerAd!),
-                //   ),
                 Flexible(
                   child: TabBarView(
                     children: [
-                      allActive.isEmpty == true
+                      state?.active?.isEmpty == true
                           ? const CustomErrorOrEmpty(
                               title: "No Upcoming MainBoard IPO's",
                             )
                           : ListView.separated(
-                              itemCount: allActive.where((data) => data.isSme == false).length,
+                              itemCount:
+                                  state?.active?.where((data) => data.isSme == false).length ?? 0,
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               itemBuilder: (context, index) {
                                 final filteredData =
-                                    allActive.where((data) => data.isSme == false).toList();
-                                final data = filteredData[index];
+                                    state?.active?.where((data) => data.isSme == false).toList();
+                                final data = filteredData?[index];
                                 return GestureDetector(
                                   onTap: () => MyNavigator.pushNamed(
                                     GoPaths.mainBoardDetails,
-                                    extra: {'slug': data.searchId, 'name': data.growwShortName},
+                                    extra: {'slug': data?.searchId, 'name': data?.growwShortName},
                                   ),
                                   child: MainboardUpcomingCard(
                                     type: IpoType.mainboard,
-                                    logo: data.logoUrl ?? data.symbol,
-                                    name: data.growwShortName?.trim(),
-                                    bid: data.additionalTxt?.trim(),
+                                    logo: data?.logoUrl ?? data?.symbol,
+                                    name: data?.growwShortName?.trim(),
+                                    bid: data?.additionalTxt?.trim(),
                                     data: [
-                                      if (data.minPrice != null && data.maxPrice != null)
+                                      if (data?.minPrice != null && data?.maxPrice != null)
                                         KeyValuePairModel(
                                           key: "Offer Price:",
-                                          value: "${data.minPrice} - ${data.maxPrice}",
+                                          value: "${data?.minPrice} - ${data?.maxPrice}",
                                         ),
-                                      if (data.lotSize != null)
+                                      if (data?.lotSize != null)
                                         KeyValuePairModel(
                                           key: "Lot Size:",
-                                          value: "${data.lotSize}",
+                                          value: "${data?.lotSize}",
                                         ),
-                                      if (data.listingDate != null)
+                                      if (data?.listingDate != null)
                                         KeyValuePairModel(
                                           key: "Start Date:",
-                                          value: convertDate(data.biddingStartDate ?? ""),
+                                          value: convertDate(data?.biddingStartDate ?? ""),
                                         ),
                                     ],
                                   ),

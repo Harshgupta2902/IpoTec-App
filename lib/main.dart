@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -9,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
-import 'package:ipotec/utilities/firebase/analytics_service.dart';
 import 'package:ipotec/utilities/firebase/crashlytics_service.dart';
 import 'package:ipotec/utilities/firebase/notification_service.dart';
 import 'package:ipotec/utilities/navigation/route_generator.dart';
@@ -63,9 +63,24 @@ void main() async {
     CrashlyticsService().init();
   }
   await _defaultController.getDefaultData();
-  // MobileAds.instance.initialize();
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  await analytics.logBeginCheckout(
+      value: 10.0,
+      currency: 'USD',
+      items: [
+        AnalyticsEventItem(itemName: 'Socks', itemId: 'xjw73ndnw', price: 20),
+      ],
+      coupon: '10PERCENTOFF');
+
+  await FirebaseAnalytics.instance.logEvent(
+    name: "select_content",
+    parameters: {
+      "content_type": "image",
+      "item_id": 4,
+    },
+  );
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseAnalyticsService().init("");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
     try {
       final Map payload = message.data;

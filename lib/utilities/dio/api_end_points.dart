@@ -5,7 +5,7 @@ class APIEndPoints {
 
   static const defaultApi = "default";
 
-  static const ipo = "ipo";
+  static const ipo = "ipo-v1";
   static const buyback = "buyback";
 
   static const ipoDetails = "ipo-details";

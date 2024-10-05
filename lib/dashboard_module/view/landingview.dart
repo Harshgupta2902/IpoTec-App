@@ -33,7 +33,7 @@ class _LandingViewState extends State<LandingView> {
         return checkUpdate();
       },
     );
-    FirebaseAnalyticsService().init("");
+    FirebaseAnalyticsService().init("ipotec");
 
     super.initState();
   }
