@@ -2,11 +2,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
+import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
-import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
 
@@ -20,6 +21,14 @@ class DefaultCustomDrawer extends StatefulWidget {
 }
 
 class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerProviderStateMixin {
+  final List<KeyValuePairModel> menuItems = [
+    KeyValuePairModel(key: "IPO GMP", value: ""),
+    KeyValuePairModel(key: "IPO Subscription", value: ""),
+    KeyValuePairModel(key: "Upcoming IPO", value: AssetPath.mainBoard),
+    KeyValuePairModel(key: "SME IPO", value: AssetPath.sme),
+    KeyValuePairModel(key: "BuyBack IPO", value: AssetPath.buyBack),
+    KeyValuePairModel(key: "IPO Forms", value: ""),
+  ];
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -47,88 +56,33 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                 showShadow: false,
                 borderRadius: 16,
               ),
-              child: Column(
-                children: <Widget>[
-                  const SizedBox(height: 20),
-                  SvgPicture.asset("packages/utilities/assets/logo.svg"),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                        children: [
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: 3,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
-                                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                                decoration: AppBoxDecoration.getBoxDecoration(
-                                  showShadow: false,
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    dynamicImage(image: AssetPath.sme),
-                                    const SizedBox(width: 14),
-                                    Text(
-                                      "sme",
-                                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                            color: AppColors.black,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: menuItems.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                    decoration: AppBoxDecoration.getBoxDecoration(
+                      showShadow: false,
                     ),
-                  ),
-                  Column(
-                    children: [
-                      const SizedBox(height: 12),
-                      const Divider(
-                        height: 1.5,
-                        endIndent: 20,
-                        indent: 20,
-                        color: AppColors.iron,
-                        thickness: 0,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 26),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              foregroundColor: AppColors.whiteSmoke,
-                              backgroundColor: AppColors.desertStorm,
-                              elevation: 0),
-                          onPressed: () async {
-                            context.go("/login", extra: {"number": ""});
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset("packages/utilities/assets/logout.svg"),
-                              const SizedBox(width: 8),
-                              Text(
-                                "Logout",
-                                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                      letterSpacing: 0.15,
-                                      color: AppColors.black,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ],
-                          ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        dynamicImage(
+                            image: menuItems[index].value == ""
+                                ? AssetPath.sme
+                                : menuItems[index].value),
+                        const SizedBox(width: 14),
+                        Text(
+                          menuItems[index].key,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
-                      ),
-                      const SizedBox(height: 6)
-                    ],
-                  )
-                ],
+                      ],
+                    ),
+                  );
+                },
               ),
             )),
       ),
