@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ipotec/utilities/common/dialog.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
+import 'package:ipotec/utilities/firebase/notification_service.dart';
 
 class AuthController extends GetxController with StateMixin<UserModel> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -17,7 +19,7 @@ class AuthController extends GetxController with StateMixin<UserModel> {
 
     try {
       isLoggingIn.value = true;
-
+      coreLoadingDialog(context: context, content: "Signing...");
       // Attempt to sign in with Google
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
@@ -34,6 +36,7 @@ class AuthController extends GetxController with StateMixin<UserModel> {
       // Save Google user data to Firestore
       await saveGoogleUserToFirestore(googleUser);
       fetchUserData(googleUser.id);
+      coreCloseDialog();
       context.pop();
 
       debugPrint("AuthController => Google user data saved to Firestore successfully");
@@ -48,13 +51,14 @@ class AuthController extends GetxController with StateMixin<UserModel> {
   Future<void> saveGoogleUserToFirestore(GoogleSignInAccount googleUser) async {
     try {
       final userRef = _firestore.collection('users').doc(googleUser.id);
-
+      final fcmToken = CoreNotificationService().getToken();
       await userRef.set({
         'uid': googleUser.id,
         'displayName': googleUser.displayName,
         'email': googleUser.email,
         'photoURL': googleUser.photoUrl,
         'createdAt': FieldValue.serverTimestamp(),
+        'token': getFCMToken() ?? fcmToken
       });
 
       setLogin(true);
