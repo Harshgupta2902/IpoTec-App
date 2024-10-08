@@ -51,7 +51,7 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: Colors.black,
               ),
             ),
-      actions: showActions == true || _hiddenDrawerController.showSearchBar.value == true
+      actions: showActions == true
           ? [
               GestureDetector(
                 onTap: () {

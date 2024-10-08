@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ipotec/dashboard_module/view/blogs_main_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/ipo_forms_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
@@ -74,6 +75,15 @@ final GoRouter goRouterConfig = GoRouter(
           slug: slug,
           name: name,
         );
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.forms,
+      name: GoPaths.forms,
+      builder: (context, state) {
+        return const IpoFormsView();
       },
     ),
 

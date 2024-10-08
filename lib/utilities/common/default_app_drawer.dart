@@ -25,12 +25,12 @@ class DefaultCustomDrawer extends StatefulWidget {
 
 class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerProviderStateMixin {
   final List<KeyValuePairModel> menuItems = [
-    KeyValuePairModel(key: "IPO GMP", value: AssetPath.gmp),
-    KeyValuePairModel(key: "IPO Subscription", value: AssetPath.subs),
-    KeyValuePairModel(key: "Upcoming IPO", value: AssetPath.mainBoard),
-    KeyValuePairModel(key: "SME IPO", value: AssetPath.sme),
-    KeyValuePairModel(key: "BuyBack IPO", value: AssetPath.buyBack),
-    KeyValuePairModel(key: "IPO Forms", value: AssetPath.forms),
+    KeyValuePairModel(key: "IPO GMP", value: AssetPath.gmp, extra: GoPaths.forms),
+    KeyValuePairModel(key: "IPO Subscription", value: AssetPath.subs, extra: GoPaths.forms),
+    KeyValuePairModel(key: "Upcoming IPO", value: AssetPath.mainBoard, extra: GoPaths.forms),
+    KeyValuePairModel(key: "SME IPO", value: AssetPath.sme, extra: GoPaths.forms),
+    KeyValuePairModel(key: "BuyBack IPO", value: AssetPath.buyBack, extra: GoPaths.forms),
+    KeyValuePairModel(key: "IPO Forms", value: AssetPath.forms, extra: GoPaths.forms),
   ];
 
   @override
@@ -121,25 +121,28 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: menuItems.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                        decoration: AppBoxDecoration.getBoxDecoration(
-                          showShadow: false,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            dynamicImage(
-                                image: menuItems[index].value == ""
-                                    ? AssetPath.sme
-                                    : menuItems[index].value),
-                            const SizedBox(width: 14),
-                            Text(
-                              menuItems[index].key,
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
+                      return GestureDetector(
+                        onTap: () => MyNavigator.pushNamed(menuItems[index].extra),
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                          decoration: AppBoxDecoration.getBoxDecoration(
+                            showShadow: false,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              dynamicImage(
+                                  image: menuItems[index].value == ""
+                                      ? AssetPath.sme
+                                      : menuItems[index].value),
+                              const SizedBox(width: 14),
+                              Text(
+                                menuItems[index].key,
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },

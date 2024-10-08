@@ -5,6 +5,7 @@ class GoPaths {
   static const String mainBoard = '/mainBoard';
   static const String sme = '/sme';
   static const String buyBack = '/buyBack';
+  static const String forms = '/forms';
 
   static const String buyBackDetails = '/buyBack-details';
   static const String mainBoardDetails = '/mainBoard-details';

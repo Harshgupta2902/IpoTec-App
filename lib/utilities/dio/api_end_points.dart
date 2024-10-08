@@ -15,5 +15,7 @@ class APIEndPoints {
 
   static const search = "search";
 
+  static const forms = "forms";
+
   static const updateFcm = "update-fcm";
 }
