@@ -21,6 +21,8 @@ String getLogoPath(String word) {
       return AssetPath.fLogo;
     case 'G':
       return AssetPath.gLogo;
+    case 'H':
+      return AssetPath.hLogo;
     case 'I':
       return AssetPath.iLogo;
     case 'J':

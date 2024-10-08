@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/controller/common_details_controller.dart';
 import 'package:ipotec/dashboard_module/controller/mainboard_ipo_details_controller.dart';
+import 'package:ipotec/dashboard_module/modal/common_details_model.dart';
 import 'package:ipotec/dashboard_module/modal/ipo_details_model.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
@@ -36,232 +37,57 @@ class _CommonDetailsViewState extends State<CommonDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CoreAppBar(
-          title: widget.name,
-          centerTitle: false,
-          showActions: false,
-        ),
-        body: _commonDetailsController.obx(
-          (state) {
-            return Text("data");
-          },
-        ));
-  }
-}
-
-class ExtraDetailsCard extends StatelessWidget {
-  const ExtraDetailsCard({super.key, required this.extras, this.dates});
-
-  final List<KeyValuePairModel> extras;
-  final List<KeyValuePairModel>? dates;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      width: MediaQuery.of(context).size.width,
-      decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 10),
-      padding: const EdgeInsets.all(12.0),
-      child: Column(
-        children: [
-          if (dates?.isNotEmpty == true || (dates?.length ?? 0) != 0) ...[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(
-                dates?.length ?? 0,
-                (index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        dates?[index].key,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(color: AppColors.boulder),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        dates?[index].value,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  );
-                },
-              ),
+      appBar: CoreAppBar(
+        title: widget.name,
+        centerTitle: false,
+        showActions: false,
+      ),
+      body: _commonDetailsController.obx(
+        (state) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                NameCard(name: widget.name),
+                ...List.generate(
+                  state?.ulAfterHeadingsResult?.length ?? 0,
+                  (index) {
+                    return CompanyDetailsCard(
+                      header: state?.ulAfterHeadingsResult?[index].heading,
+                      companyDetails: state?.ulAfterHeadingsResult?[index].items,
+                    );
+                  },
+                ),
+                ...List.generate(
+                  state?.tables?.length ?? 0,
+                  (index) {
+                    return FinancialAllocationCard(
+                      tables: state?.tables?[index],
+                    );
+                  },
+                ),
+              ],
             ),
-            const Divider(),
-          ],
-          ListView.separated(
-            shrinkWrap: true,
-            itemCount: extras.length,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    extras[index].key,
-                    style:
-                        Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.boulder),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    extras[index].value,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
-                  ),
-                ],
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 }
 
-class Faqs extends StatelessWidget {
-  const Faqs({super.key, required this.pros, required this.cons});
-  final List<String> pros;
-  final List<String> cons;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          clipBehavior: Clip.hardEdge,
-          width: MediaQuery.of(context).size.width,
-          decoration: AppBoxDecoration.getBoxDecoration(
-            borderRadius: 10,
-            border: Border.all(color: AppColors.lightGrey),
-          ),
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  color: AppColors.aliceBlue,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(10),
-                  ),
-                ),
-                child: Text(
-                  "Pro's",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ),
-              const SizedBox(height: 8),
-              ...List.generate(
-                pros.length,
-                (index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 4, right: 6),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.arrow_right, color: Colors.black, size: 18),
-                        const SizedBox(width: 4),
-                        pros[index].length > 40
-                            ? Flexible(child: ReadMoreText(subtitle: pros[index]))
-                            : Flexible(
-                                child: Text(
-                                  pros[index],
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                              )
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        Container(
-          clipBehavior: Clip.hardEdge,
-          width: MediaQuery.of(context).size.width,
-          decoration: AppBoxDecoration.getBoxDecoration(
-            borderRadius: 10,
-            border: Border.all(color: AppColors.lightGrey),
-          ),
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  color: AppColors.aliceBlue,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(10),
-                  ),
-                ),
-                child: Text(
-                  "Con's",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ),
-              const SizedBox(height: 8),
-              ...List.generate(
-                cons.length,
-                (index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 4, right: 6),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.arrow_right, color: Colors.black, size: 18),
-                        const SizedBox(width: 4),
-                        cons[index].length > 40
-                            ? Flexible(child: ReadMoreText(subtitle: cons[index]))
-                            : Flexible(
-                                child: Text(
-                                  cons[index],
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                              )
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class CompanyDetailsCard extends StatelessWidget {
-  const CompanyDetailsCard({super.key, required this.companyDetails});
+  const CompanyDetailsCard({
+    super.key,
+    required this.companyDetails,
+    required this.header,
+  });
 
-  final AboutCompany? companyDetails;
+  final List<String>? companyDetails;
+  final String? header;
 
   @override
   Widget build(BuildContext context) {
-    final data = [
-      if (companyDetails?.yearFounded != null) "Founded in ${companyDetails?.yearFounded}",
-      if (companyDetails?.managingDirector != null)
-        "Managing Director: ${companyDetails?.managingDirector}",
-      if (companyDetails?.aboutCompany != null) "${companyDetails?.aboutCompany?.trim()}"
-    ];
-
     return Container(
       clipBehavior: Clip.hardEdge,
       width: MediaQuery.of(context).size.width,
@@ -269,6 +95,7 @@ class CompanyDetailsCard extends StatelessWidget {
         borderRadius: 10,
         border: Border.all(color: AppColors.lightGrey),
       ),
+      margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,13 +110,13 @@ class CompanyDetailsCard extends StatelessWidget {
               ),
             ),
             child: Text(
-              "Company Details",
-              style: Theme.of(context).textTheme.bodyLarge,
+              "$header",
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           const SizedBox(height: 8),
           ...List.generate(
-            data.length,
+            companyDetails?.length ?? 0,
             (index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 4, right: 4),
@@ -298,11 +125,11 @@ class CompanyDetailsCard extends StatelessWidget {
                   children: [
                     const Icon(Icons.arrow_right, color: Colors.black, size: 18),
                     const SizedBox(width: 4),
-                    data[index].length > 60
-                        ? Flexible(child: ReadMoreText(subtitle: data[index]))
+                    (companyDetails?[index].length ?? 0) > 60
+                        ? Flexible(child: ReadMoreText(subtitle: companyDetails?[index]))
                         : Flexible(
                             child: Text(
-                              data[index],
+                              companyDetails?[index] ?? "",
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           )
@@ -318,9 +145,9 @@ class CompanyDetailsCard extends StatelessWidget {
 }
 
 class FinancialAllocationCard extends StatelessWidget {
-  const FinancialAllocationCard({super.key, this.financials});
+  const FinancialAllocationCard({super.key, this.tables});
 
-  final List<Financials>? financials;
+  final List<Tables>? tables;
 
   @override
   Widget build(BuildContext context) {
@@ -331,89 +158,131 @@ class FinancialAllocationCard extends StatelessWidget {
         borderRadius: 10,
         border: Border.all(color: AppColors.lightGrey),
       ),
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(12),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ...List.generate(
+              tables?.length ?? 0,
+              (index) {
+                return Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      child: Text(
+                        tables?[index].column1 ?? "",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: tables?[index].column3 != null
+                          ? 100
+                          : MediaQuery.of(context).size.width * 0.45,
+                      child: Text(
+                        tables?[index].column2 ?? "",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ),
+                    if (tables?[index].column3 != null)
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          tables?[index].column3 ?? "",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ),
+                    if (tables?[index].column4 != null)
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          tables?[index].column4 ?? "",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ),
+                    if (tables?[index].column5 != null)
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          tables?[index].column5 ?? "",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ),
+                    if (tables?[index].column6 != null)
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          tables?[index].column6 ?? "",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class NameCard extends StatelessWidget {
+  const NameCard({super.key, required this.name});
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: AppBoxDecoration.getBoxDecoration(),
+      child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: AppColors.aliceBlue,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
+            height: 45,
+            width: 45,
+            decoration: AppBoxDecoration.getBoxDecoration(
+              borderRadius: 10,
             ),
-            child: Text(
-              "Company Financials in Cr.",
-              style: Theme.of(context).textTheme.bodyLarge,
+            child: SvgPicture.asset(
+              getLogoPath(name),
             ),
           ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  child: Text(
-                    "",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.boulder,
-                        ),
-                  ),
-                ),
-                ...List.generate(
-                  financials?[0].yearly?.length ?? 0,
-                  (index) {
-                    return Text(
-                      financials?[0].yearly?[index].year?.toString() ?? "",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.boulder,
-                          ),
-                    );
-                  },
+                Text(
+                  name,
+                  maxLines: 2,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
           ),
-          const Divider(color: Colors.black),
-          ...List.generate(financials?.length ?? 0, (mainIndex) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: Text(
-                      financials?[mainIndex].title.toString() ?? "-",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.onyx,
-                          ),
-                    ),
-                  ),
-                  ...List.generate(
-                    financials?[mainIndex].yearly?.length ?? 0,
-                    (index) {
-                      return Text(
-                        financials?[mainIndex].yearly?[index].value?.toStringAsFixed(2) ?? "-",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.w500,
-                            ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            );
-          }),
         ],
       ),
     );
+    ;
   }
 }
