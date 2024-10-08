@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
@@ -13,6 +14,7 @@ import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
+final _authController = Get.put(AuthController());
 
 class DefaultCustomDrawer extends StatefulWidget {
   const DefaultCustomDrawer({
@@ -74,46 +76,58 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                       fit: BoxFit.fill,
                     ),
                   ),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        CachedImageNetworkContainer(
-                          decoration: AppBoxDecoration.getBoxDecoration(
-                            borderRadius: 40,
-                            showShadow: true,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          CachedImageNetworkContainer(
+                            decoration: AppBoxDecoration.getBoxDecoration(
+                              borderRadius: 40,
+                              showShadow: true,
+                            ),
+                            height: 40,
+                            width: 40,
+                            url: isLoggedIn()
+                                ? _authController.state?.photoURL
+                                : "https://images.unsplash.com/photo-1705904506582-6552c35a2dc4?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                            placeHolder: buildPlaceholder(name: "H", context: context),
                           ),
-                          url:
-                              "https://images.unsplash.com/photo-1705904506582-6552c35a2dc4?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                          placeHolder: buildPlaceholder(name: "H", context: context),
+                          const SizedBox(width: 12),
+                          isLoggedIn()
+                              ? Text(
+                                  "${_authController.state?.displayName}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(color: Colors.white),
+                                )
+                              : GestureDetector(
+                                  onTap: () => _authController.googleSignIn(context),
+                                  child: Text(
+                                    "Click Here To Sign In",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(color: Colors.white),
+                                  ),
+                                ),
+                        ],
+                      ),
+                      if (isLoggedIn())
+                        Text(
+                          "${_authController.state?.email}",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.white),
                         ),
-                        const SizedBox(width: 12),
-                        Flexible(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "HelloHelloHelloHelloHelloHelloHelloHello",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                              Text(
-                                "HelloHelloHelloHelloHelloHelloHelloHello",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
                 ),
                 Expanded(
@@ -148,37 +162,39 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 12),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: AppColors.whiteSmoke,
-                      backgroundColor: AppColors.desertStorm,
-                      elevation: 0,
-                    ),
-                    onPressed: () async {
-                      await clearPrefs();
-                      Future.delayed(
-                        Duration.zero,
-                        () => MyNavigator.popUntilAndPushNamed(GoPaths.mainBoard),
-                      );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(AssetPath.logOutSvg),
-                        const SizedBox(width: 8),
-                        Text(
-                          "Logout",
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                color: AppColors.black,
-                                fontWeight: FontWeight.w500,
-                              ),
-                        ),
-                      ],
+                if (isLoggedIn() == true)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 12),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: AppColors.whiteSmoke,
+                        backgroundColor: AppColors.desertStorm,
+                        elevation: 0,
+                      ),
+                      onPressed: () async {
+                        await clearPrefs();
+                        _authController.googleSignOut(context);
+                        Future.delayed(
+                          Duration.zero,
+                          () => MyNavigator.popUntilAndPushNamed(GoPaths.mainBoard),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(AssetPath.logOutSvg),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Logout",
+                            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

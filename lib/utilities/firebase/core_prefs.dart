@@ -5,8 +5,20 @@ final prefs = GetStorage();
 
 setToken(String token) {
   logger.i("TOKEN => $token");
-  prefs.write("IS_LOGGED_IN", true);
+  // prefs.write("IS_LOGGED_IN", true);
   prefs.write('TOKEN', token);
+}
+
+setLogin(bool login) {
+  prefs.write("IS_LOGGED_IN", login);
+}
+
+setUuid(String uuid) {
+  prefs.write("uuid", uuid);
+}
+
+getUuid(String uuid) {
+  prefs.read("uuid");
 }
 
 setFCMToken(String token) {
@@ -25,11 +37,12 @@ clearToken() {
 
 isLoggedIn() {
   final loggedIn = prefs.read("IS_LOGGED_IN");
+  final uuid = prefs.read("uuid");
 
   if (loggedIn == null || loggedIn == false) {
     return false;
   }
-  return true;
+  return loggedIn == true && uuid != null ? true : false;
 }
 
 clearPrefs() async {

@@ -2,15 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/controller/common_details_controller.dart';
-import 'package:ipotec/dashboard_module/controller/mainboard_ipo_details_controller.dart';
 import 'package:ipotec/dashboard_module/modal/common_details_model.dart';
-import 'package:ipotec/dashboard_module/modal/ipo_details_model.dart';
-import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
-import 'package:ipotec/utilities/common/error_widget.dart';
-import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
-import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/packages/read_more.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
@@ -283,6 +277,5 @@ class NameCard extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

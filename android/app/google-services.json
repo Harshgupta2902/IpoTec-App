@@ -12,7 +12,28 @@
           "package_name": "com.ipotec"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "746316186479-42g3t3fcs0ntr32694ii0sdt2sest5e3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipotec",
+            "certificate_hash": "dc48dee978190e1ab7a22f0b9d318ffb4aab04a0"
+          }
+        },
+        {
+          "client_id": "746316186479-b6iidgg7dev4f6jpbp18mn9r61vdm9rf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipotec",
+            "certificate_hash": "b284fd57d2abb641d13216f47c88573f5e55263f"
+          }
+        },
+        {
+          "client_id": "746316186479-trlcivqspj2pgssu8bn6aq4lbr5dp83r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBLIHPmeDp4lm15m53WZ7R5PwmyY08TsGI"
@@ -20,7 +41,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746316186479-trlcivqspj2pgssu8bn6aq4lbr5dp83r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
