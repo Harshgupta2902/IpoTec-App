@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ipotec/dashboard_module/components/ipo_forms_card.dart';
 import 'package:ipotec/dashboard_module/controller/ipo_forms_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 
@@ -22,7 +23,7 @@ class _IpoFormsViewState extends State<IpoFormsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CoreAppBar(
+      appBar: const CoreAppBar(
         title: "Ipo Forms",
         showBackButton: true,
         centerTitle: false,
@@ -30,10 +31,16 @@ class _IpoFormsViewState extends State<IpoFormsView> {
       ),
       body: _ipoFormsController.obx(
         (state) {
-          return ListView.builder(
+          return ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             itemCount: state?.forms?.length ?? 0,
             itemBuilder: (context, index) {
-              return Text("${state?.forms?[index].companyName}");
+              final formData = state?.forms?[index];
+              return IpoFormsCard(state: formData);
+            },
+            separatorBuilder: (context, index) {
+              return const SizedBox(height: 16);
             },
           );
         },
