@@ -8,6 +8,9 @@ class AssetPath {
   static const sme = "${_bottom}sme.svg";
   static const buyBack = "${_bottom}buyBack.svg";
   static const blogs = "${_bottom}blogs.svg";
+  static const forms = "${_bottom}forms.svg";
+  static const gmp = "${_bottom}gmp.svg";
+  static const subs = "${_bottom}subs.svg";
 
   static const liveLottie = "${_lottie}live.json";
   static const emptyLottie = "${_lottie}empty.json";
@@ -15,7 +18,6 @@ class AssetPath {
   static const error500 = "${_icons}500.png";
   static const error404 = "${_icons}404.png";
   static const error000 = "${_icons}000.png";
-
 
   static const logOutSvg = "${_icons}logout.svg";
 

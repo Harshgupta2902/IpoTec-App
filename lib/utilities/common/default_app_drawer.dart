@@ -2,8 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
@@ -27,12 +25,12 @@ class DefaultCustomDrawer extends StatefulWidget {
 
 class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerProviderStateMixin {
   final List<KeyValuePairModel> menuItems = [
-    KeyValuePairModel(key: "IPO GMP", value: ""),
-    KeyValuePairModel(key: "IPO Subscription", value: ""),
+    KeyValuePairModel(key: "IPO GMP", value: AssetPath.gmp),
+    KeyValuePairModel(key: "IPO Subscription", value: AssetPath.subs),
     KeyValuePairModel(key: "Upcoming IPO", value: AssetPath.mainBoard),
     KeyValuePairModel(key: "SME IPO", value: AssetPath.sme),
     KeyValuePairModel(key: "BuyBack IPO", value: AssetPath.buyBack),
-    KeyValuePairModel(key: "IPO Forms", value: ""),
+    KeyValuePairModel(key: "IPO Forms", value: AssetPath.forms),
   ];
 
   @override
