@@ -52,6 +52,7 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
             sigmaY: 8,
           ),
           child: Container(
+            clipBehavior: Clip.hardEdge,
             margin: EdgeInsets.only(
               left: 12,
               right: MediaQuery.of(context).size.width * 0.24,
@@ -82,18 +83,22 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                     children: [
                       Row(
                         children: [
-                          CachedImageNetworkContainer(
-                            decoration: AppBoxDecoration.getBoxDecoration(
-                              borderRadius: 40,
-                              showShadow: true,
-                            ),
-                            height: 40,
-                            width: 40,
-                            url: isLoggedIn()
-                                ? _authController.state?.photoURL
-                                : "https://images.unsplash.com/photo-1705904506582-6552c35a2dc4?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                            placeHolder: buildPlaceholder(name: "H", context: context),
-                          ),
+                          isLoggedIn()
+                              ? CachedImageNetworkContainer(
+                                  decoration: AppBoxDecoration.getBoxDecoration(
+                                    borderRadius: 40,
+                                    showShadow: true,
+                                  ),
+                                  height: 40,
+                                  width: 40,
+                                  url: _authController.state?.photoURL,
+                                  placeHolder: buildPlaceholderSVG(assetPath: AssetPath.avatarSvg),
+                                )
+                              : SvgPicture.asset(
+                                  AssetPath.avatarSvg,
+                                  height: 40,
+                                  width: 40,
+                                ),
                           const SizedBox(width: 12),
                           isLoggedIn()
                               ? Text(
