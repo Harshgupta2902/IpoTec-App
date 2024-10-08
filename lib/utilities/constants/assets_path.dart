@@ -16,6 +16,9 @@ class AssetPath {
   static const error404 = "${_icons}404.png";
   static const error000 = "${_icons}000.png";
 
+
+  static const logOutSvg = "${_icons}logout.svg";
+
   static const aLogo = "${_logos}A.svg";
   static const bLogo = "${_logos}B.svg";
   static const dLogo = "${_logos}D.svg";
