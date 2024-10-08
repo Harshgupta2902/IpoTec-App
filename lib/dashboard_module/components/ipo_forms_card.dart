@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ipotec/dashboard_module/modal/ipo_forms_model.dart';
-import 'package:ipotec/utilities/common/cached_image_network_container.dart';
-import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
-import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
-import 'package:lottie/lottie.dart';
 
 class IpoFormsCard extends StatelessWidget {
   const IpoFormsCard({
@@ -28,6 +26,13 @@ class IpoFormsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
+            onTap: () => MyNavigator.pushNamed(
+              GoPaths.commonDetails,
+              extra: {
+                'slug': state?.slug,
+                'name': state?.companyName,
+              },
+            ),
             child: Row(
               children: [
                 Container(
@@ -69,9 +74,66 @@ class IpoFormsCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: GestureDetector(
+                  onTap: () => linkOnTap(link: state?.bseLink, title: state?.companyName),
+                  child: Container(
+                    decoration: AppBoxDecoration.getBoxDecoration(
+                        color: AppColors.porcelain, borderRadius: 4),
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      "BSE FORM LINK",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: state?.bseLink != null ? AppColors.primaryColor : Colors.black,
+                          decoration: state?.bseLink != null ? TextDecoration.underline : null,
+                          decorationColor: AppColors.primaryColor),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 30),
+              Flexible(
+                child: GestureDetector(
+                  onTap: () => linkOnTap(link: state?.nseLink, title: state?.companyName),
+                  child: Container(
+                    decoration: AppBoxDecoration.getBoxDecoration(
+                        color: AppColors.porcelain, borderRadius: 4),
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      "NSE FORM LINK",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: state?.nseLink != null ? AppColors.primaryColor : Colors.black,
+                          decoration: state?.nseLink != null ? TextDecoration.underline : null,
+                          decorationColor: AppColors.primaryColor),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
   }
+}
+
+void linkOnTap({String? link, String? title}) {
+  if (link == null) {
+    return;
+  }
+  MyNavigator.pushNamed(
+    GoPaths.webView,
+    extra: {
+      'url': link,
+      'title': title,
+    },
+  );
 }

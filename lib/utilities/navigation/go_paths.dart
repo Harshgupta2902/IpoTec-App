@@ -9,6 +9,7 @@ class GoPaths {
 
   static const String buyBackDetails = '/buyBack-details';
   static const String mainBoardDetails = '/mainBoard-details';
+  static const String commonDetails = '/common-details';
 
   static const String blogs = '/blogs';
 

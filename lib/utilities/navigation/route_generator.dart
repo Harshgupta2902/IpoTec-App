@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ipotec/dashboard_module/view/blogs_main_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/common_details_view.dart';
 import 'package:ipotec/dashboard_module/view/ipo_forms_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
@@ -77,7 +78,20 @@ final GoRouter goRouterConfig = GoRouter(
         );
       },
     ),
-
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.commonDetails,
+      name: GoPaths.commonDetails,
+      builder: (context, state) {
+        final extras = state.extra as Map<String, dynamic>;
+        final slug = extras['slug'];
+        final name = extras['name'];
+        return CommonDetailsView(
+          slug: slug,
+          name: name,
+        );
+      },
+    ),
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       path: GoPaths.forms,
