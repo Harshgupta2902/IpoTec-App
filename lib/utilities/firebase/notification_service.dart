@@ -131,11 +131,8 @@ class CoreNotificationService {
     final token = await _firebaseMessaging.getToken();
 
     debugPrint("FCM TOKEN ::: $token");
-    logger.i("----------FCM TOKEN $token----------");
 
     if (token == null) {
-      logger.i("----------  updateFCMTokenAPI Stopped FCM Token in NULL ----------");
-
       return;
     }
     setFCMToken(token);

@@ -92,7 +92,7 @@ class AuthController extends GetxController with StateMixin<UserModel> {
       if (doc.exists) {
         final modal = UserModel.fromFirestore(doc);
         change(modal, status: RxStatus.success());
-        debugPrint("AuthController => User data fetched: ${currentUser.value?.displayName}");
+        debugPrint("AuthController => User data fetched: ${modal.displayName}");
       } else {
         debugPrint("AuthController => No user data found for uid: $uid");
       }

@@ -17,8 +17,8 @@ setUuid(String uuid) {
   prefs.write("uuid", uuid);
 }
 
-getUuid(String uuid) {
-  prefs.read("uuid");
+getUuid() {
+  return prefs.read("uuid");
 }
 
 setFCMToken(String token) {
