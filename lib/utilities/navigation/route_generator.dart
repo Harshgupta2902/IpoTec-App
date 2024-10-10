@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ipotec/dashboard_module/view/blogs_main_view.dart';
-import 'package:ipotec/dashboard_module/view/buyback_ipo_details_view.dart';
-import 'package:ipotec/dashboard_module/view/buyback_ipo_view.dart';
-import 'package:ipotec/dashboard_module/view/common_details_view.dart';
-import 'package:ipotec/dashboard_module/view/ipo_forms_view.dart';
-import 'package:ipotec/dashboard_module/view/ipo_gmp_view.dart';
-import 'package:ipotec/dashboard_module/view/ipo_subs_view.dart';
-import 'package:ipotec/dashboard_module/view/mainboard_ipo_details_view.dart';
-import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/blogs/blogs_main_view.dart';
+import 'package:ipotec/dashboard_module/view/buyback/buyback_ipo_details_view.dart';
+import 'package:ipotec/dashboard_module/view/buyback/buyback_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/common_details_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/ipo_forms_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/ipo_gmp_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/ipo_subs_view.dart';
+import 'package:ipotec/dashboard_module/view/upcoming/mainboard_ipo_details_view.dart';
+import 'package:ipotec/dashboard_module/view/upcoming/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
 import 'package:ipotec/dashboard_module/view/search_main_view.dart';
-import 'package:ipotec/dashboard_module/view/sme_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/upcoming/sme_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/web_view.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 

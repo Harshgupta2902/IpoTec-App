@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/dashboard_module/controller/common_details_controller.dart';
-import 'package:ipotec/dashboard_module/modal/common_details_model.dart';
+import 'package:ipotec/dashboard_module/controller/drawer/common_details_controller.dart';
+import 'package:ipotec/dashboard_module/modal/drawer/common_details_model.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/packages/read_more.dart';

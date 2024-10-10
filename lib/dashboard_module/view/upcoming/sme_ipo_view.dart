@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_listing_card.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_upcoming_card.dart';
-import 'package:ipotec/dashboard_module/controller/default_controller.dart';
-import 'package:ipotec/dashboard_module/controller/mainboard_ipo_controller.dart';
+import 'package:ipotec/dashboard_module/controller/upcoming/mainboard_ipo_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_error_or_empty.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
@@ -14,50 +13,20 @@ import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
-final _defaultController = Get.put(DefaultApiController());
 
-class MainBoardIpoView extends StatefulWidget {
-  const MainBoardIpoView({super.key});
+class SmeIpoView extends StatefulWidget {
+  const SmeIpoView({super.key});
 
   @override
-  State<MainBoardIpoView> createState() => _MainBoardIpoViewState();
+  State<SmeIpoView> createState() => _SmeIpoViewState();
 }
 
-class _MainBoardIpoViewState extends State<MainBoardIpoView> {
-  @override
-  void initState() {
-    super.initState();
-    if (_defaultController.state?.showAd == true) {
-      // BannerAd(
-      //   adUnitId: AdHelper.bannerAdUnitId,
-      //   request: const AdRequest(),
-      //   size: AdSize.banner,
-      //   listener: BannerAdListener(
-      //     onAdLoaded: (ad) {
-      //       setState(() {
-      //         _bannerAd = ad as BannerAd;
-      //       });
-      //     },
-      //     onAdFailedToLoad: (ad, err) {
-      //       debugPrint('Failed to load a banner ad: ${err.message}');
-      //       ad.dispose();
-      //     },
-      //   ),
-      // ).load();
-    }
-  }
-
-  @override
-  void dispose() {
-    // _bannerAd?.dispose();
-    super.dispose();
-  }
-
+class _SmeIpoViewState extends State<SmeIpoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CoreAppBar(
-        title: "MainBoard Ipo",
+        title: "SME Ipo",
         centerTitle: false,
         showBackButton: false,
       ),
@@ -77,15 +46,15 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                     children: [
                       state?.active?.isEmpty == true
                           ? const CustomErrorOrEmpty(
-                              title: "No Upcoming MainBoard IPO's",
+                              title: "No Upcoming SME IPO's",
                             )
                           : ListView.separated(
                               itemCount:
-                                  state?.active?.where((data) => data.isSme == false).length ?? 0,
+                                  state?.active?.where((data) => data.isSme == true).length ?? 0,
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               itemBuilder: (context, index) {
                                 final filteredData =
-                                    state?.active?.where((data) => data.isSme == false).toList();
+                                    state?.active?.where((data) => data.isSme == true).toList();
                                 final data = filteredData?[index];
                                 return GestureDetector(
                                   onTap: () => MyNavigator.pushNamed(
@@ -93,7 +62,7 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                                     extra: {'slug': data?.searchId, 'name': data?.growwShortName},
                                   ),
                                   child: MainboardUpcomingCard(
-                                    type: IpoType.mainboard,
+                                    type: IpoType.sme,
                                     logo: data?.logoUrl ?? data?.symbol,
                                     name: data?.growwShortName?.trim(),
                                     bid: data?.additionalTxt?.trim(),
@@ -121,15 +90,15 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                             ),
                       state?.listed?.isEmpty == true
                           ? const CustomErrorOrEmpty(
-                              title: "No Listed MainBoard IPO's",
+                              title: "No Listed SME IPO's",
                             )
                           : ListView.separated(
                               itemCount:
-                                  state?.listed?.where((data) => data.isSme == false).length ?? 0,
+                                  state?.listed?.where((data) => data.isSme == true).length ?? 0,
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               itemBuilder: (context, index) {
                                 final filteredData =
-                                    state?.listed?.where((data) => data.isSme == false).toList();
+                                    state?.listed?.where((data) => data.isSme == true).toList();
                                 final data = filteredData?[index];
                                 return GestureDetector(
                                   onTap: () => MyNavigator.pushNamed(

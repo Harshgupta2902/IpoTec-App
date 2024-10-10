@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:ipotec/dashboard_module/modal/mainboard_ipo_model.dart';
+import 'package:ipotec/dashboard_module/modal/upcoming/mainboard_ipo_model.dart';
 
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';

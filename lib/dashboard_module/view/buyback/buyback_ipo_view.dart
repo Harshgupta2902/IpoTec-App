@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/components/buyback_upcoming_card.dart';
-import 'package:ipotec/dashboard_module/controller/buyback_ipo_controller.dart';
-import 'package:ipotec/dashboard_module/modal/buyback_ipo_model.dart';
+import 'package:ipotec/dashboard_module/controller/buyback/buyback_ipo_controller.dart';
+import 'package:ipotec/dashboard_module/modal/buyback/buyback_ipo_model.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_error_or_empty.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
