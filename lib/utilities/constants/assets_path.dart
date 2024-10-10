@@ -33,6 +33,7 @@ class AssetPath {
   static const iLogo = "${_logos}I.svg";
   static const jLogo = "${_logos}J.svg";
   static const kLogo = "${_logos}K.svg";
+  static const lLogo = "${_logos}L.svg";
   static const mLogo = "${_logos}M.svg";
   static const nLogo = "${_logos}N.svg";
   static const oLogo = "${_logos}O.svg";

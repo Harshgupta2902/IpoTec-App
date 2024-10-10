@@ -41,7 +41,7 @@ class _WebViewState extends State<WebView> {
           initialOptions: InAppWebViewGroupOptions(
             crossPlatform: InAppWebViewOptions(
               javaScriptEnabled: true,
-              supportZoom: false,
+              supportZoom: true,
               allowFileAccessFromFileURLs: false,
             ),
           ),

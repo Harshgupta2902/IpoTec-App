@@ -29,10 +29,12 @@ String getLogoPath(String word) {
       return AssetPath.jLogo;
     case 'K':
       return AssetPath.kLogo;
-    case 'N':
-      return AssetPath.nLogo;
+    case 'L':
+      return AssetPath.lLogo;
     case 'M':
       return AssetPath.mLogo;
+    case 'N':
+      return AssetPath.nLogo;
     case 'O':
       return AssetPath.oLogo;
     case 'P':

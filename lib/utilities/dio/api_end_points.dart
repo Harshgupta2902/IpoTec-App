@@ -10,13 +10,13 @@ class APIEndPoints {
 
   static const ipoDetails = "ipo-details";
   static const buybackDetails = "buyback-details";
-  static const commonDetails = "common-details";
+  static const forms = "forms";
+  static const gmp = "gmp";
 
+  static const commonDetails = "common-details";
   static const blogs = "blogs";
 
   static const search = "search";
-
-  static const forms = "forms";
 
   static const updateFcm = "update-fcm";
 }

@@ -27,7 +27,7 @@ class DefaultCustomDrawer extends StatefulWidget {
 
 class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerProviderStateMixin {
   final List<KeyValuePairModel> menuItems = [
-    KeyValuePairModel(key: "IPO GMP", value: AssetPath.gmp, extra: GoPaths.forms),
+    KeyValuePairModel(key: "IPO GMP", value: AssetPath.gmp, extra: GoPaths.gmp),
     KeyValuePairModel(key: "IPO Subscription", value: AssetPath.subs, extra: GoPaths.forms),
     KeyValuePairModel(key: "Upcoming IPO", value: AssetPath.mainBoard, extra: GoPaths.forms),
     KeyValuePairModel(key: "SME IPO", value: AssetPath.sme, extra: GoPaths.forms),
