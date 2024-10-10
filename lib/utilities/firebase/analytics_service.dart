@@ -21,6 +21,5 @@ class FirebaseAnalyticsService {
     FirebaseAnalytics.instance;
     analyticsService.setUpUserProperties(id: id ?? '-');
     FirebaseCrashlytics.instance.setUserIdentifier(id ?? '-');
-    FirebaseAnalytics.instance.logEvent(name: 'increment_button_press');
   }
 }

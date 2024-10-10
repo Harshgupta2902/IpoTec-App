@@ -12,7 +12,7 @@ class MyNavigator {
     } catch (e) {
       debugPrint("+++++++++++++++++++++++++++++navigation  $e");
     }
-    FirebaseAnalytics.instance.logEvent(name: 'navigated_to_page');
+    _logNavigationEvent(routeName);
   }
 
   static void go(String? routeName, {Object? extra}) {
@@ -21,7 +21,7 @@ class MyNavigator {
     } catch (e) {
       debugPrint("+++++++++++++++++++++++++++++navigation  $e");
     }
-    FirebaseAnalytics.instance.logEvent(name: 'navigated_to_page');
+    _logNavigationEvent(routeName);
   }
 
   static void pop() {
@@ -37,7 +37,7 @@ class MyNavigator {
     } catch (e) {
       debugPrint("Navigation Error: $e");
     }
-    FirebaseAnalytics.instance.logEvent(name: 'navigated_to_page');
+    _logNavigationEvent(routeName);
   }
 
   static void pushReplacementNamed(String? routeName, {Object? extra}) {
@@ -46,6 +46,15 @@ class MyNavigator {
     } catch (e) {
       debugPrint("+++++++++++++++++++++++++++++navigation  $e");
     }
-    FirebaseAnalytics.instance.logEvent(name: 'navigated_to_page');
+    _logNavigationEvent(routeName);
+  }
+
+  static void _logNavigationEvent(String? routeName) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'navigated_to_page',
+      parameters: {
+        'page_name': routeName ?? GoPaths.mainBoard,
+      },
+    );
   }
 }

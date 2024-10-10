@@ -53,11 +53,6 @@ class _LandingViewState extends State<LandingView> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   key: _hiddenDrawerController.scaffoldKey,
-    //   body: widget.child,
-    //   bottomNavigationBar: const CustomBottomNavigationBar(),
-    // );
     return Scaffold(
       body: Obx(
         () => GestureDetector(

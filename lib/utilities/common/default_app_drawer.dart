@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
@@ -27,12 +28,36 @@ class DefaultCustomDrawer extends StatefulWidget {
 
 class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerProviderStateMixin {
   final List<KeyValuePairModel> menuItems = [
-    KeyValuePairModel(key: "IPO GMP", value: AssetPath.gmp, extra: GoPaths.gmp),
-    KeyValuePairModel(key: "IPO Subscription", value: AssetPath.subs, extra: GoPaths.subs),
-    KeyValuePairModel(key: "Upcoming IPO", value: AssetPath.mainBoard, extra: GoPaths.forms),
-    KeyValuePairModel(key: "SME IPO", value: AssetPath.sme, extra: GoPaths.forms),
-    KeyValuePairModel(key: "BuyBack IPO", value: AssetPath.buyBack, extra: GoPaths.forms),
-    KeyValuePairModel(key: "IPO Forms", value: AssetPath.forms, extra: GoPaths.forms),
+    KeyValuePairModel(
+      key: "IPO GMP",
+      value: AssetPath.gmp,
+      extra: GoPaths.gmp,
+    ),
+    KeyValuePairModel(
+      key: "IPO Subscription",
+      value: AssetPath.subs,
+      extra: GoPaths.subs,
+    ),
+    KeyValuePairModel(
+      key: "Upcoming IPO",
+      value: AssetPath.mainBoard,
+      extra: GoPaths.mainBoard,
+    ),
+    KeyValuePairModel(
+      key: "SME IPO",
+      value: AssetPath.sme,
+      extra: GoPaths.sme,
+    ),
+    KeyValuePairModel(
+      key: "BuyBack IPO",
+      value: AssetPath.buyBack,
+      extra: GoPaths.buyBack,
+    ),
+    KeyValuePairModel(
+      key: "IPO Forms",
+      value: AssetPath.forms,
+      extra: GoPaths.forms,
+    )
   ];
 
   @override
@@ -124,7 +149,8 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                                 ),
                         ],
                       ),
-                      if (isLoggedIn())
+                      if (isLoggedIn()) ...[
+                        const SizedBox(height: 6),
                         Text(
                           "${_authController.state?.email}",
                           maxLines: 1,
@@ -132,6 +158,7 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                           style:
                               Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.white),
                         ),
+                      ]
                     ],
                   ),
                 ),
@@ -141,7 +168,10 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                     itemCount: menuItems.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () => MyNavigator.pushNamed(menuItems[index].extra),
+                        onTap: () {
+                          _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
+                          MyNavigator.pushNamed(menuItems[index].extra);
+                        },
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),

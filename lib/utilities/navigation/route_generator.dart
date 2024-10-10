@@ -118,6 +118,7 @@ final GoRouter goRouterConfig = GoRouter(
         return const IpoSubsView();
       },
     ),
+
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       path: GoPaths.buyBackDetails,
