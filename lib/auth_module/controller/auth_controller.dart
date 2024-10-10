@@ -23,7 +23,6 @@ class AuthController extends GetxController with StateMixin<UserModel> {
       // Attempt to sign in with Google
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
-      // If the user cancels the sign-in, exit early
       if (googleUser == null) {
         debugPrint("AuthController => googleSignIn > canceled by user");
         isLoggingIn.value = false;
@@ -33,13 +32,14 @@ class AuthController extends GetxController with StateMixin<UserModel> {
       debugPrint(
           "AuthController => Google sign-in successful: ${googleUser.displayName}, ${googleUser.email}");
 
-      // Save Google user data to Firestore
-      await saveGoogleUserToFirestore(googleUser);
-      fetchUserData(googleUser.id);
+      if (isLoggedIn()) {
+        fetchUserData(googleUser.id);
+      } else {
+        await saveGoogleUserToFirestore(googleUser);
+        fetchUserData(googleUser.id);
+      }
       coreCloseDialog();
       context.pop();
-
-      debugPrint("AuthController => Google user data saved to Firestore successfully");
     } catch (e) {
       debugPrint("AuthController => Error during Google sign-in: $e");
     } finally {
@@ -50,7 +50,8 @@ class AuthController extends GetxController with StateMixin<UserModel> {
 
   Future<void> saveGoogleUserToFirestore(GoogleSignInAccount googleUser) async {
     try {
-      final userRef = _firestore.collection('users').doc(googleUser.id);
+      final userRef = _firestore.collection('userData').doc(googleUser.id);
+
       final fcmToken = CoreNotificationService().getToken();
       await userRef.set({
         'uid': googleUser.id,
@@ -60,7 +61,6 @@ class AuthController extends GetxController with StateMixin<UserModel> {
         'createdAt': FieldValue.serverTimestamp(),
         'token': getFCMToken() ?? fcmToken
       });
-
       setLogin(true);
       setUuid(googleUser.id);
       debugPrint(
@@ -88,7 +88,7 @@ class AuthController extends GetxController with StateMixin<UserModel> {
 
   Future<void> fetchUserData(String uid) async {
     try {
-      DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();
+      DocumentSnapshot doc = await _firestore.collection('userData').doc(uid).get();
       if (doc.exists) {
         final modal = UserModel.fromFirestore(doc);
         change(modal, status: RxStatus.success());

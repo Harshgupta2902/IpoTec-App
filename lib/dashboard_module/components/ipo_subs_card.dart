@@ -75,16 +75,64 @@ class _IpoMainBoardSubsCardState extends State<IpoMainBoardSubsCard> {
             ),
         ];
 
-        return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: AppBoxDecoration.getBoxDecoration(),
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () => openOrCloseContainer(index: index),
-                child: Row(
+        final List<KeyValuePairModel> moreDetails = [
+          if (ipoSubscriptionData?.qibX != null)
+            KeyValuePairModel(
+              key: "QIB:",
+              value: "${ipoSubscriptionData?.qibX}x",
+            ),
+          if (ipoSubscriptionData?.niiX != null)
+            KeyValuePairModel(
+              key: "NII:",
+              value: "${ipoSubscriptionData?.niiX}x",
+            ),
+          if (ipoSubscriptionData?.bniiX != null)
+            KeyValuePairModel(
+              key: "BNII:",
+              value: "${ipoSubscriptionData?.bniiX}x",
+            ),
+          if (ipoSubscriptionData?.retailX != null)
+            KeyValuePairModel(
+              key: "Retail:",
+              value: "${ipoSubscriptionData?.retailX}x",
+            ),
+          if (ipoSubscriptionData?.employeeX != null)
+            KeyValuePairModel(
+              key: "Employee:",
+              value: "${ipoSubscriptionData?.employeeX}x",
+            ),
+          if (ipoSubscriptionData?.othersX != null)
+            KeyValuePairModel(
+              key: "Others:",
+              value: "${ipoSubscriptionData?.othersX}x",
+            ),
+          if (ipoSubscriptionData?.totalX != null)
+            KeyValuePairModel(
+              key: "Total Subscription:",
+              value: "${ipoSubscriptionData?.totalX}x",
+            ),
+          if (ipoSubscriptionData?.applications != null)
+            KeyValuePairModel(
+              key: "Applications:",
+              value: "${ipoSubscriptionData?.applications}",
+            ),
+          if (ipoSubscriptionData?.sizeRsCr != null)
+            KeyValuePairModel(
+              key: "Size (Rs Cr):",
+              value: "${ipoSubscriptionData?.sizeRsCr}",
+            ),
+        ];
+
+        return GestureDetector(
+          onTap: () => openOrCloseContainer(index: index),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: AppBoxDecoration.getBoxDecoration(),
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   key: expansionTileKey[index],
                   children: [
                     Container(
@@ -132,61 +180,87 @@ class _IpoMainBoardSubsCardState extends State<IpoMainBoardSubsCard> {
                     ),
                   ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: CustomPaint(
-                  size: Size(MediaQuery.of(context).size.width, 1),
-                  painter: HorizontalDashedLinePainter(color: Colors.black54),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: CustomPaint(
+                    size: Size(MediaQuery.of(context).size.width, 1),
+                    painter: HorizontalDashedLinePainter(color: Colors.black54),
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(
-                  data.length,
-                  (index) {
-                    return Flexible(
-                      child: Container(
-                        decoration: AppBoxDecoration.getBoxDecoration(
-                          color: AppColors.porcelain,
-                          borderRadius: 6,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              data[index].key,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: AppColors.boulder),
+                AnimatedCrossFade(
+                  firstChild: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      data.length,
+                      (index) {
+                        return Flexible(
+                          child: Container(
+                            decoration: AppBoxDecoration.getBoxDecoration(
+                              color: AppColors.porcelain,
+                              borderRadius: 6,
                             ),
-                            Text(
-                              data[index].value,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(color: AppColors.oil, fontWeight: FontWeight.w500),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  data[index].key,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: AppColors.boulder),
+                                ),
+                                Text(
+                                  data[index].value,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(color: AppColors.oil, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  secondChild: Column(
+                    children: List.generate(
+                      moreDetails.length,
+                      (index) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                moreDetails[index].key,
+                                textAlign: TextAlign.left,
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                moreDetails[index].value,
+                                textAlign: TextAlign.left,
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
                             ),
                           ],
-                        ),
-                      ),
-                    );
-                  },
+                        );
+                      },
+                    ),
+                  ),
+                  crossFadeState:
+                      selectedIndex == index ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                  duration: const Duration(milliseconds: 600),
                 ),
-              ),
-              AnimatedCrossFade(
-                firstChild: const SizedBox.shrink(),
-                secondChild: Text("data"),
-                crossFadeState:
-                    selectedIndex == index ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                duration: const Duration(milliseconds: 400),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -266,16 +340,59 @@ class _IpoSmeBoardSubsCardState extends State<IpoSmeBoardSubsCard> {
             ),
         ];
 
-        return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: AppBoxDecoration.getBoxDecoration(),
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () => openOrCloseContainer(index: index),
-                child: Row(
+        final List<KeyValuePairModel> moreDetails = [
+          if (smeSubscriptionData?.open != null)
+            KeyValuePairModel(
+              key: "Opening Date",
+              value: "${smeSubscriptionData?.open}",
+            ),
+          if (smeSubscriptionData?.close != null)
+            KeyValuePairModel(
+              key: "Closing Date",
+              value: "${smeSubscriptionData?.close}",
+            ),
+          if (smeSubscriptionData?.sizeRsCr != null)
+            KeyValuePairModel(
+              key: "Size (Rs Cr):",
+              value: "${smeSubscriptionData?.sizeRsCr}",
+            ),
+          if (smeSubscriptionData?.qibX != null)
+            KeyValuePairModel(
+              key: "QIB Subscription:",
+              value: "${smeSubscriptionData?.qibX}x",
+            ),
+          if (smeSubscriptionData?.niiX != null)
+            KeyValuePairModel(
+              key: "NII Subscription:",
+              value: "${smeSubscriptionData?.niiX}x",
+            ),
+          if (smeSubscriptionData?.retailX != null)
+            KeyValuePairModel(
+              key: "Retail Subscription:",
+              value: "${smeSubscriptionData?.retailX}x",
+            ),
+          if (smeSubscriptionData?.totalX != null)
+            KeyValuePairModel(
+              key: "Total Subscription:",
+              value: "${smeSubscriptionData?.totalX}x",
+            ),
+          if (smeSubscriptionData?.applications != null)
+            KeyValuePairModel(
+              key: "Applications:",
+              value: "${smeSubscriptionData?.applications}",
+            ),
+        ];
+
+        return GestureDetector(
+          onTap: () => openOrCloseContainer(index: index),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: AppBoxDecoration.getBoxDecoration(),
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   key: expansionTileKey[index],
                   children: [
                     Container(
@@ -323,61 +440,87 @@ class _IpoSmeBoardSubsCardState extends State<IpoSmeBoardSubsCard> {
                     ),
                   ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: CustomPaint(
-                  size: Size(MediaQuery.of(context).size.width, 1),
-                  painter: HorizontalDashedLinePainter(color: Colors.black54),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: CustomPaint(
+                    size: Size(MediaQuery.of(context).size.width, 1),
+                    painter: HorizontalDashedLinePainter(color: Colors.black54),
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(
-                  data.length,
-                  (index) {
-                    return Flexible(
-                      child: Container(
-                        decoration: AppBoxDecoration.getBoxDecoration(
-                          color: AppColors.porcelain,
-                          borderRadius: 6,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              data[index].key,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: AppColors.boulder),
+                AnimatedCrossFade(
+                  firstChild: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      data.length,
+                      (index) {
+                        return Flexible(
+                          child: Container(
+                            decoration: AppBoxDecoration.getBoxDecoration(
+                              color: AppColors.porcelain,
+                              borderRadius: 6,
                             ),
-                            Text(
-                              data[index].value,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(color: AppColors.oil, fontWeight: FontWeight.w500),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  data[index].key,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: AppColors.boulder),
+                                ),
+                                Text(
+                                  data[index].value,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(color: AppColors.oil, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  secondChild: Column(
+                    children: List.generate(
+                      moreDetails.length,
+                      (index) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                moreDetails[index].key,
+                                textAlign: TextAlign.left,
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                moreDetails[index].value,
+                                textAlign: TextAlign.left,
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
                             ),
                           ],
-                        ),
-                      ),
-                    );
-                  },
+                        );
+                      },
+                    ),
+                  ),
+                  crossFadeState:
+                      selectedIndex == index ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                  duration: const Duration(milliseconds: 600),
                 ),
-              ),
-              AnimatedCrossFade(
-                firstChild: const SizedBox.shrink(),
-                secondChild: Text("data"),
-                crossFadeState:
-                    selectedIndex == index ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                duration: const Duration(milliseconds: 400),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
