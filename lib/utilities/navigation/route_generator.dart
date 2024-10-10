@@ -6,6 +6,7 @@ import 'package:ipotec/dashboard_module/view/buyback_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/common_details_view.dart';
 import 'package:ipotec/dashboard_module/view/ipo_forms_view.dart';
 import 'package:ipotec/dashboard_module/view/ipo_gmp_view.dart';
+import 'package:ipotec/dashboard_module/view/ipo_subs_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
@@ -107,6 +108,14 @@ final GoRouter goRouterConfig = GoRouter(
       name: GoPaths.gmp,
       builder: (context, state) {
         return const IpoGmpView();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.subs,
+      name: GoPaths.subs,
+      builder: (context, state) {
+        return const IpoSubsView();
       },
     ),
     GoRoute(

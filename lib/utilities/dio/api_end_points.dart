@@ -12,6 +12,7 @@ class APIEndPoints {
   static const buybackDetails = "buyback-details";
   static const forms = "forms";
   static const gmp = "gmp";
+  static const subs = "subs";
 
   static const commonDetails = "common-details";
   static const blogs = "blogs";

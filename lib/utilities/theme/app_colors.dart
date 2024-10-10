@@ -10,6 +10,7 @@ class AppColors {
   static const porcelain = Color(0xFFEDF3F6);
   static const magnolia = Color(0xFFDBDCF3);
 
+  static const aluminium = Color(0xFFABAFB1);
   static const paleSky = Color(0xFF6E717C);
   static const silverChalice30 = Color(0x4DAAAAAA);
   static const boulder = Color(0xFF777777);
