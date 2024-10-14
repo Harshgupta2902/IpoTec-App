@@ -36,7 +36,9 @@ class _NoInternetState extends State<NoInternet> {
 
   getConnectivity() {
     final internetChecker = InternetConnectionChecker.createInstance(
-        checkTimeout: const Duration(seconds: 10), checkInterval: const Duration(seconds: 5));
+      checkTimeout: const Duration(seconds: 10),
+      checkInterval: const Duration(seconds: 5),
+    );
     return subscription = internetChecker.onStatusChange.listen((status) {
       switch (status) {
         case InternetConnectionStatus.connected:

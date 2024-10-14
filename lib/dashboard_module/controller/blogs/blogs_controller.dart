@@ -11,9 +11,9 @@ class BlogsController extends GetxController with StateMixin<BlogsModel> {
   getBlogs({String? offset, bool? hardLoad}) async {
     isLoading.value = true;
 
-    final apiEndPoint = "${APIEndPoints.blogs}?offset=$offset";
+    final apiEndPoint = "${APIEndPoints.blogsV1}?offset=$offset";
     debugPrint("---------- $apiEndPoint getBlogs Start ----------");
-    if (offset == '0') {
+    if (offset == '1') {
       change(null, status: RxStatus.loading());
     }
     if (hardLoad == true) {
@@ -38,7 +38,7 @@ class BlogsController extends GetxController with StateMixin<BlogsModel> {
       } else {
         debugPrint("Offset::::::::::$offset:::::::::::::;;adding");
         final modal = BlogsModel.fromJson(response.data);
-        state?.data?.addAll(modal.data ?? []);
+        state?.articles?.addAll(modal.articles ?? []);
         change(state, status: RxStatus.success());
       }
     } catch (error) {

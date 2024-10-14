@@ -16,6 +16,7 @@ class APIEndPoints {
 
   static const commonDetails = "common-details";
   static const blogs = "blogs";
+  static const blogsV1 = "blogs-v1";
 
   static const search = "search";
 

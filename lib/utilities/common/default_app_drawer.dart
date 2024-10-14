@@ -95,9 +95,7 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                        "https://images.unsplash.com/photo-1636956040469-fec02ed01ab5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                      ),
+                      image: AssetImage(AssetPath.greenBg),
                       fit: BoxFit.fill,
                     ),
                   ),

@@ -4,6 +4,7 @@ import 'package:ipotec/dashboard_module/components/ipo_subs_card.dart';
 import 'package:ipotec/dashboard_module/controller/drawer/ipo_subs_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
+import 'package:ipotec/utilities/common/error_widget.dart';
 
 final _ipoSubsController = Get.put(IpoSubsController());
 
@@ -66,6 +67,8 @@ class _IpoSubsViewState extends State<IpoSubsView> {
           //   },
           // );
         },
+        onError: (error) => TryAgainWidget(onTap: () => _ipoSubsController.getSubsData(),),
+
       ),
     );
   }

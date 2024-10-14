@@ -25,7 +25,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
   @override
   void initState() {
     super.initState();
-    _blogsController.getBlogs(offset: '0', hardLoad: true);
+    _blogsController.getBlogs(offset: '1', hardLoad: true);
     _blogsController.loadMoreCount = 1;
     scrollController.addListener(_scrollListener);
   }
@@ -46,7 +46,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
 
   void _loadMoreData() async {
     debugPrint("load more start");
-    var limit = 1;
+    var limit = 2;
     limit += _blogsController.loadMoreCount;
     _blogsController.loadMoreCount += 1;
     await _blogsController.getBlogs(
@@ -76,13 +76,14 @@ class _BlogsMainViewState extends State<BlogsMainView> {
             (state) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final blog = state?.data?[index];
+                  final blog = state?.articles?[index];
+
                   return GestureDetector(
                     onTap: () {
                       MyNavigator.pushNamed(
                         GoPaths.webView,
                         extra: {
-                          'url': "https://groww.in/blog/${blog?.slug}",
+                          'url': "${blog?.link}",
                           'title': blog?.title,
                         },
                       );
@@ -91,43 +92,41 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                       clipBehavior: Clip.hardEdge,
                       decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 6),
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                      child: Row(
+                      child: Column(
                         children: [
                           CachedImageNetworkContainer(
-                            width: 120,
-                            height: 70,
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.22,
                             decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 0),
-                            url: blog?.featuredMedia ?? blog?.featuredMediaLegacy,
+                            url: blog?.image,
                             placeHolder: buildPlaceholder(
                               name: blog?.title?[0],
                               context: context,
                             ),
                           ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    blog?.title?.replaceAll("&#038;", "&") ?? "",
-                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                          color: AppColors.onyx,
-                                        ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                            child: Column(
+                              children: [
+                                Text(
+                                  blog?.title?.replaceAll("&#038;", "&") ?? "",
+                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                        color: AppColors.onyx,
+                                      ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    blog?.date ?? "",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(fontWeight: FontWeight.w400),
                                   ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      convertDate(blog?.publishedAt ?? ""),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(fontWeight: FontWeight.w400),
-                                    ),
-                                  )
-                                ],
-                              ),
+                                )
+                              ],
                             ),
                           ),
                         ],
@@ -135,7 +134,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                     ),
                   );
                 },
-                itemCount: state?.data?.length ?? 0,
+                itemCount: state?.articles?.length ?? 0,
               );
             },
             onError: (error) => TryAgainWidget(

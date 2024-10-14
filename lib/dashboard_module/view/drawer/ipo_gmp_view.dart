@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/components/ipo_gmp_card.dart';
 import 'package:ipotec/dashboard_module/controller/drawer/ipo_gmp_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
+import 'package:ipotec/utilities/common/error_widget.dart';
 
 final _ipoGmpController = Get.put(IpoGmpController());
 
@@ -44,6 +45,7 @@ class _IpoGmpViewState extends State<IpoGmpView> {
             },
           );
         },
+        onError: (error) => TryAgainWidget(onTap: () => _ipoGmpController.getGmpData(),),
       ),
     );
   }

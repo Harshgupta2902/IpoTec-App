@@ -6,8 +6,6 @@ import 'package:ipotec/utilities/dio/api_request.dart';
 
 class SearchResultsController extends GetxController with StateMixin<SearchModal> {
   getSearchResults({required String search}) async {
-    change(null, status: RxStatus.empty());
-
     final apiEndPoint = "${APIEndPoints.search}?query=$search";
     debugPrint("---------- $apiEndPoint getSearchResults Start ----------");
     try {

@@ -17,13 +17,11 @@ class AssetPath {
   static const noInternet = "${_lottie}no_internet.json";
   static const tryAgain = "${_lottie}try_again.json";
 
-  static const error500 = "${_icons}500.png";
-  static const error404 = "${_icons}404.png";
-  static const error000 = "${_icons}000.png";
-
   static const logOutSvg = "${_icons}logout.svg";
   static const viewSvg = "${_icons}view.svg";
   static const avatarSvg = "${_icons}avatar.svg";
+
+  static const greenBg = "${_icons}green_bg.png";
 
   static const aLogo = "${_logos}A.svg";
   static const bLogo = "${_logos}B.svg";

@@ -83,15 +83,15 @@ void evaluateScript(InAppWebViewController controller) async {
                   event.preventDefault();
                 };
               });
-            document.querySelector('.h12Wrapper.backgroundPrimary.h12BotBorder').remove();
-            document.querySelector('.foot21ExploreHead').remove();
-            document.querySelector('.foot21MoreAbout').remove();
-            document.querySelector('.valign-wrapper.foot21Div').remove();
-            document.querySelector('.foot21Box').remove();
-            document.querySelector('.bfc43CategoryContainer').remove();
-            document.querySelector('.bfc43Title.bodyXLargeHeavy').remove();
-            document.querySelector('.bs91SidebarLinks').remove();
-            document.querySelector('.bmp88Disclaimer').remove();
+            // document.querySelector('.h12Wrapper.backgroundPrimary.h12BotBorder').remove();
+            // document.querySelector('.foot21ExploreHead').remove();
+            // document.querySelector('.foot21MoreAbout').remove();
+            // document.querySelector('.valign-wrapper.foot21Div').remove();
+            // document.querySelector('.foot21Box').remove();
+            // document.querySelector('.bfc43CategoryContainer').remove();
+            // document.querySelector('.bfc43Title.bodyXLargeHeavy').remove();
+            // document.querySelector('.bs91SidebarLinks').remove();
+            // document.querySelector('.bmp88Disclaimer').remove();
 
             """);
 }
