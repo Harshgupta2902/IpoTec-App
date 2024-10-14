@@ -27,6 +27,11 @@ class LandingView extends StatefulWidget {
 class _LandingViewState extends State<LandingView> {
   @override
   void initState() {
+    apiCalls();
+    super.initState();
+  }
+
+  void apiCalls() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         _mainBoardIpoController.getMainboardData();
@@ -39,12 +44,12 @@ class _LandingViewState extends State<LandingView> {
         return checkUpdate();
       },
     );
+    final uid = getUuid();
+
     if (isLoggedIn()) {
-      final uid = getUuid();
       _authController.fetchUserData(uid);
     }
-    FirebaseAnalyticsService().init("ipotec");
-    super.initState();
+    FirebaseAnalyticsService().init(uid);
   }
 
   void checkUpdate() async {

@@ -226,12 +226,14 @@ class ConnectivityService with WidgetsBindingObserver {
 
     return internetChecker.onStatusChange.listen(
       (status) {
+        debugPrint("Internet  $status.");
+
         switch (status) {
           case InternetConnectionStatus.connected:
             if (ModalRoute.of(context)?.settings.name == GoPaths.noInternet &&
                 _isNoInternetRouteActive) {
               debugPrint("Internet restored, popping the no internet screen.");
-              MyNavigator.pop();
+              MyNavigator.popUntilAndPushNamed(GoPaths.mainBoard);
               _isNoInternetRouteActive = false; // Reset the flag when internet is restored
             }
             break;
