@@ -7,6 +7,7 @@ import 'package:ipotec/dashboard_module/view/drawer/common_details_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/ipo_forms_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/ipo_gmp_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/ipo_subs_view.dart';
+import 'package:ipotec/dashboard_module/view/no_internet.dart';
 import 'package:ipotec/dashboard_module/view/upcoming/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/upcoming/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
@@ -116,6 +117,15 @@ final GoRouter goRouterConfig = GoRouter(
       name: GoPaths.subs,
       builder: (context, state) {
         return const IpoSubsView();
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.noInternet,
+      name: GoPaths.noInternet,
+      builder: (context, state) {
+        return const NoInternet();
       },
     ),
 

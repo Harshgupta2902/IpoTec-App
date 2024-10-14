@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,10 +9,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/crashlytics_service.dart';
 import 'package:ipotec/utilities/firebase/notification_service.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/navigation/route_generator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:ipotec/utilities/theme/smooth_rectangular_border.dart';
@@ -64,20 +68,8 @@ void main() async {
   }
   await _defaultController.getDefaultData();
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  await analytics.logBeginCheckout(
-      value: 10.0,
-      currency: 'USD',
-      items: [
-        AnalyticsEventItem(itemName: 'Socks', itemId: 'xjw73ndnw', price: 20),
-      ],
-      coupon: '10PERCENTOFF');
-
-  await FirebaseAnalytics.instance.logEvent(
-    name: "select_content",
-    parameters: {
-      "content_type": "image",
-      "item_id": 4,
-    },
+  await analytics.logEvent(
+    name: "app_start",
   );
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -101,11 +93,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.instance;
+  final FirebaseAnalyticsObserver analyticsObserver = FirebaseAnalyticsObserver(
+    analytics: FirebaseAnalytics.instance,
+  );
+  late final ConnectivityService _connectivityService;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver;
+    super.initState();
+    _connectivityService = ConnectivityService(context);
+    debugPrint("getconnectivit startListening");
+    _connectivityService.startListening();
     CoreNotificationService().fcmListener();
-    // CoreNotificationService().updateFCMToken();
   }
 
   @override
@@ -119,7 +121,6 @@ class _MyAppState extends State<MyApp> {
           boldText: boldText,
           textScaler: const TextScaler.linear(1.0),
         );
-
         return MediaQuery(
           data: newMediaQueryData,
           child: child!,
@@ -196,5 +197,97 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+}
+
+class ConnectivityService with WidgetsBindingObserver {
+  final BuildContext context;
+
+  ConnectivityService(this.context);
+
+  StreamSubscription? _subscription;
+  bool _isNoInternetRouteActive = false;
+  void startListening() {
+    WidgetsBinding.instance.addObserver(this);
+    debugPrint("getconnectivit started");
+    _subscription = getConnectivity();
+  }
+
+  void stopListening() {
+    WidgetsBinding.instance.removeObserver(this);
+    _subscription?.cancel();
+  }
+
+  StreamSubscription<void> getConnectivity() {
+    final internetChecker = InternetConnectionChecker.createInstance(
+      checkTimeout: const Duration(seconds: 10),
+      checkInterval: const Duration(seconds: 5),
+    );
+
+    return internetChecker.onStatusChange.listen(
+      (status) {
+        switch (status) {
+          case InternetConnectionStatus.connected:
+            if (ModalRoute.of(context)?.settings.name == GoPaths.noInternet &&
+                _isNoInternetRouteActive) {
+              debugPrint("Internet restored, popping the no internet screen.");
+              MyNavigator.pop();
+              _isNoInternetRouteActive = false; // Reset the flag when internet is restored
+            }
+            break;
+
+          case InternetConnectionStatus.disconnected:
+            if (!_isNoInternetRouteActive) {
+              debugPrint("Internet disconnected, pushing the no internet screen.");
+              _isNoInternetRouteActive = true; // Set the flag when route is pushed
+              Future.delayed(const Duration(seconds: 2), () {
+                if (ModalRoute.of(context)?.settings.name != GoPaths.noInternet) {
+                  MyNavigator.pushNamed(GoPaths.noInternet);
+                }
+              });
+            }
+            break;
+        }
+      },
+    );
+    // return internetChecker.onStatusChange.listen(
+    //   (status) {
+    //     debugPrint("status $status");
+    //
+    //     switch (status) {
+    //       case InternetConnectionStatus.connected:
+    //         if (ModalRoute.of(context)?.settings.name == GoPaths.noInternet) {
+    //           debugPrint("getconnectivit connected");
+    //           MyNavigator.pop();
+    //         }
+    //         break;
+    //       case InternetConnectionStatus.disconnected:
+    //         if (ModalRoute.of(context)?.settings.name == null) {
+    //           debugPrint("getconnectivit disconnected");
+    //           Future.delayed(const Duration(seconds: 2), () {
+    //             MyNavigator.pushNamed(GoPaths.noInternet);
+    //           });
+    //         } else if (ModalRoute.of(context)?.settings.name != GoPaths.noInternet) {
+    //           debugPrint("getconnectivit disconnected");
+    //           MyNavigator.pushNamed(GoPaths.noInternet);
+    //         }
+    //         break;
+    //     }
+    //   },
+    // );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // App resumed from background, restart listening
+      _subscription = getConnectivity();
+    } else if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.detached) {
+      // App went to background, stop listening
+      debugPrint("stream caceleted");
+      _subscription?.cancel();
+    }
   }
 }

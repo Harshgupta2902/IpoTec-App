@@ -18,4 +18,5 @@ class GoPaths {
   static const String search = '/search';
 
   static const String webView = '/webView';
+  static const String noInternet = '/noInternet';
 }
