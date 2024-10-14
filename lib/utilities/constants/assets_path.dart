@@ -15,6 +15,7 @@ class AssetPath {
   static const liveLottie = "${_lottie}live.json";
   static const emptyLottie = "${_lottie}empty.json";
   static const noInternet = "${_lottie}no_internet.json";
+  static const tryAgain = "${_lottie}try_again.json";
 
   static const error500 = "${_icons}500.png";
   static const error404 = "${_icons}404.png";

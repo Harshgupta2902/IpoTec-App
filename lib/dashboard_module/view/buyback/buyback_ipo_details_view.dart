@@ -233,8 +233,9 @@ class _BuybackIpoDetailsViewState extends State<BuybackIpoDetailsView> {
             ),
           );
         },
-        onEmpty: const Center(child: OnErrorWidget(error: "000")),
-        onError: (error) => OnErrorWidget(error: error),
+        onError: (error) => TryAgainWidget(
+          onTap: _buybackIpoDetailsController.getBuybackDetails(slug: widget.slug),
+        ),
       ),
     );
   }

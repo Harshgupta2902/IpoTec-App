@@ -34,10 +34,6 @@ class NoInternet extends StatefulWidget {
 class _NoInternetState extends State<NoInternet> {
   late StreamSubscription subscription;
 
-  Future<bool> _onPop() async {
-    return false;
-  }
-
   getConnectivity() {
     final internetChecker = InternetConnectionChecker.createInstance(
         checkTimeout: const Duration(seconds: 10), checkInterval: const Duration(seconds: 5));
@@ -71,8 +67,8 @@ class _NoInternetState extends State<NoInternet> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onPop(),
+    return PopScope(
+      canPop: false,
       child: Container(
         height: MediaQuery.of(context).size.height,
         color: AppColors.primaryColor,

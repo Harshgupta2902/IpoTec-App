@@ -23,6 +23,14 @@ class BuybackIpoView extends StatefulWidget {
 
 class _BuybackIpoViewState extends State<BuybackIpoView> {
   @override
+  void initState() {
+    if (_buybackIpoController.state == null) {
+      _buybackIpoController.getBuybackData();
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CoreAppBar(
@@ -137,8 +145,9 @@ class _BuybackIpoViewState extends State<BuybackIpoView> {
             ),
           );
         },
-        onEmpty: const Center(child: OnErrorWidget(error: "000")),
-        onError: (error) => OnErrorWidget(error: error),
+        onError: (error) => TryAgainWidget(
+          onTap: () => _buybackIpoController.getBuybackData(),
+        ),
       ),
     );
   }

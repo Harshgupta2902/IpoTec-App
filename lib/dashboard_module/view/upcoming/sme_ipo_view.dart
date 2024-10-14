@@ -130,8 +130,8 @@ class _SmeIpoViewState extends State<SmeIpoView> {
             ),
           );
         },
-        onEmpty: const Center(child: OnErrorWidget(error: "000")),
-        onError: (error) => OnErrorWidget(error: error),
+
+        onError: (error) => TryAgainWidget(onTap: _mainBoardIpoController.getMainboardData(),),
       ),
     );
   }

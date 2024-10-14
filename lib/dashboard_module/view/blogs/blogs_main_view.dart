@@ -138,8 +138,9 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                 itemCount: state?.data?.length ?? 0,
               );
             },
-            onEmpty: const Center(child: OnErrorWidget(error: "000")),
-            onError: (error) => OnErrorWidget(error: error),
+            onError: (error) => TryAgainWidget(
+              onTap: () => _blogsController.getBlogs(hardLoad: true, offset: "1"),
+            ),
           );
         },
       ),

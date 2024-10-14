@@ -275,8 +275,7 @@ class _MainboardIpoDetailsViewState extends State<MainboardIpoDetailsView> {
             ),
           );
         },
-        onEmpty: const Center(child: OnErrorWidget(error: "000")),
-        onError: (error) => OnErrorWidget(error: error),
+        onError: (error) => TryAgainWidget(onTap: () => _mainBoardIpoDetailsController.getMainboardDetails(slug: widget.slug),),
       ),
     );
   }

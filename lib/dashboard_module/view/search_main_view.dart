@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/controller/search_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
-import 'package:ipotec/utilities/common/error_widget.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
@@ -65,7 +64,9 @@ class _SearchMainViewState extends State<SearchMainView> {
           }
 
           return state.content?.isEmpty == true
-              ? const Center(child: OnErrorWidget(error: "000"))
+              ? const Center(
+                  child: Text("No Data Found"),
+                )
               : ListView.separated(
                   itemCount: state.content?.length ?? 0,
                   padding: const EdgeInsets.symmetric(vertical: 20),
@@ -116,10 +117,6 @@ class _SearchMainViewState extends State<SearchMainView> {
                   },
                 );
         },
-        onEmpty: const Center(child: OnErrorWidget(error: "000")),
-        onError: (error) => OnErrorWidget(error: error),
-        onLoading:
-            const Center(child: OnErrorWidget(error: "000", message: "Search Upcoming IPO's")),
       ),
     );
   }
