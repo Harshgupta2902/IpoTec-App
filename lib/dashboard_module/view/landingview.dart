@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/dashboard_module/controller/buyback/buyback_ipo_controller.dart';
+import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/dashboard_module/controller/upcoming/mainboard_ipo_controller.dart';
 import 'package:ipotec/utilities/common/core_update_handler.dart';
 import 'package:ipotec/utilities/common/custom_bottom_navigation.dart';
@@ -16,6 +17,7 @@ final _hiddenDrawerController = Get.put(HiddenDrawerController());
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
 final _buybackIpoController = Get.put(BuybackBoardIpoController());
 final _authController = Get.put(AuthController());
+final _defaultController = Get.put(DefaultApiController());
 
 class LandingView extends StatefulWidget {
   const LandingView({super.key, required this.child});
@@ -36,6 +38,7 @@ class _LandingViewState extends State<LandingView> {
       (timeStamp) {
         _mainBoardIpoController.getMainboardData();
         _buybackIpoController.getBuybackData();
+        _defaultController.getDefaultData();
       },
     );
     Future.delayed(
