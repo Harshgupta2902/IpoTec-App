@@ -58,6 +58,25 @@ String getLogoPath(String word) {
   }
 }
 
+String getDrawerLogo(String title) {
+  switch (title) {
+    case 'IPO GMP':
+      return AssetPath.gmp;
+    case 'IPO Subscription':
+      return AssetPath.subs;
+    case 'Upcoming IPO':
+      return AssetPath.mainBoard;
+    case 'SME IPO':
+      return AssetPath.sme;
+    case 'BuyBack IPO':
+      return AssetPath.buyBack;
+    case 'IPO Forms':
+      return AssetPath.forms;
+    default:
+      return AssetPath.mainBoard;
+  }
+}
+
 String convertDate(String dateString, {bool showYear = true}) {
   try {
     DateTime date;

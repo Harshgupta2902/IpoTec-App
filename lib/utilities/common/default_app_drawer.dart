@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
+import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
+import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
@@ -15,6 +17,7 @@ import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
 final _authController = Get.put(AuthController());
+final _defaultController = Get.put(DefaultApiController());
 
 class DefaultCustomDrawer extends StatefulWidget {
   const DefaultCustomDrawer({
@@ -162,12 +165,13 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                 Expanded(
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: menuItems.length,
+                    itemCount: _defaultController.state?.menuItems?.length ?? 0,
                     itemBuilder: (context, index) {
+                      final data = _defaultController.state?.menuItems?[index];
                       return GestureDetector(
                         onTap: () {
                           _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-                          MyNavigator.pushNamed(menuItems[index].extra);
+                          MyNavigator.pushNamed(data?.path);
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
@@ -179,12 +183,11 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               dynamicImage(
-                                  image: menuItems[index].value == ""
-                                      ? AssetPath.sme
-                                      : menuItems[index].value),
+                                image: getDrawerLogo(data?.key ?? ""),
+                              ),
                               const SizedBox(width: 14),
                               Text(
-                                menuItems[index].key,
+                                data?.key ?? "",
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                             ],
