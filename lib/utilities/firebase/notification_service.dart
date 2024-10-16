@@ -103,7 +103,7 @@ class CoreNotificationService {
         importance: Importance.max,
         priority: Priority.high,
         // styleInformation: BigPictureStyleInformation(DrawableResourceAndroidBitmap('ic_notification'), largeIcon:  DrawableResourceAndroidBitmap('ic_notification')),
-        largeIcon: DrawableResourceAndroidBitmap('mipmap/ic_launcher'),
+        // largeIcon: DrawableResourceAndroidBitmap('mipmap/ic_launcher'),
       );
 
       const iosNotificationDetail = DarwinNotificationDetails();
