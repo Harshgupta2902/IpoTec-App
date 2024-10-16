@@ -1,6 +1,7 @@
 class IpoGmpModel {
   IpoGmpModel({
-      this.gmp,});
+    this.gmp,
+  });
 
   IpoGmpModel.fromJson(dynamic json) {
     if (json['gmp'] != null) {
@@ -19,19 +20,20 @@ class IpoGmpModel {
     }
     return map;
   }
-
 }
 
 class Gmp {
   Gmp({
-      this.companyName, 
-      this.link, 
-      this.type, 
-      this.ipoGmp, 
-      this.price, 
-      this.gain, 
-      this.date, 
-      this.slug,});
+    this.companyName,
+    this.link,
+    this.type,
+    this.ipoGmp,
+    this.price,
+    this.gain,
+    this.date,
+    this.slug,
+    this.listingGain,
+  });
 
   Gmp.fromJson(dynamic json) {
     companyName = json['company_name'];
@@ -42,6 +44,7 @@ class Gmp {
     gain = json['gain'];
     date = json['date'];
     slug = json['slug'];
+    listingGain = json['listing_gain'];
   }
   String? companyName;
   String? link;
@@ -51,6 +54,7 @@ class Gmp {
   String? gain;
   String? date;
   String? slug;
+  String? listingGain;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -62,7 +66,7 @@ class Gmp {
     map['gain'] = gain;
     map['date'] = date;
     map['slug'] = slug;
+    map['listing_gain'] = listingGain;
     return map;
   }
-
 }
