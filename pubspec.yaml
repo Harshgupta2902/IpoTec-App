@@ -23,14 +23,17 @@ dependencies:
   logger: ^2.4.0
 
   package_rename: ^1.5.3
+  flutter_native_splash: ^2.4.1
+  internet_connection_checker: ^1.0.0+1
 
   flutter_inappwebview: ^5.8.0
+  url_launcher: ^6.1.5
 
   device_apps: ^2.2.0
   package_info_plus: ^4.0.0
-  url_launcher: ^6.1.5
-  in_app_update: ^4.2.0
   device_info_plus: ^10.1.2
+
+  in_app_update: ^4.2.0
 
 
   #Firebase Dependency + notification
@@ -38,14 +41,12 @@ dependencies:
   firebase_crashlytics: ^3.2.0
   firebase_analytics: ^10.3.0
   firebase_messaging: ^14.7.10
+  firebase_performance: ^0.9.4+7
   flutter_local_notifications: ^15.1.0+1
-
-  flutter_native_splash: ^2.4.1
 
   google_sign_in: ^6.2.1
   cloud_firestore: ^4.17.5
   firebase_auth: ^4.16.0
-  internet_connection_checker: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:

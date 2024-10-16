@@ -4,7 +4,6 @@ import 'package:ipotec/dashboard_module/controller/blogs/blogs_controller.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/error_widget.dart';
-import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
@@ -38,8 +37,6 @@ class _BlogsMainViewState extends State<BlogsMainView> {
 
   void _scrollListener() {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
-      debugPrint(scrollController.position.pixels.toString());
-      debugPrint(scrollController.position.maxScrollExtent.toString());
       _loadMoreData();
     }
   }

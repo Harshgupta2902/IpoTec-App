@@ -127,51 +127,11 @@ class CoreNotificationService {
 
   Future<void> getToken() async {
     _firebaseMessaging.requestPermission();
-
     final token = await _firebaseMessaging.getToken();
-
     debugPrint("FCM TOKEN ::: $token");
-
     if (token == null) {
       return;
     }
     setFCMToken(token);
   }
-
-  // Future<void> updateFCMToken(String? fcmToken, String? clientEndPoint) async {
-  //   _firebaseMessaging.requestPermission();
-  //
-  //   final token = await _firebaseMessaging.getToken();
-  //
-  //   logger.i("----------FCM TOKEN $token----------");
-  //
-  //   if (token == null) {
-  //     logger.i("----------  updateFCMTokenAPI Stopped FCM Token in NULL ----------");
-  //
-  //     return;
-  //   }
-  //
-  //   if (clientEndPoint == null || fcmToken == null) {
-  //     final response = await postRequest(
-  //       apiEndPoint: ApiEndpoints.snsCreate,
-  //       postData: {
-  //         "fcm_token": token,
-  //       },
-  //     );
-  //     logger.d(response);
-  //     return;
-  //   }
-  //
-  //   if (fcmToken != token) {
-  //     final response = await postRequest(
-  //       apiEndPoint: ApiEndpoints.snsUpdate,
-  //       postData: {
-  //         "fcm_token": token,
-  //         "client_endpoint": clientEndPoint,
-  //       },
-  //     );
-  //     logger.d(response);
-  //     return;
-  //   }
-  // }
 }

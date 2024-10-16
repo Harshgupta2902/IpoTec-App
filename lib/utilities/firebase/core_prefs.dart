@@ -22,7 +22,6 @@ getUuid() {
 }
 
 setFCMToken(String token) {
-  logger.i("FCM TOKEN => $token");
   prefs.write('FCM_TOKEN', token);
 }
 

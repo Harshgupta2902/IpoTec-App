@@ -227,7 +227,6 @@ class ConnectivityService with WidgetsBindingObserver {
     return internetChecker.onStatusChange.listen(
       (status) {
         debugPrint("Internet  $status.");
-
         switch (status) {
           case InternetConnectionStatus.connected:
             if (ModalRoute.of(context)?.settings.name == GoPaths.noInternet &&
@@ -252,42 +251,15 @@ class ConnectivityService with WidgetsBindingObserver {
         }
       },
     );
-    // return internetChecker.onStatusChange.listen(
-    //   (status) {
-    //     debugPrint("status $status");
-    //
-    //     switch (status) {
-    //       case InternetConnectionStatus.connected:
-    //         if (ModalRoute.of(context)?.settings.name == GoPaths.noInternet) {
-    //           debugPrint("getconnectivit connected");
-    //           MyNavigator.pop();
-    //         }
-    //         break;
-    //       case InternetConnectionStatus.disconnected:
-    //         if (ModalRoute.of(context)?.settings.name == null) {
-    //           debugPrint("getconnectivit disconnected");
-    //           Future.delayed(const Duration(seconds: 2), () {
-    //             MyNavigator.pushNamed(GoPaths.noInternet);
-    //           });
-    //         } else if (ModalRoute.of(context)?.settings.name != GoPaths.noInternet) {
-    //           debugPrint("getconnectivit disconnected");
-    //           MyNavigator.pushNamed(GoPaths.noInternet);
-    //         }
-    //         break;
-    //     }
-    //   },
-    // );
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      // App resumed from background, restart listening
       _subscription = getConnectivity();
     } else if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden ||
         state == AppLifecycleState.detached) {
-      // App went to background, stop listening
       debugPrint("stream caceleted");
       _subscription?.cancel();
     }
