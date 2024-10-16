@@ -20,6 +20,7 @@ class IpoGmpCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("${state?.gain}");
     final List<KeyValuePairModel> data = [
       if (state?.price != null)
         KeyValuePairModel(
@@ -31,7 +32,7 @@ class IpoGmpCard extends StatelessWidget {
           key: "GMP:",
           value: "${state?.ipoGmp}",
         ),
-      if (state?.gain != null || state?.gain != "-")
+      if (state?.gain != null)
         KeyValuePairModel(
           key: "Listing Gain:",
           value: "${state?.gain}",

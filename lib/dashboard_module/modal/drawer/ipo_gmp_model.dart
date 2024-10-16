@@ -32,7 +32,6 @@ class Gmp {
     this.gain,
     this.date,
     this.slug,
-    this.listingGain,
   });
 
   Gmp.fromJson(dynamic json) {
@@ -44,7 +43,6 @@ class Gmp {
     gain = json['gain'];
     date = json['date'];
     slug = json['slug'];
-    listingGain = json['listing_gain'];
   }
   String? companyName;
   String? link;
@@ -54,7 +52,6 @@ class Gmp {
   String? gain;
   String? date;
   String? slug;
-  String? listingGain;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -66,7 +63,6 @@ class Gmp {
     map['gain'] = gain;
     map['date'] = date;
     map['slug'] = slug;
-    map['listing_gain'] = listingGain;
     return map;
   }
 }
