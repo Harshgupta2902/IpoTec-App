@@ -9,6 +9,7 @@ class AppColors {
   static const iron = Color(0xFFD0D5DD);
   static const porcelain = Color(0xFFEDF3F6);
   static const magnolia = Color(0xFFDBDCF3);
+  static const whiteFrost = Color(0xffD9E7FF);
 
   static const aluminium = Color(0xFFABAFB1);
   static const paleSky = Color(0xFF6E717C);

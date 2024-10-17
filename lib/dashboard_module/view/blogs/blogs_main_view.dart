@@ -74,7 +74,6 @@ class _BlogsMainViewState extends State<BlogsMainView> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final blog = state?.articles?[index];
-
                   return GestureDetector(
                     onTap: () {
                       MyNavigator.pushNamed(
@@ -86,8 +85,8 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                       );
                     },
                     child: Container(
-                      clipBehavior: Clip.hardEdge,
-                      decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 6),
+                      // clipBehavior: Clip.hardEdge,
+                      // decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 6),
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       child: Column(
                         children: [
@@ -102,7 +101,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                            padding: const EdgeInsets.symmetric(vertical: 4),
                             child: Column(
                               children: [
                                 Text(

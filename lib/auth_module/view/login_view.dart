@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
-import 'package:ipotec/utilities/common/dialog.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _authController = Get.put(AuthController());
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+enum CallApiType { gmp, subs, forms, main, sme, buyback, blogs, none }
 
+class LoginView extends StatefulWidget {
+  const LoginView({super.key, required this.callType});
+  final CallApiType callType;
   @override
   State<LoginView> createState() => _LoginViewState();
 }
@@ -22,7 +23,7 @@ class _LoginViewState extends State<LoginView> {
     super.initState();
     Future.delayed(
       const Duration(milliseconds: 400),
-      () => _authController.googleSignIn(),
+      () => _authController.googleSignIn(isPop: true, type: widget.callType),
     );
   }
 
@@ -114,7 +115,9 @@ class _LoginViewState extends State<LoginView> {
                 side: const BorderSide(color: Colors.grey),
               ),
               onPressed: () {
-                _authController.googleSignIn();
+                if (_authController.isLoggingIn.value == false) {
+                  _authController.googleSignIn(isPop: true, type: widget.callType);
+                }
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

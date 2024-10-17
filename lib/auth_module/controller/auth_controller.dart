@@ -3,10 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ipotec/auth_module/view/login_view.dart';
+import 'package:ipotec/dashboard_module/controller/drawer/ipo_gmp_controller.dart';
+import 'package:ipotec/dashboard_module/controller/drawer/ipo_subs_controller.dart';
 import 'package:ipotec/utilities/common/dialog.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/firebase/notification_service.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
+
+final _gmpController = Get.put(IpoGmpController());
+final _subsController = Get.put(IpoSubsController());
 
 class AuthController extends GetxController with StateMixin<UserModel> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -15,7 +22,7 @@ class AuthController extends GetxController with StateMixin<UserModel> {
 
   RxBool isLoggingIn = RxBool(false);
 
-  googleSignIn() async {
+  googleSignIn({bool? isPop = false, required CallApiType type}) async {
     debugPrint("AuthController => googleSignIn > started");
 
     try {
@@ -37,7 +44,18 @@ class AuthController extends GetxController with StateMixin<UserModel> {
         await saveGoogleUserToFirestore(googleUser);
         fetchUserData(googleUser.id);
       }
-      MyNavigator.pop();
+
+      if (isPop == true) {
+        MyNavigator.pop();
+      }
+
+      if (type == CallApiType.gmp) {
+        MyNavigator.pushNamed(GoPaths.gmp);
+      } else if (type == CallApiType.subs) {
+        MyNavigator.pushNamed(GoPaths.subs);
+      } else {
+        MyNavigator.pushNamed(GoPaths.mainBoard);
+      }
     } catch (e) {
       debugPrint("AuthController => Error during Google sign-in: $e");
     } finally {
@@ -50,14 +68,13 @@ class AuthController extends GetxController with StateMixin<UserModel> {
     try {
       final userRef = _firestore.collection('userData').doc(googleUser.id);
 
-      final fcmToken = CoreNotificationService().getToken();
       await userRef.set({
         'uid': googleUser.id,
         'displayName': googleUser.displayName,
         'email': googleUser.email,
         'photoURL': googleUser.photoUrl,
         'createdAt': FieldValue.serverTimestamp(),
-        'token': getFCMToken() ?? fcmToken
+        'token': getFCMToken()
       });
       setLogin(true);
       setUuid(googleUser.id);
@@ -91,6 +108,8 @@ class AuthController extends GetxController with StateMixin<UserModel> {
         final modal = UserModel.fromFirestore(doc);
         change(modal, status: RxStatus.success());
         debugPrint("AuthController => User data fetched: ${modal.displayName}");
+        setLogin(true);
+        setUuid(modal.uid);
       } else {
         debugPrint("AuthController => No user data found for uid: $uid");
       }

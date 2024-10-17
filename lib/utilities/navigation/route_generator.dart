@@ -118,7 +118,9 @@ final GoRouter goRouterConfig = GoRouter(
       path: GoPaths.login,
       name: GoPaths.login,
       builder: (context, state) {
-        return const LoginView();
+        final extras = state.extra as Map<String, dynamic>;
+        final type = extras['type'];
+        return LoginView(callType: type);
       },
     ),
 

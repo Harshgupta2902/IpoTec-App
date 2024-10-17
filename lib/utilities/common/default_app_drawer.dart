@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
+import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
@@ -136,7 +137,12 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                                       ?.copyWith(color: Colors.white),
                                 )
                               : GestureDetector(
-                                  onTap: () => MyNavigator.pushNamed(GoPaths.login),
+                                  onTap: () {
+                                    _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
+                                    MyNavigator.pushNamed(GoPaths.login, extra: {
+                                      'type': CallApiType.none,
+                                    });
+                                  },
                                   child: Text(
                                     "Click Here To Sign In",
                                     maxLines: 1,
@@ -171,7 +177,13 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                       return GestureDetector(
                         onTap: () {
                           _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-                          MyNavigator.pushNamed(data?.path);
+                          if (isLoggedIn()) {
+                            MyNavigator.pushNamed(data?.path);
+                          } else if (data?.path == GoPaths.gmp || data?.path == GoPaths.subs) {
+                            MyNavigator.pushNamed(GoPaths.login, extra: {
+                              'type': data?.path == GoPaths.gmp ? CallApiType.gmp : CallApiType.subs
+                            });
+                          }
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
