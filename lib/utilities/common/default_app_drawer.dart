@@ -136,7 +136,7 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                                       ?.copyWith(color: Colors.white),
                                 )
                               : GestureDetector(
-                                  onTap: () => _authController.googleSignIn(context),
+                                  onTap: () => MyNavigator.pushNamed(GoPaths.login),
                                   child: Text(
                                     "Click Here To Sign In",
                                     maxLines: 1,

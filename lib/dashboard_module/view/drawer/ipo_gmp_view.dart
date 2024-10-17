@@ -45,7 +45,9 @@ class _IpoGmpViewState extends State<IpoGmpView> {
             },
           );
         },
-        onError: (error) => TryAgainWidget(onTap: () => _ipoGmpController.getGmpData(),),
+        onError: (error) => TryAgainWidget(
+          onTap: () => _ipoGmpController.getGmpData(),
+        ),
       ),
     );
   }

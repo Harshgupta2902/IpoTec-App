@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/view/blogs/blogs_main_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback/buyback_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/buyback/buyback_ipo_view.dart';
@@ -111,6 +112,16 @@ final GoRouter goRouterConfig = GoRouter(
         return const IpoGmpView();
       },
     ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.login,
+      name: GoPaths.login,
+      builder: (context, state) {
+        return const LoginView();
+      },
+    ),
+
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       path: GoPaths.subs,

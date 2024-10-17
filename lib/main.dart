@@ -133,7 +133,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
         scaffoldBackgroundColor: AppColors.backgroundColor,
         primaryColor: AppColors.primaryColor,
-        fontFamily: 'Poppins',
+        fontFamily: 'Quicksand',
         switchTheme: const SwitchThemeData(
           splashRadius: 0,
         ),

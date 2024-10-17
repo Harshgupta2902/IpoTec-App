@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ipotec/utilities/common/dialog.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/firebase/notification_service.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 
 class AuthController extends GetxController with StateMixin<UserModel> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -14,13 +15,11 @@ class AuthController extends GetxController with StateMixin<UserModel> {
 
   RxBool isLoggingIn = RxBool(false);
 
-  googleSignIn(BuildContext context) async {
+  googleSignIn() async {
     debugPrint("AuthController => googleSignIn > started");
 
     try {
       isLoggingIn.value = true;
-      coreLoadingDialog(context: context, content: "Signing...");
-      // Attempt to sign in with Google
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser == null) {
@@ -38,8 +37,7 @@ class AuthController extends GetxController with StateMixin<UserModel> {
         await saveGoogleUserToFirestore(googleUser);
         fetchUserData(googleUser.id);
       }
-      coreCloseDialog();
-      context.pop();
+      MyNavigator.pop();
     } catch (e) {
       debugPrint("AuthController => Error during Google sign-in: $e");
     } finally {

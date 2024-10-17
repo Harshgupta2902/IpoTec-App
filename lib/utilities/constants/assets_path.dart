@@ -22,6 +22,9 @@ class AssetPath {
   static const avatarSvg = "${_icons}avatar.svg";
 
   static const greenBg = "${_icons}green_bg.png";
+  static const loginLogo = "${_icons}login_logo.png";
+
+  static const googleSvg = "${_icons}google.svg";
 
   static const aLogo = "${_logos}A.svg";
   static const bLogo = "${_logos}B.svg";
