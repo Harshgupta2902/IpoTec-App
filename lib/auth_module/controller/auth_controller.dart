@@ -7,6 +7,7 @@ import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/controller/drawer/ipo_gmp_controller.dart';
 import 'package:ipotec/dashboard_module/controller/drawer/ipo_subs_controller.dart';
 import 'package:ipotec/utilities/common/dialog.dart';
+import 'package:ipotec/utilities/common/scaffold_messenger.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/firebase/notification_service.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
@@ -56,8 +57,17 @@ class AuthController extends GetxController with StateMixin<UserModel> {
       } else {
         MyNavigator.pushNamed(GoPaths.mainBoard);
       }
+
+      messageScaffold(
+        content: "Login Successful ${googleUser.displayName}",
+        messageScaffoldType: MessageScaffoldType.success,
+      );
     } catch (e) {
       debugPrint("AuthController => Error during Google sign-in: $e");
+      messageScaffold(
+        content: "Something Went Wrong!",
+        messageScaffoldType: MessageScaffoldType.error,
+      );
     } finally {
       isLoggingIn.value = false;
       debugPrint("AuthController => googleSignIn > process completed");
@@ -94,8 +104,16 @@ class AuthController extends GetxController with StateMixin<UserModel> {
       setLogin(false);
       currentUser.value = null;
       debugPrint("AuthController => Signed out from Google");
+      messageScaffold(
+        content: "Logout Successful",
+        messageScaffoldType: MessageScaffoldType.success,
+      );
     } catch (e) {
       debugPrint("AuthController => Error during Google sign-out: $e");
+      messageScaffold(
+        content: "Something Went Wrong!",
+        messageScaffoldType: MessageScaffoldType.error,
+      );
     } finally {
       debugPrint("AuthController => googleSignOut > process completed");
     }

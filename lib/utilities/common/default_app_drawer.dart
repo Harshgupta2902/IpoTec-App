@@ -90,7 +90,7 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
             ),
             decoration: AppBoxDecoration.getBoxDecoration(
               showShadow: false,
-              borderRadius: 16,
+              borderRadius: 22,
             ),
             child: Column(
               children: [
@@ -100,7 +100,7 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(AssetPath.greenBg),
+                      image: AssetImage(AssetPath.blueBg),
                       fit: BoxFit.fill,
                     ),
                   ),

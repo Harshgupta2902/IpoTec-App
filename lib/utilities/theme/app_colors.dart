@@ -29,4 +29,12 @@ class AppColors {
   static const mediumGreen = Color(0xFF00C036);
 
   static const cadmiumRed = Color(0xFFE40721);
+
+  static const hintOfGreen = Color(0xFFDFFFE6);
+  static const shareGreen = Color(0xff137333);
+  static const red = Color(0xffE40721);
+  static const bgRed = Color(0xffFEF0F0);
+  static const yellow = Color(0xffF1A731);
+  static const bgYellow = Color(0xffFFF8EC);
+  static const redBg = Color(0xffFFDEDE);
 }
