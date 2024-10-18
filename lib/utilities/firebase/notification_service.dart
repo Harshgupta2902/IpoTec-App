@@ -57,19 +57,18 @@ class CoreNotificationService {
 
   onNotificationClicked({required Map payload}) {
     logger.e(payload);
-    if (payload.containsKey('route') && payload.containsKey('arguments')) {
+    if (payload.containsKey('path') && payload.containsKey('arguments')) {
       final arguments = json.decode(payload['arguments']);
-      logger.i(arguments.runtimeType);
-      logger.i(payload['route']);
+      logger.i(payload['path']);
       logger.i(arguments);
 
       if (arguments == null) {
         return;
       }
 
-      MyNavigator.pushNamed(payload['route'], extra: arguments);
-    } else if (payload.containsKey('route') == true) {
-      MyNavigator.pushNamed(payload['route']);
+      MyNavigator.pushNamed(payload['path'], extra: arguments);
+    } else if (payload.containsKey('path') == true) {
+      MyNavigator.pushNamed(payload['path']);
     }
   }
 

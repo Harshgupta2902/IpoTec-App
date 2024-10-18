@@ -24,6 +24,10 @@ class MainBoardIpoView extends StatefulWidget {
 }
 
 class _MainBoardIpoViewState extends State<MainBoardIpoView> {
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
   @override
   void initState() {
     super.initState();
@@ -75,6 +79,15 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
                   horizontalPadding: 16,
                   verticalPadding: 10,
                 ),
+<<<<<<< HEAD
+                // if (_bannerAd != null && _defaultController.state?.showAd == true)
+                //   SizedBox(
+                //     width: _bannerAd!.size.width.toDouble(),
+                //     height: _bannerAd!.size.height.toDouble(),
+                //     child: AdWidget(ad: _bannerAd!),
+                //   ),
+=======
+>>>>>>> main
                 Flexible(
                   child: TabBarView(
                     children: [

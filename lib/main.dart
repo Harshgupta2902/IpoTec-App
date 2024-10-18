@@ -12,6 +12,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
+import 'package:ipotec/utilities/firebase/analytics_service.dart';
 import 'package:ipotec/utilities/firebase/crashlytics_service.dart';
 import 'package:ipotec/utilities/firebase/notification_service.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
@@ -67,12 +68,17 @@ void main() async {
     CrashlyticsService().init();
   }
   await _defaultController.getDefaultData();
+<<<<<<< HEAD
+  // MobileAds.instance.initialize();
+=======
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   await analytics.logEvent(
     name: "app_start",
   );
 
+>>>>>>> main
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseAnalyticsService().init("");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
     try {
       final Map payload = message.data;
