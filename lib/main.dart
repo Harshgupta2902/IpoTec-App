@@ -68,15 +68,11 @@ void main() async {
     CrashlyticsService().init();
   }
   await _defaultController.getDefaultData();
-<<<<<<< HEAD
-  // MobileAds.instance.initialize();
-=======
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   await analytics.logEvent(
     name: "app_start",
   );
 
->>>>>>> main
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseAnalyticsService().init("");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/components/ipo_gmp_card.dart';
 import 'package:ipotec/dashboard_module/controller/drawer/ipo_gmp_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/error_widget.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
-import 'package:ipotec/utilities/navigation/go_paths.dart';
-import 'package:ipotec/utilities/navigation/navigator.dart';
 
 final _ipoGmpController = Get.put(IpoGmpController());
 
@@ -54,7 +51,7 @@ class _IpoGmpViewState extends State<IpoGmpView> {
                 onTap: () => _ipoGmpController.getGmpData(),
               ),
             )
-          : Text("Login"),
+          : const Text("Login"),
     );
   }
 }
