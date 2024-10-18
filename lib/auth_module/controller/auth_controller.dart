@@ -1,20 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
-import 'package:ipotec/dashboard_module/controller/drawer/ipo_gmp_controller.dart';
-import 'package:ipotec/dashboard_module/controller/drawer/ipo_subs_controller.dart';
-import 'package:ipotec/utilities/common/dialog.dart';
 import 'package:ipotec/utilities/common/scaffold_messenger.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
-import 'package:ipotec/utilities/firebase/notification_service.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 
-final _gmpController = Get.put(IpoGmpController());
-final _subsController = Get.put(IpoSubsController());
 
 class AuthController extends GetxController with StateMixin<UserModel> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();

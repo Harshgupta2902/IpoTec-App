@@ -48,7 +48,7 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
       //     },
       //   ),
       // ).load();
-      if(_mainBoardIpoController.state == null){
+      if (_mainBoardIpoController.state == null) {
         _mainBoardIpoController.getMainboardData();
       }
     }
@@ -177,7 +177,9 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
             ),
           );
         },
-        onError: (error) => TryAgainWidget(onTap: () => _mainBoardIpoController.getMainboardData(),),
+        onError: (error) => TryAgainWidget(
+          onTap: () => _mainBoardIpoController.getMainboardData(),
+        ),
       ),
     );
   }
