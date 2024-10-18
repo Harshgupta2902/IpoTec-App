@@ -60,7 +60,11 @@ class _SearchMainViewState extends State<SearchMainView> {
       body: _searchController.obx(
         (state) {
           if (state == null) {
-            return const Text("sdd");
+            return const Center(child: Text("No Data Found"));
+          }
+
+          if (searchController.text.isEmpty) {
+            return const Center(child: Text("Start Searching"));
           }
 
           return state.content?.isEmpty == true
@@ -117,6 +121,7 @@ class _SearchMainViewState extends State<SearchMainView> {
                   },
                 );
         },
+        onLoading: const Center(child: Text("Start Searching")),
       ),
     );
   }
