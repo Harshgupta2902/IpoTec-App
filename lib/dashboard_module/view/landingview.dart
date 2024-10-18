@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/dashboard_module/controller/buyback/buyback_ipo_controller.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
@@ -8,6 +9,7 @@ import 'package:ipotec/utilities/common/core_update_handler.dart';
 import 'package:ipotec/utilities/common/custom_bottom_navigation.dart';
 import 'package:ipotec/utilities/common/default_app_drawer.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
+import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/analytics_service.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
@@ -27,13 +29,15 @@ class LandingView extends StatefulWidget {
 }
 
 class _LandingViewState extends State<LandingView> {
+  final InAppReview inAppReview = InAppReview.instance;
+
   @override
   void initState() {
     apiCalls();
     super.initState();
   }
 
-  void apiCalls() {
+  void apiCalls() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         _mainBoardIpoController.getMainboardData();
@@ -41,6 +45,11 @@ class _LandingViewState extends State<LandingView> {
         _defaultController.getDefaultData();
       },
     );
+    if (isLoggedIn()) {
+      if (await inAppReview.isAvailable()) {
+        inAppReview.requestReview();
+      }
+    }
     Future.delayed(
       const Duration(milliseconds: 400),
       () {

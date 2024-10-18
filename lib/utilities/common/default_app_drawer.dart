@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
+import 'package:ipotec/dashboard_module/view/policy_view.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
@@ -168,6 +169,81 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                     ],
                   ),
                 ),
+                // Container(
+                //   width: MediaQuery.of(context).size.width,
+                //   height: MediaQuery.of(context).size.height * 0.16,
+                //   padding: const EdgeInsets.symmetric(horizontal: 16),
+                //   decoration: const BoxDecoration(
+                //     image: DecorationImage(
+                //       image: AssetImage(AssetPath.greenBg),
+                //       fit: BoxFit.fill,
+                //     ),
+                //   ),
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Row(
+                //         children: [
+                //           isLoggedIn()
+                //               ? CachedImageNetworkContainer(
+                //                   decoration: AppBoxDecoration.getBoxDecoration(
+                //                     borderRadius: 40,
+                //                     showShadow: true,
+                //                   ),
+                //                   height: 40,
+                //                   width: 40,
+                //                   url: _authController.state?.photoURL,
+                //                   placeHolder: buildPlaceholderSVG(assetPath: AssetPath.avatarSvg),
+                //                 )
+                //               : SvgPicture.asset(
+                //                   AssetPath.avatarSvg,
+                //                   height: 40,
+                //                   width: 40,
+                //                 ),
+                //           const SizedBox(width: 12),
+                //           isLoggedIn()
+                //               ? Text(
+                //                   "${_authController.state?.displayName}",
+                //                   maxLines: 1,
+                //                   overflow: TextOverflow.ellipsis,
+                //                   style: Theme.of(context)
+                //                       .textTheme
+                //                       .titleSmall
+                //                       ?.copyWith(color: Colors.white),
+                //                 )
+                //               : GestureDetector(
+                //                   onTap: () {
+                //                     _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
+                //                     MyNavigator.pushNamed(GoPaths.login, extra: {
+                //                       'type': CallApiType.none,
+                //                     });
+                //                   },
+                //                   child: Text(
+                //                     "Click Here To Sign In",
+                //                     maxLines: 1,
+                //                     overflow: TextOverflow.ellipsis,
+                //                     style: Theme.of(context)
+                //                         .textTheme
+                //                         .titleSmall
+                //                         ?.copyWith(color: Colors.white),
+                //                   ),
+                //                 ),
+                //         ],
+                //       ),
+                //       if (isLoggedIn()) ...[
+                //         const SizedBox(height: 6),
+                //         Text(
+                //           "${_authController.state?.email}",
+                //           maxLines: 1,
+                //           overflow: TextOverflow.ellipsis,
+                //           style:
+                //               Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.white),
+                //         ),
+                //       ]
+                //     ],
+                //   ),
+                // ),
                 Expanded(
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -180,9 +256,35 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                           if (isLoggedIn()) {
                             MyNavigator.pushNamed(data?.path);
                           } else if (data?.path == GoPaths.gmp || data?.path == GoPaths.subs) {
-                            MyNavigator.pushNamed(GoPaths.login, extra: {
-                              'type': data?.path == GoPaths.gmp ? CallApiType.gmp : CallApiType.subs
-                            });
+                            MyNavigator.pushNamed(
+                              GoPaths.login,
+                              extra: {
+                                'type':
+                                    data?.path == GoPaths.gmp ? CallApiType.gmp : CallApiType.subs
+                              },
+                            );
+                          } else if (data?.path == GoPaths.policyView &&
+                              data?.key == "Privacy Policy") {
+                            MyNavigator.pushNamed(
+                              GoPaths.policyView,
+                              extra: {
+                                'type': PolicyType.privacy,
+                                'policy': _defaultController.state?.privacy,
+                              },
+                            );
+                          } else if (data?.path == GoPaths.policyView &&
+                              data?.key == "Terms & Conditions") {
+                            MyNavigator.pushNamed(
+                              GoPaths.policyView,
+                              extra: {
+                                'type': PolicyType.terms,
+                                'policy': _defaultController.state?.terms,
+                              },
+                            );
+                          } else if (data?.path == GoPaths.contactUs) {
+                            launchEmail(email: "harsh1248gupta@gmail.com");
+                          } else {
+                            MyNavigator.pushNamed(data?.path);
                           }
                         },
                         child: Container(

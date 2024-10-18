@@ -9,6 +9,7 @@ import 'package:ipotec/dashboard_module/view/drawer/ipo_forms_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/ipo_gmp_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/ipo_subs_view.dart';
 import 'package:ipotec/dashboard_module/view/no_internet.dart';
+import 'package:ipotec/dashboard_module/view/policy_view.dart';
 import 'package:ipotec/dashboard_module/view/upcoming/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/upcoming/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landingview.dart';
@@ -139,6 +140,17 @@ final GoRouter goRouterConfig = GoRouter(
       name: GoPaths.noInternet,
       builder: (context, state) {
         return const NoInternet();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.policyView,
+      name: GoPaths.policyView,
+      builder: (context, state) {
+        final extras = state.extra as Map<String, dynamic>;
+        final type = extras['type'];
+        final policy = extras['policy'];
+        return PolicyView(type: type, policy: policy);
       },
     ),
 

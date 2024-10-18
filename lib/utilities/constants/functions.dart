@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 var logger = Logger();
 
@@ -72,6 +73,12 @@ String getDrawerLogo(String title) {
       return AssetPath.buyBack;
     case 'IPO Forms':
       return AssetPath.forms;
+    case 'Terms & Conditions':
+      return AssetPath.terms;
+    case 'Privacy Policy':
+      return AssetPath.policy;
+    case 'Contact Us':
+      return AssetPath.call;
     default:
       return AssetPath.mainBoard;
   }
@@ -183,32 +190,19 @@ String getBuyBackName(String name) {
   return finalString;
 }
 
-// String formatBidDates(String bidText) {
-//   // Check if the dates are announced
-//   if (bidText.toLowerCase().contains("yet to be announced")) {
-//     return "NA";
-//   }
-//
-//   // Split the string based on "on" and "at" to extract date and time
-//   List<String> splitOn = bidText.split("on");
-//   if (splitOn.length > 1) {
-//     List<String> dateAndTime = splitOn[1].trim().split("at");
-//
-//     if (dateAndTime.length == 2) {
-//       String date = dateAndTime[0].trim(); // e.g., 20 Sep
-//       String time = dateAndTime[1].trim(); // e.g., 10 AM
-//
-//       // Return formatted string as "Sep 20, 10 AM"
-//       List<String> dateParts = date.split(" ");
-//       if (dateParts.length == 2) {
-//         String day = dateParts[0]; // e.g., 20
-//         String month = dateParts[1]; // e.g., Sep
-//
-//         // Format the date as "Sep 20" and return with time
-//         return "$month $day, $time";
-//       }
-//     }
-//   }
-//
-//   return "NA"; // Return "NA" if the date or time cannot be parsed
-// }
+launchEmail({String? email}) async {
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: email,
+    query: Uri.encodeFull(
+        'subject=Request for Assistance&body=Hello Team,\n\nI hope this message finds you well. I would like to request assistance with the following:\n\n'),
+  );
+
+  if (await launchUrl(emailLaunchUri, mode: LaunchMode.externalApplication)) {
+    await canLaunchUrl(
+      emailLaunchUri,
+    );
+  } else {
+    debugPrint("Could not launch email");
+  }
+}

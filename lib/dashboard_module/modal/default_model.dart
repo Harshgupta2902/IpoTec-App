@@ -7,6 +7,8 @@ class DefaultModel {
     this.title,
     this.message,
     this.showAd,
+    this.terms,
+    this.privacy,
     this.menuItems,
   });
 
@@ -18,6 +20,8 @@ class DefaultModel {
     title = json['title'];
     message = json['message'];
     showAd = json['show_ad'];
+    terms = json['terms'];
+    privacy = json['privacy'];
     if (json['menu_items'] != null) {
       menuItems = [];
       json['menu_items'].forEach((v) {
@@ -32,6 +36,8 @@ class DefaultModel {
   String? title;
   String? message;
   bool? showAd;
+  String? terms;
+  String? privacy;
   List<MenuItems>? menuItems;
 
   Map<String, dynamic> toJson() {
@@ -43,6 +49,8 @@ class DefaultModel {
     map['title'] = title;
     map['message'] = message;
     map['show_ad'] = showAd;
+    map['terms'] = terms;
+    map['privacy'] = privacy;
     if (menuItems != null) {
       map['menu_items'] = menuItems?.map((v) => v.toJson()).toList();
     }

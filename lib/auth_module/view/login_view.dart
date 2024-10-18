@@ -1,12 +1,17 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
+import 'package:ipotec/dashboard_module/controller/default_controller.dart';
+import 'package:ipotec/dashboard_module/view/policy_view.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _authController = Get.put(AuthController());
+final _defaultController = Get.put(DefaultApiController());
 
 enum CallApiType { gmp, subs, forms, main, sme, buyback, blogs, none }
 
@@ -143,6 +148,16 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   TextSpan(
                     text: "Terms & Conditions",
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        MyNavigator.pushNamed(
+                          GoPaths.policyView,
+                          extra: {
+                            'type': PolicyType.terms,
+                            'policy': _defaultController.state?.terms,
+                          },
+                        );
+                      },
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium
@@ -157,6 +172,16 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   TextSpan(
                     text: "Privacy Policy",
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        MyNavigator.pushNamed(
+                          GoPaths.policyView,
+                          extra: {
+                            'type': PolicyType.privacy,
+                            'policy': _defaultController.state?.privacy,
+                          },
+                        );
+                      },
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium
