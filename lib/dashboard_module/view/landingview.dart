@@ -9,7 +9,6 @@ import 'package:ipotec/utilities/common/core_update_handler.dart';
 import 'package:ipotec/utilities/common/custom_bottom_navigation.dart';
 import 'package:ipotec/utilities/common/default_app_drawer.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
-import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/analytics_service.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
