@@ -50,7 +50,9 @@ class _WebViewState extends State<WebView> {
             if (url.toString() != widget.url) {
               MyNavigator.pop();
             }
-            evaluateScript(controller);
+            if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
+              evaluateScript(controller);
+            }
           },
           onLoadError: (controller, url, code, message) async {
             debugPrint("onLoadError:::::::::$url");
@@ -60,15 +62,18 @@ class _WebViewState extends State<WebView> {
           },
           onLoadStop: (controller, url) async {
             debugPrint("onLoadStop:::::::::$url");
-            evaluateScript(controller);
-
+            if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
+              evaluateScript(controller);
+            }
             if (url.toString() != widget.url) {
               MyNavigator.pop();
             }
           },
           onProgressChanged: (controller, progress) async {
             debugPrint("onProgressChanged:::::::::$progress");
-            evaluateScript(controller);
+            if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
+              evaluateScript(controller);
+            }
           },
         ),
       ),

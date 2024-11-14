@@ -10,6 +10,7 @@ class DefaultModel {
     this.terms,
     this.privacy,
     this.menuItems,
+    this.allotment,
   });
 
   DefaultModel.fromJson(dynamic json) {
@@ -22,6 +23,7 @@ class DefaultModel {
     showAd = json['show_ad'];
     terms = json['terms'];
     privacy = json['privacy'];
+    allotment = json['allotment'];
     if (json['menu_items'] != null) {
       menuItems = [];
       json['menu_items'].forEach((v) {
@@ -38,6 +40,7 @@ class DefaultModel {
   bool? showAd;
   String? terms;
   String? privacy;
+  String? allotment;
   List<MenuItems>? menuItems;
 
   Map<String, dynamic> toJson() {
@@ -51,6 +54,7 @@ class DefaultModel {
     map['show_ad'] = showAd;
     map['terms'] = terms;
     map['privacy'] = privacy;
+    map['allotment'] = allotment;
     if (menuItems != null) {
       map['menu_items'] = menuItems?.map((v) => v.toJson()).toList();
     }

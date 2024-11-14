@@ -200,6 +200,8 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                                   'policy': _defaultController.state?.terms,
                                 },
                               );
+                            } else if (data?.path == GoPaths.contactUs) {
+                              launchEmail(email: "harsh1248gupta@gmail.com");
                             } else {
                               MyNavigator.pushNamed(data?.path);
                             }

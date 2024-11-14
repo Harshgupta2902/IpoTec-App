@@ -14,6 +14,7 @@ class AssetPath {
   static const terms = "${_bottom}terms.svg";
   static const policy = "${_bottom}policy.svg";
   static const call = "${_bottom}call.svg";
+  static const allotment = "${_bottom}allotment.svg";
 
   static const liveLottie = "${_lottie}live.json";
   static const emptyLottie = "${_lottie}empty.json";
