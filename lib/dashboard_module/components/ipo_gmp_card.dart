@@ -4,8 +4,6 @@ import 'package:ipotec/dashboard_module/modal/drawer/ipo_gmp_model.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
-import 'package:ipotec/utilities/navigation/go_paths.dart';
-import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
@@ -21,20 +19,20 @@ class IpoGmpCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<KeyValuePairModel> data = [
-      if (state?.price != null)
+      if (state?.ipoPrice != null)
         KeyValuePairModel(
           key: "Offer Price:",
-          value: "${state?.price}",
+          value: "${state?.ipoPrice}",
         ),
-      if (state?.ipoGmp != null)
+      if (state?.gmp != null)
         KeyValuePairModel(
           key: "GMP:",
-          value: "${state?.ipoGmp}",
+          value: "${state?.gmp}",
         ),
-      if (state?.gain != null)
+      if (state?.listing != null)
         KeyValuePairModel(
           key: "Listing Gain:",
-          value: "${state?.gain}",
+          value: "${state?.listing == "" ? "--" : state?.listing}",
         ),
     ];
     return Container(
@@ -44,54 +42,56 @@ class IpoGmpCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            onTap: () => MyNavigator.pushNamed(
-              GoPaths.commonDetails,
-              extra: {
-                'slug': state?.slug,
-                'name': state?.companyName,
-              },
-            ),
-            child: Row(
-              children: [
-                Container(
-                  height: 45,
-                  width: 45,
-                  decoration: AppBoxDecoration.getBoxDecoration(
-                    borderRadius: 10,
-                  ),
-                  child: SvgPicture.asset(
-                    getLogoPath(state?.companyName ?? "-"),
-                  ),
+          Row(
+            children: [
+              Container(
+                height: 45,
+                width: 45,
+                decoration: AppBoxDecoration.getBoxDecoration(
+                  borderRadius: 10,
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${state?.companyName}",
-                        maxLines: 1,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
-                      ),
-                      if (state?.date != null)
-                        Text(
-                          state?.date ?? "",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(color: AppColors.boulder),
-                        )
-                    ],
-                  ),
+                child: SvgPicture.asset(
+                  getLogoPath(state?.ipoName ?? "-"),
                 ),
-                const SizedBox(width: 16),
-                SvgPicture.asset(AssetPath.viewSvg),
-              ],
-            ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${state?.ipoName}",
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (state?.lot != "")
+                          Text(
+                            "Lot Size: ${state?.lot ?? "-"}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(color: AppColors.boulder),
+                          ),
+                        if (state?.updatedOn != "")
+                          Text(
+                            "Updated On: ${state?.updatedOn}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(color: AppColors.boulder),
+                          ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),

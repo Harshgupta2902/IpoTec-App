@@ -11,7 +11,7 @@ class APIEndPoints {
   static const ipoDetails = "ipo-details";
   static const buybackDetails = "buyback-details";
   static const forms = "forms";
-  static const gmp = "gmp";
+  static const gmp = "gmp-v1";
   static const subs = "subs";
 
   static const commonDetails = "common-details";

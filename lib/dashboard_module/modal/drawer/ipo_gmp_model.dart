@@ -1,7 +1,6 @@
 class IpoGmpModel {
   IpoGmpModel({
-    this.gmp,
-  });
+      this.gmp,});
 
   IpoGmpModel.fromJson(dynamic json) {
     if (json['gmp'] != null) {
@@ -20,49 +19,62 @@ class IpoGmpModel {
     }
     return map;
   }
+
 }
 
 class Gmp {
   Gmp({
-    this.companyName,
-    this.link,
-    this.type,
-    this.ipoGmp,
-    this.price,
-    this.gain,
-    this.date,
-    this.slug,
-  });
+      this.ipoName, 
+      this.badge, 
+      this.ipoPrice, 
+      this.gmp, 
+      this.listing, 
+      this.ipoSize, 
+      this.lotSize, 
+      this.lot, 
+      this.open, 
+      this.close, 
+      this.updatedOn,});
 
   Gmp.fromJson(dynamic json) {
-    companyName = json['company_name'];
-    link = json['link'];
-    type = json['type'];
-    ipoGmp = json['ipo_gmp'];
-    price = json['price'];
-    gain = json['gain'];
-    date = json['date'];
-    slug = json['slug'];
+    ipoName = json['ipo_name'];
+    badge = json['badge'];
+    ipoPrice = json['ipo_price'];
+    gmp = json['gmp'];
+    listing = json['listing'];
+    ipoSize = json['ipo_size'];
+    lotSize = json['lot_size'];
+    lot = json['lot'];
+    open = json['open'];
+    close = json['close'];
+    updatedOn = json['updated_on'];
   }
-  String? companyName;
-  String? link;
-  String? type;
-  String? ipoGmp;
-  String? price;
-  String? gain;
-  String? date;
-  String? slug;
+  String? ipoName;
+  String? badge;
+  String? ipoPrice;
+  String? gmp;
+  String? listing;
+  String? ipoSize;
+  String? lotSize;
+  String? lot;
+  String? open;
+  String? close;
+  String? updatedOn;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['company_name'] = companyName;
-    map['link'] = link;
-    map['type'] = type;
-    map['ipo_gmp'] = ipoGmp;
-    map['price'] = price;
-    map['gain'] = gain;
-    map['date'] = date;
-    map['slug'] = slug;
+    map['ipo_name'] = ipoName;
+    map['badge'] = badge;
+    map['ipo_price'] = ipoPrice;
+    map['gmp'] = gmp;
+    map['listing'] = listing;
+    map['ipo_size'] = ipoSize;
+    map['lot_size'] = lotSize;
+    map['lot'] = lot;
+    map['open'] = open;
+    map['close'] = close;
+    map['updated_on'] = updatedOn;
     return map;
   }
+
 }
