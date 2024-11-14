@@ -139,10 +139,14 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                                 )
                               : GestureDetector(
                                   onTap: () {
+                                    // setStaticPref();
                                     _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-                                    MyNavigator.pushNamed(GoPaths.login, extra: {
-                                      'type': CallApiType.none,
-                                    });
+                                    MyNavigator.pushNamed(
+                                      GoPaths.login,
+                                      extra: {
+                                        'type': CallApiType.none,
+                                      },
+                                    );
                                   },
                                   child: Text(
                                     "Click Here To Sign In",
@@ -179,7 +183,26 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                         onTap: () {
                           _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
                           if (isLoggedIn()) {
-                            MyNavigator.pushNamed(data?.path);
+                            if (data?.path == GoPaths.policyView && data?.key == "Privacy Policy") {
+                              MyNavigator.pushNamed(
+                                GoPaths.policyView,
+                                extra: {
+                                  'type': PolicyType.privacy,
+                                  'policy': _defaultController.state?.privacy,
+                                },
+                              );
+                            } else if (data?.path == GoPaths.policyView &&
+                                data?.key == "Terms & Conditions") {
+                              MyNavigator.pushNamed(
+                                GoPaths.policyView,
+                                extra: {
+                                  'type': PolicyType.terms,
+                                  'policy': _defaultController.state?.terms,
+                                },
+                              );
+                            } else {
+                              MyNavigator.pushNamed(data?.path);
+                            }
                           } else if (data?.path == GoPaths.gmp || data?.path == GoPaths.subs) {
                             MyNavigator.pushNamed(
                               GoPaths.login,

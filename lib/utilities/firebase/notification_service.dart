@@ -18,11 +18,14 @@ class CoreNotificationService {
     await getToken();
 
     const initializationSettingsAndroid = AndroidInitializationSettings('mipmap/ic_notification');
-    final initializationSettingsDarwin = DarwinInitializationSettings(
-      onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
+    const initializationSettingsDarwin = DarwinInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
+      // onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
     );
 
-    final InitializationSettings initializationSettings = InitializationSettings(
+    const InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsDarwin,
     );
