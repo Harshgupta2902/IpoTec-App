@@ -24,6 +24,7 @@ import 'package:ipotec/utilities/theme/smooth_rectangular_border.dart';
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
+  CoreNotificationService().onNotificationClicked(payload: message.data);
 }
 
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -81,6 +82,15 @@ void main() async {
       CoreNotificationService().onNotificationClicked(payload: payload);
     } catch (e) {
       logger.e("onDidReceiveNotificationResponse error $e");
+    }
+  });
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    try {
+      CoreNotificationService().onNotificationClicked(payload: message.data);
+      (message.data); // Navigate to the correct route
+    } catch (e) {
+      logger.e("onMessage error $e");
     }
   });
   runApp(const MyApp());

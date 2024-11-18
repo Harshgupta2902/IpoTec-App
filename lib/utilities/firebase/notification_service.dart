@@ -36,7 +36,6 @@ class CoreNotificationService {
       onDidReceiveNotificationResponse: (NotificationResponse details) {
         try {
           final Map payload = json.decode(details.payload ?? "");
-
           onNotificationClicked(payload: payload);
         } catch (e) {
           logger.e("onDidReceiveNotificationResponse error $e");
@@ -72,24 +71,6 @@ class CoreNotificationService {
       MyNavigator.pushNamed(payload['path'], extra: arguments);
     } else if (payload.containsKey('path') == true) {
       MyNavigator.pushNamed(payload['path']);
-    }
-  }
-
-  void _onDidReceiveLocalNotification(
-    int id,
-    String? title,
-    String? body,
-    String? payload,
-  ) async {
-    try {
-      final Map? payLoadMap = json.decode(payload ?? "");
-
-      if (payLoadMap == null) {
-        throw "error";
-      }
-      onNotificationClicked(payload: payLoadMap);
-    } catch (e) {
-      logger.e("onDidReceiveNotificationResponse error $e");
     }
   }
 
