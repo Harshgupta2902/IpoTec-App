@@ -33,6 +33,7 @@ class _WebViewState extends State<WebView> {
         appBar: CoreAppBar(
           showBackButton: true,
           showActions: false,
+          centerTitle: false,
           title: widget.title,
         ),
         body: InAppWebView(
