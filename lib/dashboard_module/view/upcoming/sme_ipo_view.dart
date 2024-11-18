@@ -14,14 +14,9 @@ import 'package:ipotec/utilities/navigation/navigator.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
 
-class SmeIpoView extends StatefulWidget {
+class SmeIpoView extends StatelessWidget {
   const SmeIpoView({super.key});
 
-  @override
-  State<SmeIpoView> createState() => _SmeIpoViewState();
-}
-
-class _SmeIpoViewState extends State<SmeIpoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,8 +125,9 @@ class _SmeIpoViewState extends State<SmeIpoView> {
             ),
           );
         },
-
-        onError: (error) => TryAgainWidget(onTap: _mainBoardIpoController.getMainboardData(),),
+        onError: (error) => TryAgainWidget(
+          onTap: _mainBoardIpoController.getMainboardData(),
+        ),
       ),
     );
   }

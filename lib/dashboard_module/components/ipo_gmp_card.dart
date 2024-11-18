@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ipotec/dashboard_module/modal/drawer/ipo_gmp_model.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
-import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';

@@ -8,7 +8,6 @@ import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 
-
 class AuthController extends GetxController with StateMixin<UserModel> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -121,11 +120,27 @@ class AuthController extends GetxController with StateMixin<UserModel> {
         debugPrint("AuthController => User data fetched: ${modal.displayName}");
         setLogin(true);
         setUuid(modal.uid);
+
+        String currentToken = getFCMToken() ?? "";
+        if (modal.token != currentToken) {
+          await _updateUserToken(uid, currentToken);
+        }
       } else {
         debugPrint("AuthController => No user data found for uid: $uid");
       }
     } catch (e) {
       debugPrint("AuthController => Error fetching user data: $e");
+    }
+  }
+
+  Future<void> _updateUserToken(String uid, String newToken) async {
+    try {
+      final userRef = _firestore.collection('userData').doc(uid);
+      await userRef.update({'token': newToken, 'updatedAt': FieldValue.serverTimestamp()});
+
+      debugPrint("AuthController => Updated user token for uid: $uid");
+    } catch (e) {
+      debugPrint("AuthController => Error updating token for uid: $uid: $e");
     }
   }
 }
@@ -135,12 +150,14 @@ class UserModel {
   String? displayName;
   String? email;
   String? photoURL;
+  String? token;
 
   UserModel({
     required this.uid,
     this.displayName,
     this.email,
     this.photoURL,
+    this.token,
   });
 
   factory UserModel.fromFirestore(DocumentSnapshot doc) {
@@ -150,6 +167,7 @@ class UserModel {
       displayName: data['displayName'],
       email: data['email'],
       photoURL: data['photoURL'],
+      token: data['token'],
     );
   }
 }

@@ -117,7 +117,7 @@ void _onItemTapped(int index) {
         GoPaths.webView,
         extra: {
           'title': "Ipo Allotment",
-          'url': _defaultController?.state?.allotment ?? "https://ris.kfintech.com/ipostatus/",
+          'url': _defaultController.state?.allotment ?? "https://ris.kfintech.com/ipostatus/",
         },
       );
       break;
