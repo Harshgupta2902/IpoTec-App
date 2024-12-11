@@ -1,22 +1,29 @@
 class APIEndPoints {
   static const live = 'https://ipo-tec-app-api.vercel.app/app/';
-  static const local = 'http://10.0.20.147:3000/app/';
-  static const base = live;
+  static const local = 'http://10.5.1.80:3001/app/';
+  static const base = local;
 
   static const defaultApi = "default";
 
-  static const ipo = "ipo-v1";
-  static const buyback = "buyback";
+  static const ipo = "mainboard";
+  static const sme = "sme";
+
+  static const mainSubs = "mainSubs";
+  static const smeSubs = "smeSubs";
+
+  static const mainBoardCalendar = "mainBoardCalendar";
+  static const smeCalendar = "smeCalendar";
+
+
+
 
   static const ipoDetails = "ipo-details";
-  static const buybackDetails = "buyback-details";
+
   static const forms = "forms";
-  static const gmp = "gmp-v1";
-  static const subs = "subs";
+  static const gmp = "gmp";
 
   static const commonDetails = "common-details";
   static const blogs = "blogs";
-  static const blogsV1 = "blogs-v1";
 
   static const search = "search";
 

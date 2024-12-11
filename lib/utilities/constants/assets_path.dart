@@ -6,9 +6,7 @@ class AssetPath {
 
   static const mainBoard = "${_bottom}mainBoard.svg";
   static const sme = "${_bottom}sme.svg";
-  static const buyBack = "${_bottom}buyBack.svg";
   static const blogs = "${_bottom}blogs.svg";
-  static const forms = "${_bottom}forms.svg";
   static const gmp = "${_bottom}gmp.svg";
   static const subs = "${_bottom}subs.svg";
   static const terms = "${_bottom}terms.svg";

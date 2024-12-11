@@ -1,41 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ipotec/dashboard_module/modal/drawer/ipo_gmp_model.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
+import 'package:ipotec/dashboard_module/modal/bottom/ipo_gmp_model.dart';
 
 class IpoGmpCard extends StatelessWidget {
-  const IpoGmpCard({
-    super.key,
-    this.state,
-  });
+  const IpoGmpCard({super.key, this.state});
 
-  final Gmp? state;
+  final Data? state;
 
   @override
   Widget build(BuildContext context) {
     final List<KeyValuePairModel> data = [
-      if (state?.ipoPrice != null)
-        KeyValuePairModel(
-          key: "Offer Price:",
-          value: "${state?.ipoPrice}",
-        ),
-      if (state?.gmp != null)
-        KeyValuePairModel(
-          key: "GMP:",
-          value: "${state?.gmp}",
-        ),
-      if (state?.listing != null)
-        KeyValuePairModel(
-          key: "Listing Gain:",
-          value: "${state?.listing == "" ? "--" : state?.listing}",
-        ),
+      KeyValuePairModel(
+        key: "Open Date:",
+        value: "${state?.open == "" ? "--" : state?.open}",
+      ),
+      KeyValuePairModel(
+        key: "Close Date:",
+        value: "${state?.close == "" ? "--" : state?.close}",
+      ),
+      KeyValuePairModel(
+        key: "Listing Date:",
+        value: "${state?.listing == "" ? "--" : state?.listing}",
+      ),
     ];
+    String? percentageString =
+        state?.estListing?.split('(').last.replaceAll(')', '').replaceAll('%', '');
+    double? percentage = double.tryParse(percentageString!);
+
+    Color textColor = (percentage != null && percentage > 0) ? Colors.green : AppColors.cadmiumRed;
+
+    Color gmpColor =
+        ((double.tryParse((state?.gmp ?? "")) ?? 0) > 0) ? Colors.green : AppColors.cadmiumRed;
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: AppBoxDecoration.getBoxDecoration(),
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -50,7 +52,7 @@ class IpoGmpCard extends StatelessWidget {
                   borderRadius: 10,
                 ),
                 child: SvgPicture.asset(
-                  getLogoPath(state?.ipoName ?? "-"),
+                  getLogoPath(state?.companyName ?? "-"),
                 ),
               ),
               const SizedBox(width: 16),
@@ -59,7 +61,7 @@ class IpoGmpCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${state?.ipoName}",
+                      "${state?.companyName}",
                       maxLines: 1,
                       style: Theme.of(context)
                           .textTheme
@@ -77,9 +79,9 @@ class IpoGmpCard extends StatelessWidget {
                                 .labelMedium
                                 ?.copyWith(color: AppColors.boulder),
                           ),
-                        if (state?.updatedOn != "")
+                        if (state?.updatedAt != "")
                           Text(
-                            "Updated On: ${state?.updatedOn}",
+                            "Updated On: ${state?.updatedAt}",
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium
@@ -91,6 +93,81 @@ class IpoGmpCard extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 6),
+          RichText(
+            text: TextSpan(
+              text: "Price: ",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+              children: [
+                TextSpan(
+                  text: "₹${state?.price}",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w400,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          RichText(
+            text: TextSpan(
+              text: "GMP: ",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+              children: [
+                TextSpan(
+                  text: "₹${state?.gmp}",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: gmpColor,
+                        fontWeight: FontWeight.w400,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          if (state?.estListing != null) ...[
+            RichText(
+              text: TextSpan(
+                text: "Est. Listing: ",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                children: [
+                  TextSpan(
+                    text: state?.estListing,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: textColor,
+                          fontWeight: FontWeight.w400,
+                        ),
+                  ),
+                ],
+              ),
+            )
+          ],
+          RichText(
+            text: TextSpan(
+              text: "IPO Size: ",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+              children: [
+                TextSpan(
+                  text: "${state?.ipoSize}",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w400,
+                      ),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),

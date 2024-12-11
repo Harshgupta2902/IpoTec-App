@@ -45,7 +45,7 @@ class AuthController extends GetxController with StateMixin<UserModel> {
       if (type == CallApiType.gmp) {
         MyNavigator.pushNamed(GoPaths.gmp);
       } else if (type == CallApiType.subs) {
-        MyNavigator.pushNamed(GoPaths.subs);
+        MyNavigator.pushNamed(GoPaths.mainSubs);
       } else {
         MyNavigator.pushNamed(GoPaths.mainBoard);
       }

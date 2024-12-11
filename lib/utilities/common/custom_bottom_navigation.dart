@@ -24,46 +24,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   List<KeyValuePairModel> bars = [
     KeyValuePairModel(key: AssetPath.mainBoard, value: "Mainboard"),
     KeyValuePairModel(key: AssetPath.sme, value: "SME"),
-    KeyValuePairModel(key: AssetPath.buyBack, value: "Buyback"),
+    KeyValuePairModel(key: AssetPath.gmp, value: "GMP"),
     KeyValuePairModel(key: AssetPath.allotment, value: "Allotment"),
     KeyValuePairModel(key: AssetPath.blogs, value: "Blogs"),
   ];
-  // InterstitialAd? _interstitialAd;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  // void _loadInterstitialAd(int index) {
-  //   InterstitialAd.load(
-  //     adUnitId: AdHelper.interstitialAdUnitId,
-  //     request: const AdRequest(),
-  //     adLoadCallback: InterstitialAdLoadCallback(
-  //       onAdLoaded: (ad) {
-  //         ad.fullScreenContentCallback = FullScreenContentCallback(
-  //           onAdDismissedFullScreenContent: (ad) {
-  //             _onItemTapped(index);
-  //           },
-  //         );
-  //
-  //         setState(() {
-  //           _interstitialAd = ad;
-  //         });
-  //       },
-  //       onAdFailedToLoad: (err) {
-  //         debugPrint('Failed to load an interstitial ad: ${err.message}');
-  //         _onItemTapped(index);
-  //       },
-  //     ),
-  //   );
-  // }
-
-  @override
-  void dispose() {
-    // _interstitialAd?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +54,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           return BottomNavigationBarItem(
             icon: SvgPicture.asset(
               bars[index].key,
+              height: 24,
+              width: 24,
               color: index == _index ? AppColors.primaryColor : Colors.black,
             ),
             label: bars[index].value,
@@ -110,7 +76,7 @@ void _onItemTapped(int index) {
       MyNavigator.go(GoPaths.sme);
       break;
     case 2:
-      MyNavigator.go(GoPaths.buyBack);
+      MyNavigator.go(GoPaths.gmp);
       break;
     case 3:
       MyNavigator.pushNamed(

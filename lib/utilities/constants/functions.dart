@@ -63,16 +63,12 @@ String getDrawerLogo(String title) {
   switch (title) {
     case 'IPO GMP':
       return AssetPath.gmp;
-    case 'IPO Subscription':
+    case 'Mainboard Subscription':
       return AssetPath.subs;
-    case 'Upcoming IPO':
+    case 'SME Subscription':
       return AssetPath.mainBoard;
     case 'SME IPO':
       return AssetPath.sme;
-    case 'BuyBack IPO':
-      return AssetPath.buyBack;
-    case 'IPO Forms':
-      return AssetPath.forms;
     case 'Terms & Conditions':
       return AssetPath.terms;
     case 'Privacy Policy':

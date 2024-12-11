@@ -1,14 +1,14 @@
+import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:ipotec/dashboard_module/modal/upcoming/mainboard_ipo_model.dart';
-
+import 'package:ipotec/dashboard_module/modal/bottom/mainboard_ipo_model.dart';
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';
 
 class MainBoardIpoController extends GetxController with StateMixin<MainboardIpoModel> {
-  getMainboardData() async {
+  getMainboardData({required String type}) async {
     change(null, status: RxStatus.loading());
-    const apiEndPoint = APIEndPoints.ipo;
+    final apiEndPoint = '${APIEndPoints.ipo}?type=$type';
     debugPrint("---------- $apiEndPoint getMainboardData Start ----------");
     try {
       final response = await getRequest(apiEndPoint: apiEndPoint);
@@ -18,8 +18,11 @@ class MainBoardIpoController extends GetxController with StateMixin<MainboardIpo
       if (response.statusCode != 200) {
         throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
       }
+      final responseData = response.data is String
+          ? jsonDecode(response.data)
+          : response.data;
 
-      final modal = MainboardIpoModel.fromJson(response.data);
+      final modal = MainboardIpoModel.fromJson(responseData);
       change(modal, status: RxStatus.success());
     } catch (error) {
       debugPrint("---------- $apiEndPoint getMainboardData End With Error ----------");

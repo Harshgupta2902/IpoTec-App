@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/dashboard_module/controller/upcoming/mainboard_ipo_details_controller.dart';
-import 'package:ipotec/dashboard_module/modal/upcoming/ipo_details_model.dart';
+import 'package:ipotec/dashboard_module/controller/bottom/mainboard_ipo_details_controller.dart';
+import 'package:ipotec/dashboard_module/modal/bottom/ipo_details_model.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/error_widget.dart';
@@ -275,7 +275,9 @@ class _MainboardIpoDetailsViewState extends State<MainboardIpoDetailsView> {
             ),
           );
         },
-        onError: (error) => TryAgainWidget(onTap: () => _mainBoardIpoDetailsController.getMainboardDetails(slug: widget.slug),),
+        onError: (error) => TryAgainWidget(
+          onTap: () => _mainBoardIpoDetailsController.getMainboardDetails(slug: widget.slug),
+        ),
       ),
     );
   }

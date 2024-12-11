@@ -11,7 +11,7 @@ class BlogsController extends GetxController with StateMixin<BlogsModel> {
   getBlogs({String? offset, bool? hardLoad}) async {
     isLoading.value = true;
 
-    final apiEndPoint = "${APIEndPoints.blogsV1}?offset=$offset";
+    final apiEndPoint = "${APIEndPoints.blogs}?offset=$offset";
     debugPrint("---------- $apiEndPoint getBlogs Start ----------");
     if (offset == '1') {
       change(null, status: RxStatus.loading());

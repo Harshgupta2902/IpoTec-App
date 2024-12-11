@@ -1,20 +1,19 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:ipotec/dashboard_module/modal/default_model.dart';
+import 'package:ipotec/dashboard_module/modal/bottom/sme_ipo_modal.dart';
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';
 
-class DefaultApiController extends GetxController with StateMixin<DefaultModel> {
-  getDefaultData() async {
+class SmeIpoController extends GetxController with StateMixin<SmeIpoModal> {
+  getSmeData({required String type}) async {
     change(null, status: RxStatus.loading());
-    const apiEndPoint = APIEndPoints.defaultApi;
-    debugPrint("---------- $apiEndPoint getDefaultData Start ----------");
+    final apiEndPoint = '${APIEndPoints.sme}?type=$type';
+    debugPrint("---------- $apiEndPoint getSmeData Start ----------");
     try {
       final response = await getRequest(apiEndPoint: apiEndPoint);
 
-      debugPrint("DefaultApiController => getDefaultData > Success  $response");
+      debugPrint("SmeIpoController => getSmeData > Success  $response");
 
       if (response.statusCode != 200) {
         throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
@@ -24,14 +23,14 @@ class DefaultApiController extends GetxController with StateMixin<DefaultModel> 
           ? jsonDecode(response.data)
           : response.data;
 
-      final modal = DefaultModel.fromJson(responseData);
+      final modal = SmeIpoModal.fromJson(responseData);
       change(modal, status: RxStatus.success());
     } catch (error) {
-      debugPrint("---------- $apiEndPoint getDefaultData End With Error ----------");
-      debugPrint("DefaultApiController => getDefaultData > Error $error ");
+      debugPrint("---------- $apiEndPoint getSmeData End With Error ----------");
+      debugPrint("SmeIpoController => getSmeData > Error $error ");
       change(null, status: RxStatus.error());
     } finally {
-      debugPrint("---------- $apiEndPoint getDefaultData End ----------");
+      debugPrint("---------- $apiEndPoint getSmeData End ----------");
     }
   }
 }

@@ -1,34 +1,32 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:ipotec/dashboard_module/modal/bottom/ipo_gmp_model.dart';
+import 'package:ipotec/dashboard_module/modal/drawer/sme_ipo_subs_model.dart';
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';
 
-class IpoGmpController extends GetxController with StateMixin<IpoGmpModel> {
-  getGmpData() async {
+class SmeIpoSubsController extends GetxController with StateMixin<SmeIpoSubsModel> {
+  getSmeSubsData() async {
     change(null, status: RxStatus.loading());
-    const apiEndPoint = APIEndPoints.gmp;
-    debugPrint("---------- $apiEndPoint getGmpData Start ----------");
+    const apiEndPoint = APIEndPoints.smeSubs;
+    debugPrint("---------- $apiEndPoint getSmeSubsData Start ----------");
     try {
       final response = await getRequest(apiEndPoint: apiEndPoint);
 
-      debugPrint("IpoGmpController => getGmpData > Success  $response");
+      debugPrint("SmeIpoSubsController => getSmeSubsData > Success  $response");
 
       if (response.statusCode != 200) {
         throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
       }
-
       final responseData = response.data is String ? jsonDecode(response.data) : response.data;
-
-      final modal = IpoGmpModel.fromJson(responseData);
+      final modal = SmeIpoSubsModel.fromJson(responseData);
       change(modal, status: RxStatus.success());
     } catch (error) {
-      debugPrint("---------- $apiEndPoint getGmpData End With Error ----------");
-      debugPrint("IpoGmpController => getGmpData > Error $error ");
+      debugPrint("---------- $apiEndPoint getSmeSubsData End With Error ----------");
+      debugPrint("SmeIpoSubsController => getSmeSubsData > Error $error ");
       change(null, status: RxStatus.error());
     } finally {
-      debugPrint("---------- $apiEndPoint getGmpData End ----------");
+      debugPrint("---------- $apiEndPoint getSmeSubsData End ----------");
     }
   }
 }

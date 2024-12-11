@@ -5,10 +5,8 @@ import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
-import 'package:ipotec/dashboard_module/view/policy_view.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
-import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
@@ -31,39 +29,6 @@ class DefaultCustomDrawer extends StatefulWidget {
 }
 
 class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerProviderStateMixin {
-  final List<KeyValuePairModel> menuItems = [
-    KeyValuePairModel(
-      key: "IPO GMP",
-      value: AssetPath.gmp,
-      extra: GoPaths.gmp,
-    ),
-    KeyValuePairModel(
-      key: "IPO Subscription",
-      value: AssetPath.subs,
-      extra: GoPaths.subs,
-    ),
-    KeyValuePairModel(
-      key: "Upcoming IPO",
-      value: AssetPath.mainBoard,
-      extra: GoPaths.mainBoard,
-    ),
-    KeyValuePairModel(
-      key: "SME IPO",
-      value: AssetPath.sme,
-      extra: GoPaths.sme,
-    ),
-    KeyValuePairModel(
-      key: "BuyBack IPO",
-      value: AssetPath.buyBack,
-      extra: GoPaths.buyBack,
-    ),
-    KeyValuePairModel(
-      key: "IPO Forms",
-      value: AssetPath.forms,
-      extra: GoPaths.forms,
-    )
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -139,7 +104,6 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                                 )
                               : GestureDetector(
                                   onTap: () {
-                                    // setStaticPref();
                                     _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
                                     MyNavigator.pushNamed(
                                       GoPaths.login,
@@ -173,7 +137,7 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                     ],
                   ),
                 ),
-                Expanded(
+                Flexible(
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _defaultController.state?.menuItems?.length ?? 0,
@@ -182,63 +146,57 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                       return GestureDetector(
                         onTap: () {
                           _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-                          if (isLoggedIn()) {
-                            if (data?.path == GoPaths.policyView && data?.key == "Privacy Policy") {
-                              MyNavigator.pushNamed(
-                                GoPaths.policyView,
-                                extra: {
-                                  'type': PolicyType.privacy,
-                                  'policy': _defaultController.state?.privacy,
-                                },
-                              );
-                            } else if (data?.path == GoPaths.policyView &&
-                                data?.key == "Terms & Conditions") {
-                              MyNavigator.pushNamed(
-                                GoPaths.policyView,
-                                extra: {
-                                  'type': PolicyType.terms,
-                                  'policy': _defaultController.state?.terms,
-                                },
-                              );
-                            } else if (data?.path == GoPaths.contactUs) {
-                              launchEmail(email: "harsh1248gupta@gmail.com");
-                            } else {
-                              MyNavigator.pushNamed(data?.path);
-                            }
-                          } else if (data?.path == GoPaths.gmp || data?.path == GoPaths.subs) {
-                            MyNavigator.pushNamed(
-                              GoPaths.login,
-                              extra: {
-                                'type':
-                                    data?.path == GoPaths.gmp ? CallApiType.gmp : CallApiType.subs
-                              },
-                            );
-                          } else if (data?.path == GoPaths.policyView &&
-                              data?.key == "Privacy Policy") {
-                            MyNavigator.pushNamed(
-                              GoPaths.policyView,
-                              extra: {
-                                'type': PolicyType.privacy,
-                                'policy': _defaultController.state?.privacy,
-                              },
-                            );
-                          } else if (data?.path == GoPaths.policyView &&
-                              data?.key == "Terms & Conditions") {
-                            MyNavigator.pushNamed(
-                              GoPaths.policyView,
-                              extra: {
-                                'type': PolicyType.terms,
-                                'policy': _defaultController.state?.terms,
-                              },
-                            );
-                          } else if (data?.path == GoPaths.contactUs) {
-                            launchEmail(email: "harsh1248gupta@gmail.com");
-                          } else {
-                            MyNavigator.pushNamed(data?.path);
-                          }
+                          MyNavigator.pushNamed(data?.path);
+                          // if (isLoggedIn()) {
+                          //   if (data?.path == GoPaths.policyView && data?.key == "Privacy Policy") {
+                          //     MyNavigator.pushNamed(
+                          //       GoPaths.policyView,
+                          //       extra: {
+                          //         'type': PolicyType.privacy,
+                          //         'policy': _defaultController.state?.privacy,
+                          //       },
+                          //     );
+                          //   } else if (data?.path == GoPaths.policyView &&
+                          //       data?.key == "Terms & Conditions") {
+                          //     MyNavigator.pushNamed(
+                          //       GoPaths.policyView,
+                          //       extra: {
+                          //         'type': PolicyType.terms,
+                          //         'policy': _defaultController.state?.terms,
+                          //       },
+                          //     );
+                          //   } else if (data?.path == GoPaths.contactUs) {
+                          //     launchEmail(email: "harsh1248gupta@gmail.com");
+                          //   } else {
+                          //     MyNavigator.pushNamed(data?.path);
+                          //   }
+                          // }
+                          // else if (data?.path == GoPaths.policyView &&
+                          //     data?.key == "Privacy Policy") {
+                          //   MyNavigator.pushNamed(
+                          //     GoPaths.policyView,
+                          //     extra: {
+                          //       'type': PolicyType.privacy,
+                          //       'policy': _defaultController.state?.privacy,
+                          //     },
+                          //   );
+                          // } else if (data?.path == GoPaths.policyView &&
+                          //     data?.key == "Terms & Conditions") {
+                          //   MyNavigator.pushNamed(
+                          //     GoPaths.policyView,
+                          //     extra: {
+                          //       'type': PolicyType.terms,
+                          //       'policy': _defaultController.state?.terms,
+                          //     },
+                          //   );
+                          // } else if (data?.path == GoPaths.contactUs) {
+                          //   launchEmail(email: "harsh1248gupta@gmail.com");
+                          // } else {
+                          //   MyNavigator.pushNamed(data?.path);
+                          // }
                         },
                         child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                          margin: const EdgeInsets.all(4),
                           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                           decoration: AppBoxDecoration.getBoxDecoration(
                             showShadow: false,
