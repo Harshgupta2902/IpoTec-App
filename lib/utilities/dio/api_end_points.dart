@@ -14,13 +14,15 @@ class APIEndPoints {
   static const mainBoardCalendar = "mainBoardCalendar";
   static const smeCalendar = "smeCalendar";
 
+  static const gmp = "gmp";
+
+  static const performance = "performance";
 
 
 
   static const ipoDetails = "ipo-details";
 
   static const forms = "forms";
-  static const gmp = "gmp";
 
   static const commonDetails = "common-details";
   static const blogs = "blogs";

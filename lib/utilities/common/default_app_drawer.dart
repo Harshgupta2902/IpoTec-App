@@ -266,28 +266,6 @@ Widget dynamicImage({
   double? height,
   double? width,
 }) {
-  final isNetworkImage = image?.startsWith("https") == true;
-
-  if (isNetworkImage == true) {
-    if (image!.endsWith(".svg")) {
-      return SvgPicture.network(
-        image,
-        height: height ?? 24,
-        width: width ?? 24,
-        semanticsLabel: 'Custom Image',
-        fit: BoxFit.fill,
-      );
-    }
-    if (image.endsWith(".png")) {
-      return Image.network(
-        image,
-        height: height ?? 24,
-        width: width ?? 24,
-        fit: BoxFit.fill,
-      );
-    }
-  }
-
   if (image!.contains(".png")) {
     return Image.asset(
       image,

@@ -12,11 +12,16 @@ class GoPaths {
   static const String smeCalendar = '/smeCalendar';
 
   static const String gmp = '/gmp';
-
-  static const String mainBoardDetails = '/mainBoard-details';
-
   static const String blogs = '/blogs';
 
+  static const String performance = '/performance';
+
+
+
+
+
+
+  static const String mainBoardDetails = '/mainBoard-details';
   static const String search = '/search';
 
   static const String webView = '/webView';

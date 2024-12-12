@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:flutter/material.dart';
+import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -66,9 +67,19 @@ String getDrawerLogo(String title) {
     case 'Mainboard Subscription':
       return AssetPath.subs;
     case 'SME Subscription':
-      return AssetPath.mainBoard;
-    case 'SME IPO':
       return AssetPath.sme;
+    case 'Ipo Performance':
+      return AssetPath.performance;
+    case 'Ipo Overview':
+      return AssetPath.overview;
+    case 'Mainboard Ipo Calendar':
+      return AssetPath.calendar;
+    case 'SME Ipo Calendar':
+      return AssetPath.calendar;
+    case 'Most Successful Ipo':
+      return AssetPath.high;
+    case 'Least Successful Ipo':
+      return AssetPath.low;
     case 'Terms & Conditions':
       return AssetPath.terms;
     case 'Privacy Policy':
@@ -201,4 +212,16 @@ launchEmail({String? email}) async {
   } else {
     debugPrint("Could not launch email");
   }
+}
+
+Color getPercentageColor(String percentage) {
+  double value = double.tryParse(percentage.replaceAll('%', '')) ?? 0.0;
+  return value < 0 ? AppColors.cadmiumRed : AppColors.shareGreen;
+}
+
+Color getPriceComparisonColor(String currentPrice, String issuePrice) {
+  double current = double.tryParse(currentPrice.replaceAll('₹', '').trim()) ?? 0.0;
+  double issue = double.tryParse(issuePrice.replaceAll('₹', '').trim()) ?? 0.0;
+
+  return current > issue ? AppColors.cadmiumRed : AppColors.shareGreen;
 }

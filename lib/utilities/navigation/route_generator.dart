@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/view/blogs/blogs_main_view.dart';
+import 'package:ipotec/dashboard_module/view/bottom/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/ipo_gmp_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/ipo_performance_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/mainboard_calendar_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/mainboard_ipo_subs_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/sme_calendar_view.dart';
@@ -67,20 +69,20 @@ final GoRouter goRouterConfig = GoRouter(
     ),
 
     // ------------------   Registration Page Routes   ---------------------------
-    // GoRoute(
-    //   parentNavigatorKey: rootNavigatorKey,
-    //   path: GoPaths.mainBoardDetails,
-    //   name: GoPaths.mainBoardDetails,
-    //   builder: (context, state) {
-    //     final extras = state.extra as Map<String, dynamic>;
-    //     final slug = extras['slug'];
-    //     final name = extras['name'];
-    //     return MainboardIpoDetailsView(
-    //       slug: slug,
-    //       name: name,
-    //     );
-    //   },
-    // ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.mainBoardDetails,
+      name: GoPaths.mainBoardDetails,
+      builder: (context, state) {
+        final extras = state.extra as Map<String, dynamic>;
+        final slug = extras['slug'];
+        final name = extras['name'];
+        return MainboardIpoDetailsView(
+          slug: slug,
+          name: name,
+        );
+      },
+    ),
 
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
@@ -109,6 +111,17 @@ final GoRouter goRouterConfig = GoRouter(
       name: GoPaths.smeCalendar,
       builder: (context, state) {
         return const SmeCalendarView();
+      },
+    ),
+
+    // ------------------   Performance Page Routes   ---------------------------
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.performance,
+      name: GoPaths.performance,
+      builder: (context, state) {
+        return const IpoPerformanceView();
       },
     ),
 

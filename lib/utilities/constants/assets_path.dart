@@ -9,6 +9,11 @@ class AssetPath {
   static const blogs = "${_bottom}blogs.svg";
   static const gmp = "${_bottom}gmp.svg";
   static const subs = "${_bottom}subs.svg";
+  static const calendar = "${_bottom}calendar.svg";
+  static const high = "${_bottom}high.svg";
+  static const low = "${_bottom}low.svg";
+  static const overview = "${_bottom}overview.svg";
+  static const performance = "${_bottom}performance.png";
   static const terms = "${_bottom}terms.svg";
   static const policy = "${_bottom}policy.svg";
   static const call = "${_bottom}call.svg";
