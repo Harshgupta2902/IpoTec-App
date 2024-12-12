@@ -6,26 +6,25 @@ import 'package:ipotec/dashboard_module/controller/drawer/mainboard_calendar_mod
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';
 
-class MainboardCalendarController extends GetxController with StateMixin<MainboardCalendarModel> {
-  getMainboardCalendar() async {
-    const apiEndPoint = APIEndPoints.mainBoardCalendar;
+class IpoCalendarController extends GetxController with StateMixin<MainboardCalendarModel> {
+  getMainboardCalendar({required bool isSme}) async {
+    final apiEndPoint = isSme ? APIEndPoints.smeCalendar : APIEndPoints.mainBoardCalendar;
     debugPrint("---------- $apiEndPoint getMainboardCalendar Start ----------");
     try {
       final response = await getRequest(apiEndPoint: apiEndPoint);
 
-      debugPrint("MainboardCalendarController => getMainboardCalendar > Success  $response");
+      debugPrint("IpoCalendarController => getMainboardCalendar > Success  $response");
 
       if (response.statusCode != 200) {
         throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
       }
       final responseData = response.data is String ? jsonDecode(response.data) : response.data;
 
-
       final modal = MainboardCalendarModel.fromJson(responseData);
       change(modal, status: RxStatus.success());
     } catch (error) {
       debugPrint("---------- $apiEndPoint getMainboardCalendar End With Error ----------");
-      debugPrint("MainboardCalendarController => getMainboardCalendar > Error $error ");
+      debugPrint("IpoCalendarController => getMainboardCalendar > Error $error ");
       change(null, status: RxStatus.error());
     } finally {
       debugPrint("---------- $apiEndPoint getMainboardCalendar End ----------");

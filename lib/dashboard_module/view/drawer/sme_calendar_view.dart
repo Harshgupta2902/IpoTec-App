@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ipotec/dashboard_module/controller/drawer/mainboard_calendar_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
+
+final _smeCalendarController = Get.put(IpoCalendarController());
 
 class SmeCalendarView extends StatefulWidget {
   const SmeCalendarView({super.key});
@@ -11,8 +15,19 @@ class SmeCalendarView extends StatefulWidget {
 }
 
 class SmeCalendarViewState extends State<SmeCalendarView> {
-  DateTime _currentMonth = DateTime.now();
+  final DateTime _currentMonth = DateTime.now();
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _smeCalendarController.getMainboardCalendar(isSme: true);
+    setState(() {
+      final todayMinusOne = DateTime.now().day;
+      debugPrint(todayMinusOne.toString());
+      _selectedIndex = todayMinusOne >= 0 ? todayMinusOne : 0;
+    });
+  }
 
   List<DateTime> getDisplayDates(DateTime currentDate) {
     final firstDateOfMonth = DateTime(currentDate.year, currentDate.month, 1);
@@ -25,7 +40,6 @@ class SmeCalendarViewState extends State<SmeCalendarView> {
       firstDisplayDate = firstDisplayDate.subtract(const Duration(days: 1));
     }
 
-    // Adjust to the end of the week (Saturday)
     while (lastDisplayDate.weekday != DateTime.saturday) {
       lastDisplayDate = lastDisplayDate.add(const Duration(days: 1));
     }
@@ -41,38 +55,7 @@ class SmeCalendarViewState extends State<SmeCalendarView> {
     return dates;
   }
 
-  _getDates(int index) {
-    setState(() {
-      final previousMonth = _currentMonth;
-      _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + index);
-      if (index == 0) {
-        _currentMonth = DateTime.now();
-        setState(() {
-          _selectedIndex = index;
-        });
-        debugPrint("-----------| _selectedIndex : $_selectedIndex ");
-        return;
-      }
-      if (index != 0) {
-        if (_currentMonth.isAfter(previousMonth)) {
-          _selectedIndex++;
-        } else if (_currentMonth.isBefore(previousMonth)) {
-          _selectedIndex--;
-        }
-      }
-
-      debugPrint("---------- index : $index $_currentMonth  -| _selectedIndex : $_selectedIndex ");
-
-      getDisplayDates(_currentMonth);
-    });
-  }
-
   DateTime? selectedDate = DateTime.now();
-
-  bool isToday(DateTime date) {
-    DateTime now = DateTime.now();
-    return date.year == now.year && date.month == now.month && date.day == now.day;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,79 +65,25 @@ class SmeCalendarViewState extends State<SmeCalendarView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const CoreAppBar(
-        title: "Mainboard Calender",
+        title: "SME Calender",
         showBackButton: true,
         centerTitle: false,
         showActions: false,
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Column(
+      body: _smeCalendarController.obx((state) {
+        return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    monthName,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          _getDates(-1);
-                        },
-                        child: const Icon(Icons.arrow_back),
-                      ),
-                      const SizedBox(width: 20),
-                      GestureDetector(
-                        onTap: () {
-                          _getDates(1);
-                        },
-                        child: const Icon(Icons.arrow_forward),
-                      ),
-                      const SizedBox(width: 14),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: AppColors.primaryColor,
-                          backgroundColor: AppColors.primaryColor,
-                          minimumSize: const Size(60, 36),
-                        ),
-                        onPressed: () {
-                          _getDates(0);
-
-                          DateTime now = DateTime.now();
-                          setState(() {
-                            selectedDate = DateTime(now.year, now.month, now.day);
-                          });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Today",
-                              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    letterSpacing: 0.15,
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+              child: Text(
+                monthName,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: AppColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             ),
-            const SizedBox(height: 20),
             SizedBox(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,9 +115,9 @@ class SmeCalendarViewState extends State<SmeCalendarView> {
                     padding: const EdgeInsets.only(top: 16),
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 7, mainAxisExtent: 80
-                        // childAspectRatio: 0.6,
-                        ),
+                      crossAxisCount: 7,
+                      mainAxisExtent: 70,
+                    ),
                     itemCount: daysInMonth.length,
                     itemBuilder: (context, index) {
                       DateTime now = DateTime.now();
@@ -197,22 +126,29 @@ class SmeCalendarViewState extends State<SmeCalendarView> {
                       final isToday = DateFormat('yyy-MM-dd').format(day);
                       return GestureDetector(
                         onTap: () {
+                          if (day.month != _currentMonth.month) {
+                            return;
+                          }
                           setState(() {
                             selectedDate = day;
+                            _selectedIndex = day.day - 1;
                           });
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
-                          color: isToday == today
-                              ? AppColors.primaryColor.withOpacity(0.2)
-                              : day.month != _currentMonth.month
-                                  ? Colors.white
-                                  : selectedDate != null &&
-                                          day.day == selectedDate!.day &&
-                                          day.month == selectedDate!.month &&
-                                          day.year == selectedDate!.year
-                                      ? AppColors.primaryColor.withOpacity(0.5)
-                                      : Colors.transparent,
+                          decoration: BoxDecoration(
+                            color: isToday == today
+                                ? AppColors.primaryColor.withOpacity(0.2)
+                                : day.month != _currentMonth.month
+                                    ? Colors.white
+                                    : selectedDate != null &&
+                                            day.day == selectedDate!.day &&
+                                            day.month == selectedDate!.month &&
+                                            day.year == selectedDate!.year
+                                        ? AppColors.primaryColor.withOpacity(0.5)
+                                        : Colors.transparent,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
@@ -220,103 +156,95 @@ class SmeCalendarViewState extends State<SmeCalendarView> {
                               Text(
                                 '${day.day}',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w500,
                                   color: day.month == _currentMonth.month
                                       ? (day.weekday == DateTime.sunday ? Colors.red : Colors.black)
-                                      : Colors.grey,
+                                      : AppColors.white,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
+                              if ((state?.data?[(day.day - 1)].events?.length ?? 0) > 0) ...[
+                                const SizedBox(height: 4),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: day.month == _currentMonth.month
+                                        ? AppColors.shareGreen
+                                        : AppColors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  padding: EdgeInsets.all(6),
+                                  child: Text(
+                                    '${state?.data?[(day.day - 1)].events?.length}',
+                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ]
                             ],
                           ),
                         ),
                       );
                     },
                   ),
-                  if (selectedDate != null) ...[
-                    const Divider(thickness: 1),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
+                  _smeCalendarController.obx((state) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          RichText(
-                            text: TextSpan(
-                              text: "Date:  ",
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                              children: [
-                                TextSpan(
-                                  text: DateFormat('dd MMMM yyyy').format(selectedDate!),
-                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                          Text(
+                            DateFormat('dd MMMM yyyy').format(selectedDate!),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w800,
+                                  color: AppColors.black,
                                 ),
-                              ],
-                            ),
                           ),
-                          const SizedBox(height: 8),
-                          RichText(
-                            text: TextSpan(
-                              text: "Orders Delivered:  ",
+                          const SizedBox(height: 12),
+                          if (state?.data?[_selectedIndex].events?.isEmpty == true) ...[
+                            Text(
+                              "No Events for Today",
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.black,
+                                    fontWeight: FontWeight.w600,
                                   ),
-                              children: [
-                                TextSpan(
-                                  text: "25",
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        fontWeight: FontWeight.w600,
+                            )
+                          ],
+                          ...List.generate(
+                            state?.data?[_selectedIndex].events?.length ?? 0,
+                            (index) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Text("• ", style: TextStyle(fontSize: 20)),
+                                      Expanded(
+                                        child: Text(
+                                          "${state?.data?[_selectedIndex].events?[index].eventText}",
+                                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                                fontWeight: FontWeight.w800,
+                                                color: AppColors.shuttleGrey,
+                                              ),
+                                        ),
                                       ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          RichText(
-                            text: TextSpan(
-                              text: "Orders Earning:  ",
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w500,
+                                    ],
                                   ),
-                              children: [
-                                TextSpan(
-                                  text: "₹1200",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(fontWeight: FontWeight.w600, color: Colors.green),
-                                ),
-                              ],
-                            ),
+                                ],
+                              );
+                            },
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                    );
+                  })
                 ],
               ),
             ),
           ],
-        ),
-      ),
-      floatingActionButton: selectedDate != null && !isToday(selectedDate!)
-          ? FloatingActionButton(
-              shape: const CircleBorder(side: BorderSide.none),
-              foregroundColor: AppColors.primaryColor,
-              backgroundColor: AppColors.primaryColor,
-              onPressed: () {
-                _getDates(0);
-                setState(() {
-                  selectedDate = DateTime.now();
-                });
-              },
-              child: Text(
-                DateFormat('dd').format(DateTime.now()),
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.white),
-              ))
-          : null,
+        );
+      }),
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:ipotec/dashboard_module/controller/drawer/mainboard_calendar_con
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
-final _mainboardCalendarController = Get.put(MainboardCalendarController());
+final _mainboardCalendarController = Get.put(IpoCalendarController());
 
 class MainboardCalendarView extends StatefulWidget {
   const MainboardCalendarView({super.key});
@@ -15,13 +15,18 @@ class MainboardCalendarView extends StatefulWidget {
 }
 
 class MainboardCalendarViewState extends State<MainboardCalendarView> {
-  DateTime _currentMonth = DateTime.now();
+  final DateTime _currentMonth = DateTime.now();
   int _selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _mainboardCalendarController.getMainboardCalendar();
+    _mainboardCalendarController.getMainboardCalendar(isSme: false);
+    setState(() {
+      final todayMinusOne = DateTime.now().day;
+      debugPrint(todayMinusOne.toString());
+      _selectedIndex = todayMinusOne >= 0 ? todayMinusOne : 0;
+    });
   }
 
   List<DateTime> getDisplayDates(DateTime currentDate) {
@@ -163,7 +168,7 @@ class MainboardCalendarViewState extends State<MainboardCalendarView> {
                                 Container(
                                   decoration: BoxDecoration(
                                     color: day.month == _currentMonth.month
-                                        ? AppColors.black
+                                        ? AppColors.shareGreen
                                         : AppColors.white,
                                     shape: BoxShape.circle,
                                   ),
@@ -172,7 +177,7 @@ class MainboardCalendarViewState extends State<MainboardCalendarView> {
                                     '${state?.data?[(day.day - 1)].events?.length}',
                                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                           color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w800,
                                         ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -188,37 +193,39 @@ class MainboardCalendarViewState extends State<MainboardCalendarView> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
-                        children: List.generate(
-                          state?.data?[_selectedIndex].events?.length ?? 0,
-                          (index) {
-                            return Column(
-                              children: [
-                                Text(
-                                  DateFormat('dd MMMM yyyy').format(selectedDate!),
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        fontWeight: FontWeight.w800,
-                                        color: AppColors.black,
-                                      ),
+                        children: [
+                          Text(
+                            DateFormat('dd MMMM yyyy').format(selectedDate!),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w800,
+                                  color: AppColors.black,
                                 ),
-                                const SizedBox(height: 6),
-                                Row(
-                                  children: [
-                                    const Text("• ", style: TextStyle(fontSize: 20)),
-                                    Expanded(
-                                      child: Text(
-                                        "${state?.data?[_selectedIndex].events?[index].eventText}",
-                                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                              fontWeight: FontWeight.w800,
-                                              color: AppColors.shuttleGrey,
-                                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          ...List.generate(
+                            state?.data?[_selectedIndex].events?.length ?? 0,
+                            (index) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Text("• ", style: TextStyle(fontSize: 20)),
+                                      Expanded(
+                                        child: Text(
+                                          "${state?.data?[_selectedIndex].events?[index].eventText}",
+                                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                                fontWeight: FontWeight.w800,
+                                                color: AppColors.shuttleGrey,
+                                              ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     );
                   })

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/modal/blogs/blogs_model.dart';
@@ -31,13 +33,15 @@ class BlogsController extends GetxController with StateMixin<BlogsModel> {
         throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
       }
 
+      final responseData = response.data is String ? jsonDecode(response.data) : response.data;
+
       if (offset == '1' || hardLoad == true) {
         debugPrint("Offset:::::::::::$offset::::::::::::;;insertion");
-        final modal = BlogsModel.fromJson(response.data);
+        final modal = BlogsModel.fromJson(responseData);
         change(modal, status: RxStatus.success());
       } else {
         debugPrint("Offset::::::::::$offset:::::::::::::;;adding");
-        final modal = BlogsModel.fromJson(response.data);
+        final modal = BlogsModel.fromJson(responseData);
         state?.articles?.addAll(modal.articles ?? []);
         change(state, status: RxStatus.success());
       }

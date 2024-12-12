@@ -77,6 +77,12 @@ Widget buildPlaceholderSVG({required String assetPath}) {
     assetPath,
   );
 }
+Widget buildNetworkPlaceholder() {
+  return Image.network(
+    fit: BoxFit.fill,
+    "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
+  );
+}
 
 Widget buildPlaceholderIcon({required IconData icon}) {
   return Center(

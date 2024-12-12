@@ -85,8 +85,6 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                       );
                     },
                     child: Container(
-                      // clipBehavior: Clip.hardEdge,
-                      // decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 6),
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       child: Column(
                         children: [
@@ -95,10 +93,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                             height: MediaQuery.of(context).size.height * 0.22,
                             decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 0),
                             url: blog?.image,
-                            placeHolder: buildPlaceholder(
-                              name: blog?.title?[0],
-                              context: context,
-                            ),
+                            placeHolder: buildNetworkPlaceholder(),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4),
@@ -111,6 +106,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                                       ),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
                                 ),
                                 Align(
                                   alignment: Alignment.centerRight,
