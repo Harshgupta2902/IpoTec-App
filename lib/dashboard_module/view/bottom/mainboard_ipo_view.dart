@@ -6,6 +6,8 @@ import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/error_widget.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
@@ -30,10 +32,13 @@ class MainBoardIpoView extends StatelessWidget {
             itemBuilder: (context, index) {
               final data = state?.data?[index];
               return GestureDetector(
-                // onTap: () => MyNavigator.pushNamed(
-                //   GoPaths.mainBoardDetails,
-                //   extra: {'slug': data?.searchId, 'name': data?.growwShortName},
-                // ),
+                onTap: () => MyNavigator.pushNamed(
+                  GoPaths.ipoDetails,
+                  extra: {
+                    'slug': data?.href,
+                    'name': data?.companyName,
+                  },
+                ),
                 child: MainboardUpcomingCard(
                   name: data?.companyName ?? "",
                   bid: "₹${data?.price}",

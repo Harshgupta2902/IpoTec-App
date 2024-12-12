@@ -651,14 +651,25 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ipotec/dashboard_module/components/details/details_view.dart';
+import 'package:ipotec/dashboard_module/components/details/gmp_view.dart';
+import 'package:ipotec/dashboard_module/components/details/news_view.dart';
+import 'package:ipotec/dashboard_module/components/details/summary_view.dart';
 import 'package:ipotec/dashboard_module/controller/ipo_details_controller.dart';
+import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
+import 'package:ipotec/utilities/common/custom_tab_bar.dart';
+import 'package:ipotec/utilities/constants/functions.dart';
+import 'package:ipotec/utilities/theme/app_box_decoration.dart';
+import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _ipoDetailsController = Get.put(IpoDetailsController());
 
 class IpoDetailsView extends StatefulWidget {
   const IpoDetailsView({super.key, required this.slug, required this.name});
+
   final String slug;
   final String name;
 
@@ -684,8 +695,89 @@ class _IpoDetailsViewState extends State<IpoDetailsView> {
         showActions: false,
       ),
       body: _ipoDetailsController.obx((state) {
-        return Column(
-          children: [Text("data")],
+        final isSubs = state?.data?.subscription?.subscriptionData?.isEmpty == true ? false : true;
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: DefaultTabController(
+            length: isSubs ? 6 : 5,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  decoration: AppBoxDecoration.getBoxDecoration(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          state?.data?.logo?.contains("http") == true
+                              ? CachedImageNetworkContainer(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: AppBoxDecoration.getBoxDecoration(
+                                    borderRadius: 10,
+                                  ),
+                                  url: state?.data?.logo,
+                                  placeHolder: buildNetworkPlaceholder(),
+                                )
+                              : Container(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: AppBoxDecoration.getBoxDecoration(
+                                    borderRadius: 10,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    getLogoPath(widget.name ?? "-"),
+                                  ),
+                                ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              widget.name ?? "-",
+                              maxLines: 2,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                    ],
+                  ),
+                ),
+                CustomTabBar(
+                  tabList: [
+                    "Summary",
+                    "GMP",
+                    "Details",
+                    "Information",
+                    if (isSubs) "Subscription",
+                    "News"
+                  ],
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.start,
+                  height: 40,
+                  horizontalPadding: 12,
+                ),
+                const SizedBox(height: 20),
+                Flexible(
+                  child: TabBarView(
+                    children: [
+                      SummaryView(summary: state?.data?.summary, about: state?.data?.about),
+                      GmpView(gmpData: state?.data?.gmpData),
+                      DetailsView(ipoDetails: state?.data?.ipoDetails, promoterHolding: state?.data?.promoterHolding),
+                      const Text("data"),
+                      if (isSubs) const Text("data"),
+                      NewsView(news: state?.data?.news)
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       }),
     );

@@ -15,10 +15,7 @@ class MainBoardIpoController extends GetxController with StateMixin<MainboardIpo
 
       debugPrint("MainBoardIpoController => getMainboardData > Success  $response");
 
-
-      final responseData = response.data is String
-          ? jsonDecode(response.data)
-          : response.data;
+      final responseData = response.data is String ? jsonDecode(response.data) : response.data;
 
       final modal = MainboardIpoModel.fromJson(responseData);
       change(modal, status: RxStatus.success());
