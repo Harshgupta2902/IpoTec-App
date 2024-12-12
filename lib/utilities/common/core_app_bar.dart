@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
-import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
@@ -43,7 +42,6 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: Colors.black,
               ),
             )
-          // : null,
           : GestureDetector(
               onTap: () => _hiddenDrawerController.scaffoldKey.currentState?.openDrawer(),
               child: const Icon(
@@ -51,18 +49,6 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: Colors.black,
               ),
             ),
-      actions: showActions == true
-          ? [
-              GestureDetector(
-                onTap: () {
-                  MyNavigator.pushNamed(GoPaths.search);
-                },
-                child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                    child: Icon(Icons.search)),
-              ),
-            ]
-          : null,
     );
   }
 

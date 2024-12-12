@@ -36,7 +36,6 @@ isLoggedIn() {
 setStaticPref() {
   prefs.write("IS_LOGGED_IN", true);
   prefs.write("uuid", "103613902297637442609");
-  debugPrint("done");
 }
 
 clearPrefs() async {

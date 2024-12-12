@@ -13,7 +13,17 @@ import 'package:ipotec/utilities/theme/app_colors.dart';
 final _authController = Get.put(AuthController());
 final _defaultController = Get.put(DefaultApiController());
 
-enum CallApiType { gmp, subs, forms, main, sme, buyback, blogs, none }
+enum CallApiType {
+  gmp,
+  mainSubs,
+  smeSubs,
+  performance,
+  smeCalender,
+  mainCalender,
+  successIpo,
+  leaseIpo,
+  none
+}
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key, required this.callType});
@@ -197,10 +207,6 @@ class _LoginViewState extends State<LoginView> {
   }
 }
 
-
-
-
-
 class LoginCard extends StatelessWidget {
   const LoginCard({super.key});
 
@@ -317,8 +323,10 @@ class LoginCard extends StatelessWidget {
                         },
                       );
                     },
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: AppColors.primaryColor, fontWeight: FontWeight.w400),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium
+                      ?.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w400),
                 ),
                 TextSpan(
                   text: " and ",
@@ -339,8 +347,10 @@ class LoginCard extends StatelessWidget {
                         },
                       );
                     },
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: AppColors.primaryColor, fontWeight: FontWeight.w400),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium
+                      ?.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w400),
                 ),
               ],
             ),

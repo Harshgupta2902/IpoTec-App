@@ -32,7 +32,6 @@ class AuthController extends GetxController with StateMixin<UserModel> {
           "AuthController => Google sign-in successful: ${googleUser.displayName}, ${googleUser.email}");
 
       if (isLoggedIn()) {
-        fetchUserData(googleUser.id);
       } else {
         await saveGoogleUserToFirestore(googleUser);
         fetchUserData(googleUser.id);
@@ -44,10 +43,18 @@ class AuthController extends GetxController with StateMixin<UserModel> {
 
       if (type == CallApiType.gmp) {
         MyNavigator.pushReplacementNamed(GoPaths.gmp);
-      } else if (type == CallApiType.subs) {
-        MyNavigator.pushReplacementNamed(GoPaths.mainSubs);
+      } else if (type == CallApiType.mainSubs) {
+        MyNavigator.pushNamed(GoPaths.mainSubs);
+      } else if (type == CallApiType.smeSubs) {
+        MyNavigator.pushNamed(GoPaths.smeSubs);
+      } else if (type == CallApiType.performance) {
+        MyNavigator.pushNamed(GoPaths.performance);
+      } else if (type == CallApiType.mainCalender) {
+        MyNavigator.pushNamed(GoPaths.mainCalendar);
+      } else if (type == CallApiType.smeCalender) {
+        MyNavigator.pushNamed(GoPaths.smeCalendar);
       } else {
-        MyNavigator.pushReplacementNamed(GoPaths.mainBoard);
+        MyNavigator.pushNamed(GoPaths.mainBoard);
       }
 
       messageScaffold(

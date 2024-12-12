@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
+import 'package:ipotec/dashboard_module/view/policy_view.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
@@ -14,6 +15,7 @@ import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
+import 'package:share_plus/share_plus.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
 final _authController = Get.put(AuthController());
@@ -146,54 +148,86 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                       return GestureDetector(
                         onTap: () {
                           _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-                          MyNavigator.pushNamed(data?.path);
-                          // if (isLoggedIn()) {
-                          //   if (data?.path == GoPaths.policyView && data?.key == "Privacy Policy") {
-                          //     MyNavigator.pushNamed(
-                          //       GoPaths.policyView,
-                          //       extra: {
-                          //         'type': PolicyType.privacy,
-                          //         'policy': _defaultController.state?.privacy,
-                          //       },
-                          //     );
-                          //   } else if (data?.path == GoPaths.policyView &&
-                          //       data?.key == "Terms & Conditions") {
-                          //     MyNavigator.pushNamed(
-                          //       GoPaths.policyView,
-                          //       extra: {
-                          //         'type': PolicyType.terms,
-                          //         'policy': _defaultController.state?.terms,
-                          //       },
-                          //     );
-                          //   } else if (data?.path == GoPaths.contactUs) {
-                          //     launchEmail(email: "harsh1248gupta@gmail.com");
-                          //   } else {
-                          //     MyNavigator.pushNamed(data?.path);
-                          //   }
-                          // }
-                          // else if (data?.path == GoPaths.policyView &&
-                          //     data?.key == "Privacy Policy") {
-                          //   MyNavigator.pushNamed(
-                          //     GoPaths.policyView,
-                          //     extra: {
-                          //       'type': PolicyType.privacy,
-                          //       'policy': _defaultController.state?.privacy,
-                          //     },
-                          //   );
-                          // } else if (data?.path == GoPaths.policyView &&
-                          //     data?.key == "Terms & Conditions") {
-                          //   MyNavigator.pushNamed(
-                          //     GoPaths.policyView,
-                          //     extra: {
-                          //       'type': PolicyType.terms,
-                          //       'policy': _defaultController.state?.terms,
-                          //     },
-                          //   );
-                          // } else if (data?.path == GoPaths.contactUs) {
-                          //   launchEmail(email: "harsh1248gupta@gmail.com");
-                          // } else {
-                          //   MyNavigator.pushNamed(data?.path);
-                          // }
+                          // MyNavigator.pushNamed(data?.path);
+
+                          if (data?.path == GoPaths.policyView && data?.key == "Privacy Policy") {
+                            MyNavigator.pushNamed(
+                              GoPaths.policyView,
+                              extra: {
+                                'type': PolicyType.privacy,
+                                'policy': _defaultController.state?.privacy,
+                              },
+                            );
+                            return;
+                          }
+
+                          if (data?.path == GoPaths.policyView &&
+                              data?.key == "Terms & Conditions") {
+                            MyNavigator.pushNamed(
+                              GoPaths.policyView,
+                              extra: {
+                                'type': PolicyType.terms,
+                                'policy': _defaultController.state?.terms,
+                              },
+                            );
+                            return;
+                          }
+
+                          if (data?.path == GoPaths.contactUs) {
+                            launchEmail(email: "harsh1248gupta@gmail.com");
+                            return;
+                          }
+                          if (data?.path == GoPaths.share) {
+                            Share.share(
+                              '''
+Check out IPO Live GMP - Your ultimate guide to IPOs!
+
+📱 App Link: https://play.google.com/store/apps/details?id=com.ipotec&hl=en_IN
+
+IPO Live GMP provides detailed information, news, blogs, alerts, and live subscription status for Mainboard and SME IPOs. Get real-time notifications and stay updated with IPO trends.
+
+Key Features:
+👉 Explore Mainline & SME IPOs
+👉 Know About Currently Opened Buyback IPOs
+👉 Track Past IPO Performances
+👉 Conduct In-depth IPO Analysis
+👉 Follow Live Subscription Details
+👉 Review IPO Price Bands
+👉 Stay Informed on Listing & Allotment Dates
+👉 Monitor IPO Allotment Status
+👉 Track GMP (Grey Market Premium)
+👉 Stay Updated with Latest IPO Blogs
+
+📱 UI Experience
+• User-friendly interface for effortless tracking of live IPO details.
+
+📰 IPO Details
+• Live, Listed, and Upcoming IPOs at your fingertips.
+• Check live subscription times, listing prices, and allotment status.
+• Fast IPO notifications and latest GMP details.
+
+🔔 Notifications
+• Get instant notifications for new IPOs, and updates on opening, closing, and listing status.
+
+Download now and stay ahead with IPO investments!
+  ''',
+                            );
+                            return;
+                          }
+
+                          if (isLoggedIn()) {
+                            MyNavigator.pushNamed(data?.path);
+                          } else {
+                            if (data?.path != null || data?.path != "") {
+                              MyNavigator.pushNamed(
+                                GoPaths.login,
+                                extra: {
+                                  'type': getCallApiTypeFromPath(data?.path ?? ""),
+                                },
+                              );
+                              return;
+                            }
+                          }
                         },
                         child: Container(
                           margin: const EdgeInsets.all(4),

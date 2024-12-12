@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
@@ -84,8 +85,31 @@ String getDrawerLogo(String title) {
       return AssetPath.policy;
     case 'Contact Us':
       return AssetPath.call;
+    case 'Share with Friends':
+      return AssetPath.share;
     default:
       return AssetPath.mainBoard;
+  }
+}
+
+CallApiType getCallApiTypeFromPath(String path) {
+  switch (path) {
+    case "/mainSubs":
+      return CallApiType.mainSubs;
+    case "/smeSubs":
+      return CallApiType.smeSubs;
+    case "/performance":
+      return CallApiType.performance;
+    case "/mainCalendar":
+      return CallApiType.mainCalender;
+    case "/smeCalendar":
+      return CallApiType.smeCalender;
+    case "/mostSuccessIpo":
+      return CallApiType.successIpo;
+    case "/leastSuccessIpo":
+      return CallApiType.leaseIpo;
+    default:
+      return CallApiType.none;
   }
 }
 

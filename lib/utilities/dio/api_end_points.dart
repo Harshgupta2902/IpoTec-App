@@ -17,7 +17,8 @@ class APIEndPoints {
   static const gmp = "gmp";
 
   static const performance = "performance";
-
+  static const  mostSuccessfulIpo = '/mostsuccessfulipo';
+  static const  leastSuccessfulIpo = '/leastsuccessfulipo';
 
 
   static const ipoDetails = "ipo-details";
@@ -27,7 +28,6 @@ class APIEndPoints {
   static const commonDetails = "common-details";
   static const blogs = "blogs";
 
-  static const search = "search";
 
   static const updateFcm = "update-fcm";
 }

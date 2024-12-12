@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/components/mainboard_upcoming_card.dart';
 import 'package:ipotec/dashboard_module/controller/bottom/mainboard_ipo_controller.dart';
+import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/error_widget.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
+final _defaultApiController = Get.put(DefaultApiController());
 
 class MainBoardIpoView extends StatelessWidget {
   const MainBoardIpoView({super.key});
@@ -61,7 +63,10 @@ class MainBoardIpoView extends StatelessWidget {
           );
         },
         onError: (error) => TryAgainWidget(
-          onTap: () => _mainBoardIpoController.getMainboardData(type: "upcoming"),
+          onTap: () {
+            _mainBoardIpoController.getMainboardData(type: "upcoming");
+            _defaultApiController.getDefaultData();
+          },
         ),
       ),
       floatingActionButton: _offsetPopup(),

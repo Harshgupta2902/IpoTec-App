@@ -5,15 +5,16 @@ import 'package:ipotec/dashboard_module/view/blogs/blogs_main_view.dart';
 import 'package:ipotec/dashboard_module/view/bottom/mainboard_ipo_details_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/ipo_gmp_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/ipo_performance_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/least_successful_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/mainboard_calendar_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/mainboard_ipo_subs_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/most_successful_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/sme_calendar_view.dart';
 import 'package:ipotec/dashboard_module/view/drawer/sme_ipo_subs_view.dart';
 import 'package:ipotec/dashboard_module/view/no_internet.dart';
 import 'package:ipotec/dashboard_module/view/policy_view.dart';
 import 'package:ipotec/dashboard_module/view/bottom/mainboard_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/landing_view.dart';
-import 'package:ipotec/dashboard_module/view/search_main_view.dart';
 import 'package:ipotec/dashboard_module/view/bottom/sme_ipo_view.dart';
 import 'package:ipotec/dashboard_module/view/web_view.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
@@ -124,6 +125,23 @@ final GoRouter goRouterConfig = GoRouter(
         return const IpoPerformanceView();
       },
     ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.mostSuccessfulIpo,
+      name: GoPaths.mostSuccessfulIpo,
+      builder: (context, state) {
+        return const MostSuccessfulIpoView();
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.leastSuccessfulIpo,
+      name: GoPaths.leastSuccessfulIpo,
+      builder: (context, state) {
+        return const LeastSuccessfulIpoView();
+      },
+    ),
 
     // ------------------   Subscription Page Routes   ---------------------------
 
@@ -179,17 +197,6 @@ final GoRouter goRouterConfig = GoRouter(
           url: url,
           title: title,
         );
-      },
-    ),
-
-    // ------------------   SEARCH Routes   ---------------------------
-
-    GoRoute(
-      parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.search,
-      name: GoPaths.search,
-      builder: (context, state) {
-        return const SearchMainView();
       },
     ),
   ],

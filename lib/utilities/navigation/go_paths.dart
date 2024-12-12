@@ -16,16 +16,14 @@ class GoPaths {
 
   static const String performance = '/performance';
 
-
-
-
-
+  static const String mostSuccessfulIpo = '/mostSuccessIpo';
+  static const String leastSuccessfulIpo = '/leastSuccessIpo';
 
   static const String mainBoardDetails = '/mainBoard-details';
-  static const String search = '/search';
 
   static const String webView = '/webView';
   static const String noInternet = '/noInternet';
   static const String policyView = '/policyView';
   static const String contactUs = '/contact-us';
+  static const String share = '/share';
 }
