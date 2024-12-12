@@ -50,6 +50,7 @@ dependencies:
   firebase_auth: ^4.16.0
   in_app_review: ^2.0.9
   flutter_html: ^3.0.0-beta.2
+  fl_chart: ^0.69.2
 
 dev_dependencies:
   flutter_test:

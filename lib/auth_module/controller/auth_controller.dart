@@ -43,11 +43,11 @@ class AuthController extends GetxController with StateMixin<UserModel> {
       }
 
       if (type == CallApiType.gmp) {
-        MyNavigator.pushNamed(GoPaths.gmp);
+        MyNavigator.pushReplacementNamed(GoPaths.gmp);
       } else if (type == CallApiType.subs) {
-        MyNavigator.pushNamed(GoPaths.mainSubs);
+        MyNavigator.pushReplacementNamed(GoPaths.mainSubs);
       } else {
-        MyNavigator.pushNamed(GoPaths.mainBoard);
+        MyNavigator.pushReplacementNamed(GoPaths.mainBoard);
       }
 
       messageScaffold(

@@ -114,7 +114,7 @@ final GoRouter goRouterConfig = GoRouter(
       },
     ),
 
-    // ------------------   Performance Page Routes   ---------------------------
+    // ------------------   Extras Page Routes   ---------------------------
 
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,

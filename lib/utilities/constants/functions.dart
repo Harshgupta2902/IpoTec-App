@@ -70,8 +70,6 @@ String getDrawerLogo(String title) {
       return AssetPath.sme;
     case 'Ipo Performance':
       return AssetPath.performance;
-    case 'Ipo Overview':
-      return AssetPath.overview;
     case 'Mainboard Ipo Calendar':
       return AssetPath.calendar;
     case 'SME Ipo Calendar':

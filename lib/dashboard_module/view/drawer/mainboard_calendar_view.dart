@@ -172,7 +172,7 @@ class MainboardCalendarViewState extends State<MainboardCalendarView> {
                                         : AppColors.white,
                                     shape: BoxShape.circle,
                                   ),
-                                  padding: EdgeInsets.all(6),
+                                  padding: const EdgeInsets.all(6),
                                   child: Text(
                                     '${state?.data?[(day.day - 1)].events?.length}',
                                     style: Theme.of(context).textTheme.titleSmall?.copyWith(

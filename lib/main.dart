@@ -13,7 +13,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/analytics_service.dart';
-import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/firebase/crashlytics_service.dart';
 import 'package:ipotec/utilities/firebase/notification_service.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
@@ -35,9 +34,6 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await GetStorage.init();
-  if (!kReleaseMode) {
-    setStaticPref();
-  }
 
   if (Platform.isAndroid) {
     await Firebase.initializeApp(
