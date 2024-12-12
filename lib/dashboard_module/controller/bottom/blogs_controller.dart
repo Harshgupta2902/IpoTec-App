@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/dashboard_module/modal/blogs/blogs_model.dart';
+import 'package:ipotec/dashboard_module/modal/bottom/blogs_model.dart';
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';
 
@@ -29,9 +29,6 @@ class BlogsController extends GetxController with StateMixin<BlogsModel> {
 
       debugPrint("BlogsController =>  getBlogs > Success ${response.data} ");
 
-      if (response.statusCode != 200) {
-        throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
-      }
 
       final responseData = response.data is String ? jsonDecode(response.data) : response.data;
 

@@ -15,9 +15,7 @@ class MainBoardIpoController extends GetxController with StateMixin<MainboardIpo
 
       debugPrint("MainBoardIpoController => getMainboardData > Success  $response");
 
-      if (response.statusCode != 200) {
-        throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
-      }
+
       final responseData = response.data is String
           ? jsonDecode(response.data)
           : response.data;

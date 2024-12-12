@@ -37,6 +37,9 @@ Future<Response> postRequest({
   final response = await client.post(apiEndPoint, data: formData, queryParameters: postData);
 
   debugPrint("~~~~~~~~~~~~~~~~~~~~ $apiEndPoint postRequest End ~~~~~~~~~~~~~~~~~~~~ ");
+  if (response.statusCode != 200) {
+    throw Exception('Failed to load data: ${response.statusCode}');
+  }
 
   return response;
 }

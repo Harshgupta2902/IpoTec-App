@@ -15,9 +15,6 @@ class IpoGmpController extends GetxController with StateMixin<IpoGmpModel> {
 
       debugPrint("IpoGmpController => getGmpData > Success  $response");
 
-      if (response.statusCode != 200) {
-        throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
-      }
 
       final responseData = response.data is String ? jsonDecode(response.data) : response.data;
 

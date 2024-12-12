@@ -8,6 +8,8 @@ class APIEndPoints {
   static const ipo = "mainboard";
   static const sme = "sme";
 
+  static const details = "details";
+
   static const mainSubs = "mainSubs";
   static const smeSubs = "smeSubs";
 
@@ -17,17 +19,9 @@ class APIEndPoints {
   static const gmp = "gmp";
 
   static const performance = "performance";
-  static const  mostSuccessfulIpo = '/mostsuccessfulipo';
-  static const  leastSuccessfulIpo = '/leastsuccessfulipo';
+  static const mostSuccessfulIpo = '/mostsuccessfulipo';
+  static const leastSuccessfulIpo = '/leastsuccessfulipo';
 
-
-  static const ipoDetails = "ipo-details";
-
-  static const forms = "forms";
-
-  static const commonDetails = "common-details";
   static const blogs = "blogs";
-
-
   static const updateFcm = "update-fcm";
 }
