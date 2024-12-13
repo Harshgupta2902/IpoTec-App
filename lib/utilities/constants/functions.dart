@@ -236,6 +236,15 @@ launchEmail({String? email}) async {
   }
 }
 
+Future<void> openUrlInBrowser(String url) async {
+  final uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
 Color getPercentageColor(String percentage) {
   double value = double.tryParse(percentage.replaceAll('%', '')) ?? 0.0;
   return value < 0 ? AppColors.cadmiumRed : AppColors.shareGreen;

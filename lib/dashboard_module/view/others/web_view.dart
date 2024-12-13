@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
+import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 
 class WebView extends StatefulWidget {
@@ -32,9 +33,14 @@ class _WebViewState extends State<WebView> {
       child: Scaffold(
         appBar: CoreAppBar(
           showBackButton: true,
-          showActions: false,
           centerTitle: false,
           title: widget.title,
+          openBrowser: GestureDetector(
+            onTap: () async {
+              await openUrlInBrowser(widget.url);
+            },
+            child: const Icon(Icons.open_in_browser),
+          ),
         ),
         body: InAppWebView(
           initialUrlRequest: URLRequest(url: Uri.parse(currentUrl ?? widget.url)),
@@ -48,7 +54,7 @@ class _WebViewState extends State<WebView> {
           ),
           onLoadStart: (controller, url) async {
             debugPrint("onLoadStart:::::::::$url");
-            if (url.toString() != widget.url) {
+            if (url.toString().replaceAll("#goog_rewarded", "") != widget.url) {
               MyNavigator.pop();
             }
             if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
@@ -57,7 +63,7 @@ class _WebViewState extends State<WebView> {
           },
           onLoadError: (controller, url, code, message) async {
             debugPrint("onLoadError:::::::::$url");
-            if (url.toString() != widget.url) {
+            if (url.toString().replaceAll("#goog_rewarded", "") != widget.url) {
               MyNavigator.pop();
             }
           },
@@ -66,7 +72,7 @@ class _WebViewState extends State<WebView> {
             if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
               evaluateScript(controller);
             }
-            if (url.toString() != widget.url) {
+            if (url.toString().replaceAll("#goog_rewarded", "") != widget.url) {
               MyNavigator.pop();
             }
           },
@@ -83,7 +89,8 @@ class _WebViewState extends State<WebView> {
 }
 
 void evaluateScript(InAppWebViewController controller) async {
-  await controller.evaluateJavascript(source: """
+  await controller.evaluateJavascript(
+    source: """
               document.querySelectorAll('a').forEach(function(link) {
                 link.onclick = function(event) {
                   event.preventDefault();
@@ -99,5 +106,6 @@ void evaluateScript(InAppWebViewController controller) async {
             // document.querySelector('.bs91SidebarLinks').remove();
             // document.querySelector('.bmp88Disclaimer').remove();
 
-            """);
+            """,
+  );
 }

@@ -54,6 +54,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: const CoreAppBar(
         title: "Blogs",
         centerTitle: false,
@@ -71,7 +72,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
           });
           return _blogsController.obx(
             (state) {
-              return ListView.builder(
+              return ListView.separated(
                 itemBuilder: (context, index) {
                   final blog = state?.articles?[index];
                   return GestureDetector(
@@ -85,7 +86,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                       );
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                       child: Column(
                         children: [
                           CachedImageNetworkContainer(
@@ -127,6 +128,9 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                   );
                 },
                 itemCount: state?.articles?.length ?? 0,
+                separatorBuilder: (context, index) {
+                  return const Divider(color: AppColors.silverChalice30);
+                },
               );
             },
             onError: (error) => TryAgainWidget(

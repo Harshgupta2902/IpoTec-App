@@ -104,7 +104,7 @@ class AuthController extends GetxController with StateMixin<UserModel> {
       currentUser.value = null;
       debugPrint("AuthController => Signed out from Google");
       messageScaffold(
-        content: "Logout Successful",
+        content: "User Logged Out",
         messageScaffoldType: MessageScaffoldType.success,
       );
     } catch (e) {
