@@ -6,14 +6,18 @@ class AssetPath {
 
   static const mainBoard = "${_bottom}mainBoard.svg";
   static const sme = "${_bottom}sme.svg";
-  static const buyBack = "${_bottom}buyBack.svg";
   static const blogs = "${_bottom}blogs.svg";
-  static const forms = "${_bottom}forms.svg";
   static const gmp = "${_bottom}gmp.svg";
   static const subs = "${_bottom}subs.svg";
+  static const calendar = "${_bottom}calendar.svg";
+  static const high = "${_bottom}high.svg";
+  static const low = "${_bottom}low.svg";
+  static const performance = "${_bottom}performance.png";
   static const terms = "${_bottom}terms.svg";
   static const policy = "${_bottom}policy.svg";
   static const call = "${_bottom}call.svg";
+  static const share = "${_bottom}share.svg";
+  static const allotment = "${_bottom}allotment.svg";
 
   static const liveLottie = "${_lottie}live.json";
   static const emptyLottie = "${_lottie}empty.json";

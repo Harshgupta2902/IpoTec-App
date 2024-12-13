@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
-import 'package:ipotec/dashboard_module/view/blogs/blogs_main_view.dart';
-import 'package:ipotec/dashboard_module/view/buyback/buyback_ipo_details_view.dart';
-import 'package:ipotec/dashboard_module/view/buyback/buyback_ipo_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/common_details_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/ipo_forms_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/ipo_gmp_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/ipo_subs_view.dart';
-import 'package:ipotec/dashboard_module/view/no_internet.dart';
-import 'package:ipotec/dashboard_module/view/policy_view.dart';
-import 'package:ipotec/dashboard_module/view/upcoming/mainboard_ipo_details_view.dart';
-import 'package:ipotec/dashboard_module/view/upcoming/mainboard_ipo_view.dart';
-import 'package:ipotec/dashboard_module/view/landingview.dart';
-import 'package:ipotec/dashboard_module/view/search_main_view.dart';
-import 'package:ipotec/dashboard_module/view/upcoming/sme_ipo_view.dart';
-import 'package:ipotec/dashboard_module/view/web_view.dart';
+import 'package:ipotec/dashboard_module/view/bottom/blogs_main_view.dart';
+import 'package:ipotec/dashboard_module/view/bottom/ipo_gmp_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/ipo_performance_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/least_successful_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/mainboard_calendar_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/mainboard_ipo_subs_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/most_successful_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/sme_calendar_view.dart';
+import 'package:ipotec/dashboard_module/view/drawer/sme_ipo_subs_view.dart';
+import 'package:ipotec/dashboard_module/view/ipo_details_view.dart';
+import 'package:ipotec/dashboard_module/view/others/no_internet.dart';
+import 'package:ipotec/dashboard_module/view/others/policy_view.dart';
+import 'package:ipotec/dashboard_module/view/bottom/mainboard_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/landing_view.dart';
+import 'package:ipotec/dashboard_module/view/bottom/sme_ipo_view.dart';
+import 'package:ipotec/dashboard_module/view/others/web_view.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -51,10 +52,10 @@ final GoRouter goRouterConfig = GoRouter(
         ),
         GoRoute(
           parentNavigatorKey: shellNavigatorKey,
-          path: GoPaths.buyBack,
-          name: GoPaths.buyBack,
+          path: GoPaths.gmp,
+          name: GoPaths.gmp,
           builder: (context, state) {
-            return const BuybackIpoView();
+            return const IpoGmpView();
           },
         ),
         GoRoute(
@@ -69,50 +70,6 @@ final GoRouter goRouterConfig = GoRouter(
     ),
 
     // ------------------   Registration Page Routes   ---------------------------
-    GoRoute(
-      parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.mainBoardDetails,
-      name: GoPaths.mainBoardDetails,
-      builder: (context, state) {
-        final extras = state.extra as Map<String, dynamic>;
-        final slug = extras['slug'];
-        final name = extras['name'];
-        return MainboardIpoDetailsView(
-          slug: slug,
-          name: name,
-        );
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.commonDetails,
-      name: GoPaths.commonDetails,
-      builder: (context, state) {
-        final extras = state.extra as Map<String, dynamic>;
-        final slug = extras['slug'];
-        final name = extras['name'];
-        return CommonDetailsView(
-          slug: slug,
-          name: name,
-        );
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.forms,
-      name: GoPaths.forms,
-      builder: (context, state) {
-        return const IpoFormsView();
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.gmp,
-      name: GoPaths.gmp,
-      builder: (context, state) {
-        return const IpoGmpView();
-      },
-    ),
 
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
@@ -125,14 +82,73 @@ final GoRouter goRouterConfig = GoRouter(
       },
     ),
 
+    // ------------------   Calendar Page Routes   ---------------------------
+
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.subs,
-      name: GoPaths.subs,
+      path: GoPaths.mainCalendar,
+      name: GoPaths.mainCalendar,
       builder: (context, state) {
-        return const IpoSubsView();
+        return const MainboardCalendarView();
       },
     ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.smeCalendar,
+      name: GoPaths.smeCalendar,
+      builder: (context, state) {
+        return const SmeCalendarView();
+      },
+    ),
+
+    // ------------------   Extras Page Routes   ---------------------------
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.performance,
+      name: GoPaths.performance,
+      builder: (context, state) {
+        return const IpoPerformanceView();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.mostSuccessfulIpo,
+      name: GoPaths.mostSuccessfulIpo,
+      builder: (context, state) {
+        return const MostSuccessfulIpoView();
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.leastSuccessfulIpo,
+      name: GoPaths.leastSuccessfulIpo,
+      builder: (context, state) {
+        return const LeastSuccessfulIpoView();
+      },
+    ),
+
+    // ------------------   Subscription Page Routes   ---------------------------
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.mainSubs,
+      name: GoPaths.mainSubs,
+      builder: (context, state) {
+        return const MainBoardIpoSubsView();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.smeSubs,
+      name: GoPaths.smeSubs,
+      builder: (context, state) {
+        return const SmeIpoSubsView();
+      },
+    ),
+
+    // ------------------   OTHER EXTRA  Routes   ---------------------------
 
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
@@ -142,6 +158,7 @@ final GoRouter goRouterConfig = GoRouter(
         return const NoInternet();
       },
     ),
+
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       path: GoPaths.policyView,
@@ -151,21 +168,6 @@ final GoRouter goRouterConfig = GoRouter(
         final type = extras['type'];
         final policy = extras['policy'];
         return PolicyView(type: type, policy: policy);
-      },
-    ),
-
-    GoRoute(
-      parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.buyBackDetails,
-      name: GoPaths.buyBackDetails,
-      builder: (context, state) {
-        final extras = state.extra as Map<String, dynamic>;
-        final slug = extras['slug'];
-        final name = extras['name'];
-        return BuybackIpoDetailsView(
-          slug: slug,
-          name: name,
-        );
       },
     ),
 
@@ -182,14 +184,15 @@ final GoRouter goRouterConfig = GoRouter(
           title: title,
         );
       },
-    ),
-
-    GoRoute(
+    ),GoRoute(
       parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.search,
-      name: GoPaths.search,
+      path: GoPaths.ipoDetails,
+      name: GoPaths.ipoDetails,
       builder: (context, state) {
-        return const SearchMainView();
+        final extras = state.extra as Map<String, dynamic>;
+        final slug = extras['slug'];
+        final name = extras['name'];
+        return IpoDetailsView(slug: slug, name: name);
       },
     ),
   ],

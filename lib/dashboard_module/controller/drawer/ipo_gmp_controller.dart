@@ -1,6 +1,7 @@
+import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:ipotec/dashboard_module/modal/drawer/ipo_gmp_model.dart';
+import 'package:ipotec/dashboard_module/modal/bottom/ipo_gmp_model.dart';
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';
 
@@ -14,11 +15,10 @@ class IpoGmpController extends GetxController with StateMixin<IpoGmpModel> {
 
       debugPrint("IpoGmpController => getGmpData > Success  $response");
 
-      if (response.statusCode != 200) {
-        throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
-      }
 
-      final modal = IpoGmpModel.fromJson(response.data);
+      final responseData = response.data is String ? jsonDecode(response.data) : response.data;
+
+      final modal = IpoGmpModel.fromJson(responseData);
       change(modal, status: RxStatus.success());
     } catch (error) {
       debugPrint("---------- $apiEndPoint getGmpData End With Error ----------");

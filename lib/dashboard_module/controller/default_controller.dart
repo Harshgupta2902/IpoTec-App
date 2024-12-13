@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotec/dashboard_module/modal/default_model.dart';
@@ -14,11 +16,12 @@ class DefaultApiController extends GetxController with StateMixin<DefaultModel> 
 
       debugPrint("DefaultApiController => getDefaultData > Success  $response");
 
-      if (response.statusCode != 200) {
-        throw 'API ERROR ${response.statusCode} Message ${response.statusMessage}';
-      }
 
-      final modal = DefaultModel.fromJson(response.data);
+      final responseData = response.data is String
+          ? jsonDecode(response.data)
+          : response.data;
+
+      final modal = DefaultModel.fromJson(responseData);
       change(modal, status: RxStatus.success());
     } catch (error) {
       debugPrint("---------- $apiEndPoint getDefaultData End With Error ----------");

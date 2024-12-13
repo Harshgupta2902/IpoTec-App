@@ -5,10 +5,9 @@ import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
-import 'package:ipotec/dashboard_module/view/policy_view.dart';
+import 'package:ipotec/dashboard_module/view/others/policy_view.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
-import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
@@ -16,6 +15,7 @@ import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
+import 'package:share_plus/share_plus.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
 final _authController = Get.put(AuthController());
@@ -31,39 +31,6 @@ class DefaultCustomDrawer extends StatefulWidget {
 }
 
 class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerProviderStateMixin {
-  final List<KeyValuePairModel> menuItems = [
-    KeyValuePairModel(
-      key: "IPO GMP",
-      value: AssetPath.gmp,
-      extra: GoPaths.gmp,
-    ),
-    KeyValuePairModel(
-      key: "IPO Subscription",
-      value: AssetPath.subs,
-      extra: GoPaths.subs,
-    ),
-    KeyValuePairModel(
-      key: "Upcoming IPO",
-      value: AssetPath.mainBoard,
-      extra: GoPaths.mainBoard,
-    ),
-    KeyValuePairModel(
-      key: "SME IPO",
-      value: AssetPath.sme,
-      extra: GoPaths.sme,
-    ),
-    KeyValuePairModel(
-      key: "BuyBack IPO",
-      value: AssetPath.buyBack,
-      extra: GoPaths.buyBack,
-    ),
-    KeyValuePairModel(
-      key: "IPO Forms",
-      value: AssetPath.forms,
-      extra: GoPaths.forms,
-    )
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -140,9 +107,12 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                               : GestureDetector(
                                   onTap: () {
                                     _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-                                    MyNavigator.pushNamed(GoPaths.login, extra: {
-                                      'type': CallApiType.none,
-                                    });
+                                    MyNavigator.pushNamed(
+                                      GoPaths.login,
+                                      extra: {
+                                        'type': CallApiType.none,
+                                      },
+                                    );
                                   },
                                   child: Text(
                                     "Click Here To Sign In",
@@ -169,7 +139,7 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                     ],
                   ),
                 ),
-                Expanded(
+                Flexible(
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _defaultController.state?.menuItems?.length ?? 0,
@@ -178,18 +148,9 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                       return GestureDetector(
                         onTap: () {
                           _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-                          if (isLoggedIn()) {
-                            MyNavigator.pushNamed(data?.path);
-                          } else if (data?.path == GoPaths.gmp || data?.path == GoPaths.subs) {
-                            MyNavigator.pushNamed(
-                              GoPaths.login,
-                              extra: {
-                                'type':
-                                    data?.path == GoPaths.gmp ? CallApiType.gmp : CallApiType.subs
-                              },
-                            );
-                          } else if (data?.path == GoPaths.policyView &&
-                              data?.key == "Privacy Policy") {
+                          // MyNavigator.pushNamed(data?.path);
+
+                          if (data?.path == GoPaths.policyView && data?.key == "Privacy Policy") {
                             MyNavigator.pushNamed(
                               GoPaths.policyView,
                               extra: {
@@ -197,7 +158,10 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                                 'policy': _defaultController.state?.privacy,
                               },
                             );
-                          } else if (data?.path == GoPaths.policyView &&
+                            return;
+                          }
+
+                          if (data?.path == GoPaths.policyView &&
                               data?.key == "Terms & Conditions") {
                             MyNavigator.pushNamed(
                               GoPaths.policyView,
@@ -206,14 +170,67 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                                 'policy': _defaultController.state?.terms,
                               },
                             );
-                          } else if (data?.path == GoPaths.contactUs) {
+                            return;
+                          }
+
+                          if (data?.path == GoPaths.contactUs) {
                             launchEmail(email: "harsh1248gupta@gmail.com");
-                          } else {
+                            return;
+                          }
+                          if (data?.path == GoPaths.share) {
+                            Share.share(
+                              '''
+Check out IPO Live GMP - Your ultimate guide to IPOs!
+
+📱 App Link: https://play.google.com/store/apps/details?id=com.ipotec&hl=en_IN
+
+IPO Live GMP provides detailed information, news, blogs, alerts, and live subscription status for Mainboard and SME IPOs. Get real-time notifications and stay updated with IPO trends.
+
+Key Features:
+👉 Explore Mainline & SME IPOs
+👉 Know About Currently Opened Buyback IPOs
+👉 Track Past IPO Performances
+👉 Conduct In-depth IPO Analysis
+👉 Follow Live Subscription Details
+👉 Review IPO Price Bands
+👉 Stay Informed on Listing & Allotment Dates
+👉 Monitor IPO Allotment Status
+👉 Track GMP (Grey Market Premium)
+👉 Stay Updated with Latest IPO Blogs
+
+📱 UI Experience
+• User-friendly interface for effortless tracking of live IPO details.
+
+📰 IPO Details
+• Live, Listed, and Upcoming IPOs at your fingertips.
+• Check live subscription times, listing prices, and allotment status.
+• Fast IPO notifications and latest GMP details.
+
+🔔 Notifications
+• Get instant notifications for new IPOs, and updates on opening, closing, and listing status.
+
+Download now and stay ahead with IPO investments!
+  ''',
+                            );
+                            return;
+                          }
+
+                          if (isLoggedIn()) {
                             MyNavigator.pushNamed(data?.path);
+                          } else {
+                            if (data?.path != null || data?.path != "") {
+                              MyNavigator.pushNamed(
+                                GoPaths.login,
+                                extra: {
+                                  'type': getCallApiTypeFromPath(data?.path ?? ""),
+                                },
+                              );
+                              return;
+                            }
                           }
                         },
                         child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                          margin: const EdgeInsets.all(4),
                           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                           decoration: AppBoxDecoration.getBoxDecoration(
                             showShadow: false,
@@ -283,28 +300,6 @@ Widget dynamicImage({
   double? height,
   double? width,
 }) {
-  final isNetworkImage = image?.startsWith("https") == true;
-
-  if (isNetworkImage == true) {
-    if (image!.endsWith(".svg")) {
-      return SvgPicture.network(
-        image,
-        height: height ?? 24,
-        width: width ?? 24,
-        semanticsLabel: 'Custom Image',
-        fit: BoxFit.fill,
-      );
-    }
-    if (image.endsWith(".png")) {
-      return Image.network(
-        image,
-        height: height ?? 24,
-        width: width ?? 24,
-        fit: BoxFit.fill,
-      );
-    }
-  }
-
   if (image!.contains(".png")) {
     return Image.asset(
       image,

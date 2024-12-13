@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
+import 'package:ipotec/utilities/theme/app_colors.dart';
 
 class CoreNotificationService {
   final _firebaseMessaging = FirebaseMessaging.instance;
@@ -18,11 +19,14 @@ class CoreNotificationService {
     await getToken();
 
     const initializationSettingsAndroid = AndroidInitializationSettings('mipmap/ic_notification');
-    final initializationSettingsDarwin = DarwinInitializationSettings(
-      onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
+    const initializationSettingsDarwin = DarwinInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
+      // onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
     );
 
-    final InitializationSettings initializationSettings = InitializationSettings(
+    const InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsDarwin,
     );
@@ -33,7 +37,6 @@ class CoreNotificationService {
       onDidReceiveNotificationResponse: (NotificationResponse details) {
         try {
           final Map payload = json.decode(details.payload ?? "");
-
           onNotificationClicked(payload: payload);
         } catch (e) {
           logger.e("onDidReceiveNotificationResponse error $e");
@@ -72,37 +75,17 @@ class CoreNotificationService {
     }
   }
 
-  void _onDidReceiveLocalNotification(
-    int id,
-    String? title,
-    String? body,
-    String? payload,
-  ) async {
-    try {
-      final Map? payLoadMap = json.decode(payload ?? "");
-
-      if (payLoadMap == null) {
-        throw "error";
-      }
-      onNotificationClicked(payload: payLoadMap);
-    } catch (e) {
-      logger.e("onDidReceiveNotificationResponse error $e");
-    }
-  }
-
   static void createNotification(RemoteMessage message) async {
     try {
       final title = message.notification?.title ?? "Default Title";
       final body = message.notification?.body ?? "Default Body";
       final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       const androidNotificationDetails = AndroidNotificationDetails(
-        'pushnotification',
-        'pushnotification',
-        importance: Importance.max,
-        priority: Priority.high,
-        // styleInformation: BigPictureStyleInformation(DrawableResourceAndroidBitmap('ic_notification'), largeIcon:  DrawableResourceAndroidBitmap('ic_notification')),
-        // largeIcon: DrawableResourceAndroidBitmap('mipmap/ic_launcher'),
-      );
+          'pushnotification', 'pushnotification',
+          importance: Importance.max, priority: Priority.high, color: AppColors.white
+          // styleInformation: BigPictureStyleInformation(DrawableResourceAndroidBitmap('ic_notification'), largeIcon:  DrawableResourceAndroidBitmap('ic_notification')),
+          // largeIcon: DrawableResourceAndroidBitmap('mipmap/ic_launcher'),
+          );
 
       const iosNotificationDetail = DarwinNotificationDetails();
 

@@ -1,7 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:flutter/material.dart';
+import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -63,24 +65,51 @@ String getDrawerLogo(String title) {
   switch (title) {
     case 'IPO GMP':
       return AssetPath.gmp;
-    case 'IPO Subscription':
+    case 'Mainboard Subscription':
       return AssetPath.subs;
-    case 'Upcoming IPO':
-      return AssetPath.mainBoard;
-    case 'SME IPO':
+    case 'SME Subscription':
       return AssetPath.sme;
-    case 'BuyBack IPO':
-      return AssetPath.buyBack;
-    case 'IPO Forms':
-      return AssetPath.forms;
+    case 'Ipo Performance':
+      return AssetPath.performance;
+    case 'Mainboard Ipo Calendar':
+      return AssetPath.calendar;
+    case 'SME Ipo Calendar':
+      return AssetPath.calendar;
+    case 'Most Successful Ipo':
+      return AssetPath.high;
+    case 'Least Successful Ipo':
+      return AssetPath.low;
     case 'Terms & Conditions':
       return AssetPath.terms;
     case 'Privacy Policy':
       return AssetPath.policy;
     case 'Contact Us':
       return AssetPath.call;
+    case 'Share with Friends':
+      return AssetPath.share;
     default:
       return AssetPath.mainBoard;
+  }
+}
+
+CallApiType getCallApiTypeFromPath(String path) {
+  switch (path) {
+    case "/mainSubs":
+      return CallApiType.mainSubs;
+    case "/smeSubs":
+      return CallApiType.smeSubs;
+    case "/performance":
+      return CallApiType.performance;
+    case "/mainCalendar":
+      return CallApiType.mainCalender;
+    case "/smeCalendar":
+      return CallApiType.smeCalender;
+    case "/mostSuccessIpo":
+      return CallApiType.successIpo;
+    case "/leastSuccessIpo":
+      return CallApiType.leaseIpo;
+    default:
+      return CallApiType.none;
   }
 }
 
@@ -205,4 +234,25 @@ launchEmail({String? email}) async {
   } else {
     debugPrint("Could not launch email");
   }
+}
+
+Future<void> openUrlInBrowser(String url) async {
+  final uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+Color getPercentageColor(String percentage) {
+  double value = double.tryParse(percentage.replaceAll('%', '')) ?? 0.0;
+  return value < 0 ? AppColors.cadmiumRed : AppColors.shareGreen;
+}
+
+Color getPriceComparisonColor(String currentPrice, String issuePrice) {
+  double current = double.tryParse(currentPrice.replaceAll('₹', '').trim()) ?? 0.0;
+  double issue = double.tryParse(issuePrice.replaceAll('₹', '').trim()) ?? 0.0;
+
+  return current > issue ? AppColors.cadmiumRed : AppColors.shareGreen;
 }
