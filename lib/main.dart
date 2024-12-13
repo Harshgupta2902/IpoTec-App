@@ -48,10 +48,6 @@ void main() async {
       ),
     );
   }
-  if (Platform.isIOS) {
-    await Firebase.initializeApp();
-  }
-
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

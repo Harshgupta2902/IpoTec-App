@@ -239,6 +239,7 @@ class SubscriptionData {
     this.subscriptionTimes,
     this.sharesOffered,
     this.sharesBidFor,
+    this.totalAmount,
   });
 
   SubscriptionData.fromJson(dynamic json) {
@@ -246,11 +247,13 @@ class SubscriptionData {
     subscriptionTimes = json['subscriptionTimes'];
     sharesOffered = json['sharesOffered'];
     sharesBidFor = json['sharesBidFor'];
+    totalAmount = json['totalAmount'];
   }
   String? investorCategory;
   String? subscriptionTimes;
   String? sharesOffered;
   String? sharesBidFor;
+  String? totalAmount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -258,6 +261,7 @@ class SubscriptionData {
     map['subscriptionTimes'] = subscriptionTimes;
     map['sharesOffered'] = sharesOffered;
     map['sharesBidFor'] = sharesBidFor;
+    map['totalAmount'] = totalAmount;
     return map;
   }
 }

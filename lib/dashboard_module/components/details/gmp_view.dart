@@ -15,32 +15,34 @@ class _GmpViewState extends State<GmpView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Table(
-          border: TableBorder.all(color: AppColors.silverChalice30, width: 1),
-          columnWidths: const {
-            0: FlexColumnWidth(3),
-            1: FlexColumnWidth(2),
-            2: FlexColumnWidth(2),
-            3: FlexColumnWidth(1),
-          },
-          children: [
-            TableRow(
-              children: [
-                _buildTableCell("Date", isHeader: true, color: AppColors.black),
-                _buildTableCell("Price", isHeader: true, color: AppColors.black),
-                _buildTableCell("GMP", isHeader: true, color: AppColors.black),
-                _buildTableCell("", isHeader: true),
-              ],
-            ),
-          ],
-        ),
-        ...List.generate(
-          widget.gmpData?.length ?? 0,
-          (index) => _buildExpandableRow(index, widget.gmpData?[index]),
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Table(
+            border: TableBorder.all(color: AppColors.silverChalice30, width: 1),
+            columnWidths: const {
+              0: FlexColumnWidth(3),
+              1: FlexColumnWidth(2),
+              2: FlexColumnWidth(2),
+              3: FlexColumnWidth(1),
+            },
+            children: [
+              TableRow(
+                children: [
+                  _buildTableCell("Date", isHeader: true, color: AppColors.black),
+                  _buildTableCell("Price", isHeader: true, color: AppColors.black),
+                  _buildTableCell("GMP", isHeader: true, color: AppColors.black),
+                  _buildTableCell("", isHeader: true),
+                ],
+              ),
+            ],
+          ),
+          ...List.generate(
+            widget.gmpData?.length ?? 0,
+            (index) => _buildExpandableRow(index, widget.gmpData?[index]),
+          ),
+        ],
+      ),
     );
   }
 

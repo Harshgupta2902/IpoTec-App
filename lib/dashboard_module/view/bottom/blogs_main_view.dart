@@ -79,7 +79,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                       MyNavigator.pushNamed(
                         GoPaths.webView,
                         extra: {
-                          'url': "https://web.whatsapp.com",
+                          'url': blog?.link,
                           'title': blog?.title,
                         },
                       );
