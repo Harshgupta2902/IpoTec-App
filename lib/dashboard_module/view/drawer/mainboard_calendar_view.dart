@@ -23,7 +23,7 @@ class MainboardCalendarViewState extends State<MainboardCalendarView> {
     super.initState();
     _mainboardCalendarController.getMainboardCalendar(isSme: false);
     setState(() {
-      final todayMinusOne = DateTime.now().day;
+      final todayMinusOne = DateTime.now().day - 1;
       debugPrint(todayMinusOne.toString());
       _selectedIndex = todayMinusOne >= 0 ? todayMinusOne : 0;
     });

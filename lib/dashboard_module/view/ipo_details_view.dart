@@ -727,13 +727,13 @@ class _IpoDetailsViewState extends State<IpoDetailsView> {
                                   borderRadius: 10,
                                 ),
                                 child: SvgPicture.asset(
-                                  getLogoPath(widget.name ?? "-"),
+                                  getLogoPath(widget.name),
                                 ),
                               ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: Text(
-                            widget.name ?? "-",
+                            state?.data?.address?.name ?? widget.name,
                             maxLines: 2,
                             style: Theme.of(context)
                                 .textTheme

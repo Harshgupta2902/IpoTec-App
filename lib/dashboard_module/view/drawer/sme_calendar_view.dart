@@ -23,7 +23,7 @@ class SmeCalendarViewState extends State<SmeCalendarView> {
     super.initState();
     _smeCalendarController.getMainboardCalendar(isSme: true);
     setState(() {
-      final todayMinusOne = DateTime.now().day;
+      final todayMinusOne = DateTime.now().day - 1;
       debugPrint(todayMinusOne.toString());
       _selectedIndex = todayMinusOne >= 0 ? todayMinusOne : 0;
     });

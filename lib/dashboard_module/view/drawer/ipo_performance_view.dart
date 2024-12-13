@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/controller/drawer/ipo_performance_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:ipotec/dashboard_module/modal/drawer/ipo_performance_model.dart';
 
@@ -68,7 +70,8 @@ class _IpoPerformanceViewState extends State<IpoPerformanceView> {
     );
   }
 
-  Widget _buildTableCell(String text, {bool isHeader = false, Color? color}) {
+  Widget _buildTableCell(String text,
+      {bool isHeader = false, Color? color, bool underline = false}) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
@@ -76,6 +79,8 @@ class _IpoPerformanceViewState extends State<IpoPerformanceView> {
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: color ?? Colors.blue.shade900,
               fontWeight: isHeader ? FontWeight.bold : FontWeight.w700,
+              decoration: underline ? TextDecoration.underline : null,
+              decorationColor: underline ? AppColors.shuttleGrey : Colors.white,
             ),
         textAlign: TextAlign.center,
       ),
@@ -97,7 +102,20 @@ class _IpoPerformanceViewState extends State<IpoPerformanceView> {
           children: [
             TableRow(
               children: [
-                _buildTableCell(details?.companyName ?? ""),
+                GestureDetector(
+                    onTap: () {
+                      MyNavigator.pushNamed(
+                        GoPaths.ipoDetails,
+                        extra: {
+                          'slug': details?.href,
+                          'name': details?.companyName,
+                        },
+                      );
+                    },
+                    child: _buildTableCell(
+                      details?.companyName ?? "",
+                      underline: true,
+                    )),
                 _buildTableCell(
                   details?.profitLoss ?? "",
                   color: getPercentageColor(details?.profitLoss ?? ""),

@@ -6,6 +6,8 @@ import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/error_widget.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
@@ -145,44 +147,51 @@ class _MainBoardIpoSubsViewState extends State<MainBoardIpoSubsView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      key: expansionTileKey[index],
-                      children: [
-                        Container(
-                          height: 45,
-                          width: 45,
-                          decoration: AppBoxDecoration.getBoxDecoration(
-                            borderRadius: 10,
+                    GestureDetector(
+                      onTap: () => MyNavigator.pushNamed(
+                        GoPaths.ipoDetails,
+                        extra: {
+                          'slug': ipoSubscriptionData?.href,
+                          'name': ipoSubscriptionData?.companyName,
+                        },
+                      ),
+                      child: Row(
+                        key: expansionTileKey[index],
+                        children: [
+                          Container(
+                            height: 45,
+                            width: 45,
+                            decoration: AppBoxDecoration.getBoxDecoration(
+                              borderRadius: 10,
+                            ),
+                            child: SvgPicture.asset(
+                              getLogoPath(ipoSubscriptionData?.companyName ?? "-"),
+                            ),
                           ),
-                          child: SvgPicture.asset(
-                            getLogoPath(ipoSubscriptionData?.companyName ?? "-"),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${ipoSubscriptionData?.companyName}",
-                                maxLines: 1,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
-                              ),
-                              if (ipoSubscriptionData?.closeDate != null)
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 Text(
-                                  ipoSubscriptionData?.closeDate ?? "",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(color: AppColors.boulder),
-                                )
-                            ],
+                                  "${ipoSubscriptionData?.companyName}",
+                                  maxLines: 1,
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: AppColors.onyx, fontWeight: FontWeight.w500),
+                                ),
+                                if (ipoSubscriptionData?.closeDate != null)
+                                  Text(
+                                    ipoSubscriptionData?.closeDate ?? "",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(color: AppColors.boulder),
+                                  )
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12),

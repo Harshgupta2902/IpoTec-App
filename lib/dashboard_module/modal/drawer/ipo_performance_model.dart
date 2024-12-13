@@ -1,7 +1,8 @@
 class IpoPerformanceModel {
   IpoPerformanceModel({
-      this.status, 
-      this.data,});
+    this.status,
+    this.data,
+  });
 
   IpoPerformanceModel.fromJson(dynamic json) {
     status = json['status'];
@@ -23,18 +24,19 @@ class IpoPerformanceModel {
     }
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.companyName, 
-      this.listedOn, 
-      this.issuePrice, 
-      this.listingDayClose, 
-      this.listingDayGain, 
-      this.currentPrice, 
-      this.profitLoss,});
+    this.companyName,
+    this.listedOn,
+    this.issuePrice,
+    this.listingDayClose,
+    this.listingDayGain,
+    this.currentPrice,
+    this.profitLoss,
+    this.href,
+  });
 
   Data.fromJson(dynamic json) {
     companyName = json['companyName'];
@@ -44,6 +46,7 @@ class Data {
     listingDayGain = json['listingDayGain'];
     currentPrice = json['currentPrice'];
     profitLoss = json['profitLoss'];
+    href = json['href'];
   }
   String? companyName;
   String? listedOn;
@@ -52,6 +55,7 @@ class Data {
   String? listingDayGain;
   String? currentPrice;
   String? profitLoss;
+  String? href;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -62,7 +66,7 @@ class Data {
     map['listingDayGain'] = listingDayGain;
     map['currentPrice'] = currentPrice;
     map['profitLoss'] = profitLoss;
+    map['href'] = href;
     return map;
   }
-
 }

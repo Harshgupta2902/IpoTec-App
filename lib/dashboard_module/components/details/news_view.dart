@@ -31,6 +31,7 @@ class NewsView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 6),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     news?[index].title ?? "",
