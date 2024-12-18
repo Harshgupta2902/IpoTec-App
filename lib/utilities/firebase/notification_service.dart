@@ -17,13 +17,12 @@ class CoreNotificationService {
   init() async {
     await _firebaseMessaging.requestPermission();
     await getToken();
-
+    _firebaseMessaging.subscribeToTopic('notification');
     const initializationSettingsAndroid = AndroidInitializationSettings('mipmap/ic_notification');
     const initializationSettingsDarwin = DarwinInitializationSettings(
       requestSoundPermission: true,
       requestBadgePermission: true,
       requestAlertPermission: true,
-      // onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
     );
 
     const InitializationSettings initializationSettings = InitializationSettings(
