@@ -87,6 +87,8 @@ String getDrawerLogo(String title) {
       return AssetPath.call;
     case 'Share with Friends':
       return AssetPath.share;
+    case 'Rate Us':
+      return AssetPath.rateus;
     default:
       return AssetPath.mainBoard;
   }

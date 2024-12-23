@@ -1,6 +1,6 @@
 class APIEndPoints {
   static const live = 'https://ipo-tec-app-api.vercel.app/app/';
-  static const local = 'http://10.5.1.50:3002/app/';
+  static const local = 'http://10.5.1.53:3001/app/';
   static const base = local;
 
   static const defaultApi = "default";

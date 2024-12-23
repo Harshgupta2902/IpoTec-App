@@ -1,7 +1,8 @@
 class MainboardIpoSubsModel {
   MainboardIpoSubsModel({
-      this.success, 
-      this.data,});
+    this.success,
+    this.data,
+  });
 
   MainboardIpoSubsModel.fromJson(dynamic json) {
     success = json['success'];
@@ -23,24 +24,24 @@ class MainboardIpoSubsModel {
     }
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.companyName, 
-      this.href, 
-      this.closeDate, 
-      this.size, 
-      this.qib, 
-      this.snii, 
-      this.bnni, 
-      this.nii, 
-      this.retail, 
-      this.employee, 
-      this.others, 
-      this.total, 
-      this.applications,});
+    this.companyName,
+    this.href,
+    this.closeDate,
+    this.size,
+    this.qib,
+    this.snii,
+    this.bnni,
+    this.nii,
+    this.retail,
+    this.employee,
+    this.others,
+    this.total,
+    this.applications,
+  });
 
   Data.fromJson(dynamic json) {
     companyName = json['companyName'];
@@ -88,5 +89,4 @@ class Data {
     map['applications'] = applications;
     return map;
   }
-
 }

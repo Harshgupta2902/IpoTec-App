@@ -16,7 +16,6 @@ class MainBoardIpoSubsController extends GetxController with StateMixin<Mainboar
 
       debugPrint("MainBoardIpoSubsController => getMainBoardSubsData > Success  $response");
 
-
       final responseData = response.data is String ? jsonDecode(response.data) : response.data;
 
       final modal = MainboardIpoSubsModel.fromJson(responseData);

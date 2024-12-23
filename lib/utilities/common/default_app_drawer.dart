@@ -2,12 +2,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/dashboard_module/controller/default_controller.dart';
 import 'package:ipotec/dashboard_module/view/others/policy_view.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
+import 'package:ipotec/utilities/common/scaffold_messenger.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/core_prefs.dart';
@@ -31,6 +33,8 @@ class DefaultCustomDrawer extends StatefulWidget {
 }
 
 class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerProviderStateMixin {
+  final InAppReview inAppReview = InAppReview.instance;
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -146,10 +150,8 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                     itemBuilder: (context, index) {
                       final data = _defaultController.state?.menuItems?[index];
                       return GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-                          // MyNavigator.pushNamed(data?.path);
-
                           if (data?.path == GoPaths.policyView && data?.key == "Privacy Policy") {
                             MyNavigator.pushNamed(
                               GoPaths.policyView,
@@ -175,6 +177,26 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
 
                           if (data?.path == GoPaths.contactUs) {
                             launchEmail(email: "harsh1248gupta@gmail.com");
+                            return;
+                          }
+
+                          if (data?.path == GoPaths.rateUs) {
+                            try {
+                              if (await inAppReview.isAvailable()) {
+                                await inAppReview.requestReview();
+                              } else {
+                                messageScaffold(
+                                  content: "The review feature is not available at this moment",
+                                  messageScaffoldType: MessageScaffoldType.error,
+                                );
+                              }
+                            } catch (e) {
+                              debugPrint("Error launching in-app review: $e");
+                              messageScaffold(
+                                content: "Please try again later.",
+                                messageScaffoldType: MessageScaffoldType.error,
+                              );
+                            }
                             return;
                           }
                           if (data?.path == GoPaths.share) {

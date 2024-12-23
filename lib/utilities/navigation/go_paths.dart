@@ -27,4 +27,5 @@ class GoPaths {
   static const String policyView = '/policyView';
   static const String contactUs = '/contact-us';
   static const String share = '/share';
+  static const String rateUs = '/rateUs';
 }
