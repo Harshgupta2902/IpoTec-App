@@ -69,237 +69,242 @@ class _SmeIpoSubsViewState extends State<SmeIpoSubsView> {
       ),
       body: _smeIpoSubsController.obx(
         (state) {
-          return ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            itemCount: state?.data?.length ?? 0,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            itemBuilder: (context, index) {
-              final ipoSubscriptionData = state?.data?[index];
-              final List<KeyValuePairModel> data = [
-                if (ipoSubscriptionData?.size != null)
-                  KeyValuePairModel(
-                    key: "Size in Cr.:",
-                    value: "${ipoSubscriptionData?.size}",
-                  ),
-                if (ipoSubscriptionData?.applications != null)
-                  KeyValuePairModel(
-                    key: "Applications:",
-                    value: "${ipoSubscriptionData?.applications}",
-                  ),
-                if (ipoSubscriptionData?.total != null)
-                  KeyValuePairModel(
-                    key: "Total:",
-                    value: "${ipoSubscriptionData?.total}x",
-                  ),
-              ];
+          return Scrollbar(
+            thumbVisibility: true,
+            thickness: 6,
+            radius: const Radius.circular(8),
+            child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              itemCount: state?.data?.length ?? 0,
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              itemBuilder: (context, index) {
+                final ipoSubscriptionData = state?.data?[index];
+                final List<KeyValuePairModel> data = [
+                  if (ipoSubscriptionData?.size != null)
+                    KeyValuePairModel(
+                      key: "Size in Cr.:",
+                      value: "${ipoSubscriptionData?.size}",
+                    ),
+                  if (ipoSubscriptionData?.applications != null)
+                    KeyValuePairModel(
+                      key: "Applications:",
+                      value: "${ipoSubscriptionData?.applications}",
+                    ),
+                  if (ipoSubscriptionData?.total != null)
+                    KeyValuePairModel(
+                      key: "Total:",
+                      value: "${ipoSubscriptionData?.total}x",
+                    ),
+                ];
 
-              final List<KeyValuePairModel> moreDetails = [
-                if (ipoSubscriptionData?.qib != null)
-                  KeyValuePairModel(
-                    key: "QIB:",
-                    value: "${ipoSubscriptionData?.qib}x",
-                  ),
-                if (ipoSubscriptionData?.nii != null)
-                  KeyValuePairModel(
-                    key: "NII:",
-                    value: "${ipoSubscriptionData?.nii}x",
-                  ),
-                if (ipoSubscriptionData?.retail != null)
-                  KeyValuePairModel(
-                    key: "Retail:",
-                    value: "${ipoSubscriptionData?.retail}",
-                  ),
-                if (ipoSubscriptionData?.total != null)
-                  KeyValuePairModel(
-                    key: "Total Subscription:",
-                    value: "${ipoSubscriptionData?.total}",
-                  ),
-                if (ipoSubscriptionData?.applications != null)
-                  KeyValuePairModel(
-                    key: "Applications:",
-                    value: "${ipoSubscriptionData?.applications}",
-                  ),
-                if (ipoSubscriptionData?.size != null)
-                  KeyValuePairModel(
-                    key: "Size (Rs Cr):",
-                    value: "${ipoSubscriptionData?.size}",
-                  ),
-              ];
+                final List<KeyValuePairModel> moreDetails = [
+                  if (ipoSubscriptionData?.qib != null)
+                    KeyValuePairModel(
+                      key: "QIB:",
+                      value: "${ipoSubscriptionData?.qib}x",
+                    ),
+                  if (ipoSubscriptionData?.nii != null)
+                    KeyValuePairModel(
+                      key: "NII:",
+                      value: "${ipoSubscriptionData?.nii}x",
+                    ),
+                  if (ipoSubscriptionData?.retail != null)
+                    KeyValuePairModel(
+                      key: "Retail:",
+                      value: "${ipoSubscriptionData?.retail}",
+                    ),
+                  if (ipoSubscriptionData?.total != null)
+                    KeyValuePairModel(
+                      key: "Total Subscription:",
+                      value: "${ipoSubscriptionData?.total}",
+                    ),
+                  if (ipoSubscriptionData?.applications != null)
+                    KeyValuePairModel(
+                      key: "Applications:",
+                      value: "${ipoSubscriptionData?.applications}",
+                    ),
+                  if (ipoSubscriptionData?.size != null)
+                    KeyValuePairModel(
+                      key: "Size (Rs Cr):",
+                      value: "${ipoSubscriptionData?.size}",
+                    ),
+                ];
 
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: AppBoxDecoration.getBoxDecoration(),
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () => MyNavigator.pushNamed(
-                        GoPaths.ipoDetails,
-                        extra: {
-                          'slug': ipoSubscriptionData?.href,
-                          'name': ipoSubscriptionData?.companyName,
-                        },
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: AppBoxDecoration.getBoxDecoration(),
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () => MyNavigator.pushNamed(
+                          GoPaths.ipoDetails,
+                          extra: {
+                            'slug': ipoSubscriptionData?.href,
+                            'name': ipoSubscriptionData?.companyName,
+                          },
+                        ),
+                        child: Row(
+                          key: expansionTileKey[index],
+                          children: [
+                            Container(
+                              height: 45,
+                              width: 45,
+                              decoration: AppBoxDecoration.getBoxDecoration(
+                                borderRadius: 10,
+                              ),
+                              child: SvgPicture.asset(
+                                getLogoPath(ipoSubscriptionData?.companyName ?? "-"),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${ipoSubscriptionData?.companyName}",
+                                    maxLines: 1,
+                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                        color: AppColors.onyx, fontWeight: FontWeight.w500),
+                                  ),
+                                  if (ipoSubscriptionData?.close != null)
+                                    Row(
+                                      children: [
+                                        Text(
+                                          ipoSubscriptionData?.open ?? "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium
+                                              ?.copyWith(color: AppColors.boulder),
+                                        ),
+                                        Text(
+                                          " -> ${ipoSubscriptionData?.close}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium
+                                              ?.copyWith(color: AppColors.boulder),
+                                        ),
+                                      ],
+                                    )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Row(
-                        key: expansionTileKey[index],
-                        children: [
-                          Container(
-                            height: 45,
-                            width: 45,
-                            decoration: AppBoxDecoration.getBoxDecoration(
-                              borderRadius: 10,
-                            ),
-                            child: SvgPicture.asset(
-                              getLogoPath(ipoSubscriptionData?.companyName ?? "-"),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${ipoSubscriptionData?.companyName}",
-                                  maxLines: 1,
-                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      color: AppColors.onyx, fontWeight: FontWeight.w500),
-                                ),
-                                if (ipoSubscriptionData?.close != null)
-                                  Row(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: CustomPaint(
+                          size: Size(MediaQuery.of(context).size.width, 1),
+                          painter: HorizontalDashedLinePainter(color: Colors.black54),
+                        ),
+                      ),
+                      AnimatedCrossFade(
+                        firstChild: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: List.generate(
+                            data.length,
+                            (index) {
+                              return Flexible(
+                                flex: index == data.length ? 1 : 0,
+                                child: Container(
+                                  decoration: AppBoxDecoration.getBoxDecoration(
+                                    color: AppColors.porcelain,
+                                    borderRadius: 6,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 4,
+                                  ),
+                                  child: Column(
                                     children: [
                                       Text(
-                                        ipoSubscriptionData?.open ?? "",
+                                        data[index].key,
+                                        textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .labelMedium
+                                            .bodySmall
                                             ?.copyWith(color: AppColors.boulder),
                                       ),
                                       Text(
-                                        " -> ${ipoSubscriptionData?.close}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium
-                                            ?.copyWith(color: AppColors.boulder),
+                                        data[index].value,
+                                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                              color: AppColors.oil,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                       ),
                                     ],
-                                  )
-                              ],
-                            ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: CustomPaint(
-                        size: Size(MediaQuery.of(context).size.width, 1),
-                        painter: HorizontalDashedLinePainter(color: Colors.black54),
-                      ),
-                    ),
-                    AnimatedCrossFade(
-                      firstChild: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: List.generate(
-                          data.length,
-                          (index) {
-                            return Flexible(
-                              flex: index == data.length ? 1 : 0,
-                              child: Container(
-                                decoration: AppBoxDecoration.getBoxDecoration(
-                                  color: AppColors.porcelain,
-                                  borderRadius: 6,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 4,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      data[index].key,
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(color: AppColors.boulder),
-                                    ),
-                                    Text(
-                                      data[index].value,
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                            color: AppColors.oil,
-                                            fontWeight: FontWeight.w500,
+                        ),
+                        secondChild: Column(
+                          children: List.generate(
+                            moreDetails.length,
+                            (index) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.35,
+                                    child: Text(
+                                      moreDetails[index].key,
+                                      textAlign: TextAlign.left,
+                                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.black,
                                           ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      secondChild: Column(
-                        children: List.generate(
-                          moreDetails.length,
-                          (index) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.35,
-                                  child: Text(
-                                    moreDetails[index].key,
-                                    textAlign: TextAlign.left,
-                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.black,
-                                        ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.4,
-                                  child: Text(
-                                    moreDetails[index].value,
-                                    textAlign: TextAlign.left,
-                                    style: Theme.of(context).textTheme.labelMedium,
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.4,
+                                    child: Text(
+                                      moreDetails[index].value,
+                                      textAlign: TextAlign.left,
+                                      style: Theme.of(context).textTheme.labelMedium,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                      crossFadeState: selectedIndex == index
-                          ? CrossFadeState.showSecond
-                          : CrossFadeState.showFirst,
-                      duration: const Duration(milliseconds: 600),
-                    ),
-                    const SizedBox(height: 6),
-                    GestureDetector(
-                      onTap: () => openOrCloseContainer(index: index),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(selectedIndex != index ? "More" : 'Less'),
-                          AnimatedRotation(
-                            turns: selectedIndex == index ? 0 : .5,
-                            duration: const Duration(milliseconds: 400),
-                            child: const Icon(
-                              Icons.keyboard_arrow_up_outlined,
-                              color: AppColors.aluminium,
-                              size: 22,
-                            ),
+                                ],
+                              );
+                            },
                           ),
-                        ],
+                        ),
+                        crossFadeState: selectedIndex == index
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                        duration: const Duration(milliseconds: 600),
                       ),
-                    )
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 16);
-            },
+                      const SizedBox(height: 6),
+                      GestureDetector(
+                        onTap: () => openOrCloseContainer(index: index),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(selectedIndex != index ? "More Details" : 'Less'),
+                            AnimatedRotation(
+                              turns: selectedIndex == index ? 0 : .5,
+                              duration: const Duration(milliseconds: 400),
+                              child: const Icon(
+                                Icons.keyboard_arrow_up_outlined,
+                                color: AppColors.aluminium,
+                                size: 22,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 16);
+              },
+            ),
           );
         },
         onError: (error) => TryAgainWidget(

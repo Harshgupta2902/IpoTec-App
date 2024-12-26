@@ -53,9 +53,10 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
       actions: [
-        if (openBrowser != null)
-          openBrowser!
-
+        if (openBrowser != null) ...[
+          openBrowser!,
+          SizedBox(width: 12),
+        ]
       ],
     );
   }

@@ -47,7 +47,7 @@ class _IpoGmpViewState extends State<IpoGmpView> {
               (state) {
                 return ListView.separated(
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                   itemCount: state?.data?.length ?? 0,
                   itemBuilder: (context, index) {
                     final gmpData = state?.data?[index];

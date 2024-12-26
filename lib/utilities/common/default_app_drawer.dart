@@ -33,8 +33,6 @@ class DefaultCustomDrawer extends StatefulWidget {
 }
 
 class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerProviderStateMixin {
-  final InAppReview inAppReview = InAppReview.instance;
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -180,25 +178,6 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                             return;
                           }
 
-                          if (data?.path == GoPaths.rateUs) {
-                            try {
-                              if (await inAppReview.isAvailable()) {
-                                await inAppReview.requestReview();
-                              } else {
-                                messageScaffold(
-                                  content: "The review feature is not available at this moment",
-                                  messageScaffoldType: MessageScaffoldType.error,
-                                );
-                              }
-                            } catch (e) {
-                              debugPrint("Error launching in-app review: $e");
-                              messageScaffold(
-                                content: "Please try again later.",
-                                messageScaffoldType: MessageScaffoldType.error,
-                              );
-                            }
-                            return;
-                          }
                           if (data?.path == GoPaths.share) {
                             Share.share(
                               '''

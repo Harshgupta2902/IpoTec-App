@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
+import 'package:ipotec/utilities/common/scaffold_messenger.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
@@ -39,13 +40,19 @@ class IpoGmpCard extends StatelessWidget {
     Color gmpColor =
         ((double.tryParse((state?.gmp ?? "")) ?? 0) > 0) ? Colors.green : AppColors.cadmiumRed;
     return GestureDetector(
-      onTap: () => MyNavigator.pushNamed(
-        GoPaths.ipoDetails,
-        extra: {
-          'slug': state?.href,
-          'name': state?.companyName,
-        },
-      ),
+      onTap: () {
+        if (state?.href == "") {
+          messageScaffold(content: "Something Went Wrong");
+          return;
+        }
+        MyNavigator.pushNamed(
+          GoPaths.ipoDetails,
+          extra: {
+            'slug': state?.href,
+            'name': state?.companyName,
+          },
+        );
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: AppBoxDecoration.getBoxDecoration(),
