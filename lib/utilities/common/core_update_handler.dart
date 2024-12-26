@@ -62,7 +62,7 @@ _handleInAppUpdate(DefaultModel? appUpdate) async {
     InAppUpdate.startFlexibleUpdate().then(
       (appUpdateResult) {
         if (appUpdateResult == AppUpdateResult.success) {
-          InAppUpdate.completeFlexibleUpdate();
+          InAppUpdate.startFlexibleUpdate();
         }
       },
     );
