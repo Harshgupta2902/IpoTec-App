@@ -15,7 +15,6 @@ class IpoPerformanceController extends GetxController with StateMixin<IpoPerform
 
       debugPrint("IpoPerformanceController => getPerformance > Success  $response");
 
-
       final responseData = response.data is String ? jsonDecode(response.data) : response.data;
 
       final modal = IpoPerformanceModel.fromJson(responseData);

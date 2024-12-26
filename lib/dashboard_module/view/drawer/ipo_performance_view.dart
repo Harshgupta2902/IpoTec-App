@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/dashboard_module/controller/drawer/ipo_performance_controller.dart';
+import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
@@ -121,8 +122,8 @@ class _IpoPerformanceViewState extends State<IpoPerformanceView> {
                   color: getPercentageColor(details?.profitLoss ?? ""),
                 ),
                 _buildTableCell(
-                  details?.listingDayGain ?? "",
-                  color: getPercentageColor(details?.listingDayGain ?? ""),
+                  details?.changePercentageListingDay ?? "",
+                  color: getPercentageColor(details?.changePercentageListingDay ?? ""),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -182,9 +183,9 @@ class _IpoPerformanceViewState extends State<IpoPerformanceView> {
                 children: [
                   _buildTableCell("Current Price"),
                   _buildTableCell(
-                    details?.currentPrice ?? "",
+                    details?.bseClose ?? "",
                     color: getPriceComparisonColor(
-                      details?.currentPrice ?? "",
+                      details?.bseClose ?? "",
                       details?.issuePrice ?? "",
                     ),
                   ),
@@ -200,9 +201,9 @@ class _IpoPerformanceViewState extends State<IpoPerformanceView> {
                 children: [
                   _buildTableCell("Listing Day Close"),
                   _buildTableCell(
-                    details?.listingDayClose ?? "",
+                    details?.closePrice ?? "",
                     color: getPriceComparisonColor(
-                      details?.listingDayClose ?? "",
+                      details?.closePrice ?? "",
                       details?.issuePrice ?? "",
                     ),
                   ),
@@ -211,10 +212,18 @@ class _IpoPerformanceViewState extends State<IpoPerformanceView> {
               TableRow(
                 children: [
                   _buildTableCell("Listed On"),
-                  _buildTableCell(details?.listedOn ?? ""),
+                  _buildTableCell(details?.listingDate ?? ""),
                 ],
               ),
             ],
+          ),
+          CachedImageNetworkContainer(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(0)),
+            height: 240,
+            url:
+                "https://main.icharts.in/ShowChart.php?symbol=${details?.nseScriptSymbol}&period=Daily&chart_type=LINE",
+            placeHolder: buildNetworkPlaceholder(),
           ),
         ],
       ),

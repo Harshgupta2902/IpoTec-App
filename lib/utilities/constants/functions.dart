@@ -248,13 +248,13 @@ Future<void> openUrlInBrowser(String url) async {
 }
 
 Color getPercentageColor(String percentage) {
-  double value = double.tryParse(percentage.replaceAll('%', '')) ?? 0.0;
+  double value = double.tryParse(percentage) ?? 0.0;
   return value < 0 ? AppColors.cadmiumRed : AppColors.shareGreen;
 }
 
 Color getPriceComparisonColor(String currentPrice, String issuePrice) {
-  double current = double.tryParse(currentPrice.replaceAll('₹', '').trim()) ?? 0.0;
-  double issue = double.tryParse(issuePrice.replaceAll('₹', '').trim()) ?? 0.0;
+  double current = double.tryParse(currentPrice.trim()) ?? 0.0;
+  double issue = double.tryParse(issuePrice.trim()) ?? 0.0;
 
-  return current > issue ? AppColors.cadmiumRed : AppColors.shareGreen;
+  return current > issue ? AppColors.shareGreen : AppColors.cadmiumRed;
 }
