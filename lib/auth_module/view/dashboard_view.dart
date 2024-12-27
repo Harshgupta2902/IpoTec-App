@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_events_view.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_mf_view.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_stock_view.dart';
+import 'package:ipotec/auth_module/components/dashboard/trending_ipo_view.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 class DashboardView extends StatefulWidget {
@@ -22,6 +25,7 @@ class _DashboardViewState extends State<DashboardView> {
         title: "",
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             Container(
@@ -62,6 +66,29 @@ class _DashboardViewState extends State<DashboardView> {
               ),
             ),
             const SizedBox(height: 12),
+            const TrendingIpoView(),
+            GestureDetector(
+              onTap: () => MyNavigator.pushNamed(GoPaths.mainBoard),
+              child: Container(
+                width: 180,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: AppColors.lightTextColor,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    "Explore IPO's",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: AppColors.darkTextColor,
+                        ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
             const TodayStockView(),
             const SizedBox(height: 12),
             const TodayMfView(),

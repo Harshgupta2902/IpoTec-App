@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ipotec/auth_module/components/dashboard/today_stock_view.dart';
 import 'package:ipotec/auth_module/controller/mf_gainers_controller.dart';
 import 'package:ipotec/auth_module/models/mf_gainers_model.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
@@ -94,31 +95,23 @@ class _TodayMfViewState extends State<TodayMfView> with SingleTickerProviderStat
           const SizedBox(height: 12),
           _mfGainersController.obx(
             (state) {
-              return Builder(builder: (context) {
-                final TabController tabController = DefaultTabController.of(context);
-                tabController.addListener(() {
-                  if (!tabController.indexIsChanging) {
-                    debugPrint(tabController.index.toString());
-                  }
-                });
-                return SizedBox(
-                  height: 320,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      MfCard(data: state?.data),
-                      MfCard(data: state?.data),
-                      MfCard(data: state?.data),
-                      MfCard(data: state?.data),
-                      MfCard(data: state?.data),
-                      MfCard(
-                        data: state?.data,
-                        type: "etf",
-                      ),
-                    ],
-                  ),
-                );
-              });
+              return SizedBox(
+                height: 320,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    MfCard(data: state?.data),
+                    MfCard(data: state?.data),
+                    MfCard(data: state?.data),
+                    MfCard(data: state?.data),
+                    MfCard(data: state?.data),
+                    MfCard(
+                      data: state?.data,
+                      type: "etf",
+                    ),
+                  ],
+                ),
+              );
             },
             onLoading: const StockCardShimmer(),
           ),
@@ -189,52 +182,6 @@ class MfCard extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                     )
-            ],
-          ),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const SizedBox(height: 10);
-      },
-    );
-  }
-}
-
-class StockCardShimmer extends StatelessWidget {
-  const StockCardShimmer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: 5,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            children: [
-              SkeletonWidget(height: 52, width: 52),
-              SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SkeletonWidget(height: 16, width: 180),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      SkeletonWidget(height: 16, width: 40),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4),
-                        child: SkeletonWidget(height: 4, width: 4),
-                      ),
-                      SkeletonWidget(height: 16, width: 40),
-                    ],
-                  ),
-                ],
-              ),
-              Spacer(),
-              SkeletonWidget(height: 16, width: 60),
             ],
           ),
         );

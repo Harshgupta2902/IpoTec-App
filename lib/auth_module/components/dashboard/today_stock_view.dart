@@ -90,27 +90,19 @@ class _TodayStockViewState extends State<TodayStockView> with SingleTickerProvid
           const SizedBox(height: 12),
           _stockGainersController.obx(
             (state) {
-              return Builder(builder: (context) {
-                final TabController tabController = DefaultTabController.of(context);
-                tabController.addListener(() {
-                  if (!tabController.indexIsChanging) {
-                    debugPrint(tabController.index.toString());
-                  }
-                });
-                return SizedBox(
-                  height: 320,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      StocksCard(data: state?.data),
-                      StocksCard(data: state?.data),
-                      StocksCard(data: state?.data),
-                      StocksCard(data: state?.data),
-                      StocksCard(data: state?.data),
-                    ],
-                  ),
-                );
-              });
+              return SizedBox(
+                height: 320,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    StocksCard(data: state?.data),
+                    StocksCard(data: state?.data),
+                    StocksCard(data: state?.data),
+                    StocksCard(data: state?.data),
+                    StocksCard(data: state?.data),
+                  ],
+                ),
+              );
             },
             onLoading: const StockCardShimmer(),
           ),
