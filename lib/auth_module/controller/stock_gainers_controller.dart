@@ -9,22 +9,22 @@ class StockGainersController extends GetxController with StateMixin<StockGainers
   getStocksData({required String type}) async {
     change(null, status: RxStatus.loading());
     final apiEndPoint = "${APIEndPoints.stockGainers}?type=$type";
-    debugPrint("---------- $apiEndPoint getDefaultData Start ----------");
+    debugPrint("---------- $apiEndPoint getStocksData Start ----------");
     try {
       final response = await getRequest(apiEndPoint: apiEndPoint);
 
-      debugPrint("StockGainersController => getDefaultData > Success  $response");
+      debugPrint("StockGainersController => getStocksData > Success  $response");
 
       final responseData = response.data is String ? jsonDecode(response.data) : response.data;
 
       final modal = StockGainersModel.fromJson(responseData);
       change(modal, status: RxStatus.success());
     } catch (error) {
-      debugPrint("---------- $apiEndPoint getDefaultData End With Error ----------");
-      debugPrint("StockGainersController => getDefaultData > Error $error ");
+      debugPrint("---------- $apiEndPoint getStocksData End With Error ----------");
+      debugPrint("StockGainersController => getStocksData > Error $error ");
       change(null, status: RxStatus.error());
     } finally {
-      debugPrint("---------- $apiEndPoint getDefaultData End ----------");
+      debugPrint("---------- $apiEndPoint getStocksData End ----------");
     }
   }
 }

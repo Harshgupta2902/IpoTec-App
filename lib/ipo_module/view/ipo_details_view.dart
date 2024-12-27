@@ -105,10 +105,6 @@ class _IpoDetailsViewState extends State<IpoDetailsView> {
                   if (isSubs) KeyValuePairModel(key: "Subscription", value: ''),
                   KeyValuePairModel(key: "News", value: "")
                 ],
-                isScrollable: true,
-                tabAlignment: TabAlignment.start,
-                height: 40,
-                horizontalPadding: 12,
               ),
               Flexible(
                 child: Container(

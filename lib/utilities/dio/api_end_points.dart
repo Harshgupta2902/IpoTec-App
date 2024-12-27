@@ -4,6 +4,7 @@ class APIEndPoints {
   static const base = local;
 
   static const stockGainers = "mf/stockGainers";
+  static const mfGainers = "mf/mfGainers";
 
   static const defaultApi = "default";
 
