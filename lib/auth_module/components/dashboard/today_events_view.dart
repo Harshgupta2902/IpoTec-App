@@ -98,7 +98,7 @@ class _NewsEventsViewState extends State<NewsEventsView> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 10),
                         Text(
                           newsData?.title ?? "",
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -106,9 +106,9 @@ class _NewsEventsViewState extends State<NewsEventsView> {
                                 fontWeight: FontWeight.w500,
                               ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 6),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
                             color: AppColors.alabaster,
                             borderRadius: BorderRadius.circular(8),

@@ -25,42 +25,38 @@ class _DashboardViewState extends State<DashboardView> {
         child: Column(
           children: [
             Container(
-              width: double.infinity,
-              color: AppColors.white,
-              child: Container(
-                height: 45.0,
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  border: Border.all(width: 1, color: AppColors.silverChalice30),
+              height: 45.0,
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                border: Border.all(color: AppColors.silverChalice30),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 10.0,
+                  right: 10.0,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 10.0,
-                    right: 10.0,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      // MyNavigator.pushNamed(GoPaths.searchView);
-                    },
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Text(
-                            'Search',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: AppColors.inputBorderColor,
-                                ),
-                          ),
+                child: InkWell(
+                  onTap: () {
+                    // MyNavigator.pushNamed(GoPaths.searchView);
+                  },
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          'Search',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: AppColors.inputBorderColor,
+                              ),
                         ),
-                        const Icon(
-                          Icons.search,
-                          size: 24.0,
-                          color: Color(0xffAAA7A7),
-                        )
-                      ],
-                    ),
+                      ),
+                      const Icon(
+                        Icons.search,
+                        size: 24.0,
+                        color: Color(0xffAAA7A7),
+                      )
+                    ],
                   ),
                 ),
               ),
