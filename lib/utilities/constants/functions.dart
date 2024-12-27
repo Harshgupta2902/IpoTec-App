@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:html/parser.dart' as parser;
 
 var logger = Logger();
 
@@ -259,13 +260,7 @@ Color getPriceComparisonColor(String currentPrice, String issuePrice) {
   return current > issue ? AppColors.shareGreen : AppColors.cadmiumRed;
 }
 
-
-extension CurrencyFormatter on double {
-  String toCurrency({String currencySymbol = "₹"}) {
-    final formatter = NumberFormat.currency(
-      locale: "en_IN", // For Indian numbering system
-      symbol: currencySymbol,
-    );
-    return formatter.format(this);
-  }
+String removeHtmlTags(String htmlContent) {
+  final document = parser.parse(htmlContent);
+  return document.body?.text ?? '';
 }

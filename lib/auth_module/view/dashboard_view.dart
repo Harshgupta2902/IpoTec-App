@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipotec/auth_module/components/dashboard/today_events_view.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_mf_view.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_stock_view.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
@@ -68,6 +69,9 @@ class _DashboardViewState extends State<DashboardView> {
             const TodayStockView(),
             const SizedBox(height: 12),
             const TodayMfView(),
+            const SizedBox(height: 12),
+            const NewsEventsView(),
+            const SizedBox(height: 12),
           ],
         ),
       ),

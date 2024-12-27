@@ -5,6 +5,7 @@ class APIEndPoints {
 
   static const stockGainers = "mf/stockGainers";
   static const mfGainers = "mf/mfGainers";
+  static const news = "mf/news";
 
   static const defaultApi = "default";
 

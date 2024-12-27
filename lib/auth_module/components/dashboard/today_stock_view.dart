@@ -91,7 +91,7 @@ class _TodayStockViewState extends State<TodayStockView> with SingleTickerProvid
           _stockGainersController.obx(
             (state) {
               return Builder(builder: (context) {
-                final TabController tabController = DefaultTabController.of(context)!;
+                final TabController tabController = DefaultTabController.of(context);
                 tabController.addListener(() {
                   if (!tabController.indexIsChanging) {
                     debugPrint(tabController.index.toString());
@@ -112,7 +112,7 @@ class _TodayStockViewState extends State<TodayStockView> with SingleTickerProvid
                 );
               });
             },
-            onLoading: StockCardShimmer(),
+            onLoading: const StockCardShimmer(),
           ),
         ],
       ),
@@ -130,7 +130,7 @@ class StocksCard extends StatelessWidget {
     return ListView.separated(
       itemCount: data?.length ?? 0,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         final stockData = data?[index];
         return Padding(
@@ -197,7 +197,7 @@ class StockCardShimmer extends StatelessWidget {
     return ListView.separated(
       itemCount: 5,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return const Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),

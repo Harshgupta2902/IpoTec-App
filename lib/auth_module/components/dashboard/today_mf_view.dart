@@ -95,7 +95,7 @@ class _TodayMfViewState extends State<TodayMfView> with SingleTickerProviderStat
           _mfGainersController.obx(
             (state) {
               return Builder(builder: (context) {
-                final TabController tabController = DefaultTabController.of(context)!;
+                final TabController tabController = DefaultTabController.of(context);
                 tabController.addListener(() {
                   if (!tabController.indexIsChanging) {
                     debugPrint(tabController.index.toString());
@@ -120,7 +120,7 @@ class _TodayMfViewState extends State<TodayMfView> with SingleTickerProviderStat
                 );
               });
             },
-            onLoading: StockCardShimmer(),
+            onLoading: const StockCardShimmer(),
           ),
         ],
       ),
@@ -139,7 +139,7 @@ class MfCard extends StatelessWidget {
     return ListView.separated(
       itemCount: data?.length ?? 0,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         final mfData = data?[index];
         return Padding(
