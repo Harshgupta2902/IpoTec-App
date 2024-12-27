@@ -79,7 +79,7 @@ void _onItemTapped(int index) {
       MyNavigator.pushReplacementNamed(GoPaths.gmp);
       break;
     case 3:
-      MyNavigator.pushReplacementNamed(
+      MyNavigator.pushNamed(
         GoPaths.webView,
         extra: {
           'title': "Ipo Allotment",
@@ -90,7 +90,6 @@ void _onItemTapped(int index) {
     case 4:
       MyNavigator.pushReplacementNamed(GoPaths.blogs);
       break;
-
     default:
       MyNavigator.pushReplacementNamed(GoPaths.mainBoard);
   }
