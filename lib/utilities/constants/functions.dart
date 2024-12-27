@@ -258,3 +258,14 @@ Color getPriceComparisonColor(String currentPrice, String issuePrice) {
 
   return current > issue ? AppColors.shareGreen : AppColors.cadmiumRed;
 }
+
+
+extension CurrencyFormatter on double {
+  String toCurrency({String currencySymbol = "₹"}) {
+    final formatter = NumberFormat.currency(
+      locale: "en_IN", // For Indian numbering system
+      symbol: currencySymbol,
+    );
+    return formatter.format(this);
+  }
+}

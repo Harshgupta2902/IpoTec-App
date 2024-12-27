@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
-import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());

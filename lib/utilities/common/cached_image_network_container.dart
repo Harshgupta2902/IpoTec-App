@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
@@ -77,6 +78,7 @@ Widget buildPlaceholderSVG({required String assetPath}) {
     assetPath,
   );
 }
+
 Widget buildNetworkPlaceholder() {
   return Image.network(
     fit: BoxFit.fill,
@@ -91,4 +93,8 @@ Widget buildPlaceholderIcon({required IconData icon}) {
       size: 30,
     ),
   );
+}
+
+Widget buildPlaceHolderGrowPath({required String assetPath}) {
+  return SvgPicture.asset(getLogoPath(assetPath));
 }

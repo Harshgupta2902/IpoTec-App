@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ipotec/utilities/common/cached_image_network_container.dart';
+import 'package:ipotec/utilities/common/default_app_drawer.dart';
+import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 class CustomTabBar extends StatelessWidget {
-  final List<String> tabList;
+  final List<KeyValuePairModel> tabList;
   final bool isScrollable;
   final bool hasInnerShadow;
   final double height;
@@ -85,14 +89,103 @@ class CustomTabBar extends StatelessWidget {
             tabs: tabList.map(
               (tab) {
                 return Tab(
-                  child: Text(
-                    tab,
+                  child: Row(
+                    children: [
+                      if (tab.value != "") ...[
+                        SvgPicture.network(
+                          "https://assets.tickertape.in/images/${tab.value}",
+                          height: 12,
+                          width: 12,
+                          semanticsLabel: 'Custom Image',
+                          fit: BoxFit.fill,
+                        ),
+                        const SizedBox(width: 6),
+                      ],
+                      Text(
+                        tab.key,
+                      )
+                    ],
                   ),
                 );
               },
             ).toList(),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class NewCustomTabBar extends StatelessWidget {
+  final List<KeyValuePairModel> tabList;
+  final bool isScrollable;
+  final bool hasInnerShadow;
+  final Color? selectedColor;
+  final TabController? tabController;
+  final TabAlignment? tabAlignment;
+
+  const NewCustomTabBar({
+    super.key,
+    required this.tabList,
+    this.isScrollable = false,
+    this.hasInnerShadow = true,
+    this.tabController,
+    this.selectedColor,
+    this.tabAlignment,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: TabBar(
+        tabAlignment: tabAlignment,
+        dividerColor: Colors.transparent,
+        isScrollable: isScrollable,
+        unselectedLabelColor: AppColors.black,
+        labelColor: Colors.white,
+        indicatorSize: TabBarIndicatorSize.label,
+        padding: const EdgeInsets.all(6),
+        indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: selectedColor ?? AppColors.primaryColor,
+        ),
+        splashBorderRadius: BorderRadius.circular(40),
+        controller: tabController,
+        splashFactory: NoSplash.splashFactory,
+        tabs: tabList.map(
+          (tab) {
+            return Tab(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: AppColors.silverChalice30,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Row(
+                  children: [
+                    if (tab.value != "") ...[
+                      SvgPicture.network(
+                        "https://assets.tickertape.in/images/${tab.value}",
+                        height: 12,
+                        width: 12,
+                        semanticsLabel: 'Custom Image',
+                        fit: BoxFit.fill,
+                      ),
+                      const SizedBox(width: 6),
+                    ],
+                    Text(
+                      tab.key,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ).toList(),
       ),
     );
   }
