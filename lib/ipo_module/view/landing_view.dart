@@ -5,6 +5,7 @@ import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/ipo_module/controller/bottom/sme_ipo_controller.dart';
 import 'package:ipotec/ipo_module/controller/default_controller.dart';
 import 'package:ipotec/ipo_module/controller/bottom/mainboard_ipo_controller.dart';
+import 'package:ipotec/ipo_module/controller/drawer/ipo_gmp_controller.dart';
 import 'package:ipotec/utilities/common/core_update_handler.dart';
 import 'package:ipotec/utilities/common/custom_bottom_navigation.dart';
 import 'package:ipotec/utilities/common/default_app_drawer.dart';
@@ -19,6 +20,7 @@ final _mainBoardIpoController = Get.put(MainBoardIpoController());
 final _authController = Get.put(AuthController());
 final _defaultController = Get.put(DefaultApiController());
 final _smeIpoController = Get.put(SmeIpoController());
+final _ipoGmpController = Get.put(IpoGmpController());
 
 class LandingView extends StatefulWidget {
   const LandingView({super.key, required this.child});
@@ -42,6 +44,7 @@ class _LandingViewState extends State<LandingView> {
         _mainBoardIpoController.getMainboardData(type: "upcoming");
         _smeIpoController.getSmeData(type: "upcoming");
         _defaultController.getDefaultData();
+        _ipoGmpController.getGmpData();
       },
     );
     if (isLoggedIn()) {

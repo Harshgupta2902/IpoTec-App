@@ -25,6 +25,7 @@ final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(de
 final GoRouter goRouterConfig = GoRouter(
   initialLocation: GoPaths.dashboard,
   navigatorKey: rootNavigatorKey,
+
   routes: [
     //
     ShellRoute(

@@ -18,6 +18,8 @@ class AppColors {
   static const shuttleGrey = Color(0xFF61677A);
   static const lightGrey = Color(0xFFD9D9D9);
   static const inputBorderColor = Color(0xFFACACAC);
+  static const darkTextColor = Color(0xFF4d4d4d);
+  static const lightTextColor = Color(0xFF6A6A6A);
 
   static const primaryColor = Color(0xFF066AC9);
   static const aliceBlue = Color(0xFFEFF6FF);

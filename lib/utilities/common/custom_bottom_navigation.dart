@@ -70,16 +70,16 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 void _onItemTapped(int index) {
   switch (index) {
     case 0:
-      MyNavigator.go(GoPaths.mainBoard);
+      MyNavigator.pushReplacementNamed(GoPaths.mainBoard);
       break;
     case 1:
-      MyNavigator.go(GoPaths.sme);
+      MyNavigator.pushReplacementNamed(GoPaths.sme);
       break;
     case 2:
-      MyNavigator.go(GoPaths.gmp);
+      MyNavigator.pushReplacementNamed(GoPaths.gmp);
       break;
     case 3:
-      MyNavigator.pushNamed(
+      MyNavigator.pushReplacementNamed(
         GoPaths.webView,
         extra: {
           'title': "Ipo Allotment",
@@ -88,10 +88,10 @@ void _onItemTapped(int index) {
       );
       break;
     case 4:
-      MyNavigator.go(GoPaths.blogs);
+      MyNavigator.pushReplacementNamed(GoPaths.blogs);
       break;
 
     default:
-      MyNavigator.go(GoPaths.mainBoard);
+      MyNavigator.pushReplacementNamed(GoPaths.mainBoard);
   }
 }
