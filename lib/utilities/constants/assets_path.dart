@@ -3,6 +3,7 @@ class AssetPath {
   static const _logos = "assets/logos/";
   static const _lottie = "assets/lottie/";
   static const _icons = "assets/icons/";
+  static const _intro = "assets/intro/";
 
   static const mainBoard = "${_bottom}mainBoard.svg";
   static const sme = "${_bottom}sme.svg";
@@ -56,4 +57,9 @@ class AssetPath {
   static const uLogo = "${_logos}U.svg";
   static const vLogo = "${_logos}V.svg";
   static const wLogo = "${_logos}W.svg";
+
+
+  static const mainIntro = "${_intro}main.png";
+  static const ipoIntro = "${_intro}ipo.png";
+  static const mfIntro = "${_intro}mf.png";
 }

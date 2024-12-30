@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ipotec/auth_module/view/dashboard_view.dart';
+import 'package:ipotec/auth_module/view/intro_view.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/blogs_main_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/ipo_gmp_view.dart';
@@ -18,14 +19,14 @@ import 'package:ipotec/ipo_module/view/bottom/mainboard_ipo_view.dart';
 import 'package:ipotec/ipo_module/view/landing_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/sme_ipo_view.dart';
 import 'package:ipotec/ipo_module/view/others/web_view.dart';
+import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 final GoRouter goRouterConfig = GoRouter(
-  initialLocation: GoPaths.dashboard,
+  initialLocation: getIntro() == true ? GoPaths.intro : GoPaths.dashboard,
   navigatorKey: rootNavigatorKey,
-
   routes: [
     //
     ShellRoute(
@@ -73,6 +74,14 @@ final GoRouter goRouterConfig = GoRouter(
 
     // ------------------   Registration Page Routes   ---------------------------
 
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.intro,
+      name: GoPaths.intro,
+      builder: (context, state) {
+        return const IntroView();
+      },
+    ),
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       path: GoPaths.login,

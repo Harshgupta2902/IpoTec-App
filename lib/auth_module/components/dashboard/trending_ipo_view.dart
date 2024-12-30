@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/auth_module/components/dashboard/today_stock_view.dart';
 import 'package:ipotec/ipo_module/controller/drawer/ipo_gmp_controller.dart';
 import 'package:ipotec/utilities/common/skeleton_widget.dart';
 import 'package:ipotec/utilities/constants/functions.dart';

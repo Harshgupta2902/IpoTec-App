@@ -69,11 +69,7 @@ void main() async {
     CrashlyticsService().init();
   }
   await _defaultController.getDefaultData();
-  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  await analytics.logEvent(
-    name: "app_start",
-  );
-
+  FirebaseAnalytics.instance;
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseAnalyticsService().init("");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
@@ -88,7 +84,7 @@ void main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     try {
       CoreNotificationService().onNotificationClicked(payload: message.data);
-      (message.data); // Navigate to the correct route
+      (message.data);
     } catch (e) {
       logger.e("onMessage error $e");
     }

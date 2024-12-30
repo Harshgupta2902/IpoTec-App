@@ -1,9 +1,10 @@
 class GoPaths {
   // ------------------      Home Routes      ---------------------------
+  static const String intro = '/intro';
+
   static const String dashboard = '/dashboard';
-
-
   static const String login = '/login';
+
 
   static const String mainBoard = '/mainBoard';
   static const String sme = '/sme';

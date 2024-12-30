@@ -125,6 +125,7 @@ class AuthController extends GetxController with StateMixin<UserModel> {
         final modal = UserModel.fromFirestore(doc);
         change(modal, status: RxStatus.success());
         debugPrint("AuthController => User data fetched: ${modal.displayName}");
+        debugPrint("AuthController => User data model fetched: $modal");
         setLogin(true);
         setUuid(modal.uid);
 
@@ -158,6 +159,8 @@ class UserModel {
   String? email;
   String? photoURL;
   String? token;
+  String? updatedAt;
+  String? createdAt;
 
   UserModel({
     required this.uid,
@@ -165,6 +168,8 @@ class UserModel {
     this.email,
     this.photoURL,
     this.token,
+    this.updatedAt,
+    this.createdAt,
   });
 
   factory UserModel.fromFirestore(DocumentSnapshot doc) {
@@ -175,6 +180,8 @@ class UserModel {
       email: data['email'],
       photoURL: data['photoURL'],
       token: data['token'],
+      updatedAt: data['updatedAt'],
+      createdAt: data['createdAt'],
     );
   }
 }
