@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ipotec/auth_module/view/dashboard_view.dart';
 import 'package:ipotec/auth_module/view/intro_view.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
-import 'package:ipotec/auth_module/view/search_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/blogs_main_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/ipo_gmp_view.dart';
 import 'package:ipotec/ipo_module/view/drawer/ipo_performance_view.dart';
@@ -104,14 +103,14 @@ final GoRouter goRouterConfig = GoRouter(
     ),
 
 
-    GoRoute(
-      parentNavigatorKey: rootNavigatorKey,
-      path: GoPaths.search,
-      name: GoPaths.search,
-      builder: (context, state) {
-        return const SearchView();
-      },
-    ),
+    // GoRoute(
+    //   parentNavigatorKey: rootNavigatorKey,
+    //   path: GoPaths.search,
+    //   name: GoPaths.search,
+    //   builder: (context, state) {
+    //     return const SearchView();
+    //   },
+    // ),
 
     // ------------------   Calendar Page Routes   ---------------------------
 

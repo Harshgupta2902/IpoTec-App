@@ -6,7 +6,6 @@ import 'package:ipotec/auth_module/models/mf_gainers_model.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
-import 'package:ipotec/utilities/common/skeleton_widget.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 
 final _mfGainersController = Get.put(MfGainersController());

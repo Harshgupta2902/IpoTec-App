@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ipotec/auth_module/components/dashboard/dashboard_tape.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_events_view.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_mf_view.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_stock_view.dart';
 import 'package:ipotec/auth_module/components/dashboard/trending_ipo_view.dart';
-import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
@@ -25,43 +25,44 @@ class _DashboardViewState extends State<DashboardView> {
         child: Column(
           children: [
             const SizedBox(height: kToolbarHeight - 20),
-            Container(
-              height: 45.0,
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                border: Border.all(color: AppColors.silverChalice30),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 10.0,
-                  right: 10.0,
-                ),
-                child: InkWell(
-                  onTap: () {
-                    MyNavigator.pushNamed(GoPaths.search);
-                  },
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          'Search',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: AppColors.inputBorderColor,
-                              ),
-                        ),
-                      ),
-                      const Icon(
-                        Icons.search,
-                        size: 24.0,
-                        color: Color(0xffAAA7A7),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            const DashboardTape(),
+            // Container(
+            //   height: 45.0,
+            //   margin: const EdgeInsets.symmetric(horizontal: 10),
+            //   decoration: BoxDecoration(
+            //     color: AppColors.white,
+            //     border: Border.all(color: AppColors.silverChalice30),
+            //   ),
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(
+            //       left: 10.0,
+            //       right: 10.0,
+            //     ),
+            //     child: InkWell(
+            //       onTap: () {
+            //         MyNavigator.pushNamed(GoPaths.search);
+            //       },
+            //       child: Row(
+            //         children: [
+            //           Expanded(
+            //             flex: 1,
+            //             child: Text(
+            //               'Search',
+            //               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            //                     color: AppColors.inputBorderColor,
+            //                   ),
+            //             ),
+            //           ),
+            //           const Icon(
+            //             Icons.search,
+            //             size: 24.0,
+            //             color: Color(0xffAAA7A7),
+            //           )
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
             const SizedBox(height: 12),
             const TrendingIpoView(),
             GestureDetector(

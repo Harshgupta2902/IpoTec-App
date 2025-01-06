@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/news_controller.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
-import 'package:ipotec/utilities/common/skeleton_widget.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
