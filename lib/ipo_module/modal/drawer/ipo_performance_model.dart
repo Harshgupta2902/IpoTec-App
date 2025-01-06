@@ -1,7 +1,8 @@
 class IpoPerformanceModel {
   IpoPerformanceModel({
-      this.status, 
-      this.data,});
+    this.status,
+    this.data,
+  });
 
   IpoPerformanceModel.fromJson(dynamic json) {
     status = json['status'];
@@ -23,36 +24,36 @@ class IpoPerformanceModel {
     }
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.id, 
-      this.companyName, 
-      this.faceValue, 
-      this.issuePrice, 
-      this.href, 
-      this.listingDate, 
-      this.bseScriptCode, 
-      this.nseScriptSymbol, 
-      this.closePrice, 
-      this.bseClose, 
-      this.bsePrevClose, 
-      this.bseOpen, 
-      this.bseHigh, 
-      this.bseLow, 
-      this.bseShares, 
-      this.nseClose, 
-      this.nsePrevClose, 
-      this.nseOpen, 
-      this.nseHigh, 
-      this.nseLow, 
-      this.changeToday, 
-      this.changePercentageToday, 
-      this.changePercentageListingDay, 
-      this.profitLoss, 
-      this.issueSizeAmount,});
+    this.id,
+    this.companyName,
+    this.faceValue,
+    this.issuePrice,
+    this.href,
+    this.listingDate,
+    this.bseScriptCode,
+    this.nseScriptSymbol,
+    this.closePrice,
+    this.bseClose,
+    this.bsePrevClose,
+    this.bseOpen,
+    this.bseHigh,
+    this.bseLow,
+    this.bseShares,
+    this.nseClose,
+    this.nsePrevClose,
+    this.nseOpen,
+    this.nseHigh,
+    this.nseLow,
+    this.changeToday,
+    this.changePercentageToday,
+    this.changePercentageListingDay,
+    this.profitLoss,
+    this.issueSizeAmount,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -136,5 +137,4 @@ class Data {
     map['issueSizeAmount'] = issueSizeAmount;
     return map;
   }
-
 }

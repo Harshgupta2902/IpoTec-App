@@ -20,14 +20,11 @@ class _DashboardViewState extends State<DashboardView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: const CoreAppBar(
-        showBackButton: false,
-        title: "",
-      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
+            const SizedBox(height: kToolbarHeight - 20),
             Container(
               height: 45.0,
               margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -42,7 +39,7 @@ class _DashboardViewState extends State<DashboardView> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    // MyNavigator.pushNamed(GoPaths.searchView);
+                    MyNavigator.pushNamed(GoPaths.search);
                   },
                   child: Row(
                     children: [

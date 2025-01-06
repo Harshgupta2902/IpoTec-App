@@ -21,6 +21,8 @@ import 'package:ipotec/utilities/navigation/route_generator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:ipotec/utilities/theme/smooth_rectangular_border.dart';
 
+import 'utilities/firebase/core_prefs.dart';
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -35,7 +37,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await GetStorage.init();
   // if (!kReleaseMode) {
-  //   setStaticPref();
+  // setStaticPref();
   // }
 
   if (Platform.isAndroid) {
