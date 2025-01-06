@@ -14,7 +14,7 @@ class IpoGmpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.white,
       appBar: const CoreAppBar(
         title: "Ipo GMP",
         centerTitle: false,

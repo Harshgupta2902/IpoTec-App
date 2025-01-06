@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/tape_controller.dart';
-import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _tapeController = Get.put(TapeController());

@@ -87,7 +87,6 @@ class _TodayStockViewState extends State<TodayStockView> with SingleTickerProvid
               KeyValuePairModel(key: "52W Low", value: "landing-page/52w_low.svg"),
             ],
           ),
-          const SizedBox(height: 12),
           _stockGainersController.obx(
             (state) {
               return SizedBox(

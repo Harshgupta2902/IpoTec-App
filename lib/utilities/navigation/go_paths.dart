@@ -4,7 +4,7 @@ class GoPaths {
 
   static const String dashboard = '/dashboard';
   static const String login = '/login';
-  // static const String search = '/search';
+  // static const String eventsView = '/eventsView';
 
 
   static const String mainBoard = '/mainBoard';

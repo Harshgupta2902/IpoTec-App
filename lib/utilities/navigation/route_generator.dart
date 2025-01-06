@@ -25,7 +25,7 @@ import 'package:ipotec/utilities/navigation/go_paths.dart';
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 final GoRouter goRouterConfig = GoRouter(
-  initialLocation: getIntro() == true ? GoPaths.intro : GoPaths.dashboard,
+  initialLocation: getIntro() != true ? GoPaths.intro : GoPaths.dashboard,
   navigatorKey: rootNavigatorKey,
   routes: [
     //
@@ -102,13 +102,12 @@ final GoRouter goRouterConfig = GoRouter(
       },
     ),
 
-
     // GoRoute(
     //   parentNavigatorKey: rootNavigatorKey,
-    //   path: GoPaths.search,
-    //   name: GoPaths.search,
+    //   path: GoPaths.eventsView,
+    //   name: GoPaths.eventsView,
     //   builder: (context, state) {
-    //     return const SearchView();
+    //     return const EventsView();
     //   },
     // ),
 

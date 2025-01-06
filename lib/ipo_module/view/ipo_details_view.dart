@@ -7,16 +7,20 @@ import 'package:ipotec/ipo_module/components/details/information_view.dart';
 import 'package:ipotec/ipo_module/components/details/news_view.dart';
 import 'package:ipotec/ipo_module/components/details/subscription_view.dart';
 import 'package:ipotec/ipo_module/components/details/summary_view.dart';
+import 'package:ipotec/ipo_module/controller/default_controller.dart';
 import 'package:ipotec/ipo_module/controller/ipo_details_controller.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _ipoDetailsController = Get.put(IpoDetailsController());
+final _defaultController = Get.put(DefaultApiController());
 
 class IpoDetailsView extends StatefulWidget {
   const IpoDetailsView({super.key, required this.slug, required this.name});
@@ -109,9 +113,12 @@ class _IpoDetailsViewState extends State<IpoDetailsView> {
               Flexible(
                 child: Container(
                   decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(22))),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(22),
+                    ),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: TabBarView(
                     children: [
                       SummaryView(summary: state?.data?.summary, about: state?.data?.about),
@@ -138,6 +145,22 @@ class _IpoDetailsViewState extends State<IpoDetailsView> {
           ),
         );
       }),
+      floatingActionButton: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(MediaQuery.of(context).size.width * 0.7, 40),
+        ),
+        onPressed: () {
+          MyNavigator.pushNamed(
+            GoPaths.webView,
+            extra: {
+              'title': "Ipo Allotment",
+              'url': _defaultController.state?.allotment ?? "https://ris.kfintech.com/ipostatus/",
+            },
+          );
+        },
+        child: Text("Check Allotment"),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

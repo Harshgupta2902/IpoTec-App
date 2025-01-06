@@ -48,7 +48,7 @@ class _IntroViewState extends State<IntroView> {
         );
       } else {
         timer.cancel();
-        // MyNavigator.pushNamed(GoPaths.dashboard);
+        MyNavigator.pushNamed(GoPaths.dashboard);
         setIntro(false);
       }
     });

@@ -1,7 +1,8 @@
 class NewsModel {
   NewsModel({
-      this.success, 
-      this.data,});
+    this.success,
+    this.data,
+  });
 
   NewsModel.fromJson(dynamic json) {
     success = json['success'];
@@ -23,25 +24,25 @@ class NewsModel {
     }
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.type, 
-      this.title, 
-      this.desc, 
-      this.date, 
-      this.imageUrl, 
-      this.link, 
-      this.publisher, 
-      this.sid, 
-      this.initialPrice, 
-      this.price, 
-      this.close, 
-      this.slug, 
-      this.ticker, 
-      this.tag,});
+    this.type,
+    this.title,
+    this.desc,
+    this.date,
+    this.imageUrl,
+    this.link,
+    this.publisher,
+    this.sid,
+    this.initialPrice,
+    this.price,
+    this.close,
+    this.slug,
+    this.ticker,
+    this.tag,
+  });
 
   Data.fromJson(dynamic json) {
     type = json['type'];
@@ -92,5 +93,4 @@ class Data {
     map['tag'] = tag;
     return map;
   }
-
 }

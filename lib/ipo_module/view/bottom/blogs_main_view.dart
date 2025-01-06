@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ipotec/auth_module/controller/news_controller.dart';
 import 'package:ipotec/ipo_module/controller/bottom/blogs_controller.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
@@ -13,6 +14,7 @@ import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:share_plus/share_plus.dart';
 
 final _blogsController = Get.put(BlogsController());
+final _newsController = Get.put(NewsController());
 
 class BlogsMainView extends StatefulWidget {
   const BlogsMainView({super.key});
@@ -28,6 +30,8 @@ class _BlogsMainViewState extends State<BlogsMainView> {
   void initState() {
     super.initState();
     _blogsController.getBlogs(offset: '1', hardLoad: true);
+    _newsController.getNews(offset: '1', hardLoad: true);
+
     _blogsController.loadMoreCount = 1;
     scrollController.addListener(_scrollListener);
   }

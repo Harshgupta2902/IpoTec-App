@@ -22,7 +22,9 @@ class NewsController extends GetxController with StateMixin<NewsModel> {
     }
 
     try {
-      final response = await getRequest(apiEndPoint: apiEndPoint);
+      final response = await getRequest(
+        apiEndPoint: apiEndPoint,
+      );
 
       debugPrint("NewsController =>  getNews > Success ${response.data} ");
 

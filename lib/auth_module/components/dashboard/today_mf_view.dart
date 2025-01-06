@@ -91,7 +91,6 @@ class _TodayMfViewState extends State<TodayMfView> with SingleTickerProviderStat
               KeyValuePairModel(key: "ETF's", value: "landing-page/ETFs.svg"),
             ],
           ),
-          const SizedBox(height: 12),
           _mfGainersController.obx(
             (state) {
               return SizedBox(

@@ -26,6 +26,7 @@ class _MainBoardIpoViewState extends State<MainBoardIpoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: const CoreAppBar(
         title: "MainBoard Ipo",
         centerTitle: false,

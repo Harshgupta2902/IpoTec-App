@@ -24,7 +24,8 @@ class _SmeIpoViewState extends State<SmeIpoView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(      backgroundColor: AppColors.white,
+
       appBar: const CoreAppBar(
         title: "SME Ipo",
         centerTitle: false,
