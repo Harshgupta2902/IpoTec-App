@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:ipotec/auth_module/view/dashboard_view.dart';
 import 'package:ipotec/auth_module/view/intro_view.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
+import 'package:ipotec/calc_module/view/calc_landing_view.dart';
+import 'package:ipotec/calc_module/view/sip_calculator/sip_calculator_result.dart';
+import 'package:ipotec/calc_module/view/sip_calculator/sip_calculator_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/blogs_main_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/ipo_gmp_view.dart';
 import 'package:ipotec/ipo_module/view/drawer/ipo_performance_view.dart';
@@ -25,7 +28,7 @@ import 'package:ipotec/utilities/navigation/go_paths.dart';
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 final GoRouter goRouterConfig = GoRouter(
-  initialLocation: getIntro() == true ? GoPaths.intro : GoPaths.dashboard,
+  initialLocation: getIntro() == true ? GoPaths.intro : GoPaths.calcLanding,
   navigatorKey: rootNavigatorKey,
   routes: [
     //
@@ -223,6 +226,37 @@ final GoRouter goRouterConfig = GoRouter(
         final slug = extras['slug'];
         final name = extras['name'];
         return IpoDetailsView(slug: slug, name: name);
+      },
+    ),
+
+    // ------------------   Calculator Routes   ---------------------------
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.calcLanding,
+      name: GoPaths.calcLanding,
+      builder: (context, state) {
+        return const CalcLandingView();
+      },
+    ),
+
+    // ------------------   SIP Calculator Routes   ---------------------------
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.sipCalculatorView,
+      name: GoPaths.sipCalculatorView,
+      builder: (context, state) {
+        return const SipCalculatorView();
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.sipCalculatorResult,
+      name: GoPaths.sipCalculatorResult,
+      builder: (context, state) {
+        return const SipCalculatorResult();
       },
     ),
   ],

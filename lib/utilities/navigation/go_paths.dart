@@ -6,7 +6,6 @@ class GoPaths {
   static const String login = '/login';
   // static const String eventsView = '/eventsView';
 
-
   static const String mainBoard = '/mainBoard';
   static const String sme = '/sme';
 
@@ -33,4 +32,10 @@ class GoPaths {
   static const String contactUs = '/contact-us';
   static const String share = '/share';
   static const String rateUs = '/rateUs';
+
+//   Calclator
+  static const String calcLanding = '/calcLanding';
+
+  static const String sipCalculatorView = '/sipCalculatorView';
+  static const String sipCalculatorResult = '/sipCalculatorResult';
 }

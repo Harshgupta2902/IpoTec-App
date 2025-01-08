@@ -58,8 +58,19 @@ class AssetPath {
   static const vLogo = "${_logos}V.svg";
   static const wLogo = "${_logos}W.svg";
 
-
   static const mainIntro = "${_intro}main.png";
   static const ipoIntro = "${_intro}ipo.png";
   static const mfIntro = "${_intro}mf.png";
+
+  static const sipBanner = "${_intro}sip_banner.png";
+  static const swpBanner = "${_intro}swp_banner.png";
+  static const stpBanner = "${_intro}stp_banner.png";
+  static const lumpBanner = "${_intro}lump_banner.png";
+
+  static const sipCalc = "${_icons}sip_calc.png";
+  static const swpCalc = "${_icons}swp_calc.png";
+  static const stpCalc = "${_icons}stp_calc.png";
+  static const lumpCalc = "${_icons}lump_calc.png";
+  static const sipPlanCalc = "${_icons}sip_plan_calc.png";
+  static const sipTopUpCalc = "${_icons}sip_topup_calc.png";
 }

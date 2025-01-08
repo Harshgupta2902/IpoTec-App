@@ -157,19 +157,15 @@ class _MyAppState extends State<MyApp> {
           dragHandleSize: Size(60, 4),
           clipBehavior: Clip.hardEdge,
         ),
+        sliderTheme: const SliderThemeData(
+          activeTrackColor: Colors.green,
+          thumbColor: AppColors.white,
+        ),
         inputDecorationTheme: InputDecorationTheme(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: SmoothBorderRadius(cornerRadius: 10),
-            borderSide: BorderSide.none,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: SmoothBorderRadius(cornerRadius: 10),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: SmoothBorderRadius(cornerRadius: 10),
-            borderSide: BorderSide.none,
-          ),
+          enabledBorder: InputBorder.none,
+          border: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
           filled: true,
           fillColor: AppColors.alabaster,
           hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.paleSky),

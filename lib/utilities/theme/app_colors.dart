@@ -24,6 +24,10 @@ class AppColors {
   static const primaryColor = Color(0xFF066AC9);
   static const aliceBlue = Color(0xFFEFF6FF);
 
+  // static const primaryColor = Color(0xFF98B9F2);
+  // static const blueBg = Color(0xFF6F9CEB);
+
+
   static const black = Color(0xFF000000);
   static const black04 = Color(0x0A1D1D1D);
   static const onyx = Color(0xFF111111);
