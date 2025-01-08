@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_app_update/in_app_update.dart';
-import 'package:ipotec/dashboard_module/controller/default_controller.dart';
-import 'package:ipotec/dashboard_module/modal/default_model.dart';
+import 'package:ipotec/ipo_module/controller/default_controller.dart';
+import 'package:ipotec/ipo_module/modal/default_model.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -62,7 +62,7 @@ _handleInAppUpdate(DefaultModel? appUpdate) async {
     InAppUpdate.startFlexibleUpdate().then(
       (appUpdateResult) {
         if (appUpdateResult == AppUpdateResult.success) {
-          InAppUpdate.completeFlexibleUpdate();
+          InAppUpdate.startFlexibleUpdate();
         }
       },
     );

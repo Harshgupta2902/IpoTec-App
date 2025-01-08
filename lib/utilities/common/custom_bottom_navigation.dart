@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/dashboard_module/controller/default_controller.dart';
+import 'package:ipotec/ipo_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
@@ -70,13 +70,13 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 void _onItemTapped(int index) {
   switch (index) {
     case 0:
-      MyNavigator.go(GoPaths.mainBoard);
+      MyNavigator.pushReplacementNamed(GoPaths.mainBoard);
       break;
     case 1:
-      MyNavigator.go(GoPaths.sme);
+      MyNavigator.pushReplacementNamed(GoPaths.sme);
       break;
     case 2:
-      MyNavigator.go(GoPaths.gmp);
+      MyNavigator.pushReplacementNamed(GoPaths.gmp);
       break;
     case 3:
       MyNavigator.pushNamed(
@@ -88,10 +88,9 @@ void _onItemTapped(int index) {
       );
       break;
     case 4:
-      MyNavigator.go(GoPaths.blogs);
+      MyNavigator.pushReplacementNamed(GoPaths.blogs);
       break;
-
     default:
-      MyNavigator.go(GoPaths.mainBoard);
+      MyNavigator.pushReplacementNamed(GoPaths.mainBoard);
   }
 }

@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
-import 'package:ipotec/dashboard_module/controller/default_controller.dart';
-import 'package:ipotec/dashboard_module/view/others/policy_view.dart';
+import 'package:ipotec/ipo_module/controller/default_controller.dart';
+import 'package:ipotec/ipo_module/view/others/policy_view.dart';
 import 'package:ipotec/utilities/common/cached_image_network_container.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
@@ -146,10 +146,8 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                     itemBuilder: (context, index) {
                       final data = _defaultController.state?.menuItems?[index];
                       return GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           _hiddenDrawerController.scaffoldKey.currentState?.closeDrawer();
-                          // MyNavigator.pushNamed(data?.path);
-
                           if (data?.path == GoPaths.policyView && data?.key == "Privacy Policy") {
                             MyNavigator.pushNamed(
                               GoPaths.policyView,
@@ -177,6 +175,7 @@ class _DefaultCustomDrawerState extends State<DefaultCustomDrawer> with TickerPr
                             launchEmail(email: "harsh1248gupta@gmail.com");
                             return;
                           }
+
                           if (data?.path == GoPaths.share) {
                             Share.share(
                               '''

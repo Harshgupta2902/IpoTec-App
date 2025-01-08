@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ipotec/utilities/theme/core_box_shadow.dart';
 import 'package:ipotec/utilities/theme/smooth_rectangular_border.dart';
 
 class AppBoxDecoration {
@@ -19,15 +18,14 @@ class AppBoxDecoration {
       border: border,
       color: color,
       boxShadow: showShadow == true
-          ? AppBoxShadow.legacyShadow
-          // ? [
-          //     BoxShadow(
-          //       spreadRadius: spreadRadius,
-          //       blurRadius: blurRadius,
-          //       color: Colors.black.withOpacity(0.06),
-          //       offset: const Offset(0, 4),
-          //     ),
-          //   ]
+          ? [
+              BoxShadow(
+                spreadRadius: spreadRadius,
+                blurRadius: blurRadius,
+                color: Colors.black.withOpacity(0.06),
+                offset: const Offset(0, 4),
+              ),
+            ]
           : [],
     );
   }

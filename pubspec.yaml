@@ -1,7 +1,7 @@
 name: ipotec
 description: "IpoTec"
 publish_to: 'none'
-version: 1.0.2+8
+version: 1.1.0+11
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -52,6 +52,7 @@ dependencies:
 
   in_app_review: ^2.0.9
   share_plus: ^10.1.2
+  html: ^0.15.4
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,7 @@ flutter:
     - assets/fonts/
     - assets/logos/
     - assets/lottie/
+    - assets/intro/
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

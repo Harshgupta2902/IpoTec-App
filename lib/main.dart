@@ -10,7 +10,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:ipotec/dashboard_module/controller/default_controller.dart';
+import 'package:ipotec/ipo_module/controller/default_controller.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/firebase/analytics_service.dart';
 import 'package:ipotec/utilities/firebase/crashlytics_service.dart';
@@ -35,7 +35,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await GetStorage.init();
   // if (!kReleaseMode) {
-  //   setStaticPref();
+  // setStaticPref();
   // }
 
   if (Platform.isAndroid) {
@@ -69,11 +69,7 @@ void main() async {
     CrashlyticsService().init();
   }
   await _defaultController.getDefaultData();
-  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  await analytics.logEvent(
-    name: "app_start",
-  );
-
+  FirebaseAnalytics.instance;
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseAnalyticsService().init("");
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
@@ -88,7 +84,7 @@ void main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     try {
       CoreNotificationService().onNotificationClicked(payload: message.data);
-      (message.data); // Navigate to the correct route
+      (message.data);
     } catch (e) {
       logger.e("onMessage error $e");
     }

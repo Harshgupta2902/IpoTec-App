@@ -17,23 +17,25 @@ class CustomErrorOrEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Lottie.asset(
-          AssetPath.emptyLottie,
-          height: 100,
-          width: 100,
-        ),
-        Text(
-          title ?? "No data Found",
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w600),
-        ),
-      ],
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Lottie.asset(
+            AssetPath.emptyLottie,
+            height: 100,
+            width: 100,
+          ),
+          Text(
+            title ?? "No data Found",
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: AppColors.primaryColor, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
     );
   }
 }

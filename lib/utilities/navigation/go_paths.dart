@@ -1,6 +1,11 @@
 class GoPaths {
   // ------------------      Home Routes      ---------------------------
+  static const String intro = '/intro';
+
+  static const String dashboard = '/dashboard';
   static const String login = '/login';
+  // static const String eventsView = '/eventsView';
+
 
   static const String mainBoard = '/mainBoard';
   static const String sme = '/sme';
@@ -27,4 +32,5 @@ class GoPaths {
   static const String policyView = '/policyView';
   static const String contactUs = '/contact-us';
   static const String share = '/share';
+  static const String rateUs = '/rateUs';
 }

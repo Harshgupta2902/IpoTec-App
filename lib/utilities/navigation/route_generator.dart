@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ipotec/auth_module/view/dashboard_view.dart';
+import 'package:ipotec/auth_module/view/intro_view.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
-import 'package:ipotec/dashboard_module/view/bottom/blogs_main_view.dart';
-import 'package:ipotec/dashboard_module/view/bottom/ipo_gmp_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/ipo_performance_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/least_successful_ipo_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/mainboard_calendar_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/mainboard_ipo_subs_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/most_successful_ipo_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/sme_calendar_view.dart';
-import 'package:ipotec/dashboard_module/view/drawer/sme_ipo_subs_view.dart';
-import 'package:ipotec/dashboard_module/view/ipo_details_view.dart';
-import 'package:ipotec/dashboard_module/view/others/no_internet.dart';
-import 'package:ipotec/dashboard_module/view/others/policy_view.dart';
-import 'package:ipotec/dashboard_module/view/bottom/mainboard_ipo_view.dart';
-import 'package:ipotec/dashboard_module/view/landing_view.dart';
-import 'package:ipotec/dashboard_module/view/bottom/sme_ipo_view.dart';
-import 'package:ipotec/dashboard_module/view/others/web_view.dart';
+import 'package:ipotec/ipo_module/view/bottom/blogs_main_view.dart';
+import 'package:ipotec/ipo_module/view/bottom/ipo_gmp_view.dart';
+import 'package:ipotec/ipo_module/view/drawer/ipo_performance_view.dart';
+import 'package:ipotec/ipo_module/view/drawer/least_successful_ipo_view.dart';
+import 'package:ipotec/ipo_module/view/drawer/mainboard_calendar_view.dart';
+import 'package:ipotec/ipo_module/view/drawer/mainboard_ipo_subs_view.dart';
+import 'package:ipotec/ipo_module/view/drawer/most_successful_ipo_view.dart';
+import 'package:ipotec/ipo_module/view/drawer/sme_calendar_view.dart';
+import 'package:ipotec/ipo_module/view/drawer/sme_ipo_subs_view.dart';
+import 'package:ipotec/ipo_module/view/ipo_details_view.dart';
+import 'package:ipotec/ipo_module/view/others/no_internet.dart';
+import 'package:ipotec/ipo_module/view/others/policy_view.dart';
+import 'package:ipotec/ipo_module/view/bottom/mainboard_ipo_view.dart';
+import 'package:ipotec/ipo_module/view/landing_view.dart';
+import 'package:ipotec/ipo_module/view/bottom/sme_ipo_view.dart';
+import 'package:ipotec/ipo_module/view/others/web_view.dart';
+import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 final GoRouter goRouterConfig = GoRouter(
-  initialLocation: GoPaths.mainBoard,
+  initialLocation: getIntro() == true ? GoPaths.intro : GoPaths.dashboard,
   navigatorKey: rootNavigatorKey,
   routes: [
     //
@@ -73,6 +76,14 @@ final GoRouter goRouterConfig = GoRouter(
 
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.intro,
+      name: GoPaths.intro,
+      builder: (context, state) {
+        return const IntroView();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
       path: GoPaths.login,
       name: GoPaths.login,
       builder: (context, state) {
@@ -81,6 +92,24 @@ final GoRouter goRouterConfig = GoRouter(
         return LoginView(callType: type);
       },
     ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.dashboard,
+      name: GoPaths.dashboard,
+      builder: (context, state) {
+        return const DashboardView();
+      },
+    ),
+
+    // GoRoute(
+    //   parentNavigatorKey: rootNavigatorKey,
+    //   path: GoPaths.eventsView,
+    //   name: GoPaths.eventsView,
+    //   builder: (context, state) {
+    //     return const EventsView();
+    //   },
+    // ),
 
     // ------------------   Calendar Page Routes   ---------------------------
 
@@ -184,7 +213,8 @@ final GoRouter goRouterConfig = GoRouter(
           title: title,
         );
       },
-    ),GoRoute(
+    ),
+    GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       path: GoPaths.ipoDetails,
       name: GoPaths.ipoDetails,
