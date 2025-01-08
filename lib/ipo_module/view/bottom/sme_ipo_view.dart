@@ -20,14 +20,14 @@ class SmeIpoView extends StatefulWidget {
 }
 
 class _SmeIpoViewState extends State<SmeIpoView> {
-  String type = "Upcoming";
+  String type = "Current";
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(      backgroundColor: AppColors.white,
-
-      appBar: const CoreAppBar(
-        title: "SME Ipo",
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      appBar: CoreAppBar(
+        title: "$type SME Ipo",
         centerTitle: false,
         showBackButton: false,
       ),

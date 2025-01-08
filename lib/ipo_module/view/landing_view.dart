@@ -41,8 +41,8 @@ class _LandingViewState extends State<LandingView> {
   void apiCalls() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        _mainBoardIpoController.getMainboardData(type: "upcoming");
-        _smeIpoController.getSmeData(type: "upcoming");
+        _mainBoardIpoController.getMainboardData(type: "current");
+        _smeIpoController.getSmeData(type: "current");
         _defaultController.getDefaultData();
         _ipoGmpController.getGmpData();
       },

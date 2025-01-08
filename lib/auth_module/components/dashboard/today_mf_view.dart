@@ -68,6 +68,7 @@ class _TodayMfViewState extends State<TodayMfView> with SingleTickerProviderStat
     return DefaultTabController(
       length: 6,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -94,7 +95,7 @@ class _TodayMfViewState extends State<TodayMfView> with SingleTickerProviderStat
           _mfGainersController.obx(
             (state) {
               return SizedBox(
-                height: 320,
+                height: 360,
                 child: TabBarView(
                   controller: _tabController,
                   children: [

@@ -25,7 +25,7 @@ import 'package:ipotec/utilities/navigation/go_paths.dart';
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 final GoRouter goRouterConfig = GoRouter(
-  initialLocation: getIntro() != true ? GoPaths.intro : GoPaths.dashboard,
+  initialLocation: getIntro() == true ? GoPaths.intro : GoPaths.dashboard,
   navigatorKey: rootNavigatorKey,
   routes: [
     //

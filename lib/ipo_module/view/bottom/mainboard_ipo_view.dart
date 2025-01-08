@@ -22,13 +22,13 @@ class MainBoardIpoView extends StatefulWidget {
 }
 
 class _MainBoardIpoViewState extends State<MainBoardIpoView> {
-  String type = "Upcoming";
+  String type = "Current";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: const CoreAppBar(
-        title: "MainBoard Ipo",
+      appBar: CoreAppBar(
+        title: "$type MainBoard Ipo",
         centerTitle: false,
         showBackButton: false,
       ),

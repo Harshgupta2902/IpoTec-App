@@ -90,7 +90,7 @@ class _TodayStockViewState extends State<TodayStockView> with SingleTickerProvid
           _stockGainersController.obx(
             (state) {
               return SizedBox(
-                height: 320,
+                height: 360,
                 child: TabBarView(
                   controller: _tabController,
                   children: [

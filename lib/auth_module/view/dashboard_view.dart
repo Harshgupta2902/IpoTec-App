@@ -19,6 +19,7 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
