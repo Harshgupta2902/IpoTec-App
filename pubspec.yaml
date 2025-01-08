@@ -54,6 +54,10 @@ dependencies:
   share_plus: ^10.1.2
   html: ^0.15.4
 
+  app_links: ^6.3.3
+
+  carousel_slider: ^5.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

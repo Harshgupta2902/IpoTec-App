@@ -224,40 +224,44 @@
 //   }
 // }
 //
-// class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
-//   CustomHeaderDelegate({
-//     required this.minExtent,
-//     required this.maxExtent,
-//     required this.child,
-//   });
-//
-//   @override
-//   final double minExtent;
-//   @override
-//   final double maxExtent;
-//   final Widget child;
-//
-//   @override
-//   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-//     return SizedBox.expand(child: child);
-//   }
-//
-//   @override
-//   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-//     return true;
-//   }
-// }
-//
-// class Debounce {
-//   final int delay;
-//   Timer? _timer;
-//
-//   Debounce({required this.delay});
-//
-//   void run(void Function() action) {
-//     debugPrint("debounce called");
-//     _timer?.cancel();
-//
-//     _timer = Timer(Duration(milliseconds: delay), action);
-//   }
-// }
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
+  CustomHeaderDelegate({
+    required this.minExtent,
+    required this.maxExtent,
+    required this.child,
+  });
+
+  @override
+  final double minExtent;
+  @override
+  final double maxExtent;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
+  }
+}
+
+class Debounce {
+  final int delay;
+  Timer? _timer;
+
+  Debounce({required this.delay});
+
+  void run(void Function() action) {
+    debugPrint("debounce called");
+    _timer?.cancel();
+
+    _timer = Timer(Duration(milliseconds: delay), action);
+  }
+}

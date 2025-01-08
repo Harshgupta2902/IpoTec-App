@@ -12,6 +12,8 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool? centerTitle;
   final Widget? titleWidget;
   final Widget? openBrowser;
+  final Color? appBarColor;
+  final Color? leadingColor;
 
   const CoreAppBar({
     super.key,
@@ -21,12 +23,14 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.centerTitle,
     this.titleWidget,
     this.openBrowser,
+    this.appBarColor,
+    this.leadingColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: appBarColor ?? Colors.white,
       scrolledUnderElevation: 0,
       title: titleWidget ??
           Text(
@@ -39,16 +43,16 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
               onTap: () {
                 MyNavigator.pop();
               },
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_back,
-                color: Colors.black,
+                color: leadingColor ?? Colors.black,
               ),
             )
           : GestureDetector(
               onTap: () => _hiddenDrawerController.scaffoldKey.currentState?.openDrawer(),
-              child: const Icon(
+              child: Icon(
                 Icons.menu,
-                color: Colors.black,
+                color: leadingColor ?? Colors.black,
               ),
             ),
       actions: [
