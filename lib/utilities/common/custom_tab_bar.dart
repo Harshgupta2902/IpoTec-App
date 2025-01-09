@@ -87,3 +87,58 @@ class CustomTabBar extends StatelessWidget {
     );
   }
 }
+
+class CoreFlatTabBar extends StatelessWidget {
+  const CoreFlatTabBar({
+    super.key,
+    required this.tabs,
+    this.isScrollable = true,
+    this.controller,
+    this.labelColor,
+    this.indicatorColor,
+    this.selectedColor,
+    this.dividerColor,
+    this.unselectedLabelColor,
+    this.indicator,
+    this.indicatorDecoration,
+    this.indicatorPadding,
+  });
+
+  final List<String> tabs;
+  final bool isScrollable;
+  final TabController? controller;
+  final Color? labelColor;
+  final Color? indicatorColor;
+  final Color? selectedColor;
+  final Color? dividerColor;
+  final Color? unselectedLabelColor;
+  final bool? indicator;
+  final Decoration? indicatorDecoration;
+  final EdgeInsets? indicatorPadding;
+
+  @override
+  Widget build(BuildContext context) {
+    return TabBar(
+      tabAlignment: isScrollable ? TabAlignment.start : null,
+      controller: controller,
+      dividerColor: dividerColor ?? Colors.white,
+      indicatorSize: TabBarIndicatorSize.tab,
+      physics: const BouncingScrollPhysics(),
+      isScrollable: isScrollable,
+      unselectedLabelColor: AppColors.black,
+      labelColor: Colors.white,
+      padding: const EdgeInsets.all(6),
+      splashFactory: NoSplash.splashFactory,
+      indicator: BoxDecoration(
+        borderRadius: BorderRadius.circular(30 - 4),
+        color: AppColors.black,
+      ),
+      tabs: List.generate(
+        tabs.length,
+        (index) {
+          return Tab(text: tabs[index]);
+        },
+      ),
+    );
+  }
+}

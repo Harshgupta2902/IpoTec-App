@@ -167,7 +167,7 @@ class _MyAppState extends State<MyApp> {
           disabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           filled: true,
-          fillColor: AppColors.alabaster,
+          fillColor: AppColors.whiteSmoke,
           hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.paleSky),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(

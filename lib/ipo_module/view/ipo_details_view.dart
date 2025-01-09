@@ -158,7 +158,7 @@ class _IpoDetailsViewState extends State<IpoDetailsView> {
             },
           );
         },
-        child: Text("Check Allotment"),
+        child: const Text("Check Allotment"),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

@@ -12,7 +12,7 @@ enum MessageScaffoldType {
 messageScaffold({
   required String content,
   int duration = 3,
-  Enum messageScaffoldType = MessageScaffoldType.information,
+  Enum messageScaffoldType = MessageScaffoldType.success,
   bool isTop = false,
 }) {
   Color backgroundColor = AppColors.whiteFrost;

@@ -22,13 +22,13 @@ import 'package:ipotec/ipo_module/view/bottom/mainboard_ipo_view.dart';
 import 'package:ipotec/ipo_module/view/landing_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/sme_ipo_view.dart';
 import 'package:ipotec/ipo_module/view/others/web_view.dart';
-import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 final GoRouter goRouterConfig = GoRouter(
-  initialLocation: getIntro() == true ? GoPaths.intro : GoPaths.calcLanding,
+  initialLocation: GoPaths.calcLanding,
+  // initialLocation: getIntro() == true ? GoPaths.intro : GoPaths.calcLanding,
   navigatorKey: rootNavigatorKey,
   routes: [
     //
