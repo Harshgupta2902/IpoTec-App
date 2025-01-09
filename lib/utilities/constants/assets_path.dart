@@ -21,10 +21,10 @@ class AssetPath {
   static const rateus = "${_bottom}rate-us.svg";
   static const allotment = "${_bottom}allotment.svg";
 
-  static const liveLottie = "${_lottie}live.json";
   static const emptyLottie = "${_lottie}empty.json";
   static const noInternet = "${_lottie}no_internet.json";
   static const tryAgain = "${_lottie}try_again.json";
+  static const loaderLottie = "${_lottie}empty.json";
 
   static const logOutSvg = "${_icons}logout.svg";
   static const viewSvg = "${_icons}view.svg";

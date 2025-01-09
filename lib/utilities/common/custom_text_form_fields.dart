@@ -142,35 +142,43 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      inputFormatters: inputFormatter,
-      controller: controller,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      initialValue: initialValue,
-      enabled: enabled,
-      readOnly: readOnly ?? false,
-      keyboardType: keyboardType,
-      onTap: () {
-        onTap?.call(controller.text);
-      },
-      obscureText: obscure!,
-      textInputAction: textInputAction,
-      cursorColor: AppColors.black,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(left: 12, right: 12, bottom: 10),
-        fillColor: AppColors.whiteSmoke,
-        label: Text(hintText),
-        hintText: label,
-        labelStyle:
-            Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.darkTextColor),
-        suffixIcon: suffix,
-        filled: true,
-        counterText: '',
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-      ),
-      onChanged: onChanged,
-      onFieldSubmitted: onFieldSubmitted,
-      validator: validator,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "$hintText",
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          inputFormatters: inputFormatter,
+          controller: controller,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          initialValue: initialValue,
+          enabled: enabled,
+          readOnly: readOnly ?? false,
+          keyboardType: keyboardType,
+          onTap: () {
+            onTap?.call(controller.text);
+          },
+          obscureText: obscure!,
+          textInputAction: textInputAction,
+          cursorColor: AppColors.black,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+            fillColor: AppColors.whiteSmoke,
+            labelStyle:
+                Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.darkTextColor),
+            suffixIcon: suffix,
+            filled: true,
+            counterText: '',
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+          ),
+          onChanged: onChanged,
+          onFieldSubmitted: onFieldSubmitted,
+          validator: validator,
+        ),
+      ],
     );
   }
 }

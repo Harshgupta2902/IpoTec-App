@@ -26,6 +26,10 @@ class SIPCalculatorController extends GetxController with StateMixin<CoreSIPMode
     logger.i("SIPCalculatorController => calculateSIP > end");
   }
 
+  resetController() {
+    change(null, status: RxStatus.success());
+  }
+
   // calculateSIPPlan({
   //   required double corpusAmount,
   //   required int tenure,
