@@ -287,7 +287,7 @@ class _LumpsumCalculatorResultState extends State<LumpsumCalculatorResult> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CoreAppBar(
-        title: "SIP Calculator Result",
+        title: "Lumpsum Calculator Result",
         centerTitle: false,
       ),
       body: DefaultTabController(

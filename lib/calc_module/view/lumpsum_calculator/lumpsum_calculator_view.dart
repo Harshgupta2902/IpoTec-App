@@ -48,7 +48,7 @@ class _LumpsumCalculatorViewState extends State<LumpsumCalculatorView> {
         appBar: const CoreAppBar(
           showBackButton: true,
           centerTitle: false,
-          title: "SIP Calculator",
+          title: "Lumpsum Calculator",
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

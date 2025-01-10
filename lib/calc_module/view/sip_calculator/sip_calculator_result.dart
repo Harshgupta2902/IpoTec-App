@@ -29,6 +29,27 @@ class _SipCalculatorResultState extends State<SipCalculatorResult> {
       child: Column(
         children: [
           Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: AppBoxDecoration.getBoxDecoration(),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: RichText(
+              text: TextSpan(
+                text: "SIP Amount:  ",
+                style: Theme.of(context).textTheme.bodyLarge,
+                children: [
+                  TextSpan(
+                    text: format2INR(state?.sipAmount),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
             decoration: AppBoxDecoration.getBoxDecoration(),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
