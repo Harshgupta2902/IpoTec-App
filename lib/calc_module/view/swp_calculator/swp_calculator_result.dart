@@ -26,12 +26,10 @@ class _SwpCalculatorResultState extends State<SwpCalculatorResult> {
       KeyValuePairModel(
         key: "Remaining Balance",
         value: format2INR(state?.reports.yearlyReport.last.value),
-        extra: "packages/core_calculator/assets/rasters/debit_card.png",
       ),
       KeyValuePairModel(
         key: "Monthly Withdrawal",
         value: format2INR(state?.pensionAmount),
-        extra: "packages/core_calculator/assets/rasters/investment_cycle.png",
       ),
     ];
 
