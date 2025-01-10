@@ -38,11 +38,11 @@ class _CalcLandingViewState extends State<CalcLandingView> {
 
   int activeIndex = 0;
   final controller = CarouselSliderController();
-  final List banner = [
-    AssetPath.sipBanner,
-    AssetPath.swpBanner,
-    AssetPath.stpBanner,
-    AssetPath.lumpBanner
+  final List<KeyValuePairModel> banner = [
+    KeyValuePairModel(key: AssetPath.sipBanner, value: GoPaths.sipCalculatorView),
+    KeyValuePairModel(key: AssetPath.swpBanner, value: GoPaths.swpCalculatorView),
+    KeyValuePairModel(key: AssetPath.stpBanner, value: GoPaths.stpCalculatorView),
+    KeyValuePairModel(key: AssetPath.lumpBanner, value: GoPaths.lumpSumCalculatorView),
   ];
 
   final List<KeyValuePairModel> sipCalc = [
@@ -136,13 +136,16 @@ class _CalcLandingViewState extends State<CalcLandingView> {
               carouselController: controller,
               itemCount: banner.length,
               itemBuilder: (context, index, realIndex) {
-                return Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(banner[index]),
+                return GestureDetector(
+                  onTap: () => MyNavigator.pushNamed(banner[index].value),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(banner[index].key),
+                      ),
                     ),
+                    width: double.infinity,
                   ),
-                  width: double.infinity,
                 );
               },
               options: CarouselOptions(
