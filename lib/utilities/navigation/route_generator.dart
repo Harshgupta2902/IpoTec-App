@@ -8,8 +8,9 @@ import 'package:ipotec/calc_module/view/lumpsum_calculator/lumpsum_calculator_re
 import 'package:ipotec/calc_module/view/lumpsum_calculator/lumpsum_calculator_view.dart';
 import 'package:ipotec/calc_module/view/sip_calculator/sip_calculator_result.dart';
 import 'package:ipotec/calc_module/view/sip_calculator/sip_calculator_view.dart';
-import 'package:ipotec/calc_module/view/sip_calculator/sip_plan_calculator.dart';
-import 'package:ipotec/calc_module/view/sip_calculator/sip_top_up_calculator.dart';
+import 'package:ipotec/calc_module/view/sip_calculator/sip_plan_calculator_view.dart';
+import 'package:ipotec/calc_module/view/sip_top_up_calculator/sip_top_up_calculator_view.dart';
+import 'package:ipotec/calc_module/view/sip_top_up_calculator/sip_top_up_calculator_result.dart';
 import 'package:ipotec/ipo_module/view/bottom/blogs_main_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/ipo_gmp_view.dart';
 import 'package:ipotec/ipo_module/view/drawer/ipo_performance_view.dart';
@@ -254,6 +255,16 @@ final GoRouter goRouterConfig = GoRouter(
         return const SipTopUpCalculator();
       },
     ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.sipTopupCalculatorResult,
+      name: GoPaths.sipTopupCalculatorResult,
+      builder: (context, state) {
+        return const SipTopUpCalculatorResult();
+      },
+    ),
+
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       path: GoPaths.sipPlanCalculatorView,

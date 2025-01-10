@@ -37,6 +37,8 @@ class GoPaths {
   static const String calcLanding = '/calcLanding';
 
   static const String sipTopupCalculatorView = '/sipTopupCalculatorView';
+  static const String sipTopupCalculatorResult = '/sipTopupCalculatorResult';
+
   static const String sipPlanCalculatorView = '/sipPlanCalculatorView';
   static const String sipCalculatorView = '/sipCalculatorView';
   static const String sipCalculatorResult = '/sipCalculatorResult';

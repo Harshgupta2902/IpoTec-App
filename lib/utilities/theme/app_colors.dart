@@ -44,4 +44,9 @@ class AppColors {
   static const yellow = Color(0xffF1A731);
   static const bgYellow = Color(0xffFFF8EC);
   static const redBg = Color(0xffFFDEDE);
+
+
+
+  static const androidGreen = Color(0xFF90C63A);
+
 }
