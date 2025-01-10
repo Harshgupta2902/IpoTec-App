@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:ipotec/calc_module/modal/core_calculator_invest_value_model.dart';
 import 'package:ipotec/calc_module/modal/core_calculator_report_model.dart';
 import 'package:ipotec/utilities/constants/functions.dart';

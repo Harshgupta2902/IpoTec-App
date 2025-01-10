@@ -22,5 +22,5 @@ class CoreCalculatorInvestValueModel {
   String get currencyValue => format2INR(value);
   String get currencyGainLoss => format2INR(value - invest);
   String get currencyWithdrawAmount => format2INR(withdrawAmount);
-  double get currencyGainLossPer => ((value - invest) / value) * 100;
+  double get currencyGainLossPer => ((value - invest) / invest) * 100;
 }

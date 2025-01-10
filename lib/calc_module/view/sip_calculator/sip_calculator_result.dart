@@ -89,7 +89,7 @@ class _SipCalculatorResultState extends State<SipCalculatorResult> {
                           "Invested Amount",
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 2),
                         Text(
                           format2INR(state?.totalInvestAmount),
                           style: Theme.of(context)
@@ -106,7 +106,7 @@ class _SipCalculatorResultState extends State<SipCalculatorResult> {
                           "Duration (Years)",
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 2),
                         Text(
                           "${state?.tenureInYears}",
                           style: Theme.of(context)
@@ -121,7 +121,6 @@ class _SipCalculatorResultState extends State<SipCalculatorResult> {
               ],
             ),
           ),
-          const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
@@ -285,9 +284,13 @@ class _SipCalculatorResultState extends State<SipCalculatorResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CoreAppBar(title: "SIP Calculator"),
+      appBar: const CoreAppBar(
+        title: "SIP Calculator Result",
+        centerTitle: false,
+      ),
       body: DefaultTabController(
         length: 2,
+        initialIndex: 1,
         child: _sipCalculatorController.obx((state) {
           return Column(
             children: [

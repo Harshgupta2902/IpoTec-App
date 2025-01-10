@@ -175,7 +175,7 @@ class _SipCalculatorViewState extends State<SipCalculatorView> {
                 ],
               ),
 
-              const SizedBox(height: kToolbarHeight),
+              const SizedBox(height: kToolbarHeight - 20),
               if (isLoading != null) ...[
                 isLoading == true
                     ? Lottie.asset(AssetPath.loaderLottie)
@@ -251,7 +251,7 @@ class _SipCalculatorViewState extends State<SipCalculatorView> {
                                               "Invested Amount",
                                               style: Theme.of(context).textTheme.bodySmall,
                                             ),
-                                            const SizedBox(height: 4),
+                                            const SizedBox(height: 2),
                                             Text(
                                               format2INR(state?.totalInvestAmount),
                                               style: Theme.of(context)
@@ -268,7 +268,7 @@ class _SipCalculatorViewState extends State<SipCalculatorView> {
                                               "Duration (Years)",
                                               style: Theme.of(context).textTheme.bodySmall,
                                             ),
-                                            const SizedBox(height: 4),
+                                            const SizedBox(height: 2),
                                             Text(
                                               "${state?.tenureInYears}",
                                               style: Theme.of(context)
