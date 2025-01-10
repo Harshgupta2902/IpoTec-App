@@ -11,6 +11,10 @@ import 'package:ipotec/calc_module/view/sip_calculator/sip_calculator_view.dart'
 import 'package:ipotec/calc_module/view/sip_calculator/sip_plan_calculator_view.dart';
 import 'package:ipotec/calc_module/view/sip_top_up_calculator/sip_top_up_calculator_view.dart';
 import 'package:ipotec/calc_module/view/sip_top_up_calculator/sip_top_up_calculator_result.dart';
+import 'package:ipotec/calc_module/view/stp_calculator/stp_calculator_result.dart';
+import 'package:ipotec/calc_module/view/stp_calculator/stp_calculator_view.dart';
+import 'package:ipotec/calc_module/view/swp_calculator/swp_calculator_result.dart';
+import 'package:ipotec/calc_module/view/swp_calculator/swp_calculator_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/blogs_main_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/ipo_gmp_view.dart';
 import 'package:ipotec/ipo_module/view/drawer/ipo_performance_view.dart';
@@ -308,6 +312,48 @@ final GoRouter goRouterConfig = GoRouter(
       name: GoPaths.lumpSumCalculatorResult,
       builder: (context, state) {
         return const LumpsumCalculatorResult();
+      },
+    ),
+
+
+    // ------------------   SWP Calculator Routes   ---------------------------
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.swpCalculatorView,
+      name: GoPaths.swpCalculatorView,
+      builder: (context, state) {
+        return const SwpCalculatorView();
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.swpCalculatorResult,
+      name: GoPaths.swpCalculatorResult,
+      builder: (context, state) {
+        return const SwpCalculatorResult();
+      },
+    ),
+
+
+    // ------------------   STP Calculator Routes   ---------------------------
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.stpCalculatorView,
+      name: GoPaths.stpCalculatorView,
+      builder: (context, state) {
+        return const StpCalculatorView();
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.stpCalculatorResult,
+      name: GoPaths.stpCalculatorResult,
+      builder: (context, state) {
+        return const StpCalculatorResult();
       },
     ),
   ],

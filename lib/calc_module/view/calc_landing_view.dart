@@ -69,8 +69,16 @@ class _CalcLandingViewState extends State<CalcLandingView> {
   ];
 
   final List<KeyValuePairModel> mfCalc = [
-    KeyValuePairModel(key: "SWP\nCalculator", value: AssetPath.swpCalc),
-    KeyValuePairModel(key: "STP\nCalculator", value: AssetPath.stpCalc),
+    KeyValuePairModel(
+      key: "SWP\nCalculator",
+      value: AssetPath.swpCalc,
+      extra: GoPaths.swpCalculatorView,
+    ),
+    KeyValuePairModel(
+      key: "STP\nCalculator",
+      value: AssetPath.stpCalc,
+      extra: GoPaths.stpCalculatorView,
+    ),
   ];
 
   @override

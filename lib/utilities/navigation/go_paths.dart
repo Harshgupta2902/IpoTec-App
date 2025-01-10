@@ -45,4 +45,10 @@ class GoPaths {
 
   static const String lumpSumCalculatorView = '/lumpSumCalculatorView';
   static const String lumpSumCalculatorResult = '/lumpSumCalculatorResult';
+
+  static const String swpCalculatorView = '/swpCalculatorView';
+  static const String swpCalculatorResult = '/swpCalculatorResult';
+
+  static const String stpCalculatorView = '/stpCalculatorView';
+  static const String stpCalculatorResult = '/stpCalculatorResult';
 }

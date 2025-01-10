@@ -228,6 +228,113 @@ class _CoreCalculatorMonthlyReportState extends State<CoreCalculatorMonthlyRepor
   }
 }
 
+class CoreCalculatorMonthlyReportwithItemBuilder extends StatefulWidget {
+  const CoreCalculatorMonthlyReportwithItemBuilder({
+    super.key,
+    required this.itemBuilder,
+    required this.itemCount,
+    required this.columns,
+    required this.report,
+  });
 
+  final IndexedRowBuilder itemBuilder;
+  final int itemCount;
+  final List<String> columns;
+  final List<CoreCalculatorInvestValueModel> report;
 
+  @override
+  State<CoreCalculatorMonthlyReportwithItemBuilder> createState() =>
+      _CoreCalculatorMonthlyReportwithItemBuilderState();
+}
 
+class _CoreCalculatorMonthlyReportwithItemBuilderState
+    extends State<CoreCalculatorMonthlyReportwithItemBuilder> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: DataTable(
+        columnSpacing: 16,
+        columns: List.generate(widget.columns.length, (index) {
+          return DataColumn(
+            label: Text(widget.columns[index]),
+          );
+        }),
+        rows: List.generate(widget.itemCount, (index) {
+          final item = widget.itemBuilder(context, index, widget.report[index]);
+          return DataRow(
+            cells: List.generate(item.length, (index) {
+              return DataCell(item[index]);
+            }),
+          );
+        }),
+      ),
+    );
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Table(
+            border: TableBorder.all(color: AppColors.silverChalice30, width: 1),
+            columnWidths: const {
+              0: FlexColumnWidth(1.3),
+              1: FlexColumnWidth(2),
+              2: FlexColumnWidth(2),
+              3: FlexColumnWidth(2),
+            },
+            children: [
+              TableRow(
+                children: List.generate(widget.columns.length, (index) {
+                  return _buildTableCell(
+                    widget.columns[index],
+                    isHeader: true,
+                    color: AppColors.black,
+                  );
+                }),
+              ),
+            ],
+          ),
+          Table(
+            border: TableBorder.all(color: AppColors.silverChalice30, width: 1),
+            columnWidths: const {
+              0: FlexColumnWidth(1.3),
+              1: FlexColumnWidth(2),
+              2: FlexColumnWidth(2),
+              3: FlexColumnWidth(2),
+            },
+            children: List.generate(widget.report.length, (index) {
+              final reportItem = widget.report[index];
+              return TableRow(
+                children: [
+                  _buildTableCell("${index + 1}"),
+                  _buildTableCell(reportItem.currencyInvested),
+                  _buildTableCell(reportItem.currencyValue),
+                  AmountPercentageColor(
+                    percentage: reportItem.currencyGainLossPer.toStringAsFixed(2),
+                    amount: reportItem.currencyGainLoss.toString(),
+                  ),
+                ],
+              );
+            }),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTableCell(String text,
+      {bool isHeader = false, Color? color, bool underline = false}) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: color ?? Colors.blue.shade900,
+              fontWeight: isHeader ? FontWeight.bold : FontWeight.w700,
+              decoration: underline ? TextDecoration.underline : null,
+              decorationColor: underline ? AppColors.shuttleGrey : Colors.white,
+            ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
