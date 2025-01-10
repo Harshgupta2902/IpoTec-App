@@ -38,4 +38,7 @@ class GoPaths {
 
   static const String sipCalculatorView = '/sipCalculatorView';
   static const String sipCalculatorResult = '/sipCalculatorResult';
+
+  static const String lumpSumCalculatorView = '/lumpSumCalculatorView';
+  static const String lumpSumCalculatorResult = '/lumpSumCalculatorResult';
 }

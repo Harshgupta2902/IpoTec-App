@@ -47,8 +47,15 @@ class _CalcLandingViewState extends State<CalcLandingView> {
 
   final List<KeyValuePairModel> sipCalc = [
     KeyValuePairModel(
-        key: "SIP\nCalculator", value: AssetPath.sipCalc, extra: GoPaths.sipCalculatorView),
-    KeyValuePairModel(key: "LumpSum\nCalculator", value: AssetPath.lumpCalc),
+      key: "SIP\nCalculator",
+      value: AssetPath.sipCalc,
+      extra: GoPaths.sipCalculatorView,
+    ),
+    KeyValuePairModel(
+      key: "LumpSum\nCalculator",
+      value: AssetPath.lumpCalc,
+      extra: GoPaths.lumpSumCalculatorView,
+    ),
     KeyValuePairModel(key: "SIP Plan\nCalculator", value: AssetPath.sipPlanCalc),
     KeyValuePairModel(key: "SIP TopUp\nCalculator", value: AssetPath.sipTopUpCalc),
   ];

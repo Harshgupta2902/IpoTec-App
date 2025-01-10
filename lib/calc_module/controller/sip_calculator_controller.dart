@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:ipotec/calc_module/controller/sip_functions.dart';
+import 'package:ipotec/calc_module/controller/functions/sip_functions.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 
 class SIPCalculatorController extends GetxController with StateMixin<CoreSIPModel> {

@@ -4,6 +4,8 @@ import 'package:ipotec/auth_module/view/dashboard_view.dart';
 import 'package:ipotec/auth_module/view/intro_view.dart';
 import 'package:ipotec/auth_module/view/login_view.dart';
 import 'package:ipotec/calc_module/view/calc_landing_view.dart';
+import 'package:ipotec/calc_module/view/lumpsum_calculator/lumpsum_calculator_result.dart';
+import 'package:ipotec/calc_module/view/lumpsum_calculator/lumpsum_calculator_view.dart';
 import 'package:ipotec/calc_module/view/sip_calculator/sip_calculator_result.dart';
 import 'package:ipotec/calc_module/view/sip_calculator/sip_calculator_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/blogs_main_view.dart';
@@ -257,6 +259,26 @@ final GoRouter goRouterConfig = GoRouter(
       name: GoPaths.sipCalculatorResult,
       builder: (context, state) {
         return const SipCalculatorResult();
+      },
+    ),
+
+    // ------------------   Lumpsum Calculator Routes   ---------------------------
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.lumpSumCalculatorView,
+      name: GoPaths.lumpSumCalculatorView,
+      builder: (context, state) {
+        return const LumpsumCalculatorView();
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.lumpSumCalculatorResult,
+      name: GoPaths.lumpSumCalculatorResult,
+      builder: (context, state) {
+        return const LumpsumCalculatorResult();
       },
     ),
   ],

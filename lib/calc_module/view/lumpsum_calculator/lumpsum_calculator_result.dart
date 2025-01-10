@@ -2,6 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/calc_module/components/core_calculator_report_view.dart';
+import 'package:ipotec/calc_module/controller/functions/lumpsum_functions.dart';
+import 'package:ipotec/calc_module/controller/lumpsum_calculator_controller.dart';
 import 'package:ipotec/calc_module/controller/sip_calculator_controller.dart';
 import 'package:ipotec/calc_module/controller/functions/sip_functions.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
@@ -10,17 +12,17 @@ import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
-final _sipCalculatorController = Get.put(SIPCalculatorController());
+final _lumpSumCalculatorController = Get.put(LumpsumCalculatorController());
 
-class SipCalculatorResult extends StatefulWidget {
-  const SipCalculatorResult({super.key});
+class LumpsumCalculatorResult extends StatefulWidget {
+  const LumpsumCalculatorResult({super.key});
 
   @override
-  State<SipCalculatorResult> createState() => _SipCalculatorResultState();
+  State<LumpsumCalculatorResult> createState() => _LumpsumCalculatorResultState();
 }
 
-class _SipCalculatorResultState extends State<SipCalculatorResult> {
-  Widget buildSummary(BuildContext context, {required CoreSIPModel? state}) {
+class _LumpsumCalculatorResultState extends State<LumpsumCalculatorResult> {
+  Widget buildSummary(BuildContext context, {required CoreLumpsumModel? state}) {
     final estRet = format2INR(
         ((state?.reports.yearlyReport.last.value ?? 0) - (state?.totalInvestAmount ?? 0)));
 
@@ -220,7 +222,7 @@ class _SipCalculatorResultState extends State<SipCalculatorResult> {
                           showingTooltipIndicators: [0],
                           barRods: [
                             BarChartRodData(
-                              toY: ((state?.sipAmount ?? 0) +
+                              toY: ((state?.lumpSumAmount ?? 0) +
                                   (state?.reports.yearlyReport.last.value ?? 0)),
                               color: AppColors.mediumGreen,
                               width: 40,
@@ -242,7 +244,7 @@ class _SipCalculatorResultState extends State<SipCalculatorResult> {
     );
   }
 
-  Widget buildReports(BuildContext context, {required CoreSIPModel? state}) {
+  Widget buildReports(BuildContext context, {required CoreLumpsumModel? state}) {
     return SingleChildScrollView(
       child: CoreCalculatorReportView(
         monthlyReportWidget: ExpandableList(
@@ -291,7 +293,7 @@ class _SipCalculatorResultState extends State<SipCalculatorResult> {
       body: DefaultTabController(
         length: 2,
         initialIndex: 1,
-        child: _sipCalculatorController.obx((state) {
+        child: _lumpSumCalculatorController.obx((state) {
           return Column(
             children: [
               const CoreFlatTabBar(

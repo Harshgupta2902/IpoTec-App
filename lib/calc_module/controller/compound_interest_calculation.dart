@@ -97,9 +97,11 @@ CoreCalculatorReportModel performCompoundInterestCalculationLumpSum({
   logger.i("CoreCalculatorReportModel => start");
 
   int totalMonths = tenureType == 1 ? tenure : tenure * 12;
+  logger.i("Total months calculated: $totalMonths");
 
   int tenureYears = totalMonths % 12 == 0 ? totalMonths ~/ 12 : totalMonths ~/ 12 + 1;
   int tenureRemainingMonths = totalMonths % 12;
+  logger.i("Tenure in years: $tenureYears, Remaining months: $tenureRemainingMonths");
 
   double investedAmount = lumpSumAmount;
   double investedReturns = 0;
@@ -114,21 +116,21 @@ CoreCalculatorReportModel performCompoundInterestCalculationLumpSum({
     List<CoreCalculatorInvestValueModel> tempMonthlyReport = [];
 
     int months = 12;
-
     if (tenureType == 1) {
       months = year == tenureYears ? tenureRemainingMonths : 12;
-
       if (tenureRemainingMonths == 0) {
         months = 12;
       }
     }
 
+    // Loop over each month in the year
     for (int month = 1; month <= months; month++) {
       if ((month - 1) % compoundFrequency == 0 && month >= 1) {
         investedAmount += investedReturns;
         investedReturns = 0;
       }
 
+      // Calculate returns for this month
       double returns = (investedAmount * monthlyReturnRate);
       investedReturns += returns;
       totalReturns += returns;
@@ -145,9 +147,10 @@ CoreCalculatorReportModel performCompoundInterestCalculationLumpSum({
     if (tempMonthlyReport.isNotEmpty) {
       yearlyReport.add(tempMonthlyReport.last);
     }
+
     monthlyReport.add([...tempMonthlyReport]);
   }
-  logger.i("CoreCalculatorReportModel => end");
 
+  logger.i("CoreCalculatorReportModel => end");
   return CoreCalculatorReportModel(yearlyReport: yearlyReport, monthlyReport: monthlyReport);
 }
