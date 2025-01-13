@@ -21,6 +21,16 @@ class _DashboardTapeState extends State<DashboardTape> {
   late ScrollController _scrollController;
   late Timer _timer;
 
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _tapeController.getTape();
+      startContinuousScroll();
+    });
+  }
+
   void startContinuousScroll() {
     const scrollDuration = Duration(milliseconds: 50); // Smooth scrolling
     const scrollStep = 2.0;
@@ -41,16 +51,6 @@ class _DashboardTapeState extends State<DashboardTape> {
           );
         }
       }
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    _tapeController.getTape();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      startContinuousScroll();
     });
   }
 

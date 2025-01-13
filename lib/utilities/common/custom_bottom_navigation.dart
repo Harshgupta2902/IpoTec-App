@@ -19,7 +19,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  int _index = 0;
+  int _index = 2;
 
   List<KeyValuePairModel> bars = [
     KeyValuePairModel(key: AssetPath.mainBoard, value: "Mainboard"),

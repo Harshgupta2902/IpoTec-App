@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:in_app_review/in_app_review.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/ipo_module/controller/bottom/sme_ipo_controller.dart';
 import 'package:ipotec/ipo_module/controller/default_controller.dart';
@@ -10,14 +9,11 @@ import 'package:ipotec/utilities/common/core_update_handler.dart';
 import 'package:ipotec/utilities/common/custom_bottom_navigation.dart';
 import 'package:ipotec/utilities/common/default_app_drawer.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
-import 'package:ipotec/utilities/firebase/analytics_service.dart';
-import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
 final _mainBoardIpoController = Get.put(MainBoardIpoController());
-final _authController = Get.put(AuthController());
 final _defaultController = Get.put(DefaultApiController());
 final _smeIpoController = Get.put(SmeIpoController());
 final _ipoGmpController = Get.put(IpoGmpController());
@@ -30,8 +26,6 @@ class LandingView extends StatefulWidget {
 }
 
 class _LandingViewState extends State<LandingView> {
-  final InAppReview inAppReview = InAppReview.instance;
-
   @override
   void initState() {
     apiCalls();
@@ -47,23 +41,6 @@ class _LandingViewState extends State<LandingView> {
         _ipoGmpController.getGmpData();
       },
     );
-    if (isLoggedIn()) {
-      if (await inAppReview.isAvailable()) {
-        inAppReview.requestReview();
-      }
-    }
-    Future.delayed(
-      const Duration(milliseconds: 400),
-      () {
-        return checkUpdate();
-      },
-    );
-    final uid = getUuid();
-    FirebaseAnalyticsService().init(uid);
-    if (isLoggedIn()) {
-      _authController.fetchUserData(uid);
-    }
-    FirebaseAnalyticsService().init(uid);
   }
 
   void checkUpdate() async {

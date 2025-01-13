@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:ipotec/auth_module/components/dashboard/dashboard_tape.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_events_view.dart';
 import 'package:ipotec/auth_module/components/dashboard/today_mf_view.dart';
@@ -8,9 +9,12 @@ import 'package:ipotec/auth_module/components/dashboard/today_stock_view.dart';
 import 'package:ipotec/auth_module/components/dashboard/trending_ipo_view.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/auth_module/controller/mmi_controller.dart';
-import 'package:ipotec/auth_module/view/search_view.dart';
+import 'package:ipotec/utilities/common/core_update_handler.dart';
 import 'package:ipotec/utilities/common/key_value_pair_model.dart';
+import 'package:ipotec/utilities/common/scaffold_messenger.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
+import 'package:ipotec/utilities/firebase/analytics_service.dart';
+import 'package:ipotec/utilities/firebase/core_prefs.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
@@ -26,16 +30,41 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView> {
+  final InAppReview inAppReview = InAppReview.instance;
+
   @override
   void initState() {
     super.initState();
+    apiCalls();
+  }
+
+  void apiCalls() async {
     _mmiController.getMmiData();
+    if (isLoggedIn()) {
+      final uid = getUuid();
+      _authController.fetchUserData(uid);
+      if (await inAppReview.isAvailable()) {
+        inAppReview.requestReview();
+      }
+    }
+    Future.delayed(
+      const Duration(milliseconds: 400),
+      () {
+        return checkUpdate();
+      },
+    );
+    final uid = getUuid();
+    FirebaseAnalyticsService().init(uid);
+  }
+
+  void checkUpdate() async {
+    await appUpdateCheck(context: context);
   }
 
   int activeIndex = 0;
   final controller = CarouselSliderController();
   final List<KeyValuePairModel> banner = [
-    KeyValuePairModel(key: AssetPath.calcBanner, value: GoPaths.sipCalculatorView),
+    KeyValuePairModel(key: AssetPath.calcBanner, value: GoPaths.calcLanding),
     KeyValuePairModel(key: AssetPath.mfBanner, value: GoPaths.swpCalculatorView),
     KeyValuePairModel(key: AssetPath.ifscBanner, value: GoPaths.stpCalculatorView),
   ];
@@ -58,6 +87,7 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverOverlapAbsorber(
@@ -163,7 +193,16 @@ class _DashboardViewState extends State<DashboardView> {
                 itemCount: banner.length,
                 itemBuilder: (context, index, realIndex) {
                   return GestureDetector(
-                    onTap: () => MyNavigator.pushNamed(banner[index].value),
+                    onTap: () {
+                      if (banner[index].value == GoPaths.calcLanding) {
+                        MyNavigator.pushNamed(banner[index].value);
+                      } else {
+                        messageScaffold(
+                          content: "Coming Soon",
+                          messageScaffoldType: MessageScaffoldType.information,
+                        );
+                      }
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -190,79 +229,16 @@ class _DashboardViewState extends State<DashboardView> {
                   scrollPhysics: const BouncingScrollPhysics(),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  banner.length,
-                  (index) {
-                    return Container(
-                      width: 8,
-                      height: 8,
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: index == activeIndex
-                            ? AppColors.primaryColor
-                            : AppColors.primaryColor.withOpacity(
-                                0.5,
-                              ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 20),
               const TrendingIpoView(),
               const SizedBox(height: 20),
               const TodayStockView(),
               const SizedBox(height: 20),
               const TodayMfView(),
               const SizedBox(height: 20),
+              const NewsEventsView(),
+              const SizedBox(height: 20),
             ],
           ),
-        ),
-      ),
-    );
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: AppColors.white,
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            const SizedBox(height: kToolbarHeight - 20),
-            const DashboardTape(),
-            const SizedBox(height: 20),
-            const TrendingIpoView(),
-            GestureDetector(
-              onTap: () => MyNavigator.pushNamed(GoPaths.mainBoard),
-              child: Container(
-                width: 180,
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: AppColors.lightTextColor,
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    "Explore IPO's",
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.darkTextColor,
-                        ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const TodayStockView(),
-            const SizedBox(height: 20),
-            const TodayMfView(),
-            const SizedBox(height: 20),
-            const NewsEventsView(),
-            const SizedBox(height: 20),
-          ],
         ),
       ),
     );
