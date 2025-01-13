@@ -23,7 +23,7 @@ class _DashboardTapeState extends State<DashboardTape> {
 
   void startContinuousScroll() {
     const scrollDuration = Duration(milliseconds: 50); // Smooth scrolling
-    const scrollStep = 2.0; // Small scroll step for seamless movement
+    const scrollStep = 2.0;
 
     _timer = Timer.periodic(scrollDuration, (timer) {
       if (_scrollController.hasClients) {
@@ -71,7 +71,7 @@ class _DashboardTapeState extends State<DashboardTape> {
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: (state?.data?.length ?? 0) * 100,
+            itemCount: (state?.data?.length ?? 0) * 1000,
             itemBuilder: (context, index) {
               final indexes = index % (state?.data?.length ?? 1);
               final item = state?.data?[indexes];

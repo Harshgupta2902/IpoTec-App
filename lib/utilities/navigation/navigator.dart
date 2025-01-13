@@ -15,15 +15,6 @@ class MyNavigator {
     _logNavigationEvent(routeName);
   }
 
-  static void go(String? routeName, {Object? extra}) {
-    try {
-      goRouterConfig.goNamed(routeName ?? GoPaths.mainBoard, extra: extra);
-    } catch (e) {
-      debugPrint("+++++++++++++++++++++++++++++navigation  $e");
-    }
-    _logNavigationEvent(routeName);
-  }
-
   static void pop() {
     goRouterConfig.pop();
   }

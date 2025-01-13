@@ -66,6 +66,9 @@ class AssetPath {
   static const swpBanner = "${_intro}swp_banner.png";
   static const stpBanner = "${_intro}stp_banner.png";
   static const lumpBanner = "${_intro}lump_banner.png";
+  static const calcBanner = "${_intro}calc_banner.png";
+  static const mfBanner = "${_intro}mf_banner.png";
+  static const ifscBanner = "${_intro}ifsc_banner.png";
 
   static const sipCalc = "${_icons}sip_calc.png";
   static const swpCalc = "${_icons}swp_calc.png";

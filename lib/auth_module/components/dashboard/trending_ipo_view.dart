@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:ipotec/ipo_module/controller/drawer/ipo_gmp_controller.dart';
 import 'package:ipotec/utilities/common/skeleton_widget.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
+import 'package:ipotec/utilities/navigation/go_paths.dart';
+import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
@@ -31,18 +33,42 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              "Current Ipo GMP",
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Current Ipo GMP",
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                GestureDetector(
+                  onTap: () => MyNavigator.pushNamed(GoPaths.gmp),
+                  child: Row(
+                    children: [
+                      Text(
+                        "See All",
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        color: AppColors.primaryColor,
+                        size: 12,
+                      ),
+                    ],
                   ),
+                ),
+              ],
             ),
           ),
           _ipoGmpController.obx(
             (state) {
               return SizedBox(
-                height: 210,
+                height: 190,
                 child: ListView.separated(
                   itemCount: state?.data?.length ?? 0,
                   shrinkWrap: true,
@@ -69,8 +95,8 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                     return Container(
                       width: MediaQuery.of(context).size.width * 0.7,
                       decoration: AppBoxDecoration.getBoxDecoration(),
-                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -90,7 +116,7 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                               const SizedBox(width: 12),
                               Flexible(
                                 child: Text(
-                                  ipoData?.companyName ?? '',
+                                  ipoData?.companyName?.replaceAll("[email protected]", "") ?? '',
                                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                         fontWeight: FontWeight.w500,
                                       ),
