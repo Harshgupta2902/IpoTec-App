@@ -215,7 +215,7 @@ class _DashboardViewState extends State<DashboardView> {
                   );
                 },
                 options: CarouselOptions(
-                  autoPlay: true,
+                  autoPlay: false,
                   enableInfiniteScroll: true,
                   disableCenter: true,
                   pauseAutoPlayOnTouch: false,

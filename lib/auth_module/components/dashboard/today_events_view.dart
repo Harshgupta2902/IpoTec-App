@@ -156,4 +156,3 @@ class _NewsEventsViewState extends State<NewsEventsView> {
     );
   }
 }
-
