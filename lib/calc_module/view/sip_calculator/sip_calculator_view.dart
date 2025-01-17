@@ -30,6 +30,8 @@ class _SipCalculatorViewState extends State<SipCalculatorView> {
   double retValue = 12;
   double tenureValue = 10;
 
+  final _sipCalcFormKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -51,255 +53,260 @@ class _SipCalculatorViewState extends State<SipCalculatorView> {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              // monthly Investmemnts
-              const SizedBox(height: 20),
-              CustomTextFormField(
-                controller: _invTextController,
-                hintText: "Monthly Investment",
-                keyboardType: TextInputType.number,
-                inputFormatter: [
-                  LengthLimitingTextInputFormatter(7),
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                validationMode: AutovalidateMode.onUserInteraction,
-                validator: (invValue) {
-                  if (invValue == "" || invValue == null) {
-                    return "Please enter amount";
-                  } else if (invValue == '0') {
-                    return "Please enter valid amount";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+          child: Form(
+            key: _sipCalcFormKey,
+            child: Column(
+              children: [
+                // monthly Investmemnts
+                const SizedBox(height: 20),
+                CustomTextFormField(
+                  controller: _invTextController,
+                  hintText: "Monthly Investment",
+                  keyboardType: TextInputType.number,
+                  inputFormatter: [
+                    LengthLimitingTextInputFormatter(7),
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  validationMode: AutovalidateMode.onUserInteraction,
+                  validator: (invValue) {
+                    if (invValue == "" || invValue == null) {
+                      return "Please enter amount";
+                    } else if (invValue == '0') {
+                      return "Please enter valid amount";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
 
-              // est returns
-              const SizedBox(height: 20),
-              CustomTextFormField(
-                controller: _returnsTextController,
-                hintText: "Expected Returns",
-                keyboardType: TextInputType.number,
-                inputFormatter: [
-                  LengthLimitingTextInputFormatter(5),
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,1}')),
-                ],
-                validationMode: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value == "" || value == null) {
-                    return "Please enter a valid percentage";
-                  } else if (double.tryParse(value) == null ||
-                      double.parse(value) < 1 ||
-                      double.parse(value) > 30) {
-                    return "Please enter a percentage between 1 and 30";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+                // est returns
+                const SizedBox(height: 20),
+                CustomTextFormField(
+                  controller: _returnsTextController,
+                  hintText: "Expected Returns",
+                  keyboardType: TextInputType.number,
+                  inputFormatter: [
+                    LengthLimitingTextInputFormatter(5),
+                    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,1}')),
+                  ],
+                  validationMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == "" || value == null) {
+                      return "Please enter a valid percentage";
+                    } else if (double.tryParse(value) == null ||
+                        double.parse(value) < 1 ||
+                        double.parse(value) > 30) {
+                      return "Please enter a percentage between 1 and 30";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
 
-              // Tenure
-              const SizedBox(height: 20),
-              CustomTextFormField(
-                controller: _tenureTextController,
-                hintText: "Tenure (in Years)",
-                keyboardType: TextInputType.number,
-                inputFormatter: [
-                  LengthLimitingTextInputFormatter(2),
-                  FilteringTextInputFormatter.digitsOnly,
-                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,1}')),
-                ],
-                validationMode: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value == "" || value == null) {
-                    return "Please enter year";
-                  } else if (double.tryParse(value) == null ||
-                      double.parse(value) < 1 ||
-                      double.parse(value) > 40) {
-                    return "Please enter year between 1 and 40";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+                // Tenure
+                const SizedBox(height: 20),
+                CustomTextFormField(
+                  controller: _tenureTextController,
+                  hintText: "Tenure (in Years)",
+                  keyboardType: TextInputType.number,
+                  inputFormatter: [
+                    LengthLimitingTextInputFormatter(2),
+                    FilteringTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,1}')),
+                  ],
+                  validationMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == "" || value == null) {
+                      return "Please enter year";
+                    } else if (double.tryParse(value) == null ||
+                        double.parse(value) < 1 ||
+                        double.parse(value) > 40) {
+                      return "Please enter year between 1 and 40";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
 
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Flexible(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(MediaQuery.of(context).size.width * 0.7, 40),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Flexible(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(MediaQuery.of(context).size.width * 0.7, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          backgroundColor: Colors.black,
                         ),
-                        backgroundColor: Colors.black,
+                        onPressed: () {
+                          _invTextController.text = '25000';
+                          _returnsTextController.text = '12';
+                          _tenureTextController.text = '10';
+                          setState(() {
+                            isLoading = null;
+                          });
+                        },
+                        child: const Text("Reset"),
                       ),
-                      onPressed: () {
-                        _invTextController.text = '25000';
-                        _returnsTextController.text = '12';
-                        _tenureTextController.text = '10';
-                        setState(() {
-                          isLoading = null;
-                        });
-                      },
-                      child: const Text("Reset"),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  Flexible(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(MediaQuery.of(context).size.width * 0.7, 40),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    const SizedBox(width: 20),
+                    Flexible(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(MediaQuery.of(context).size.width * 0.7, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
+                        onPressed: () async {
+                          if (_sipCalcFormKey.currentState?.validate() ?? false) {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await _sipCalculatorController.calculateSIP(
+                              sipAmount: double.tryParse(_invTextController.text) ?? 0,
+                              returnRate: double.tryParse(_returnsTextController.text) ?? 0,
+                              tenure: int.parse(_tenureTextController.text),
+                            );
+                            setState(() {
+                              isLoading = false;
+                            });
+                          }
+                        },
+                        child: const Text("Calculate"),
                       ),
-                      onPressed: () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        await _sipCalculatorController.calculateSIP(
-                          sipAmount: double.tryParse(_invTextController.text) ?? 0,
-                          returnRate: double.tryParse(_returnsTextController.text) ?? 0,
-                          tenure: int.parse(_tenureTextController.text),
-                        );
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
-                      child: const Text("Calculate"),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
 
-              const SizedBox(height: kToolbarHeight - 20),
-              if (isLoading != null) ...[
-                isLoading == true
-                    ? Lottie.asset(AssetPath.loaderLottie)
-                    : _sipCalculatorController.obx((state) {
-                        final estRet = format2INR(((state?.reports.yearlyReport.last.value ?? 0) -
-                            (state?.totalInvestAmount ?? 0)));
-                        return GestureDetector(
-                          onTap: () {
-                            MyNavigator.pushNamed(GoPaths.sipCalculatorResult);
-                          },
-                          child: Container(
-                            decoration: AppBoxDecoration.getBoxDecoration(),
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Flexible(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: "Estimated Returns\n",
-                                              style: Theme.of(context).textTheme.bodyMedium,
+                const SizedBox(height: kToolbarHeight - 20),
+                if (isLoading != null) ...[
+                  isLoading == true
+                      ? Lottie.asset(AssetPath.loaderLottie)
+                      : _sipCalculatorController.obx((state) {
+                          final estRet = format2INR(((state?.reports.yearlyReport.last.value ?? 0) -
+                              (state?.totalInvestAmount ?? 0)));
+                          return GestureDetector(
+                            onTap: () {
+                              MyNavigator.pushNamed(GoPaths.sipCalculatorResult);
+                            },
+                            child: Container(
+                              decoration: AppBoxDecoration.getBoxDecoration(),
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                              child: Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Flexible(
+                                            child: RichText(
+                                              text: TextSpan(
+                                                text: "Estimated Returns\n",
+                                                style: Theme.of(context).textTheme.bodyMedium,
+                                                children: [
+                                                  TextSpan(
+                                                    text: estRet,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineLarge
+                                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(bottom: 8),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8, vertical: 4),
+                                            child: Row(
                                               children: [
-                                                TextSpan(
-                                                  text: estRet,
+                                                const Icon(
+                                                  Icons.trending_up,
+                                                  color: Colors.green,
+                                                  size: 16,
+                                                ),
+                                                const SizedBox(width: 4),
+                                                Text(
+                                                  "${state?.reports.yearlyReport.last.currencyGainLossPer.toStringAsFixed(2)}%",
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headlineLarge
-                                                      ?.copyWith(fontWeight: FontWeight.w700),
-                                                ),
+                                                      .labelMedium
+                                                      ?.copyWith(color: Colors.green),
+                                                )
                                               ],
                                             ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(bottom: 8),
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 4),
-                                          child: Row(
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(height: 16),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              const Icon(
-                                                Icons.trending_up,
-                                                color: Colors.green,
-                                                size: 16,
-                                              ),
-                                              const SizedBox(width: 4),
                                               Text(
-                                                "${state?.reports.yearlyReport.last.currencyGainLossPer.toStringAsFixed(2)}%",
+                                                "Invested Amount",
+                                                style: Theme.of(context).textTheme.bodySmall,
+                                              ),
+                                              const SizedBox(height: 2),
+                                              Text(
+                                                format2INR(state?.totalInvestAmount),
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .labelMedium
-                                                    ?.copyWith(color: Colors.green),
-                                              )
+                                                    .titleMedium
+                                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                              ),
                                             ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Invested Amount",
-                                              style: Theme.of(context).textTheme.bodySmall,
-                                            ),
-                                            const SizedBox(height: 2),
-                                            Text(
-                                              format2INR(state?.totalInvestAmount),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(fontWeight: FontWeight.w700),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              "Duration (Years)",
-                                              style: Theme.of(context).textTheme.bodySmall,
-                                            ),
-                                            const SizedBox(height: 2),
-                                            Text(
-                                              "${state?.tenureInYears}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(fontWeight: FontWeight.w700),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Positioned(
-                                  top: -10,
-                                  right: -10,
-                                  child: Transform.rotate(
-                                    angle: 315 * (3.14159 / 180),
-                                    child: const Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.black,
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                "Duration (Years)",
+                                                style: Theme.of(context).textTheme.bodySmall,
+                                              ),
+                                              const SizedBox(height: 2),
+                                              Text(
+                                                "${state?.tenureInYears}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium
+                                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Positioned(
+                                    top: -10,
+                                    right: -10,
+                                    child: Transform.rotate(
+                                      angle: 315 * (3.14159 / 180),
+                                      child: const Icon(
+                                        Icons.arrow_forward,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                ],
               ],
-            ],
+            ),
           ),
         ),
       ),
