@@ -35,7 +35,6 @@ class _NewsEventsViewState extends State<NewsEventsView> {
                 ),
           ),
         ),
-        const SizedBox(height: 12),
         _newsController.obx(
           (state) {
             return ListView.separated(
@@ -112,7 +111,7 @@ class _NewsEventsViewState extends State<NewsEventsView> {
                           border: Border.all(color: AppColors.silverChalice30),
                         ),
                         child: Text(
-                          removeHtmlTags(newsData?.desc ?? ""),
+                          removeHtmlTags(newsData?.desc ?? "").trim(),
                           style: Theme.of(context).textTheme.bodyMedium,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,

@@ -87,6 +87,7 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       extendBodyBehindAppBar: true,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -115,6 +116,8 @@ class _DashboardViewState extends State<DashboardView> {
                         padding: const EdgeInsets.only(left: 12, right: 12, bottom: 6),
                         child: Text(
                           getGreetMsg(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium
@@ -215,7 +218,7 @@ class _DashboardViewState extends State<DashboardView> {
                   );
                 },
                 options: CarouselOptions(
-                  autoPlay: false,
+                  autoPlay: true,
                   enableInfiniteScroll: true,
                   disableCenter: true,
                   pauseAutoPlayOnTouch: false,

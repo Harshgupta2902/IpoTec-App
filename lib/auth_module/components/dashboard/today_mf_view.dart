@@ -95,7 +95,7 @@ class _TodayMfViewState extends State<TodayMfView> with SingleTickerProviderStat
           _mfGainersController.obx(
             (state) {
               return SizedBox(
-                height: 360,
+                height: MediaQuery.of(context).size.height * 0.43,
                 child: TabBarView(
                   controller: _tabController,
                   children: [

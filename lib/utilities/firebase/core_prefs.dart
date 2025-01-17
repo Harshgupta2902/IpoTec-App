@@ -6,14 +6,6 @@ setLogin(bool login) {
   prefs.write("IS_LOGGED_IN", login);
 }
 
-setIntro(bool intro) {
-  prefs.write("intro", intro);
-}
-
-getIntro() {
-  return prefs.read("intro") ?? true;
-}
-
 setUuid(String uuid) {
   prefs.write("uuid", uuid);
 }

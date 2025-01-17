@@ -58,9 +58,6 @@ class AssetPath {
   static const vLogo = "${_logos}V.svg";
   static const wLogo = "${_logos}W.svg";
 
-  static const mainIntro = "${_intro}main.png";
-  static const ipoIntro = "${_intro}ipo.png";
-  static const mfIntro = "${_intro}mf.png";
 
   static const sipBanner = "${_intro}sip_banner.png";
   static const swpBanner = "${_intro}swp_banner.png";

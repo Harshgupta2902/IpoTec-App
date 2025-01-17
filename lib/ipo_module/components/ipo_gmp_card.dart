@@ -78,7 +78,7 @@ class IpoGmpCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${state?.companyName}",
+                        "${state?.companyName?.replaceAll("[email protected]", "")}",
                         maxLines: 1,
                         style: Theme.of(context)
                             .textTheme

@@ -265,7 +265,6 @@ String format2INR(dynamic amount, {bool removeAllAfterDecimal = true}) {
   return formattedAmount;
 }
 
-
 compactFormat2INR(dynamic amount) {
   try {
     if (amount == null || amount.isNaN) {

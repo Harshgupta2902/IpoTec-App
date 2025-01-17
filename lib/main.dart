@@ -35,7 +35,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await GetStorage.init();
   // if (!kReleaseMode) {
-  // setStaticPref();
+  //    setStaticPref();
   // }
 
   if (Platform.isAndroid) {

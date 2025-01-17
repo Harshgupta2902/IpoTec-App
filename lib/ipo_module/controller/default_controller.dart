@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotec/ipo_module/modal/default_model.dart';
@@ -16,10 +15,7 @@ class DefaultApiController extends GetxController with StateMixin<DefaultModel> 
 
       debugPrint("DefaultApiController => getDefaultData > Success  $response");
 
-
-      final responseData = response.data is String
-          ? jsonDecode(response.data)
-          : response.data;
+      final responseData = response.data is String ? jsonDecode(response.data) : response.data;
 
       final modal = DefaultModel.fromJson(responseData);
       change(modal, status: RxStatus.success());
