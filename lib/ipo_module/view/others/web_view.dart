@@ -16,6 +16,7 @@ class WebView extends StatefulWidget {
 
 class _WebViewState extends State<WebView> {
   String? currentUrl;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -42,46 +43,66 @@ class _WebViewState extends State<WebView> {
             child: const Icon(Icons.open_in_browser),
           ),
         ),
-        body: InAppWebView(
-          initialUrlRequest: URLRequest(url: Uri.parse(currentUrl ?? widget.url)),
-          onWebViewCreated: (InAppWebViewController controller) {},
-          initialOptions: InAppWebViewGroupOptions(
-            crossPlatform: InAppWebViewOptions(
-              javaScriptEnabled: true,
-              supportZoom: true,
-              allowFileAccessFromFileURLs: false,
+        body: Stack(
+          children: [
+            InAppWebView(
+              initialUrlRequest: URLRequest(url: Uri.parse(currentUrl ?? widget.url)),
+              onWebViewCreated: (InAppWebViewController controller) {},
+              initialOptions: InAppWebViewGroupOptions(
+                crossPlatform: InAppWebViewOptions(
+                  javaScriptEnabled: true,
+                  supportZoom: true,
+                  allowFileAccessFromFileURLs: false,
+                ),
+              ),
+              onLoadStart: (controller, url) async {
+                debugPrint("onLoadStart:::::::::$url");
+                setState(() {
+                  isLoading = true;
+                });
+                if (url.toString().replaceAll("#goog_rewarded", "") != widget.url) {
+                  MyNavigator.pop();
+                }
+                if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
+                  evaluateScript(controller);
+                }
+              },
+              onLoadError: (controller, url, code, message) async {
+                debugPrint("onLoadError:::::::::$url");
+                if (url.toString().replaceAll("#goog_rewarded", "") != widget.url) {
+                  MyNavigator.pop();
+                }
+                MyNavigator.pop();
+                setState(() {
+                  isLoading = false;
+                });
+              },
+              onLoadStop: (controller, url) async {
+                debugPrint("onLoadStop:::::::::$url");
+                setState(() {
+                  isLoading = false;
+                });
+                if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
+                  evaluateScript(controller);
+                }
+                if (url.toString().replaceAll("#goog_rewarded", "") != widget.url) {
+                  MyNavigator.pop();
+                }
+              },
+              onProgressChanged: (controller, progress) async {
+                debugPrint("onProgressChanged:::::::::$progress");
+                if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
+                  evaluateScript(controller);
+                }
+              },
             ),
-          ),
-          onLoadStart: (controller, url) async {
-            debugPrint("onLoadStart:::::::::$url");
-            if (url.toString().replaceAll("#goog_rewarded", "") != widget.url) {
-              MyNavigator.pop();
-            }
-            if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
-              evaluateScript(controller);
-            }
-          },
-          onLoadError: (controller, url, code, message) async {
-            debugPrint("onLoadError:::::::::$url");
-            if (url.toString().replaceAll("#goog_rewarded", "") != widget.url) {
-              MyNavigator.pop();
-            }
-          },
-          onLoadStop: (controller, url) async {
-            debugPrint("onLoadStop:::::::::$url");
-            if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
-              evaluateScript(controller);
-            }
-            if (url.toString().replaceAll("#goog_rewarded", "") != widget.url) {
-              MyNavigator.pop();
-            }
-          },
-          onProgressChanged: (controller, progress) async {
-            debugPrint("onProgressChanged:::::::::$progress");
-            if (currentUrl != null && currentUrl.toString().contains("moneycontrol")) {
-              evaluateScript(controller);
-            }
-          },
+            if (isLoading)
+              Positioned(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+          ],
         ),
       ),
     );
@@ -91,21 +112,13 @@ class _WebViewState extends State<WebView> {
 void evaluateScript(InAppWebViewController controller) async {
   await controller.evaluateJavascript(
     source: """
-              document.querySelectorAll('a').forEach(function(link) {
-                link.onclick = function(event) {
-                  event.preventDefault();
-                };
-              });
-            // document.querySelector('.h12Wrapper.backgroundPrimary.h12BotBorder').remove();
-            // document.querySelector('.foot21ExploreHead').remove();
-            // document.querySelector('.foot21MoreAbout').remove();
-            // document.querySelector('.valign-wrapper.foot21Div').remove();
-            // document.querySelector('.foot21Box').remove();
-            // document.querySelector('.bfc43CategoryContainer').remove();
-            // document.querySelector('.bfc43Title.bodyXLargeHeavy').remove();
-            // document.querySelector('.bs91SidebarLinks').remove();
-            // document.querySelector('.bmp88Disclaimer').remove();
-
-            """,
+      document.querySelectorAll('a').forEach(function(link) {
+        link.onclick = function(event) {
+          event.preventDefault();
+        };
+      });
+      document.querySelector('.header')?.remove();
+      document.querySelector('nav.navbar')?.remove(); // Ensures navbar removal
+    """,
   );
 }
