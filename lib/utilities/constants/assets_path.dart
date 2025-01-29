@@ -58,7 +58,6 @@ class AssetPath {
   static const vLogo = "${_logos}V.svg";
   static const wLogo = "${_logos}W.svg";
 
-
   static const sipBanner = "${_intro}sip_banner.png";
   static const swpBanner = "${_intro}swp_banner.png";
   static const stpBanner = "${_intro}stp_banner.png";
@@ -73,4 +72,6 @@ class AssetPath {
   static const lumpCalc = "${_icons}lump_calc.png";
   static const sipPlanCalc = "${_icons}sip_plan_calc.png";
   static const sipTopUpCalc = "${_icons}sip_topup_calc.png";
+
+  static const calcIconSvg = "${_icons}calc_icon.svg";
 }

@@ -84,17 +84,69 @@ class _CalcLandingViewState extends State<CalcLandingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Column(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.35,
+            padding: const EdgeInsets.only(top: 30, bottom: 10, left: 12, right: 12),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AssetPath.blueBg),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: Row(
+              children: [
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Welcome to Finance Calculator",
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        "Take Control of your Finances".toUpperCase(),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        "Take Control of your Finances".toUpperCase(),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+                Image.asset(AssetPath.calcIconSvg)
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+    return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverOverlapAbsorber(
             handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             sliver: SliverAppBar(
-              backgroundColor: AppColors.primaryColor,
-              automaticallyImplyLeading: false,
               expandedHeight: 100,
               collapsedHeight: 100,
               pinned: true,
               clipBehavior: Clip.hardEdge,
+              backgroundColor: AppColors.onyx,
+              automaticallyImplyLeading: false,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(20),
