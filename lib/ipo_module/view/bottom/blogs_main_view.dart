@@ -29,11 +29,13 @@ class _BlogsMainViewState extends State<BlogsMainView> {
   @override
   void initState() {
     super.initState();
-    _blogsController.getBlogs(offset: '1', hardLoad: true);
-    _newsController.getNews(offset: '1', hardLoad: true);
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) {
+      _blogsController.getBlogs(offset: '1', hardLoad: true);
+      _newsController.getNews(offset: '1', hardLoad: true);
 
-    _blogsController.loadMoreCount = 1;
-    scrollController.addListener(_scrollListener);
+      _blogsController.loadMoreCount = 1;
+      scrollController.addListener(_scrollListener);
+    });
   }
 
   @override
@@ -84,103 +86,117 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                 thumbVisibility: true,
                 thickness: 6,
                 radius: const Radius.circular(8),
-                child: ListView.separated(
-                  controller: scrollController,
-                  itemBuilder: (context, index) {
-                    final blog = state?.articles?[index];
-                    return GestureDetector(
-                      onTap: () {
-                        MyNavigator.pushNamed(
-                          GoPaths.webView,
-                          extra: {
-                            'url': blog?.link,
-                            'title': blog?.title,
-                          },
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CachedImageNetworkContainer(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.22,
-                              decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 16),
-                              url: blog?.image,
-                              placeHolder: buildNetworkPlaceholder(),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ListView.separated(
+                        controller: scrollController,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final blog = state?.articles?[index];
+                          return GestureDetector(
+                            onTap: () {
+                              MyNavigator.pushNamed(
+                                GoPaths.webView,
+                                extra: {
+                                  'url': blog?.link,
+                                  'title': blog?.title,
+                                },
+                              );
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    blog?.title?.replaceAll("&#038;", "&") ?? "",
-                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                          color: AppColors.onyx,
-                                        ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
+                                  CachedImageNetworkContainer(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height * 0.22,
+                                    decoration: AppBoxDecoration.getBoxDecoration(borderRadius: 16),
+                                    url: blog?.image,
+                                    placeHolder: buildNetworkPlaceholder(),
                                   ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          CachedImageNetworkContainer(
-                                            width: 22,
-                                            height: 22,
-                                            decoration: AppBoxDecoration.getBoxDecoration(
-                                              borderRadius: 16,
-                                            ),
-                                            url: blog?.logo,
-                                            placeHolder: buildNetworkPlaceholder(),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Text(
-                                            blog?.watermark ?? "",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall
-                                                ?.copyWith(fontWeight: FontWeight.w400),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Text(
-                                            blog?.date ?? "",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall
-                                                ?.copyWith(fontWeight: FontWeight.w400),
-                                          ),
-                                        ],
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Share.share(blog?.link ?? "");
-                                        },
-                                        child: SvgPicture.asset(
-                                          AssetPath.share,
-                                          height: 18,
-                                          width: 18,
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          blog?.title?.replaceAll("&#038;", "&") ?? "",
+                                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                                color: AppColors.onyx,
+                                              ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.left,
                                         ),
-                                      )
-                                    ],
-                                  )
+                                        const SizedBox(height: 8),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                CachedImageNetworkContainer(
+                                                  width: 22,
+                                                  height: 22,
+                                                  decoration: AppBoxDecoration.getBoxDecoration(
+                                                    borderRadius: 16,
+                                                  ),
+                                                  url: blog?.logo,
+                                                  placeHolder: buildNetworkPlaceholder(),
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  blog?.watermark ?? "",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(fontWeight: FontWeight.w400),
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  blog?.date ?? "",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(fontWeight: FontWeight.w400),
+                                                ),
+                                              ],
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Share.share(blog?.link ?? "");
+                                              },
+                                              child: SvgPicture.asset(
+                                                AssetPath.share,
+                                                height: 18,
+                                                width: 18,
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
+                          );
+                        },
+                        itemCount: state?.articles?.length ?? 0,
+                        separatorBuilder: (context, index) {
+                          return const Divider(color: AppColors.silverChalice30);
+                        },
                       ),
-                    );
-                  },
-                  itemCount: state?.articles?.length ?? 0,
-                  separatorBuilder: (context, index) {
-                    return const Divider(color: AppColors.silverChalice30);
-                  },
+                      Obx(() {
+                        return _blogsController.isLoading.value == true
+                            ? const CircularProgressIndicator()
+                            : const SizedBox.shrink();
+                      }),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               );
             },

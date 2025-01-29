@@ -15,12 +15,15 @@ class BlogsController extends GetxController with StateMixin<BlogsModel> {
 
     final apiEndPoint = "${APIEndPoints.blogs}?offset=$offset";
     debugPrint("---------- $apiEndPoint getBlogs Start ----------");
-    if (offset == '1') {
-      change(null, status: RxStatus.loading());
-    }
-    if (hardLoad == true) {
-      change(null, status: RxStatus.loading());
-    }
+
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) {
+      if (offset == '1') {
+        change(null, status: RxStatus.loading());
+      }
+      if (hardLoad == true) {
+        change(null, status: RxStatus.loading());
+      }
+    });
 
     try {
       final response = await getRequest(
@@ -28,7 +31,6 @@ class BlogsController extends GetxController with StateMixin<BlogsModel> {
       );
 
       debugPrint("BlogsController =>  getBlogs > Success ${response.data} ");
-
 
       final responseData = response.data is String ? jsonDecode(response.data) : response.data;
 
