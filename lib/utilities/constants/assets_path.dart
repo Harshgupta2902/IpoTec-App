@@ -73,5 +73,5 @@ class AssetPath {
   static const sipPlanCalc = "${_icons}sip_plan_calc.png";
   static const sipTopUpCalc = "${_icons}sip_topup_calc.png";
 
-  static const calcIconSvg = "${_icons}calc_icon.svg";
+  static const calcIconPng = "${_icons}calc_icon.png";
 }

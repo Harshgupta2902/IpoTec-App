@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/auth_module/components/dashboard/dashboard_tape.dart';
 import 'package:ipotec/auth_module/controller/auth_controller.dart';
@@ -83,58 +84,82 @@ class _CalcLandingViewState extends State<CalcLandingView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.35,
-            padding: const EdgeInsets.only(top: 30, bottom: 10, left: 12, right: 12),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(AssetPath.blueBg),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Row(
-              children: [
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Welcome to Finance Calculator",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        "Take Control of your Finances".toUpperCase(),
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        "Take Control of your Finances".toUpperCase(),
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-                Image.asset(AssetPath.calcIconSvg)
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+    // return Scaffold(
+    //   body: Column(
+    //     children: [
+    //       Container(
+    //         width: MediaQuery.of(context).size.width,
+    //         height: MediaQuery.of(context).size.height * 0.35,
+    //         padding: const EdgeInsets.only(top: 40, bottom: 10, left: 12, right: 12),
+    //         decoration: const BoxDecoration(
+    //           image: DecorationImage(
+    //             image: AssetImage(AssetPath.blueBg),
+    //             fit: BoxFit.fill,
+    //           ),
+    //         ),
+    //         child: Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             Text(
+    //               "Welcome to Finance Calculator",
+    //               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+    //                     color: AppColors.white,
+    //                     fontWeight: FontWeight.w600,
+    //                   ),
+    //             ),
+    //             const SizedBox(height: 4),
+    //             Row(
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               children: [
+    //                 Flexible(
+    //                   child: Column(
+    //                     crossAxisAlignment: CrossAxisAlignment.start,
+    //                     children: [
+    //                       Text(
+    //                         "Take Control of your Finances".toUpperCase(),
+    //                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+    //                               color: AppColors.white,
+    //                               fontWeight: FontWeight.w500,
+    //                             ),
+    //                       ),
+    //                       const SizedBox(height: 4),
+    //                       Text(
+    //                         "Know your EMI Instantly, Plan your Finances Wisely & Compare Loadn Options",
+    //                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
+    //                               color: AppColors.white,
+    //                             ),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 const SizedBox(width: 20),
+    //                 Image.asset(
+    //                   AssetPath.calcIconPng,
+    //                   height: 100,
+    //                 ),
+    //               ],
+    //             ),
+    //             const SizedBox(height: 12),
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: List.generate(3, (index) {
+    //                 return Container(
+    //                   decoration: AppBoxDecoration.getBoxDecoration(),
+    //                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+    //                   child: Column(
+    //                     children: [
+    //                       Text("data"),
+    //                     ],
+    //                   ),
+    //                 );
+    //               }),
+    //             )
+    //           ],
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
