@@ -27,229 +27,224 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Current Ipo GMP",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-                GestureDetector(
-                  onTap: () => MyNavigator.pushNamed(GoPaths.gmp),
-                  child: Row(
-                    children: [
-                      Text(
-                        "See All",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: AppColors.primaryColor,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        color: AppColors.primaryColor,
-                        size: 12,
-                      ),
-                    ],
+    return _ipoGmpController.obx(
+      (state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Current Ipo GMP",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
-                ),
-              ],
+                  GestureDetector(
+                    onTap: () => MyNavigator.pushNamed(GoPaths.gmp),
+                    child: Row(
+                      children: [
+                        Text(
+                          "See All",
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          color: AppColors.primaryColor,
+                          size: 12,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          _ipoGmpController.obx(
-            (state) {
-              return SizedBox(
-                height: 190,
-                child: ListView.separated(
-                  itemCount: state?.data?.length ?? 0,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context, index) {
-                    final ipoData = state?.data?[index];
-                    Color gmpColor = ((double.tryParse((ipoData?.gmp ?? "")) ?? 0) > 0)
-                        ? Colors.green
-                        : AppColors.cadmiumRed;
+            SizedBox(
+              height: 190,
+              child: ListView.separated(
+                itemCount: state?.data?.length ?? 0,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  final ipoData = state?.data?[index];
+                  Color gmpColor = ((double.tryParse((ipoData?.gmp ?? "")) ?? 0) > 0)
+                      ? Colors.green
+                      : AppColors.cadmiumRed;
 
-                    String? percentageString = ipoData?.estListing
-                        ?.split('(')
-                        .last
-                        .replaceAll(')', '')
-                        .replaceAll('%', '');
-                    double? percentage = double.tryParse(percentageString!);
+                  String? percentageString =
+                      ipoData?.estListing?.split('(').last.replaceAll(')', '').replaceAll('%', '');
+                  double? percentage = double.tryParse(percentageString!);
 
-                    Color textColor = (percentage != null && percentage > 0)
-                        ? Colors.green
-                        : AppColors.cadmiumRed;
+                  Color textColor =
+                      (percentage != null && percentage > 0) ? Colors.green : AppColors.cadmiumRed;
 
-                    return Container(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      decoration: AppBoxDecoration.getBoxDecoration(),
-                      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 45,
-                                width: 45,
-                                decoration: AppBoxDecoration.getBoxDecoration(
-                                  borderRadius: 10,
-                                ),
-                                child: SvgPicture.asset(
-                                  getLogoPath(ipoData?.companyName ?? "-"),
-                                ),
+                  return Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    decoration: AppBoxDecoration.getBoxDecoration(),
+                    margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 45,
+                              width: 45,
+                              decoration: AppBoxDecoration.getBoxDecoration(
+                                borderRadius: 10,
                               ),
-                              const SizedBox(width: 12),
-                              Flexible(
-                                child: Text(
-                                  ipoData?.companyName?.replaceAll("[email protected]", "") ?? '',
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
+                              child: SvgPicture.asset(
+                                getLogoPath(ipoData?.companyName ?? "-"),
                               ),
-                            ],
-                          ),
-                          const SizedBox(height: 6),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  text: "Price: ",
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        color: AppColors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                  children: [
-                                    TextSpan(
-                                      text: "₹${ipoData?.price}",
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                            color: AppColors.black,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                            ),
+                            const SizedBox(width: 12),
+                            Flexible(
+                              child: Text(
+                                ipoData?.companyName?.replaceAll("[email protected]", "") ?? '',
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                  ],
-                                ),
                               ),
-                              RichText(
-                                text: TextSpan(
-                                  text: "GMP: ",
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        color: AppColors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                  children: [
-                                    TextSpan(
-                                      text: "₹${ipoData?.gmp}",
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                            color: gmpColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  text: "IPO Size: ",
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        color: AppColors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                  children: [
-                                    TextSpan(
-                                      text: "${ipoData?.ipoSize}",
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                            color: AppColors.black,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: "Lot Size: ",
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        color: AppColors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                  children: [
-                                    TextSpan(
-                                      text: ipoData?.lot,
-                                      style: Theme.of(context).textTheme.bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (ipoData?.estListing != null) ...[
-                            const SizedBox(height: 4),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             RichText(
                               text: TextSpan(
-                                text: "Est. Listing: ",
+                                text: "Price: ",
                                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                       color: AppColors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
                                 children: [
                                   TextSpan(
-                                    text: ipoData?.estListing,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(color: textColor),
+                                    text: "₹${ipoData?.price}",
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                          color: AppColors.black,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                   ),
                                 ],
                               ),
-                            )
-                          ],
-                          const Spacer(),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              "Updated On: ${ipoData?.updatedAt}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium
-                                  ?.copyWith(color: AppColors.boulder),
                             ),
-                          ),
+                            RichText(
+                              text: TextSpan(
+                                text: "GMP: ",
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                children: [
+                                  TextSpan(
+                                    text: "₹${ipoData?.gmp}",
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                          color: gmpColor,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                text: "IPO Size: ",
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                children: [
+                                  TextSpan(
+                                    text: "${ipoData?.ipoSize}",
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                          color: AppColors.black,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                text: "Lot Size: ",
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                children: [
+                                  TextSpan(
+                                    text: ipoData?.lot,
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        if (ipoData?.estListing != null) ...[
+                          const SizedBox(height: 4),
+                          RichText(
+                            text: TextSpan(
+                              text: "Est. Listing: ",
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              children: [
+                                TextSpan(
+                                  text: ipoData?.estListing,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(color: textColor),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 10);
-                  },
-                ),
-              );
-            },
-            onLoading: const TrendingIpoShimmer(),
-          ),
-        ],
-      ),
+                        const Spacer(),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Updated On: ${ipoData?.updatedAt}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(color: AppColors.boulder),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: 10);
+                },
+              ),
+            ),
+          ],
+        );
+      },
+      onLoading: const TrendingIpoShimmer(),
+      onEmpty: SizedBox.shrink(),
+      onError: (e) => SizedBox.shrink(),
     );
   }
 }
