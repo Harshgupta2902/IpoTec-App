@@ -30,6 +30,7 @@ class AssetPath {
   static const viewSvg = "${_icons}view.svg";
   static const avatarSvg = "${_icons}avatar.svg";
 
+  static const imageCardBanner = "${_icons}img_card_bg.png";
   static const blueBg = "${_icons}blue_bg.png";
   static const loginLogo = "${_icons}login_logo.png";
 
@@ -72,6 +73,13 @@ class AssetPath {
   static const lumpCalc = "${_icons}lump_calc.png";
   static const sipPlanCalc = "${_icons}sip_plan_calc.png";
   static const sipTopUpCalc = "${_icons}sip_topup_calc.png";
+
+  // static const sipCalc = "${_icons}sip_calc.png";
+  // static const swpCalc = "${_icons}swp_calc.png";
+  // static const stpCalc = "${_icons}stp_calc.png";
+  // static const lumpCalc = "${_icons}lump_calc.png";
+  // static const sipPlanCalc = "${_icons}sip_plan_calc.png";
+  // static const sipTopUpCalc = "${_icons}sip_topup_calc.png";
 
   static const calcIconPng = "${_icons}calc_icon.png";
 }

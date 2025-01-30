@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/utilities/common/drawer_controller.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
+import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _hiddenDrawerController = Get.put(HiddenDrawerController());
 
@@ -13,6 +14,7 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? titleWidget;
   final Widget? openBrowser;
   final Color? appBarColor;
+  final bool? showBorder;
   final Color? leadingColor;
 
   const CoreAppBar({
@@ -24,6 +26,7 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleWidget,
     this.openBrowser,
     this.appBarColor,
+    this.showBorder = false,
     this.leadingColor,
   });
 
@@ -38,6 +41,11 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
       centerTitle: centerTitle ?? true,
+      shape: showBorder == true
+          ? const Border(
+              bottom: BorderSide(color: AppColors.silverChalice30),
+            )
+          : null,
       leading: showBackButton == true
           ? GestureDetector(
               onTap: () {
