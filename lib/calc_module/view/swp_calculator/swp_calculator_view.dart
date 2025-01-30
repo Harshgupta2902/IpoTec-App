@@ -1,14 +1,16 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/calc_module/controller/swp_calculator_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_text_form_fields.dart';
+import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
-import 'package:ipotec/utilities/theme/app_box_decoration.dart';
+import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:lottie/lottie.dart';
 
@@ -52,7 +54,7 @@ class _SwpCalculatorViewState extends State<SwpCalculatorView> {
           centerTitle: false,
           title: "SWP Calculator",
         ),
-        body: Padding(
+        body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Form(
             key: _swpCalcFormKey,
@@ -211,122 +213,227 @@ class _SwpCalculatorViewState extends State<SwpCalculatorView> {
                   isLoading == true
                       ? Lottie.asset(AssetPath.loaderLottie)
                       : _swpCalculatorController.obx((state) {
-                          return GestureDetector(
-                            onTap: () {
-                              MyNavigator.pushNamed(GoPaths.swpCalculatorResult);
-                            },
-                            child: Container(
-                              decoration: AppBoxDecoration.getBoxDecoration(),
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                              child: Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          Flexible(
-                                            child: RichText(
-                                              text: TextSpan(
-                                                text: "Final Value\n",
-                                                style: Theme.of(context).textTheme.bodyMedium,
-                                                children: [
-                                                  TextSpan(
-                                                    text: format2INR((state?.withdrawnAmount ?? 0) +
-                                                        (state?.reports.yearlyReport.last.value ??
-                                                            0)),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headlineLarge
-                                                        ?.copyWith(fontWeight: FontWeight.w700),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: const EdgeInsets.only(bottom: 8),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 4),
-                                            child: Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.trending_up,
-                                                  color: Colors.green,
-                                                  size: 16,
-                                                ),
-                                                const SizedBox(width: 4),
-                                                Text(
-                                                  "${state?.gainLossPer.toStringAsFixed(2)}%",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .labelMedium
-                                                      ?.copyWith(color: Colors.green),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Invested Amount",
-                                                style: Theme.of(context).textTheme.bodySmall,
-                                              ),
-                                              const SizedBox(height: 4),
-                                              Text(
-                                                format2INR(state?.corpusAmount),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium
-                                                    ?.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Returns Earned",
-                                                style: Theme.of(context).textTheme.bodySmall,
-                                              ),
-                                              const SizedBox(height: 4),
-                                              Text(
-                                                format2INR(state?.interestEarned),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium
-                                                    ?.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Positioned(
-                                    top: -10,
-                                    right: -10,
-                                    child: Transform.rotate(
-                                      angle: 315 * (3.14159 / 180),
-                                      child: const Icon(
-                                        Icons.arrow_forward,
-                                        color: Colors.black,
-                                      ),
+                          List<KeyValuePairModel> keyValueList = [
+                            KeyValuePairModel(
+                              key: "Final Amount: ",
+                              value: format2INR((state?.withdrawnAmount ?? 0) +
+                                  (state?.reports.yearlyReport.last.value ?? 0)),
+                              extra: " (${state?.gainLossPer.toStringAsFixed(2)}%)",
+                            ),
+                            KeyValuePairModel(
+                              key: "Invested Amount",
+                              value: format2INR(state?.corpusAmount),
+                            ),
+                            KeyValuePairModel(
+                              key: "Est. Returns",
+                              value: format2INR(state?.interestEarned),
+                            ),
+                            KeyValuePairModel(
+                              key: "Remaining Balance",
+                              value: format2INR(state?.reports.yearlyReport.last.value),
+                            ),
+                            KeyValuePairModel(
+                              key: "Monthly Withdrawal",
+                              value: format2INR(state?.pensionAmount),
+                            ),
+                          ];
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  MyNavigator.pushNamed(GoPaths.swpCalculatorResult);
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(AssetPath.imageCardBanner),
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(12),
                                     ),
                                   ),
-                                ],
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      ListView.separated(
+                                        itemCount: keyValueList.length,
+                                        padding: const EdgeInsets.only(top: 16),
+                                        shrinkWrap: true,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final data = keyValueList[index];
+                                          return Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                data.key,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium
+                                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                              ),
+                                              const SizedBox(height: 2),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: data.value,
+                                                  style: Theme.of(context).textTheme.titleMedium,
+                                                  children: [
+                                                    TextSpan(
+                                                      text: data.extra,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium
+                                                          ?.copyWith(color: Colors.green),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                        separatorBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 12),
+                                            child: CustomPaint(
+                                              size: Size(MediaQuery.of(context).size.width, 1),
+                                              painter: HorizontalDashedLinePainter(
+                                                  color: Colors.black54),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      Positioned(
+                                        top: -10,
+                                        right: -10,
+                                        child: Transform.rotate(
+                                          angle: 315 * (3.14159 / 180),
+                                          child: const Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
+                              const SizedBox(height: kToolbarHeight),
+                              SizedBox(
+                                height: 180,
+                                child: BarChart(
+                                  BarChartData(
+                                    gridData: const FlGridData(show: false),
+                                    borderData: FlBorderData(show: false),
+                                    titlesData: FlTitlesData(
+                                      leftTitles: const AxisTitles(),
+                                      bottomTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: true,
+                                          getTitlesWidget: (value, meta) {
+                                            String legend = "Invested";
+                                            if (value == 1) {
+                                              legend = "Returns";
+                                            }
+                                            if (value == 2) {
+                                              legend = "Final Value";
+                                            }
+                                            return Padding(
+                                              padding: const EdgeInsets.only(top: 4),
+                                              child: Text(legend,
+                                                  style: Theme.of(context).textTheme.titleSmall),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      topTitles: const AxisTitles(),
+                                      rightTitles: const AxisTitles(),
+                                    ),
+                                    barTouchData: BarTouchData(
+                                      touchTooltipData: BarTouchTooltipData(
+                                        tooltipRoundedRadius: 8,
+                                        tooltipPadding:
+                                            const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                        tooltipMargin: 10,
+                                        tooltipHorizontalAlignment: FLHorizontalAlignment.center,
+                                        getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                                          return BarTooltipItem(
+                                            compactFormat2INR(rod.toY),
+                                            const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                            ),
+                                          );
+                                        },
+                                        getTooltipColor: (group) {
+                                          if (group.x == 0) {
+                                            return Colors.blue;
+                                          } else if (group.x == 1) {
+                                            return Colors.green;
+                                          } else {
+                                            return Colors.orange;
+                                          }
+                                        },
+                                        fitInsideHorizontally: true,
+                                      ),
+                                    ),
+                                    barGroups: [
+                                      BarChartGroupData(
+                                        x: 0,
+                                        barsSpace: 80,
+                                        showingTooltipIndicators: [0],
+                                        barRods: [
+                                          BarChartRodData(
+                                            toY: state?.corpusAmount ?? 0,
+                                            color: AppColors.primaryColor,
+                                            width: 40,
+                                            borderRadius: const BorderRadius.vertical(
+                                              top: Radius.circular(8),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      BarChartGroupData(
+                                        x: 1,
+                                        barsSpace: 80,
+                                        showingTooltipIndicators: [0],
+                                        barRods: [
+                                          BarChartRodData(
+                                            toY: state?.interestEarned ?? 0,
+                                            color: AppColors.shareGreen,
+                                            width: 40,
+                                            borderRadius: const BorderRadius.vertical(
+                                              top: Radius.circular(8),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      BarChartGroupData(
+                                        x: 2,
+                                        barsSpace: 80,
+                                        showingTooltipIndicators: [0],
+                                        barRods: [
+                                          BarChartRodData(
+                                            toY: ((state?.withdrawnAmount ?? 0) +
+                                                (state?.reports.yearlyReport.last.value ?? 0)),
+                                            color: AppColors.mediumGreen,
+                                            width: 40,
+                                            borderRadius: const BorderRadius.vertical(
+                                              top: Radius.circular(8),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                            ],
                           );
                         }),
                 ],
