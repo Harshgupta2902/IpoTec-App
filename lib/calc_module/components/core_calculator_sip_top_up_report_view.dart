@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ipotec/calc_module/modal/core_calculator_invest_value_model.dart';
 import 'package:ipotec/calc_module/view/sip_calculator/sip_calculator_result.dart';
-import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 typedef IndexedRowBuilder = List<Widget> Function(

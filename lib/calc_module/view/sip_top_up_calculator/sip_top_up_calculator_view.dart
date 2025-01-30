@@ -537,7 +537,7 @@ class CoreCalculatorDropDownInput<T> extends StatelessWidget {
           value: value,
           isExpanded: true,
           isDense: true,
-          padding: EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(top: 20),
           onChanged: onChange,
           items: List.generate(
             dropDownList.length,

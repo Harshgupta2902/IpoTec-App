@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class MarketMoodIndexPage extends StatefulWidget {
-  const MarketMoodIndexPage({Key? key}) : super(key: key);
+  const MarketMoodIndexPage({super.key});
 
   @override
-  _MarketMoodIndexPageState createState() => _MarketMoodIndexPageState();
+  State<MarketMoodIndexPage> createState() => _MarketMoodIndexPageState();
 }
 
 class _MarketMoodIndexPageState extends State<MarketMoodIndexPage>

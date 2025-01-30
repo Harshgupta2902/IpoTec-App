@@ -92,7 +92,7 @@ class _BlogsMainViewState extends State<BlogsMainView> {
                       ListView.separated(
                         controller: scrollController,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           final blog = state?.articles?[index];
                           return GestureDetector(

@@ -1,24 +1,15 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ipotec/calc_module/components/core_calculator_report_view.dart';
 import 'package:ipotec/calc_module/controller/sip_calculator_controller.dart';
-import 'package:ipotec/calc_module/controller/functions/sip_functions.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
-import 'package:ipotec/utilities/constants/functions.dart';
-import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _sipCalculatorController = Get.put(SIPCalculatorController());
 
-class SipCalculatorResult extends StatefulWidget {
+class SipCalculatorResult extends StatelessWidget {
   const SipCalculatorResult({super.key});
 
-  @override
-  State<SipCalculatorResult> createState() => _SipCalculatorResultState();
-}
-
-class _SipCalculatorResultState extends State<SipCalculatorResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

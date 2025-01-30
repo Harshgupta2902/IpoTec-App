@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:ipotec/calc_module/components/core_calculator_report_view.dart';
 import 'package:ipotec/calc_module/components/core_calculator_sip_top_up_report_view.dart';
 import 'package:ipotec/calc_module/controller/functions/step_up_functions.dart';
-import 'package:ipotec/calc_module/controller/sip_calculator_controller.dart';
-import 'package:ipotec/calc_module/controller/functions/sip_functions.dart';
 import 'package:ipotec/calc_module/controller/step_up_sip_calculator.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_tab_bar.dart';

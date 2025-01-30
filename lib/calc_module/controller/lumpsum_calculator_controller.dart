@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:ipotec/calc_module/controller/functions/lumpsum_functions.dart';
-import 'package:ipotec/calc_module/controller/functions/sip_functions.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 
 class LumpsumCalculatorController extends GetxController with StateMixin<CoreLumpsumModel> {

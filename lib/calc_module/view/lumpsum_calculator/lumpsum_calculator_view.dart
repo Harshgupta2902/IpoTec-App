@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:ipotec/calc_module/controller/lumpsum_calculator_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_text_form_fields.dart';
-import 'package:ipotec/utilities/common/scaffold_messenger.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';

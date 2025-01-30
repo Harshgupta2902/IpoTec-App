@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:ipotec/auth_module/models/mmi_model.dart';
-import 'package:ipotec/ipo_module/modal/bottom/ipo_gmp_model.dart';
 import 'package:ipotec/utilities/dio/api_end_points.dart';
 import 'package:ipotec/utilities/dio/api_request.dart';
 

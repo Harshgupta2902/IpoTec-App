@@ -243,8 +243,8 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
         );
       },
       onLoading: const TrendingIpoShimmer(),
-      onEmpty: SizedBox.shrink(),
-      onError: (e) => SizedBox.shrink(),
+      onEmpty: const SizedBox.shrink(),
+      onError: (e) => const SizedBox.shrink(),
     );
   }
 }

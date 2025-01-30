@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ipotec/auth_module/controller/auth_controller.dart';
 import 'package:ipotec/ipo_module/controller/bottom/sme_ipo_controller.dart';
 import 'package:ipotec/ipo_module/controller/default_controller.dart';
 import 'package:ipotec/ipo_module/controller/bottom/mainboard_ipo_controller.dart';

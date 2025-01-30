@@ -146,7 +146,7 @@ class CustomTextFormField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "$hintText",
+          hintText,
           style: Theme.of(context).textTheme.titleSmall,
         ),
         const SizedBox(height: 8),

@@ -97,7 +97,7 @@ class _WebViewState extends State<WebView> {
               },
             ),
             if (isLoading)
-              Positioned(
+              const Positioned(
                 child: Center(
                   child: CircularProgressIndicator(),
                 ),
