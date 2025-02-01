@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
+import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:lottie/lottie.dart';
@@ -39,7 +41,6 @@ class _SipTopUpCalculatorState extends State<SipTopUpCalculator> {
   ];
 
   final _sipTopUpCalcFormKey = GlobalKey<FormState>();
-
 
   @override
   void initState() {
@@ -222,9 +223,7 @@ class _SipTopUpCalculatorState extends State<SipTopUpCalculator> {
                         ),
                       ),
                       onPressed: () async {
-
-
-                        if(_sipTopUpCalcFormKey.currentState?.validate() ?? false){
+                        if (_sipTopUpCalcFormKey.currentState?.validate() ?? false) {
                           setState(() {
                             isLoading = true;
                           });
@@ -243,7 +242,6 @@ class _SipTopUpCalculatorState extends State<SipTopUpCalculator> {
                             isLoading = false;
                           });
                         }
-
                       },
                       child: const Text("Calculate"),
                     ),
@@ -255,260 +253,392 @@ class _SipTopUpCalculatorState extends State<SipTopUpCalculator> {
               if (isLoading != null) ...[
                 isLoading == true
                     ? Lottie.asset(AssetPath.loaderLottie)
-                    : _stepUpSIPController.obx((state) {
-                        final report = state?.reports.yearlyReport.last;
-                        final topUpReport = state?.topUpReports.yearlyReport.last;
+                    : _stepUpSIPController.obx(
+                        (state) {
+                          final report = state?.reports.yearlyReport.last;
+                          final topUpReport = state?.topUpReports.yearlyReport.last;
 
-                        return GestureDetector(
-                          onTap: () {
-                            MyNavigator.pushNamed(GoPaths.sipTopupCalculatorResult);
-                          },
-                          child: Column(
+                          List<KeyValuePairModel> keyValueList1 = [
+                            KeyValuePairModel(
+                              key: "Maturity Amount: ",
+                              value: state?.topUpReports.yearlyReport.last.currencyValue,
+                              extra:
+                                  " (${state?.topUpReports.yearlyReport.last.currencyGainLossPer.toStringAsFixed(2)}%)",
+                            ),
+                            KeyValuePairModel(
+                              key: "Invested Amount",
+                              value: topUpReport?.currencyInvested,
+                            ),
+                            KeyValuePairModel(
+                              key: "Est. Returns",
+                              value: format2INR((state?.topUpReports.yearlyReport.last.value ?? 0) -
+                                  (topUpReport?.invest ?? 0)),
+                            ),
+                          ];
+
+                          List<KeyValuePairModel> keyValueList2 = [
+                            KeyValuePairModel(
+                              key: "Maturity Amount: ",
+                              value: format2INR((state?.sipAmount ?? 0) +
+                                  (state?.reports.yearlyReport.last.value ?? 0)),
+                              extra:
+                                  " (${state?.reports.yearlyReport.last.currencyGainLossPer.toStringAsFixed(2)}%)",
+                            ),
+                            KeyValuePairModel(
+                              key: "Invested Amount",
+                              value: report?.currencyInvested,
+                            ),
+                            KeyValuePairModel(
+                              key: "Est. Returns",
+                              value: format2INR((state?.topUpReports.yearlyReport.last.value ?? 0) -
+                                  (topUpReport?.invest ?? 0)),
+                            ),
+                          ];
+
+                          return Column(
                             children: [
+                              GestureDetector(
+                                onTap: () {
+                                  MyNavigator.pushNamed(GoPaths.sipTopupCalculatorResult);
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(AssetPath.imageCardBanner),
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(12),
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Text(
+                                        "With StepUp",
+                                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              decoration: TextDecoration.underline,
+                                              color: AppColors.shareGreen,
+                                            ),
+                                      ),
+                                      ListView.separated(
+                                        itemCount: keyValueList1.length,
+                                        padding: const EdgeInsets.only(top: 30),
+                                        shrinkWrap: true,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final data = keyValueList1[index];
+                                          return Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                data.key,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium
+                                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                              ),
+                                              const SizedBox(height: 2),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: data.value,
+                                                  style: Theme.of(context).textTheme.titleMedium,
+                                                  children: [
+                                                    TextSpan(
+                                                      text: data.extra,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium
+                                                          ?.copyWith(color: Colors.green),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                        separatorBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 12),
+                                            child: CustomPaint(
+                                              size: Size(MediaQuery.of(context).size.width, 1),
+                                              painter: HorizontalDashedLinePainter(
+                                                  color: Colors.black54),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      Positioned(
+                                        top: -10,
+                                        right: -10,
+                                        child: Transform.rotate(
+                                          angle: 315 * (3.14159 / 180),
+                                          child: const Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              GestureDetector(
+                                onTap: () {
+                                  MyNavigator.pushNamed(GoPaths.sipTopupCalculatorResult);
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(AssetPath.imageCardBanner),
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(12),
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Text(
+                                        "Without StepUp",
+                                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              decoration: TextDecoration.underline,
+                                              color: AppColors.shareGreen,
+                                            ),
+                                      ),
+                                      ListView.separated(
+                                        itemCount: keyValueList2.length,
+                                        padding: const EdgeInsets.only(top: 30),
+                                        shrinkWrap: true,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final data = keyValueList2[index];
+                                          return Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                data.key,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium
+                                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                              ),
+                                              const SizedBox(height: 2),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: data.value,
+                                                  style: Theme.of(context).textTheme.titleMedium,
+                                                  children: [
+                                                    TextSpan(
+                                                      text: data.extra,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium
+                                                          ?.copyWith(color: Colors.green),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                        separatorBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 12),
+                                            child: CustomPaint(
+                                              size: Size(MediaQuery.of(context).size.width, 1),
+                                              painter: HorizontalDashedLinePainter(
+                                                  color: Colors.black54),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      Positioned(
+                                        top: -10,
+                                        right: -10,
+                                        child: Transform.rotate(
+                                          angle: 315 * (3.14159 / 180),
+                                          child: const Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
                               Container(
-                                decoration: AppBoxDecoration.getBoxDecoration(),
-                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                                child: Stack(
-                                  clipBehavior: Clip.none,
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Comparison",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 12),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        RichText(
-                                          text: TextSpan(
-                                            text: "Estimated Growth Value ",
-                                            style: Theme.of(context).textTheme.bodyMedium,
-                                            children: [
-                                              TextSpan(
-                                                text: "with Step Up",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(height: 4),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
+                                            const Icon(
+                                              Icons.circle,
+                                              size: 10,
+                                              color: AppColors.androidGreen,
+                                            ),
+                                            const SizedBox(width: 10),
                                             Text(
-                                              state?.topUpReports.yearlyReport.last.currencyValue ??
-                                                  "",
+                                              "Value with Step Up",
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headlineLarge
-                                                  ?.copyWith(fontWeight: FontWeight.w700),
+                                                  .bodySmall
+                                                  ?.copyWith(color: AppColors.boulder),
                                             ),
-                                            Container(
-                                              margin: const EdgeInsets.only(bottom: 8),
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 8, vertical: 4),
-                                              child: Row(
-                                                children: [
-                                                  const Icon(
-                                                    Icons.trending_up,
-                                                    color: Colors.green,
-                                                    size: 16,
-                                                  ),
-                                                  const SizedBox(width: 4),
-                                                  Text(
-                                                    "${state?.topUpReports.yearlyReport.last.currencyGainLossPer.toStringAsFixed(2)}%",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .labelMedium
-                                                        ?.copyWith(color: Colors.green),
-                                                  )
-                                                ],
-                                              ),
-                                            )
                                           ],
                                         ),
-                                        const SizedBox(height: 16),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Total Investments",
-                                                  style: Theme.of(context).textTheme.bodySmall,
-                                                ),
-                                                const SizedBox(height: 4),
-                                                Text(
-                                                  topUpReport?.currencyInvested ?? "",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleMedium
-                                                      ?.copyWith(fontWeight: FontWeight.w700),
-                                                ),
-                                              ],
+                                            const Icon(
+                                              Icons.circle,
+                                              size: 10,
+                                              color: AppColors.primaryColor,
                                             ),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  "Returns",
-                                                  style: Theme.of(context).textTheme.bodySmall,
-                                                ),
-                                                const SizedBox(height: 4),
-                                                Text(
-                                                  format2INR(
-                                                      (state?.topUpReports.yearlyReport.last.value ??
-                                                              0) -
-                                                          (topUpReport?.invest ?? 0)),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleMedium
-                                                      ?.copyWith(fontWeight: FontWeight.w700),
-                                                ),
-                                              ],
+                                            const SizedBox(width: 10),
+                                            Text(
+                                              "Value without Step Up",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.copyWith(color: AppColors.boulder),
                                             ),
                                           ],
-                                        )
+                                        ),
                                       ],
                                     ),
-                                    Positioned(
-                                      top: -10,
-                                      right: -10,
-                                      child: Transform.rotate(
-                                        angle: 315 * (3.14159 / 180),
-                                        child: const Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.black,
+                                    SizedBox(
+                                      height: 240,
+                                      child: LineChart(
+                                        LineChartData(
+                                          lineTouchData: LineTouchData(
+                                            touchTooltipData: LineTouchTooltipData(
+                                              getTooltipItems: (touchedSpots) {
+                                                return [
+                                                  LineTooltipItem(
+                                                    'without top up ',
+                                                    const TextStyle(
+                                                      fontSize: 8,
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
+                                                    children: [
+                                                      TextSpan(
+                                                        text: format2INR(touchedSpots[0].y),
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.w500,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  LineTooltipItem(
+                                                    'with top up  ',
+                                                    const TextStyle(
+                                                      fontSize: 8,
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
+                                                    children: [
+                                                      TextSpan(
+                                                        text: format2INR(touchedSpots[1].y),
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.w500,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ];
+                                              },
+                                            ),
+                                          ),
+                                          borderData: FlBorderData(show: false),
+                                          titlesData: const FlTitlesData(
+                                            leftTitles: AxisTitles(),
+                                            topTitles: AxisTitles(),
+                                            rightTitles: AxisTitles(),
+                                          ),
+                                          gridData: const FlGridData(show: false),
+                                          lineBarsData: [
+                                            LineChartBarData(
+                                              color: AppColors.primaryColor,
+                                              isCurved: true,
+                                              spots: List.generate(
+                                                state?.reports.yearlyReport.length ?? 0,
+                                                (index) {
+                                                  final report = state?.reports.yearlyReport[index];
+                                                  return FlSpot(
+                                                    index.toDouble() + 1,
+                                                    report?.value ?? 0,
+                                                  );
+                                                },
+                                              ).toList(),
+                                            ),
+                                            LineChartBarData(
+                                              color: AppColors.androidGreen,
+                                              isStepLineChart: false,
+                                              isCurved: true,
+                                              spots: List.generate(
+                                                state?.topUpReports.yearlyReport.length ?? 0,
+                                                (index) {
+                                                  final report =
+                                                      state?.topUpReports.yearlyReport[index];
+                                                  return FlSpot(
+                                                    index.toDouble() + 1,
+                                                    report?.value ?? 0,
+                                                  );
+                                                },
+                                              ).toList(),
+                                            ),
+                                          ],
                                         ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Year",
+                                        style: Theme.of(context).textTheme.bodySmall,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              Container(
-                                decoration: AppBoxDecoration.getBoxDecoration(),
-                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        RichText(
-                                          text: TextSpan(
-                                            text: "Estimated Growth Value ",
-                                            style: Theme.of(context).textTheme.bodyMedium,
-                                            children: [
-                                              TextSpan(
-                                                text: "without Step Up",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              state?.reports.yearlyReport.last.currencyValue ?? "",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineLarge
-                                                  ?.copyWith(fontWeight: FontWeight.w700),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(bottom: 8),
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 8, vertical: 4),
-                                              child: Row(
-                                                children: [
-                                                  const Icon(
-                                                    Icons.trending_up,
-                                                    color: Colors.green,
-                                                    size: 16,
-                                                  ),
-                                                  const SizedBox(width: 4),
-                                                  Text(
-                                                    "${state?.reports.yearlyReport.last.currencyGainLossPer.toStringAsFixed(2)}%",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .labelMedium
-                                                        ?.copyWith(color: Colors.green),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(height: 16),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Total Investments",
-                                                  style: Theme.of(context).textTheme.bodySmall,
-                                                ),
-                                                const SizedBox(height: 4),
-                                                Text(
-                                                  report?.currencyInvested ?? "",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleMedium
-                                                      ?.copyWith(fontWeight: FontWeight.w700),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  "Returns",
-                                                  style: Theme.of(context).textTheme.bodySmall,
-                                                ),
-                                                const SizedBox(height: 4),
-                                                Text(
-                                                  format2INR(
-                                                      (state?.reports.yearlyReport.last.value ?? 0) -
-                                                          (report?.invest ?? 0)),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleMedium
-                                                      ?.copyWith(fontWeight: FontWeight.w700),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Positioned(
-                                      top: -10,
-                                      right: -10,
-                                      child: Transform.rotate(
-                                        angle: 315 * (3.14159 / 180),
-                                        child: const Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 20),
                             ],
-                          ),
-                        );
-                      }),
+                          );
+                        },
+                      ),
               ],
             ],
           ),
@@ -525,6 +655,7 @@ class CoreCalculatorDropDownInput<T> extends StatelessWidget {
     required this.dropDownList,
     required this.value,
   });
+
   final List<KeyValuePairModel<T, String, void>> dropDownList;
   final Function(T? value) onChange;
   final T value;

@@ -86,7 +86,6 @@ class _CalcLandingViewState extends State<CalcLandingView> {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.35,
             padding: const EdgeInsets.only(top: 40, bottom: 10, left: 12, right: 12),
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -137,20 +136,20 @@ class _CalcLandingViewState extends State<CalcLandingView> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(3, (index) {
-                    return Container(
-                      decoration: AppBoxDecoration.getBoxDecoration(),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                      child: const Column(
-                        children: [
-                          Text("data"),
-                        ],
-                      ),
-                    );
-                  }),
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: List.generate(3, (index) {
+                //     return Container(
+                //       decoration: AppBoxDecoration.getBoxDecoration(),
+                //       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                //       child: const Column(
+                //         children: [
+                //           Text("data"),
+                //         ],
+                //       ),
+                //     );
+                //   }),
+                // ),
               ],
             ),
           ),
@@ -229,5 +228,4 @@ class _CalcLandingViewState extends State<CalcLandingView> {
       ),
     );
   }
-
 }
