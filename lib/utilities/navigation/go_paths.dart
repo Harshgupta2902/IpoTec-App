@@ -50,4 +50,11 @@ class GoPaths {
 
   static const String stpCalculatorView = '/stpCalculatorView';
   static const String stpCalculatorResult = '/stpCalculatorResult';
+
+//   Ifsc code
+
+  static const String ifscFinder = '/ifscFinder';
+  static const String ifscDetails = '/ifscDetails';
+
+
 }

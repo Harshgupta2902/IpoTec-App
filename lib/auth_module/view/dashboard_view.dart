@@ -66,7 +66,7 @@ class _DashboardViewState extends State<DashboardView> {
   final List<KeyValuePairModel> banner = [
     KeyValuePairModel(key: AssetPath.calcBanner, value: GoPaths.calcLanding),
     KeyValuePairModel(key: AssetPath.mfBanner, value: GoPaths.swpCalculatorView),
-    KeyValuePairModel(key: AssetPath.ifscBanner, value: GoPaths.stpCalculatorView),
+    KeyValuePairModel(key: AssetPath.ifscBanner, value: GoPaths.ifscFinder),
   ];
 
   String getGreetMsg() {
@@ -197,7 +197,7 @@ class _DashboardViewState extends State<DashboardView> {
                 itemBuilder: (context, index, realIndex) {
                   return GestureDetector(
                     onTap: () {
-                      if (banner[index].value == GoPaths.calcLanding) {
+                      if (index != 1) {
                         MyNavigator.pushNamed(banner[index].value);
                       } else {
                         messageScaffold(

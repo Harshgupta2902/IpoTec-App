@@ -6,7 +6,6 @@ import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
-import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 
 final _authController = Get.put(AuthController());
@@ -120,7 +119,7 @@ class _CalcLandingViewState extends State<CalcLandingView> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            "Know your EMI Instantly, Plan your Finances Wisely & Compare Loadn Options",
+                            "Know your EMI Instantly, Plan your Finances Wisely & Compare Loan Options",
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                   color: AppColors.white,
                                 ),
@@ -136,24 +135,18 @@ class _CalcLandingViewState extends State<CalcLandingView> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: List.generate(3, (index) {
-                //     return Container(
-                //       decoration: AppBoxDecoration.getBoxDecoration(),
-                //       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                //       child: const Column(
-                //         children: [
-                //           Text("data"),
-                //         ],
-                //       ),
-                //     );
-                //   }),
-                // ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            child: GestureDetector(
+              onTap: () {
+                MyNavigator.pushNamed(GoPaths.lumpSumCalculatorView);
+              },
+              child: Image.asset(AssetPath.lumpCalc),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
@@ -223,7 +216,7 @@ class _CalcLandingViewState extends State<CalcLandingView> {
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );

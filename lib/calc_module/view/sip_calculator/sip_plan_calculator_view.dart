@@ -10,7 +10,6 @@ import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
 import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
-import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:lottie/lottie.dart';
 

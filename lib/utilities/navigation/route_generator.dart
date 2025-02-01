@@ -14,6 +14,8 @@ import 'package:ipotec/calc_module/view/stp_calculator/stp_calculator_result.dar
 import 'package:ipotec/calc_module/view/stp_calculator/stp_calculator_view.dart';
 import 'package:ipotec/calc_module/view/swp_calculator/swp_calculator_result.dart';
 import 'package:ipotec/calc_module/view/swp_calculator/swp_calculator_view.dart';
+import 'package:ipotec/ifsc_module/view/ifsc_details.dart';
+import 'package:ipotec/ifsc_module/view/ifsc_finder.dart';
 import 'package:ipotec/ipo_module/view/bottom/blogs_main_view.dart';
 import 'package:ipotec/ipo_module/view/bottom/ipo_gmp_view.dart';
 import 'package:ipotec/ipo_module/view/drawer/ipo_performance_view.dart';
@@ -342,6 +344,26 @@ final GoRouter goRouterConfig = GoRouter(
       name: GoPaths.stpCalculatorResult,
       builder: (context, state) {
         return const StpCalculatorResult();
+      },
+    ),
+
+    // ------------------   IFSC CODE MODULE Routes   ---------------------------
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.ifscFinder,
+      name: GoPaths.ifscFinder,
+      builder: (context, state) {
+        return const IfscFinder();
+      },
+    ),
+
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: GoPaths.ifscDetails,
+      name: GoPaths.ifscDetails,
+      builder: (context, state) {
+        return const IfscDetails();
       },
     ),
   ],
