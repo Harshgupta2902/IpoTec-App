@@ -5,10 +5,12 @@ import 'package:ipotec/calc_module/controller/stp_calculator_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_text_form_fields.dart';
+import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
+import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:lottie/lottie.dart';
@@ -61,7 +63,6 @@ class _StpCalculatorViewState extends State<StpCalculatorView> {
   }
 
   final _stpCalcFormKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -235,8 +236,7 @@ class _StpCalculatorViewState extends State<StpCalculatorView> {
                           ),
                         ),
                         onPressed: () async {
-
-                          if(_stpCalcFormKey.currentState?.validate() ?? false){
+                          if (_stpCalcFormKey.currentState?.validate() ?? false) {
                             setState(() {
                               isLoading = true;
                             });
@@ -252,8 +252,6 @@ class _StpCalculatorViewState extends State<StpCalculatorView> {
                               isLoading = false;
                             });
                           }
-
-
                         },
                         child: const Text("Calculate"),
                       ),
@@ -266,119 +264,120 @@ class _StpCalculatorViewState extends State<StpCalculatorView> {
                   isLoading == true
                       ? Lottie.asset(AssetPath.loaderLottie)
                       : _stpCalculatorController.obx((state) {
-                          return GestureDetector(
-                            onTap: () {
-                              MyNavigator.pushNamed(GoPaths.stpCalculatorResult);
-                            },
-                            child: Container(
-                              decoration: AppBoxDecoration.getBoxDecoration(),
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                              child: Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          RichText(
-                                            text: TextSpan(
-                                              text: "Estimated Future Value\n",
-                                              style: Theme.of(context).textTheme.bodyMedium,
-                                              children: [
-                                                TextSpan(
-                                                  text: format2INR(state?.growthValue),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineLarge
-                                                      ?.copyWith(fontWeight: FontWeight.w700),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: const EdgeInsets.only(bottom: 8),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 4),
-                                            child: Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.trending_up,
-                                                  color: Colors.green,
-                                                  size: 16,
-                                                ),
-                                                const SizedBox(width: 4),
-                                                Text(
-                                                  "${state?.gainLossPer.toStringAsFixed(2)}%",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .labelMedium
-                                                      ?.copyWith(color: Colors.green),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Invested Amount",
-                                                style: Theme.of(context).textTheme.bodySmall,
-                                              ),
-                                              const SizedBox(height: 4),
-                                              Text(
-                                                format2INR(state?.initialAmount),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium
-                                                    ?.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Total Gains",
-                                                style: Theme.of(context).textTheme.bodySmall,
-                                              ),
-                                              const SizedBox(height: 4),
-                                              Text(
-                                                format2INR((state?.equityReturns ?? 0) +
-                                                    (state?.liquidReturns ?? 0)),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium
-                                                    ?.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Positioned(
-                                    top: -10,
-                                    right: -10,
-                                    child: Transform.rotate(
-                                      angle: 315 * (3.14159 / 180),
-                                      child: const Icon(
-                                        Icons.arrow_forward,
-                                        color: Colors.black,
-                                      ),
+                          List<KeyValuePairModel> keyValueList1 = [
+                            KeyValuePairModel(
+                              key: "STP Amount: ",
+                              value: format2INR(state?.stpAmount),
+                            ),
+                            KeyValuePairModel(
+                              key: "Equity Returns: ",
+                              value: format2INR(state?.equityReturns),
+                            ),
+                            KeyValuePairModel(
+                              key: "Liq. Fund Returns: ",
+                              value: format2INR(state?.liquidReturns),
+                            ),
+                            KeyValuePairModel(
+                              key: "Maturity Amount: ",
+                              value: format2INR(state?.growthValue),
+                              extra: " (${state?.gainLossPer.toStringAsFixed(2)}%)",
+                            ),
+                            KeyValuePairModel(
+                              key: "Invested Amount",
+                              value: format2INR(state?.initialAmount),
+                            ),
+                            KeyValuePairModel(
+                              key: "Est. Returns",
+                              value: format2INR(
+                                  (state?.equityReturns ?? 0) + (state?.liquidReturns ?? 0)),
+                            ),
+                          ];
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  MyNavigator.pushNamed(GoPaths.stpCalculatorResult);
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(AssetPath.imageCardBanner),
+                                      fit: BoxFit.fill,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(12),
                                     ),
                                   ),
-                                ],
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      ListView.separated(
+                                        itemCount: keyValueList1.length,
+                                        padding: const EdgeInsets.only(top: 16),
+                                        shrinkWrap: true,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final data = keyValueList1[index];
+                                          return Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                data.key,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium
+                                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                              ),
+                                              const SizedBox(height: 2),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: data.value,
+                                                  style: Theme.of(context).textTheme.titleMedium,
+                                                  children: [
+                                                    TextSpan(
+                                                      text: data.extra,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium
+                                                          ?.copyWith(color: Colors.green),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                        separatorBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 12),
+                                            child: CustomPaint(
+                                              size: Size(MediaQuery.of(context).size.width, 1),
+                                              painter: HorizontalDashedLinePainter(
+                                                  color: Colors.black54),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      Positioned(
+                                        top: -10,
+                                        right: -10,
+                                        child: Transform.rotate(
+                                          angle: 315 * (3.14159 / 180),
+                                          child: const Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           );
                         }),
                 ],

@@ -271,5 +271,4 @@ class _CoreCalculatorMonthlyReportwithItemBuilderState
       ),
     );
   }
-
 }
