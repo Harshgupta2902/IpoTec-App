@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:ipotec/calc_module/controller/sip_calculator_controller.dart';
 import 'package:ipotec/utilities/common/core_app_bar.dart';
 import 'package:ipotec/utilities/common/custom_text_form_fields.dart';
+import 'package:ipotec/utilities/common/key_value_pair_model.dart';
 import 'package:ipotec/utilities/constants/assets_path.dart';
 import 'package:ipotec/utilities/constants/functions.dart';
 import 'package:ipotec/utilities/navigation/go_paths.dart';
 import 'package:ipotec/utilities/navigation/navigator.dart';
+import 'package:ipotec/utilities/packages/dashed_line_painter.dart';
 import 'package:ipotec/utilities/theme/app_box_decoration.dart';
 import 'package:ipotec/utilities/theme/app_colors.dart';
 import 'package:lottie/lottie.dart';
@@ -26,7 +28,7 @@ class _SipPlanCalculatorState extends State<SipPlanCalculator> {
   final TextEditingController _returnsTextController = TextEditingController();
   final TextEditingController _tenureTextController = TextEditingController();
   bool? isLoading;
-  double invValue = 25000;
+  double invValue = 250000;
   double retValue = 12;
   double tenureValue = 10;
 
@@ -35,7 +37,7 @@ class _SipPlanCalculatorState extends State<SipPlanCalculator> {
   @override
   void initState() {
     super.initState();
-    _invTextController.text = '25000';
+    _invTextController.text = '250000';
     _returnsTextController.text = '12';
     _tenureTextController.text = '10';
   }
@@ -139,7 +141,7 @@ class _SipPlanCalculatorState extends State<SipPlanCalculator> {
                         backgroundColor: Colors.black,
                       ),
                       onPressed: () {
-                        _invTextController.text = '25000';
+                        _invTextController.text = '250000';
                         _returnsTextController.text = '12';
                         _tenureTextController.text = '10';
                         setState(() {
@@ -163,8 +165,8 @@ class _SipPlanCalculatorState extends State<SipPlanCalculator> {
                           setState(() {
                             isLoading = true;
                           });
-                          await _sipCalculatorController.calculateSIP(
-                            sipAmount: double.tryParse(_invTextController.text) ?? 0,
+                          await _sipCalculatorController.calculateSIPPlan(
+                            corpusAmount: double.tryParse(_invTextController.text) ?? 0,
                             returnRate: double.tryParse(_returnsTextController.text) ?? 0,
                             tenure: int.parse(_tenureTextController.text),
                           );
@@ -184,106 +186,92 @@ class _SipPlanCalculatorState extends State<SipPlanCalculator> {
                 isLoading == true
                     ? Lottie.asset(AssetPath.loaderLottie)
                     : _sipCalculatorController.obx((state) {
+                        List<KeyValuePairModel> keyValueList = [
+                          KeyValuePairModel(
+                            key: "SIP Amount",
+                            value: format2INR(state?.sipAmount ?? 0),
+                          ),
+                          KeyValuePairModel(
+                            key: "Invested Amount",
+                            value: format2INR(state?.totalInvestAmount ?? 0),
+                          ),
+                          KeyValuePairModel(
+                            key: "Duration",
+                            value: state?.tenureInYears.toString() ?? "",
+                          ),
+                          KeyValuePairModel(
+                            key: "Maturity Amount: ",
+                            value: format2INR((state?.sipAmount ?? 0) +
+                                (state?.reports.yearlyReport.last.value ?? 0)),
+                            extra:
+                                " (${state?.reports.yearlyReport.last.currencyGainLossPer.toStringAsFixed(2)}%)",
+                          ),
+                        ];
                         return GestureDetector(
                           onTap: () {
                             MyNavigator.pushNamed(GoPaths.sipCalculatorResult);
                           },
                           child: Container(
-                            decoration: AppBoxDecoration.getBoxDecoration(),
+                            width: MediaQuery.of(context).size.width,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(AssetPath.imageCardBanner),
+                                fit: BoxFit.fitWidth,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                             child: Stack(
                               clipBehavior: Clip.none,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
+                                ListView.separated(
+                                  itemCount: keyValueList.length,
+                                  padding: const EdgeInsets.only(top: 16),
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final data = keyValueList[index];
+                                    return Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Flexible(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: "Estimated Growth Value\n",
-                                              style: Theme.of(context).textTheme.bodyMedium,
-                                              children: [
-                                                TextSpan(
-                                                  text: format2INR(
-                                                      state?.reports.yearlyReport.last.value),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineLarge
-                                                      ?.copyWith(fontWeight: FontWeight.w700),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                        Text(
+                                          data.key,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(fontWeight: FontWeight.w700),
                                         ),
-                                        Container(
-                                          margin: const EdgeInsets.only(bottom: 8),
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 4),
-                                          child: Row(
+                                        const SizedBox(height: 2),
+                                        RichText(
+                                          text: TextSpan(
+                                            text: data.value,
+                                            style: Theme.of(context).textTheme.titleMedium,
                                             children: [
-                                              const Icon(
-                                                Icons.trending_up,
-                                                color: Colors.green,
-                                                size: 16,
-                                              ),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                "${state?.reports.yearlyReport.last.currencyGainLossPer.toStringAsFixed(2)}%",
+                                              TextSpan(
+                                                text: data.extra,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .labelMedium
+                                                    .titleMedium
                                                     ?.copyWith(color: Colors.green),
-                                              )
+                                              ),
                                             ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Invested Amount",
-                                              style: Theme.of(context).textTheme.bodySmall,
-                                            ),
-                                            const SizedBox(height: 2),
-                                            Text(
-                                              format2INR(state?.totalInvestAmount),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(fontWeight: FontWeight.w700),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              "Duration (Years)",
-                                              style: Theme.of(context).textTheme.bodySmall,
-                                            ),
-                                            const SizedBox(height: 2),
-                                            Text(
-                                              "${state?.tenureInYears}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(fontWeight: FontWeight.w700),
-                                            ),
-                                          ],
                                         ),
                                       ],
-                                    )
-                                  ],
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 12),
+                                      child: CustomPaint(
+                                        size: Size(MediaQuery.of(context).size.width, 1),
+                                        painter: HorizontalDashedLinePainter(color: Colors.black54),
+                                      ),
+                                    );
+                                  },
                                 ),
                                 Positioned(
                                   top: -10,
