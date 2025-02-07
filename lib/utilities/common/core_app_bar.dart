@@ -46,6 +46,7 @@ class CoreAppBar extends StatelessWidget implements PreferredSizeWidget {
               bottom: BorderSide(color: AppColors.silverChalice30),
             )
           : null,
+      titleSpacing: 0,
       leading: showBackButton == true
           ? GestureDetector(
               onTap: () {

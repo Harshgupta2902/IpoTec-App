@@ -16,6 +16,7 @@ class _IfscFinderState extends State<IfscFinder> {
       appBar: CoreAppBar(
         showBackButton: true,
         title: "IFSC Code Finder",
+        centerTitle: false,
       ),
       body: Column(
         children: [
