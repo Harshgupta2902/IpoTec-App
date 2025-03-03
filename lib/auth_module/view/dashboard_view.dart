@@ -65,7 +65,8 @@ class _DashboardViewState extends State<DashboardView> {
   final controller = CarouselSliderController();
   final List<KeyValuePairModel> banner = [
     KeyValuePairModel(key: AssetPath.calcBanner, value: GoPaths.calcLanding),
-    KeyValuePairModel(key: AssetPath.mfBanner, value: GoPaths.swpCalculatorView),
+    KeyValuePairModel(
+        key: AssetPath.mfBanner, value: GoPaths.swpCalculatorView),
     KeyValuePairModel(key: AssetPath.ifscBanner, value: GoPaths.ifscFinder),
   ];
 
@@ -113,7 +114,8 @@ class _DashboardViewState extends State<DashboardView> {
                     children: [
                       const SizedBox(height: 6),
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 6),
+                        padding: const EdgeInsets.only(
+                            left: 12, right: 12, bottom: 6),
                         child: Text(
                           getGreetMsg(),
                           maxLines: 1,
@@ -121,7 +123,9 @@ class _DashboardViewState extends State<DashboardView> {
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium
-                              ?.copyWith(color: AppColors.white, fontWeight: FontWeight.w600),
+                              ?.copyWith(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w600),
                         ),
                       ),
                       _mmiController.obx((state) {
@@ -147,25 +151,35 @@ class _DashboardViewState extends State<DashboardView> {
                         }
 
                         return Padding(
-                          padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
+                          padding: const EdgeInsets.only(
+                              left: 12, right: 12, bottom: 12),
                           child: RichText(
                             text: TextSpan(
                               text: "The Market is in ",
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
                                     color: AppColors.white,
                                     fontWeight: FontWeight.w600,
                                   ),
                               children: [
                                 TextSpan(
                                   text: marketCondition,
-                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
                                         color: marketColor,
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),
                                 TextSpan(
                                   text: " zone",
-                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
                                         color: AppColors.white,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -226,7 +240,8 @@ class _DashboardViewState extends State<DashboardView> {
                   viewportFraction: 0.8,
                   enlargeCenterPage: true,
                   autoPlayAnimationDuration: const Duration(milliseconds: 1500),
-                  onPageChanged: (index, reason) => setState(() => activeIndex = index),
+                  onPageChanged: (index, reason) =>
+                      setState(() => activeIndex = index),
                   pageSnapping: false,
                   scrollDirection: Axis.horizontal,
                   scrollPhysics: const BouncingScrollPhysics(),

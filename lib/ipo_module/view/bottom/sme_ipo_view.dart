@@ -81,11 +81,15 @@ class _SmeIpoViewState extends State<SmeIpoView> {
                         ),
                       );
                     },
-                    separatorBuilder: (context, index) => const SizedBox(height: 16),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 16),
                   ),
                 );
         },
         onError: (error) => TryAgainWidget(
+          onTap: _smeIpoController.getSmeData(type: "upcoming"),
+        ),
+        onEmpty: TryAgainWidget(
           onTap: _smeIpoController.getSmeData(type: "upcoming"),
         ),
       ),
