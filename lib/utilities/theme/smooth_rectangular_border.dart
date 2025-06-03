@@ -357,7 +357,8 @@ class SmoothRadius extends Radius {
       } else {
         return SmoothRadius(
           cornerRadius: lerpDouble(a.cornerRadius, b.cornerRadius, t) ?? 0,
-          cornerSmoothing: lerpDouble(a.cornerSmoothing, b.cornerSmoothing, t) ?? 0,
+          cornerSmoothing:
+              lerpDouble(a.cornerSmoothing, b.cornerSmoothing, t) ?? 0,
         );
       }
     }
@@ -474,7 +475,8 @@ class SmoothBorderRadius extends BorderRadius {
   }
 
   /// A border radius with all zero radii.
-  static const SmoothBorderRadius zero = SmoothBorderRadius.all(SmoothRadius.zero);
+  static const SmoothBorderRadius zero =
+      SmoothBorderRadius.all(SmoothRadius.zero);
 
   /// The top-left [SmoothRadius].
   @override
@@ -641,7 +643,8 @@ class SmoothBorderRadius extends BorderRadius {
   /// If either is null, this function interpolates from [BorderRadius.zero].
   ///
   /// {@macro dart.ui.shadow.lerp}
-  static SmoothBorderRadius? lerp(SmoothBorderRadius? a, SmoothBorderRadius? b, double t) {
+  static SmoothBorderRadius? lerp(
+      SmoothBorderRadius? a, SmoothBorderRadius? b, double t) {
     if (a == null && b == null) return null;
     if (a == null) return b! * t;
     if (b == null) return a * (1.0 - t);
@@ -663,7 +666,9 @@ class SmoothBorderRadius extends BorderRadius {
 
   @override
   String toString() {
-    if (topLeft == topRight && topLeft == bottomRight && topLeft == bottomLeft) {
+    if (topLeft == topRight &&
+        topLeft == bottomRight &&
+        topLeft == bottomLeft) {
       final radius = topLeft.toString();
       return 'SmoothBorderRadius${radius.substring(12)}';
     }
@@ -730,7 +735,8 @@ class ProcessedSmoothRadius {
 
     // This was called `h_longest` in the original code
     // In the article this is the distance between 2 control points: P3 and P4
-    final p3ToP4Distance = cornerRadius * math.tan(vector.radians(angleTheta / 2));
+    final p3ToP4Distance =
+        cornerRadius * math.tan(vector.radians(angleTheta / 2));
 
     // This was called `l` in the original code
     final circularSectionLength =

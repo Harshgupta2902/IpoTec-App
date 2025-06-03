@@ -49,10 +49,11 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                       children: [
                         Text(
                           "See All",
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: AppColors.primaryColor,
-                                fontWeight: FontWeight.w500,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: AppColors.primaryColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                         ),
                         const Icon(
                           Icons.arrow_forward_ios,
@@ -75,22 +76,29 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   final ipoData = state?.data?[index];
-                  Color gmpColor = ((double.tryParse((ipoData?.gmp ?? "")) ?? 0) > 0)
-                      ? Colors.green
-                      : AppColors.cadmiumRed;
+                  Color gmpColor =
+                      ((double.tryParse((ipoData?.gmp ?? "")) ?? 0) > 0)
+                          ? Colors.green
+                          : AppColors.cadmiumRed;
 
-                  String? percentageString =
-                      ipoData?.estListing?.split('(').last.replaceAll(')', '').replaceAll('%', '');
+                  String? percentageString = ipoData?.estListing
+                      ?.split('(')
+                      .last
+                      .replaceAll(')', '')
+                      .replaceAll('%', '');
                   double? percentage = double.tryParse(percentageString!);
 
-                  Color textColor =
-                      (percentage != null && percentage > 0) ? Colors.green : AppColors.cadmiumRed;
+                  Color textColor = (percentage != null && percentage > 0)
+                      ? Colors.green
+                      : AppColors.cadmiumRed;
 
                   return Container(
                     width: MediaQuery.of(context).size.width * 0.7,
                     decoration: AppBoxDecoration.getBoxDecoration(),
-                    margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    margin: const EdgeInsets.only(
+                        left: 10, right: 10, bottom: 20, top: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -110,8 +118,13 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                             const SizedBox(width: 12),
                             Flexible(
                               child: Text(
-                                ipoData?.companyName?.replaceAll("[email protected]", "") ?? '',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                ipoData?.companyName
+                                        ?.replaceAll("[email protected]", "") ??
+                                    '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
                                       fontWeight: FontWeight.w500,
                                     ),
                               ),
@@ -125,14 +138,20 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                             RichText(
                               text: TextSpan(
                                 text: "Price: ",
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
                                       color: AppColors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
                                 children: [
                                   TextSpan(
                                     text: "₹${ipoData?.price}",
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
                                           color: AppColors.black,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -143,14 +162,20 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                             RichText(
                               text: TextSpan(
                                 text: "GMP: ",
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
                                       color: AppColors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
                                 children: [
                                   TextSpan(
-                                    text: "₹${ipoData?.gmp}",
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    text: "${ipoData?.gmp}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
                                           color: gmpColor,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -166,14 +191,20 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                             RichText(
                               text: TextSpan(
                                 text: "IPO Size: ",
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
                                       color: AppColors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
                                 children: [
                                   TextSpan(
                                     text: "${ipoData?.ipoSize}",
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
                                           color: AppColors.black,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -184,14 +215,18 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                             RichText(
                               text: TextSpan(
                                 text: "Lot Size: ",
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
                                       color: AppColors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
                                 children: [
                                   TextSpan(
                                     text: ipoData?.lot,
-                                    style: Theme.of(context).textTheme.bodyMedium,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ],
                               ),
@@ -203,7 +238,10 @@ class _TrendingIpoViewState extends State<TrendingIpoView> {
                           RichText(
                             text: TextSpan(
                               text: "Est. Listing: ",
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
                                     color: AppColors.black,
                                     fontWeight: FontWeight.bold,
                                   ),

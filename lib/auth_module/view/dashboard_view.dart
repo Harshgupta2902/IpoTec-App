@@ -211,7 +211,7 @@ class _DashboardViewState extends State<DashboardView> {
                 itemBuilder: (context, index, realIndex) {
                   return GestureDetector(
                     onTap: () {
-                      if (index != 1) {
+                      if (index == 0) {
                         MyNavigator.pushNamed(banner[index].value);
                       } else {
                         messageScaffold(

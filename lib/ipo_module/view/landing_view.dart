@@ -72,7 +72,8 @@ class _LandingViewState extends State<LandingView> {
             decoration: AppBoxDecoration.getBoxDecoration(
               showShadow: true,
               color: AppColors.backgroundColor,
-              borderRadius: _hiddenDrawerController.isDrawerOpen.value ? 40 : 0.0,
+              borderRadius:
+                  _hiddenDrawerController.isDrawerOpen.value ? 40 : 0.0,
               spreadRadius: _hiddenDrawerController.isDrawerOpen.value ? 1 : 0,
               blurRadius: 24,
             ),

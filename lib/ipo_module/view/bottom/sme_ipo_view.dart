@@ -87,10 +87,14 @@ class _SmeIpoViewState extends State<SmeIpoView> {
                 );
         },
         onError: (error) => TryAgainWidget(
-          onTap: _smeIpoController.getSmeData(type: "upcoming"),
+          onTap: () {
+            _smeIpoController.getSmeData(type: "upcoming");
+          },
         ),
         onEmpty: TryAgainWidget(
-          onTap: _smeIpoController.getSmeData(type: "upcoming"),
+          onTap: () {
+            _smeIpoController.getSmeData(type: "upcoming");
+          },
         ),
       ),
       floatingActionButton: _offsetPopup(),

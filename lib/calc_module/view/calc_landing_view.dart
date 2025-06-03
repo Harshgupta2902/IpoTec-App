@@ -18,66 +18,6 @@ class CalcLandingView extends StatefulWidget {
 }
 
 class _CalcLandingViewState extends State<CalcLandingView> {
-  String getGreetMsg() {
-    var name = _authController.state?.displayName ?? "";
-
-    final hour = DateTime.now().hour;
-    if (hour >= 5 && hour < 12) {
-      return "Hi, Good Morning $name";
-    } else if (hour >= 12 && hour < 17) {
-      return "Hi, Good Afternoon $name";
-    } else if (hour >= 17 && hour < 21) {
-      return "Hi, Good Evening $name";
-    } else {
-      return "Hi, Good Night $name";
-    }
-  }
-
-  int activeIndex = 0;
-  final controller = CarouselSliderController();
-  final List<KeyValuePairModel> banner = [
-    KeyValuePairModel(key: AssetPath.sipBanner, value: GoPaths.sipCalculatorView),
-    KeyValuePairModel(key: AssetPath.swpBanner, value: GoPaths.swpCalculatorView),
-    KeyValuePairModel(key: AssetPath.stpBanner, value: GoPaths.stpCalculatorView),
-    KeyValuePairModel(key: AssetPath.lumpBanner, value: GoPaths.lumpSumCalculatorView),
-  ];
-
-  final List<KeyValuePairModel> sipCalc = [
-    KeyValuePairModel(
-      key: "SIP\nCalculator",
-      value: AssetPath.sipCalc,
-      extra: GoPaths.sipCalculatorView,
-    ),
-    KeyValuePairModel(
-      key: "LumpSum\nCalculator",
-      value: AssetPath.lumpCalc,
-      extra: GoPaths.lumpSumCalculatorView,
-    ),
-    KeyValuePairModel(
-      key: "SIP Plan\nCalculator",
-      value: AssetPath.sipPlanCalc,
-      extra: GoPaths.sipPlanCalculatorView,
-    ),
-    KeyValuePairModel(
-      key: "SIP TopUp\nCalculator",
-      value: AssetPath.sipTopUpCalc,
-      extra: GoPaths.sipTopupCalculatorView,
-    ),
-  ];
-
-  final List<KeyValuePairModel> mfCalc = [
-    KeyValuePairModel(
-      key: "SWP\nCalculator",
-      value: AssetPath.swpCalc,
-      extra: GoPaths.swpCalculatorView,
-    ),
-    KeyValuePairModel(
-      key: "STP\nCalculator",
-      value: AssetPath.stpCalc,
-      extra: GoPaths.stpCalculatorView,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +25,8 @@ class _CalcLandingViewState extends State<CalcLandingView> {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(top: 40, bottom: 10, left: 12, right: 12),
+            padding:
+                const EdgeInsets.only(top: 40, bottom: 10, left: 12, right: 12),
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(AssetPath.blueBg),
@@ -112,7 +53,10 @@ class _CalcLandingViewState extends State<CalcLandingView> {
                         children: [
                           Text(
                             "Take Control of your Finances".toUpperCase(),
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
                                   color: AppColors.white,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -120,9 +64,10 @@ class _CalcLandingViewState extends State<CalcLandingView> {
                           const SizedBox(height: 4),
                           Text(
                             "Know your EMI Instantly, Plan your Finances Wisely & Compare Loan Options",
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.white,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: AppColors.white,
+                                    ),
                           ),
                         ],
                       ),

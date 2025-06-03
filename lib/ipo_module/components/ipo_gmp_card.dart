@@ -31,14 +31,20 @@ class IpoGmpCard extends StatelessWidget {
         value: "${state?.listing == "" ? "--" : state?.listing}",
       ),
     ];
-    String? percentageString =
-        state?.estListing?.split('(').last.replaceAll(')', '').replaceAll('%', '');
+    String? percentageString = state?.estListing
+        ?.split('(')
+        .last
+        .replaceAll(')', '')
+        .replaceAll('%', '');
     double? percentage = double.tryParse(percentageString!);
 
-    Color textColor = (percentage != null && percentage > 0) ? Colors.green : AppColors.cadmiumRed;
+    Color textColor = (percentage != null && percentage > 0)
+        ? Colors.green
+        : AppColors.cadmiumRed;
 
-    Color gmpColor =
-        ((double.tryParse((state?.gmp ?? "")) ?? 0) > 0) ? Colors.green : AppColors.cadmiumRed;
+    Color gmpColor = ((double.tryParse((state?.gmp ?? "")) ?? 0) > 0)
+        ? Colors.green
+        : AppColors.cadmiumRed;
     return GestureDetector(
       onTap: () {
         if (state?.href == "") {
@@ -80,10 +86,8 @@ class IpoGmpCard extends StatelessWidget {
                       Text(
                         "${state?.companyName?.replaceAll("[email protected]", "")}",
                         maxLines: 1,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: AppColors.onyx, fontWeight: FontWeight.w500),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: AppColors.onyx, fontWeight: FontWeight.w500),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,7 +143,7 @@ class IpoGmpCard extends StatelessWidget {
                     ),
                 children: [
                   TextSpan(
-                    text: "₹${state?.gmp}",
+                    text: "${state?.gmp}",
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: gmpColor,
                           fontWeight: FontWeight.w400,
@@ -223,7 +227,9 @@ class IpoGmpCard extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
-                                ?.copyWith(color: AppColors.oil, fontWeight: FontWeight.w500),
+                                ?.copyWith(
+                                    color: AppColors.oil,
+                                    fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
