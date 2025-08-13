@@ -46,7 +46,7 @@ class _WebViewState extends State<WebView> {
         body: Stack(
           children: [
             InAppWebView(
-              initialUrlRequest: URLRequest(url: Uri.parse(currentUrl ?? widget.url)),
+              initialUrlRequest: URLRequest(url: WebUri(currentUrl ?? widget.url)),
               onWebViewCreated: (InAppWebViewController controller) {},
               initialOptions: InAppWebViewGroupOptions(
                 crossPlatform: InAppWebViewOptions(

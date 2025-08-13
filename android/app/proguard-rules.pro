@@ -33,3 +33,14 @@
 -keep class com.twilio.video.** { *; }
 -keep class com.twilio.common.** { *; }
 -keepattributes InnerClasses
+
+# Keep Play Core classes used for deferred components
+-keep class com.google.android.play.** { *; }
+-dontwarn com.google.android.play.**
+
+# Keep Flutter's Play Store Deferred Components integration
+-keep class io.flutter.embedding.engine.deferredcomponents.** { *; }
+
+# General keep rules to avoid stripping necessary classes
+-keep class * extends android.app.Application
+-keep class * extends android.app.Activity
